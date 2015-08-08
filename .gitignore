@@ -30,3 +30,7 @@
 
 # Debug files
 *.dSYM/
+
+# IDE
+.idea/workspace.xml
+.idea/tasks.xml
