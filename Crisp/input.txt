@@ -1,0 +1,2 @@
+﻿(define (transpose-row row offset)
+  (loop for pc in row collect (+ pc offset)))
