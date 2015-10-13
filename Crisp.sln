@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crisp", "Crisp\Crisp.csproj", "{809929B5-0646-4120-B0D9-A69EB59354D5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crisp.Core", "Crisp.Core\Crisp.Core.csproj", "{6AB9A6EC-742D-4B88-9A22-58E3C98DA464}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crisp.Native", "Crisp.Native\Crisp.Native.csproj", "{96A1A7F6-575F-4922-99EA-166135DA886B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{809929B5-0646-4120-B0D9-A69EB59354D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{809929B5-0646-4120-B0D9-A69EB59354D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{809929B5-0646-4120-B0D9-A69EB59354D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AB9A6EC-742D-4B88-9A22-58E3C98DA464}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AB9A6EC-742D-4B88-9A22-58E3C98DA464}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AB9A6EC-742D-4B88-9A22-58E3C98DA464}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AB9A6EC-742D-4B88-9A22-58E3C98DA464}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96A1A7F6-575F-4922-99EA-166135DA886B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96A1A7F6-575F-4922-99EA-166135DA886B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96A1A7F6-575F-4922-99EA-166135DA886B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96A1A7F6-575F-4922-99EA-166135DA886B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

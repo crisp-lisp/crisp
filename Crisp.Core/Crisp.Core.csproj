@@ -4,17 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{809929B5-0646-4120-B0D9-A69EB59354D5}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{6AB9A6EC-742D-4B88-9A22-58E3C98DA464}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Crisp</RootNamespace>
-    <AssemblyName>Crisp</AssemblyName>
+    <RootNamespace>Crisp.Core</RootNamespace>
+    <AssemblyName>Crisp.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -43,30 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Parsing\Parser.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="INativeFunction.cs" />
+    <Compile Include="SymbolicExpression.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tokenizing\Token.cs" />
-    <Compile Include="Tokenizing\TokenizationException.cs" />
-    <Compile Include="Tokenizing\Tokenizer.cs" />
-    <Compile Include="Tokenizing\TokenTemplate.cs" />
-    <Compile Include="Tokenizing\TokenType.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="input.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Crisp.Core\Crisp.Core.csproj">
-      <Project>{6ab9a6ec-742d-4b88-9a22-58e3c98da464}</Project>
-      <Name>Crisp.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

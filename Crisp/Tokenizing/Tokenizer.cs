@@ -52,7 +52,8 @@ namespace Crisp.Tokenizing
                 }
 
                 if (!matches)
-                    throw new Exception("Syntax error!");
+                    throw new TokenizationException("Unexpected input during tokenization.", 
+                        source.Length - remaining.Length);
             }
 
             return tokens;
