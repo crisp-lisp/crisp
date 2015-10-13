@@ -1,26 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Crisp.Core;
 using Crisp.Tokenizing;
 
 namespace Crisp.Parsing
 {
+    /// <summary>
+    /// An implementation of a parser for the Crisp programming language.
+    /// </summary>
     internal class Parser
     {
+        /// <summary>
+        /// Gets whether or not a token list is enclosed in brackets.
+        /// </summary>
+        /// <param name="tokens">The token list to check.</param>
+        /// <returns></returns>
         private bool IsBracketed(IList<Token> tokens)
         {
             return tokens.First().Type == TokenType.OpeningParenthesis
                 && tokens.Last().Type == TokenType.ClosingParenthesis;
         }
 
+        /// <summary>
+        /// Removes a set of brackets from around a list of tokens.
+        /// </summary>
+        /// <param name="tokens">The token list to operate on.</param>
+        /// <returns></returns>
         private IList<Token> Unbracket(IList<Token> tokens)
         {
             if (!IsBracketed(tokens))
-                throw new Exception("Tried to unbracket a non-bracketed token sequence.");
+                throw new ParsingException("Tried to unbracket a non-bracketed token list.");
 
             return tokens.Except(new[]
             {
@@ -29,12 +40,17 @@ namespace Crisp.Parsing
             }).ToList();
         }
                 
+        /// <summary>
+        /// Wraps a list of tokens in a set of brackets.
+        /// </summary>
+        /// <param name="tokens">The token list to operate on.</param>
+        /// <returns></returns>
         private IList<Token> Bracket(IList<Token> tokens)
         {
             var result = new List<Token>()
             {
-                new Token(TokenType.OpeningParenthesis, "("),
-                new Token(TokenType.ClosingParenthesis, ")")
+                new Token(TokenType.OpeningParenthesis, string.Empty),
+                new Token(TokenType.ClosingParenthesis, string.Empty), 
             };
             result.InsertRange(1, tokens);
 
@@ -44,7 +60,7 @@ namespace Crisp.Parsing
         private IList<Token> ReadList(IList<Token> tokens)
         {
             if (tokens.First().Type != TokenType.OpeningParenthesis)
-                throw new Exception("Tried to read list, but no list found at beginning of token list.");
+                throw new ParsingException("Tried to read list, but no list found at beginning of token list.");
 
             var result = new List<Token>();
 

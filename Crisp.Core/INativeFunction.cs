@@ -10,6 +10,8 @@ namespace Crisp.Core
     {
         string Name { get; }
 
+        INativeFunctionHost Host { get; set; }
+
         SymbolicExpression Apply(SymbolicExpression input);
     }
 }

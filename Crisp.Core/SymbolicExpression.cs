@@ -14,12 +14,20 @@ namespace Crisp.Core
 
         public SymbolicExpression RightExpression { get; set; }
 
+        public bool IsAtomic
+        {
+            get
+            {
+                return Value != null;
+            }
+        }
+
         public SymbolicExpression(SymbolicExpression leftExpression, SymbolicExpression rightExpression)
         {
             LeftExpression = leftExpression;
             RightExpression = rightExpression;
         }
-
+        
         public SymbolicExpression(object value)
         {
             Value = value;
