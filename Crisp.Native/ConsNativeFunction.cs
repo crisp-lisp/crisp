@@ -8,7 +8,7 @@ using Crisp.Core;
 
 namespace Crisp.Native
 {
-    public class AddNativeFunction : INativeFunction
+    public class ConsNativeFunction : INativeFunction
     {
         public INativeFunctionHost Host { get; set; }
 
@@ -16,17 +16,15 @@ namespace Crisp.Native
         {
             get
             {
-                return "add";
+                return "cons";
             }
         }
 
         public SymbolicExpression Apply(SymbolicExpression input)
         {
-            var leftExpression = Host.Evaluate(input.LeftExpression).AsInteger();
-             
-            var rightExpression = Host.Evaluate(input.RightExpression.LeftExpression).AsInteger();
-
-            return new SymbolicExpression(leftExpression + rightExpression);
+            return new SymbolicExpression(
+                Host.Evaluate(input.LeftExpression),
+                Host.Evaluate(input.RightExpression.LeftExpression));
         }
     }
 }

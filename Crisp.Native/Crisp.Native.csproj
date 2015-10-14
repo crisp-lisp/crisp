@@ -41,6 +41,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddNativeFunction.cs" />
+    <Compile Include="AtomNativeFunction.cs" />
+    <Compile Include="CdrNativeFunction.cs" />
+    <Compile Include="CarNativeFunction.cs" />
+    <Compile Include="ConsNativeFunction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

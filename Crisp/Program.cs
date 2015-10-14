@@ -1,7 +1,6 @@
 ﻿using System.IO;
 
 using Crisp.Evaluation;
-using Crisp.Visualization;
 
 namespace Crisp
 {

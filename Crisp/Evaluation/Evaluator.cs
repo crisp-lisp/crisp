@@ -59,10 +59,13 @@ namespace Crisp.Evaluation
             if (expression == null)
                 return null;
 
+            if (expression.IsAtomic)
+                return expression;
+
             // Is this a function we should apply?
             if (expression.LeftExpression.IsAtomic)
             {
-                var name = expression.LeftExpression.Value.ToString();
+                var name = expression.LeftExpression.AsSymbol();
                 var function = nativeFunctions.First(f => f.Name == name);
                 return function.Apply(expression.RightExpression);
             }
