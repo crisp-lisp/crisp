@@ -56,6 +56,10 @@ namespace Crisp.Evaluation
         /// <returns></returns>
         public SymbolicExpression Evaluate(SymbolicExpression expression)
         {
+            if (expression == null)
+                return null;
+
+            // Is this a function we should apply?
             if (expression.LeftExpression.IsAtomic)
             {
                 var name = expression.LeftExpression.Value.ToString();
@@ -64,7 +68,10 @@ namespace Crisp.Evaluation
             }
             else
             {
-                return new SymbolicExpression(Evaluate(expression.LeftExpression), Evaluate(expression.RightExpression));
+                // Evaluate sub-expressions.
+                return new SymbolicExpression(
+                    Evaluate(expression.LeftExpression), 
+                    Evaluate(expression.RightExpression)); 
             }
         }
 
