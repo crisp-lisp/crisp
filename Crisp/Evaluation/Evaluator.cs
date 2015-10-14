@@ -8,6 +8,9 @@ using Crisp.Core;
 
 namespace Crisp.Evaluation
 {
+    /// <summary>
+    /// An implementation of an expression evaluator.
+    /// </summary>
     internal class Evaluator : INativeFunctionHost
     {
         private IList<INativeFunction> nativeFunctions;
@@ -46,21 +49,37 @@ namespace Crisp.Evaluation
             }
         }
 
-        private INativeFunction Lookup(string name)
-        {
-            return nativeFunctions.First(f => f.Name == name);
-        }
-
+        /// <summary>
+        /// Evaluates an expression.
+        /// </summary>
+        /// <param name="expression">The expression to evaluate.</param>
+        /// <returns></returns>
         public SymbolicExpression Evaluate(SymbolicExpression expression)
         {
-            var val = Lookup(expression.LeftExpression.Value.ToString()).Apply(expression.RightExpression);
-            return val;
+            if (expression.LeftExpression.IsAtomic)
+            {
+                var name = expression.LeftExpression.Value.ToString();
+                var function = nativeFunctions.First(f => f.Name == name);
+                return function.Apply(expression.RightExpression);
+            }
+            else
+            {
+                return new SymbolicExpression(Evaluate(expression.LeftExpression), Evaluate(expression.RightExpression));
+            }
         }
 
+        /// <summary>
+        /// Initializes a new instance of an expression evaluator.
+        /// </summary>
+        /// <param name="directory">The directory path from which to load native function libraries.</param>
         public Evaluator(string directory)
         {
+            if (!Directory.Exists(directory))
+                throw new DirectoryNotFoundException("Could not load native function libraries because the directory was not found.");
+
+            // Load native functions from directory.
             nativeFunctions = new List<INativeFunction>();
-            LoadNativeFunctions(directory);
+            LoadNativeFunctions(directory); 
         }
     }
 }

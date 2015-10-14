@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crisp.Core", "Crisp.Core\Cr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crisp.Native", "Crisp.Native\Crisp.Native.csproj", "{96A1A7F6-575F-4922-99EA-166135DA886B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crisp.Visualization", "Crisp.Visualization\Crisp.Visualization.csproj", "{EE206D73-5474-4B04-924E-B85DA171BBCD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{96A1A7F6-575F-4922-99EA-166135DA886B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96A1A7F6-575F-4922-99EA-166135DA886B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96A1A7F6-575F-4922-99EA-166135DA886B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE206D73-5474-4B04-924E-B85DA171BBCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE206D73-5474-4B04-924E-B85DA171BBCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE206D73-5474-4B04-924E-B85DA171BBCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE206D73-5474-4B04-924E-B85DA171BBCD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

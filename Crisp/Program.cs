@@ -1,6 +1,7 @@
 ﻿using System.IO;
 
 using Crisp.Evaluation;
+using Crisp.Visualization;
 
 namespace Crisp
 {
@@ -22,7 +23,7 @@ namespace Crisp
 
             // Create evaluator.
             var evaluator = new Evaluator("native");
-            evaluator.Evaluate(parsed);
+            var result = evaluator.Evaluate(parsed);
         }
     }
 }

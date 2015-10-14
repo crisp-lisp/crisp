@@ -22,7 +22,13 @@ namespace Crisp.Native
 
         public SymbolicExpression Apply(SymbolicExpression input)
         {
-            return new SymbolicExpression(Convert.ToInt32(input.LeftExpression.Value) + Convert.ToInt32(input.RightExpression.LeftExpression.Value));
+            var leftExpression = Convert.ToInt32(input.LeftExpression.IsAtomic ? input.LeftExpression.Value
+                : Host.Evaluate(input.LeftExpression).Value);
+
+            var rightExpression = Convert.ToInt32(input.RightExpression.LeftExpression.IsAtomic ? input.RightExpression.LeftExpression.Value
+                : Host.Evaluate(input.RightExpression.LeftExpression).Value);
+
+            return new SymbolicExpression(leftExpression + rightExpression);
         }
     }
 }
