@@ -56,25 +56,21 @@ namespace Crisp.Evaluation
         /// <returns></returns>
         public SymbolicExpression Evaluate(SymbolicExpression expression)
         {
-            if (expression == null)
-                return null;
-
-            if (expression.IsAtomic)
+            if (expression == null || expression.IsAtomic)
                 return expression;
 
             // Is this a function we should apply?
-            if (expression.LeftExpression.IsAtomic)
+            var node = expression.AsNode();
+            if (node.Head.Type == SymbolicExpressionType.Symbol)
             {
-                var name = expression.LeftExpression.AsSymbol();
+                var name = node.Head.AsSymbol().Name;
                 var function = nativeFunctions.First(f => f.Name == name);
-                return function.Apply(expression.RightExpression);
+                return function.Apply(node.Tail);
             }
             else
             {
                 // Evaluate sub-expressions.
-                return new SymbolicExpression(
-                    Evaluate(expression.LeftExpression), 
-                    Evaluate(expression.RightExpression)); 
+                return new Node(Evaluate(node.Head), Evaluate(node.Tail)); 
             }
         }
 

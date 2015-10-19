@@ -11,8 +11,7 @@ namespace Crisp.Tokenizing
         OpeningParenthesis,
         ClosingParenthesis,
         Symbol,
-        Integer,
-        Real,
+        Numeric,
         String,
     }
 }

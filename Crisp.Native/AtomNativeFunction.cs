@@ -21,9 +21,11 @@ namespace Crisp.Native
 
         public SymbolicExpression Apply(SymbolicExpression input)
         {
-            var expression = Host.Evaluate(input.LeftExpression);
+            var node = input.AsNode();
 
-            return new SymbolicExpression(expression.IsAtomic ? "T" : "F");
+            var expression = Host.Evaluate(node.Head);
+
+            return expression.IsAtomic ? SymbolAtom.True : SymbolAtom.False;
         }
     }
 }

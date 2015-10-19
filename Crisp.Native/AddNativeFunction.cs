@@ -22,11 +22,12 @@ namespace Crisp.Native
 
         public SymbolicExpression Apply(SymbolicExpression input)
         {
-            var leftExpression = Host.Evaluate(input.LeftExpression).AsInteger();
-             
-            var rightExpression = Host.Evaluate(input.RightExpression.LeftExpression).AsInteger();
+            var node = input.AsNode(); // Argument list as node.
 
-            return new SymbolicExpression(leftExpression + rightExpression);
+            var leftExpression = Host.Evaluate(node.Head).AsNumeric(); 
+            var rightExpression = Host.Evaluate(node.GoTail().Head).AsNumeric();
+
+            return new NumericAtom(leftExpression.Value + rightExpression.Value);
         }
     }
 }

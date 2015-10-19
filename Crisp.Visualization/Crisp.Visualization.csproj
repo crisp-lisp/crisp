@@ -40,7 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MermaidConverter.cs" />
+    <Compile Include="ISymbolicExpressionSerializer.cs" />
+    <Compile Include="LispSerializer.cs" />
+    <Compile Include="MermaidSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

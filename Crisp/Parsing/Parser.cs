@@ -129,13 +129,11 @@ namespace Crisp.Parsing
                 switch (first.Type)
                 {
                     case TokenType.Symbol:
-                        return new SymbolicExpression(first.Sequence);
-                    case TokenType.Integer:
-                        return new SymbolicExpression(int.Parse(first.Sequence));
-                    case TokenType.Real:
-                        return new SymbolicExpression(double.Parse(first.Sequence));
+                        return new SymbolAtom(first.Sequence);
+                    case TokenType.Numeric:
+                        return new NumericAtom(double.Parse(first.Sequence));
                     case TokenType.String:
-                        return new SymbolicExpression(first.Sequence.Trim('"'), true); // Remove double quotes from string atoms.
+                        return new StringAtom(first.Sequence.Trim('"')); // Remove double quotes from string atoms.
                 }
             }
 
@@ -145,7 +143,7 @@ namespace Crisp.Parsing
                 return null;
             
             // Recurse into list.
-            return new SymbolicExpression(
+            return new Node(
                 Parse(Head(unbracketed)), 
                 Parse(Tail(unbracketed)));
         }

@@ -1,6 +1,8 @@
 ﻿using System.IO;
 
 using Crisp.Evaluation;
+using System;
+using Crisp.Visualization;
 
 namespace Crisp
 {
@@ -12,9 +14,8 @@ namespace Crisp
             var tokenizer = new Tokenizing.Tokenizer();
             tokenizer.Add(@"[\(]", Tokenizing.TokenType.OpeningParenthesis);
             tokenizer.Add(@"[\)]", Tokenizing.TokenType.ClosingParenthesis);
-            tokenizer.Add(@"([0-9]+)\.([0-9]+)", Tokenizing.TokenType.Real);
             tokenizer.Add("\"[^\"]*\"", Tokenizing.TokenType.String);
-            tokenizer.Add(@"[0-9]+", Tokenizing.TokenType.Integer);
+            tokenizer.Add(@"[0-9]+", Tokenizing.TokenType.Numeric);
             tokenizer.Add(@"[^\s\(\)]+", Tokenizing.TokenType.Symbol);
             var tokens = tokenizer.Tokenize(File.ReadAllText("input.txt"));
 
@@ -25,6 +26,8 @@ namespace Crisp
             // Create evaluator.
             var evaluator = new Evaluator("native");
             var result = evaluator.Evaluate(parsed);
+
+            Console.WriteLine(new LispSerializer().Serialize(parsed));
         }
     }
 }

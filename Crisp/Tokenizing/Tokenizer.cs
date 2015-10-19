@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Crisp.Tokenizing
 {
+    /// <summary>
+    /// An implementation of a string tokenizer.
+    /// </summary>
     internal class Tokenizer
     {
         private List<TokenTemplate> tokenTemplates;
