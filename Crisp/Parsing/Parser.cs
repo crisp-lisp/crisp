@@ -111,8 +111,16 @@ namespace Crisp.Parsing
         /// <returns></returns>
         private IList<Token> Tail(IList<Token> tokens)
         {
-            // Tail is always a list.
-            return Bracket(tokens.Except(Head(tokens)).ToList()); 
+            var headless = tokens.Except(Head(tokens)).ToList();
+
+            if (!headless.Any())
+            {
+                return null;
+            }
+
+            return headless.First().Type == TokenType.Dot ?
+                 headless.Except(new[] { headless.First() }).ToList()
+                 : Bracket(headless);
         }
 
         /// <summary>
@@ -122,6 +130,9 @@ namespace Crisp.Parsing
         /// <returns></returns>
         public SymbolicExpression Parse(IList<Token> tokens)
         {
+            if (tokens == null || !tokens.Any())
+                return SymbolAtom.Nil;
+
             // If we have an atomic token.
             if (!IsBracketed(tokens))
             {
