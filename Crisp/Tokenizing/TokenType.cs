@@ -13,5 +13,6 @@ namespace Crisp.Tokenizing
         Symbol,
         Numeric,
         String,
+        Dot,
     }
 }
