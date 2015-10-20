@@ -111,16 +111,14 @@ namespace Crisp.Parsing
         /// <returns></returns>
         private IList<Token> Tail(IList<Token> tokens)
         {
-            var headless = tokens.Except(Head(tokens)).ToList();
+            var headless = tokens.Except(Head(tokens)).ToList(); // Remove head from list.
 
             if (!headless.Any())
-            {
-                return null;
-            }
+                return null; // We might have no tail.
 
             return headless.First().Type == TokenType.Dot ?
-                 headless.Except(new[] { headless.First() }).ToList()
-                 : Bracket(headless);
+                 headless.Except(new[] { headless.First() }).ToList() // Remove leading dot.
+                 : Bracket(headless); // Add implicit brackets.
         }
 
         /// <summary>
@@ -130,6 +128,7 @@ namespace Crisp.Parsing
         /// <returns></returns>
         public SymbolicExpression Parse(IList<Token> tokens)
         {
+            // A null or empty list gives nil.
             if (tokens == null || !tokens.Any())
                 return SymbolAtom.Nil;
 
@@ -150,9 +149,11 @@ namespace Crisp.Parsing
 
             // If we have a list-type token, remove brackets.
             var unbracketed = Unbracket(tokens);
+
+            // Empty bracket pairs are nil.
             if (unbracketed.Count() == 0)
-                return null;
-            
+                return SymbolAtom.Nil; 
+
             // Recurse into list.
             return new Node(
                 Parse(Head(unbracketed)), 
