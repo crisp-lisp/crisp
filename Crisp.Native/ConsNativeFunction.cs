@@ -22,10 +22,10 @@ namespace Crisp.Native
 
         public SymbolicExpression Apply(SymbolicExpression input)
         {
-            var node = input.AsNode();
+            var node = input.AsNode(); // Argument list is always a node.
 
             var head = Host.Evaluate(node.Head);
-            var tail = Host.Evaluate(node.GoHead().Tail);
+            var tail = Host.Evaluate(node.GoTail().Head);
 
             return new Node(head, tail);
         }

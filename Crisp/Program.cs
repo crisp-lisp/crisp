@@ -28,6 +28,7 @@ namespace Crisp
             var result = evaluator.Evaluate(parsed);
 
             Console.WriteLine(new LispSerializer().Serialize(parsed));
+            Console.WriteLine(new LispSerializer().Serialize(result));
         }
     }
 }

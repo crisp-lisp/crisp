@@ -45,11 +45,21 @@
             return (SymbolAtom)expression;
         }
 
+        /// <summary>
+        /// Returns the head of a node as a node.
+        /// </summary>
+        /// <param name="expression">The node to navigate.</param>
+        /// <returns></returns>
         public static Node GoHead(this Node expression)
         {
             return expression.AsNode().Head.AsNode();
         }
 
+        /// <summary>
+        /// Returns the tail of a node as a node.
+        /// </summary>
+        /// <param name="expression">The node to navigate.</param>
+        /// <returns></returns>
         public static Node GoTail(this Node expression)
         {
             return expression.AsNode().Tail.AsNode();
