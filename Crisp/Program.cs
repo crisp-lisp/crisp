@@ -15,7 +15,7 @@ namespace Crisp
             tokenizer.Add(@"[\(]", Tokenizing.TokenType.OpeningParenthesis);
             tokenizer.Add(@"[\)]", Tokenizing.TokenType.ClosingParenthesis);
             tokenizer.Add("\"[^\"]*\"", Tokenizing.TokenType.String);
-            tokenizer.Add(@"[0-9]+", Tokenizing.TokenType.Numeric);
+            tokenizer.Add(@"[-+]?[0-9]\d*(\.\d+)?", Tokenizing.TokenType.Numeric);
             tokenizer.Add(@"[^\s\(\)]+", Tokenizing.TokenType.Symbol);
             var tokens = tokenizer.Tokenize(File.ReadAllText("input.txt"));
 
