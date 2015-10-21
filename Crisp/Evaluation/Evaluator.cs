@@ -29,7 +29,7 @@ namespace Crisp.Evaluation
         }
 
         /// <summary>
-        /// Loads all native function libraries from a directory.
+        /// Loads all native function libraries from a directory and binds them into the base context.
         /// </summary>
         /// <param name="directory">The directory path to load libraries from.</param>
         /// <returns></returns>
@@ -48,13 +48,7 @@ namespace Crisp.Evaluation
                 }
             }
         }
-
-        /// <summary>
-        /// Evaluates an expression.
-        /// </summary>
-        /// <param name="expression">The expression to evaluate.</param>
-        /// <param name="context">The context in which to evaluate the expression.</param>
-        /// <returns></returns>
+        
         public SymbolicExpression Evaluate(SymbolicExpression expression, Context context)
         {
             if (expression == null || expression.IsAtomic)
@@ -77,7 +71,7 @@ namespace Crisp.Evaluation
         }
 
         /// <summary>
-        /// Evaluates an expression.
+        /// Evaluates an expression in the base context.
         /// </summary>
         /// <param name="context">The context in which to evaluate the expression.</param>
         /// <returns></returns>
