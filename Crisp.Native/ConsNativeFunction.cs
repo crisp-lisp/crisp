@@ -8,9 +8,9 @@ using Crisp.Core;
 
 namespace Crisp.Native
 {
-    public class ConsNativeFunction : INativeFunction
+    public class ConsNativeFunction : IFunction
     {
-        public INativeFunctionHost Host { get; set; }
+        public IFunctionHost Host { get; set; }
 
         public string Name
         {
@@ -20,12 +20,12 @@ namespace Crisp.Native
             }
         }
 
-        public SymbolicExpression Apply(SymbolicExpression input)
+        public SymbolicExpression Apply(SymbolicExpression input, Context context)
         {
             var node = input.AsNode(); // Argument list is always a node.
 
-            var head = Host.Evaluate(node.Head);
-            var tail = Host.Evaluate(node.GoTail().Head);
+            var head = Host.Evaluate(node.Head, context);
+            var tail = Host.Evaluate(node.GoTail().Head, context);
 
             return new Node(head, tail);
         }

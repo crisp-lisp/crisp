@@ -11,9 +11,9 @@ namespace Crisp.Evaluation
     /// <summary>
     /// An implementation of an expression evaluator.
     /// </summary>
-    internal class Evaluator : INativeFunctionHost
+    internal class Evaluator : IFunctionHost
     {
-        private IList<INativeFunction> nativeFunctions;
+        private Context baseContext;
 
         /// <summary>
         /// Gets whether or not a type qualifies as a native function type for loading.
@@ -25,7 +25,7 @@ namespace Crisp.Evaluation
             // Type must be public, concrete and implement INativeFunction.
             return type.IsPublic
                 && !type.IsAbstract
-                && type.GetInterfaces().Any(i => i == typeof(INativeFunction));
+                && type.GetInterfaces().Any(i => i == typeof(IFunction));
         }
 
         /// <summary>
@@ -42,9 +42,9 @@ namespace Crisp.Evaluation
 
                 foreach (var type in types)
                 {
-                    var function = (INativeFunction)Activator.CreateInstance(assembly.GetType(type.ToString()));
+                    var function = (IFunction)Activator.CreateInstance(assembly.GetType(type.ToString()));
                     function.Host = this;
-                    nativeFunctions.Add(function);
+                    baseContext = baseContext.Bind(new SymbolAtom(function.Name), new NativeFunction(function));
                 }
             }
         }
@@ -53,8 +53,9 @@ namespace Crisp.Evaluation
         /// Evaluates an expression.
         /// </summary>
         /// <param name="expression">The expression to evaluate.</param>
+        /// <param name="context">The context in which to evaluate the expression.</param>
         /// <returns></returns>
-        public SymbolicExpression Evaluate(SymbolicExpression expression)
+        public SymbolicExpression Evaluate(SymbolicExpression expression, Context context)
         {
             if (expression == null || expression.IsAtomic)
                 return expression;
@@ -63,15 +64,26 @@ namespace Crisp.Evaluation
             var node = expression.AsNode();
             if (node.Head.Type == SymbolicExpressionType.Symbol)
             {
-                var name = node.Head.AsSymbol().Name;
-                var function = nativeFunctions.First(f => f.Name == name);
-                return function.Apply(node.Tail);
+                var symbol = node.Head.AsSymbol();
+                var function = context.LookupValue(symbol).AsFunction();
+                return function.Apply(node.Tail, context);
             }
             else
             {
                 // Evaluate sub-expressions.
-                return new Node(Evaluate(node.Head), Evaluate(node.Tail)); 
+                return new Node(Evaluate(node.Head, context), 
+                    Evaluate(node.Tail, context)); 
             }
+        }
+
+        /// <summary>
+        /// Evaluates an expression.
+        /// </summary>
+        /// <param name="context">The context in which to evaluate the expression.</param>
+        /// <returns></returns>
+        public SymbolicExpression Evaluate(SymbolicExpression expression)
+        {
+            return Evaluate(expression, baseContext);
         }
 
         /// <summary>
@@ -84,7 +96,7 @@ namespace Crisp.Evaluation
                 throw new DirectoryNotFoundException("Could not load native function libraries because the directory was not found.");
 
             // Load native functions from directory.
-            nativeFunctions = new List<INativeFunction>();
+            baseContext = new Context();
             LoadNativeFunctions(directory); 
         }
     }

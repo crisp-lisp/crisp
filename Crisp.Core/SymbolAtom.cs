@@ -42,6 +42,16 @@
         public string Name { get; private set; }
 
         /// <summary>
+        /// Gets whether or not another symbol atom matches the name of this one.
+        /// </summary>
+        /// <param name="other">The other symbol atom.</param>
+        /// <returns></returns>
+        public bool Matches(SymbolAtom other)
+        {
+            return Name == other.Name;
+        }
+
+        /// <summary>
         /// Initializes a new instance of an an atomic symbolic expression.
         /// </summary>
         /// <param name="name">The name of the symbol.</param>

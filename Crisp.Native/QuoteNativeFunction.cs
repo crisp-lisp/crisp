@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Crisp.Native
 {
-    public class QuoteNativeFunction : INativeFunction
+    public class QuoteNativeFunction : IFunction
     {
-        public INativeFunctionHost Host { get; set; }
+        public IFunctionHost Host { get; set; }
 
         public string Name
         {
@@ -19,7 +19,7 @@ namespace Crisp.Native
             }
         }
 
-        public SymbolicExpression Apply(SymbolicExpression input)
+        public SymbolicExpression Apply(SymbolicExpression input, Context context)
         {
             return input.AsNode().Head; // Argument list is always a node.
         }

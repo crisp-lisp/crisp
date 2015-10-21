@@ -1,0 +1,78 @@
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace Crisp.Core
+{
+    /// <summary>
+    /// Represents a context in which expressions can be evaluated.
+    /// </summary>
+    public class Context
+    {
+        /// <summary>
+        /// A list of bindings between symbols and expressions.
+        /// </summary>
+        private List<Binding> bindings;
+
+        /// <summary>
+        /// Adds a binding to the context.
+        /// </summary>
+        /// <param name="binding">The binding to add to the context.</param>
+        /// <returns></returns>
+        private Context Bind(Binding binding)
+        {
+            // We need an all-new list.
+            var newBindings = new List<Binding>(bindings);
+            newBindings.Add(binding);
+
+            return new Context(newBindings); // Return an all-new context.
+        }
+
+        /// <summary>
+        /// Adds a new binding between a symbol and an expression.
+        /// </summary>
+        /// <param name="symbol">The symbol to bind to the expression.</param>
+        /// <param name="expression">The expression to bind to the symbol.</param>
+        /// <returns></returns>
+        public Context Bind(SymbolAtom symbol, SymbolicExpression expression)
+        {
+            return Bind(new Binding(symbol, expression));
+        }
+
+        /// <summary>
+        /// Returns the binding for a given symbol.
+        /// </summary>
+        /// <param name="target">The symbol to return the binding for.</param>
+        /// <returns></returns>
+        private Binding Lookup(SymbolAtom target)
+        {
+            return bindings.Last(b => b.Symbol.Matches(target));
+        }
+
+        /// <summary>
+        /// Returns the bound expression for a given symbol.
+        /// </summary>
+        /// <param name="target">The symbol to return the bound expression for.</param>
+        /// <returns></returns>
+        public SymbolicExpression LookupValue(SymbolAtom target)
+        {
+            return Lookup(target).Expression;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of a context in which expressions can be evaluated.
+        /// </summary>
+        public Context()
+        {
+            bindings = new List<Binding>();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of a context in which expressions can be evaluated.
+        /// </summary>
+        /// <param name="bindings">A list of bindings from which to initialize the context.</param>
+        public Context(List<Binding> bindings) 
+        {
+            this.bindings = bindings;
+        }
+    }
+}

@@ -9,5 +9,6 @@
         Symbol,
         Numeric,
         String,
+        Function,
     }
 }

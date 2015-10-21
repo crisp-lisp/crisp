@@ -46,6 +46,16 @@
         }
 
         /// <summary>
+        /// Gets the expression as a function or throws an exception in the case of type mismatch.
+        /// </summary>
+        /// <param name="expression">The expression to attempt to case.</param>
+        /// <returns></returns>
+        public static IFunction AsFunction(this SymbolicExpression expression)
+        {
+            return (IFunction)expression;
+        }
+
+        /// <summary>
         /// Returns the head of a node as a node.
         /// </summary>
         /// <param name="expression">The node to navigate.</param>

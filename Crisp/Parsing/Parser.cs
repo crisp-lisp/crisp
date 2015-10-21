@@ -17,18 +17,29 @@ namespace Crisp.Parsing
         /// </summary>
         /// <param name="tokens">The token list to check.</param>
         /// <returns></returns>
-        private bool IsBracketed(IList<Token> tokens)
+        private static bool IsBracketed(IList<Token> tokens)
         {
             return tokens.First().Type == TokenType.OpeningParenthesis
                 && tokens.Last().Type == TokenType.ClosingParenthesis;
         }
 
         /// <summary>
+        /// Gets whether a token list is just a pair of empty brackets.
+        /// </summary>
+        /// <param name="tokens">The token list to check.</param>
+        /// <returns></returns>
+        private static bool IsEmptyBrackets(IList<Token> tokens)
+        {
+            return IsBracketed(tokens) && tokens.Count == 2;
+        }
+
+
+        /// <summary>
         /// Removes a set of brackets from around a list of tokens.
         /// </summary>
         /// <param name="tokens">The token list to operate on.</param>
         /// <returns></returns>
-        private IList<Token> Unbracket(IList<Token> tokens)
+        private static IList<Token> Unbracket(IList<Token> tokens)
         {
             if (!IsBracketed(tokens))
                 throw new ParsingException("Tried to unbracket a non-bracketed token list.");
@@ -45,7 +56,7 @@ namespace Crisp.Parsing
         /// </summary>
         /// <param name="tokens">The token list to operate on.</param>
         /// <returns></returns>
-        private IList<Token> Bracket(IList<Token> tokens)
+        private static IList<Token> Bracket(IList<Token> tokens)
         {
             var result = new List<Token>()
             {
@@ -62,7 +73,7 @@ namespace Crisp.Parsing
         /// </summary>
         /// <param name="tokens">The token list to operate on.</param>
         /// <returns></returns>
-        private IList<Token> ReadList(IList<Token> tokens)
+        private static IList<Token> ReadList(IList<Token> tokens)
         {
             // TODO: Messy logic, clean up.
             if (tokens.First().Type != TokenType.OpeningParenthesis)
@@ -92,7 +103,7 @@ namespace Crisp.Parsing
         /// </summary>
         /// <param name="tokens">The token list to operate on.</param>
         /// <returns></returns>
-        private IList<Token> Head(IList<Token> tokens)
+        private static IList<Token> Head(IList<Token> tokens)
         {
             // Is head a list?
             if (tokens.First().Type == TokenType.OpeningParenthesis)
@@ -109,12 +120,14 @@ namespace Crisp.Parsing
         /// </summary>
         /// <param name="tokens">The list of tokens to parse.</param>
         /// <returns></returns>
-        private IList<Token> Tail(IList<Token> tokens)
+        private static IList<Token> Tail(IList<Token> tokens)
         {
-            var headless = tokens.Except(Head(tokens)).ToList(); // Remove head from list.
+            // Remove head from list.
+            var headless = tokens.Except(Head(tokens)).ToList();
 
+            // We might have no tail.
             if (!headless.Any())
-                return null; // We might have no tail.
+                return null; 
 
             return headless.First().Type == TokenType.Dot ?
                  headless.Except(new[] { headless.First() }).ToList() // Remove leading dot.
@@ -129,7 +142,7 @@ namespace Crisp.Parsing
         public SymbolicExpression Parse(IList<Token> tokens)
         {
             // A null or empty list gives nil.
-            if (tokens == null || !tokens.Any())
+            if (tokens == null || !tokens.Any() || IsEmptyBrackets(tokens))
                 return SymbolAtom.Nil;
 
             // If we have an atomic token.
@@ -144,19 +157,16 @@ namespace Crisp.Parsing
                         return new NumericAtom(double.Parse(first.Sequence));
                     case TokenType.String:
                         return new StringAtom(first.Sequence.Trim('"')); // Remove double quotes from string atoms.
+                    case TokenType.Dot:
+                        throw new ParsingException("Encountered unexpected dot notator.");
                 }
             }
 
             // If we have a list-type token, remove brackets.
             var unbracketed = Unbracket(tokens);
-
-            // Empty bracket pairs are nil.
-            if (unbracketed.Count() == 0)
-                return SymbolAtom.Nil; 
-
+            
             // Recurse into list.
-            return new Node(
-                Parse(Head(unbracketed)), 
+            return new Node(Parse(Head(unbracketed)), 
                 Parse(Tail(unbracketed)));
         }
     }

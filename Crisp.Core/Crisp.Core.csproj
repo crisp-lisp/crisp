@@ -40,12 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Binding.cs" />
+    <Compile Include="Context.cs" />
+    <Compile Include="NativeFunction.cs" />
     <Compile Include="SymbolicExpressionExtensions.cs" />
     <Compile Include="SymbolicExpressionType.cs" />
     <Compile Include="StringAtom.cs" />
     <Compile Include="NumericAtom.cs" />
-    <Compile Include="INativeFunction.cs" />
-    <Compile Include="INativeFunctionHost.cs" />
+    <Compile Include="IFunction.cs" />
+    <Compile Include="IFunctionHost.cs" />
     <Compile Include="Node.cs" />
     <Compile Include="SymbolicExpression.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
