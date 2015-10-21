@@ -1,7 +1,7 @@
 ﻿namespace Crisp.Core
 {
     /// <summary>
-    /// Implemented by classes that wish to host native functions, usually interpreters.
+    /// Implemented by classes that wish to host functions, usually interpreters.
     /// </summary>
     public interface IFunctionHost
     {
