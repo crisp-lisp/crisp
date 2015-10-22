@@ -69,5 +69,33 @@ namespace Crisp.Tests
                 Assert.AreEqual(2, ex.Line);
             }
         }
+
+        [TestMethod]
+        public void TestTokenizerCapturesSequences()
+        {
+            // Setup tokenizer.
+            var subject = new Tokenizer();
+            subject.Add(@"[a-z]+", TokenType.None);
+
+            // Tokenize input.
+            var sample = "hello world";
+            var actual = subject.Tokenize(sample);
+
+            // Expected output.
+            var expected = new List<Token>()
+            {
+                new Token(TokenType.None, "hello"),
+                new Token(TokenType.None, "world"),
+            };
+
+            // Token lists should be same length.
+            Assert.AreEqual(actual.Count, expected.Count);
+
+            // Test each token's sequence.
+            for (var i = 0; i < expected.Count; i++)
+            {
+                Assert.AreEqual(expected[i].Sequence, actual[i].Sequence);
+            }
+        }
     }
 }

@@ -71,20 +71,30 @@ namespace Crisp.Tokenizing
             return processed.Length - processed.LastIndexOf('\n');
         }
 
+        /// <summary>
+        /// Tokenizes a string.
+        /// </summary>
+        /// <param name="source">The string to tokenize.</param>
+        /// <returns></returns>
         public IList<Token> Tokenize(string source)
         {
             var tokens = new List<Token>();
 
+            // Tokenize input.
             var remaining = source.Trim();
             while (!string.IsNullOrEmpty(remaining))
             {
+                // Try to match each template against start of input.
                 var matches = false;
                 foreach (var tokenTemplate in tokenTemplates)
                 {
                     var match = tokenTemplate.Pattern.Match(remaining);
                     if (match.Success && match.Index == 0)
                     {
-                        tokens.Add(new Token(tokenTemplate.Type, match.Value, GetLinePosition(source, remaining), GetColumnPosition(source, remaining)));
+                        // Add token of matching type.
+                        tokens.Add(new Token(tokenTemplate.Type, match.Value, 
+                            GetLinePosition(source, remaining), GetColumnPosition(source, remaining)));
+
                         remaining = tokenTemplate.Pattern.Replace(remaining, string.Empty, 1).Trim();
                         matches = true;
                         break;
