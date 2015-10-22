@@ -1,19 +1,33 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Crisp.Tokenizing
 {
-    public class TokenizationException : Exception
+    /// <summary>
+    /// Represents an error encountered during source tokenization.
+    /// </summary>
+    internal class TokenizationException : Exception
     {
-        public int Position { get; private set; }
+        /// <summary>
+        /// Gets the line position in the source at which the tokenizer encountered an error.
+        /// </summary>
+        public int Line { get; private set; }
 
-        public TokenizationException(string message, int position) 
+        /// <summary>
+        /// Gets the column position in the source at which the tokenizer encountered an error.
+        /// </summary>
+        public int Column { get; private set; }
+
+        /// <summary>
+        /// Initializes a new instance of an error encountered during source tokenization.
+        /// </summary>
+        /// <param name="message">The message to show.</param>
+        /// <param name="line">The line position in the source at which the tokenizer encountered an error.</param>
+        /// <param name="column">The column position in the source at which the tokenizer encountered an error.</param>
+        public TokenizationException(string message, int line, int column) 
             : base(message)
         {
-            Position = position;
+            Line = line;
+            Column = column;
         }
     }
 }

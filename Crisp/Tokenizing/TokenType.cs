@@ -8,6 +8,7 @@ namespace Crisp.Tokenizing
 {
     internal enum TokenType
     {
+        None,
         OpeningParenthesis,
         ClosingParenthesis,
         Symbol,
