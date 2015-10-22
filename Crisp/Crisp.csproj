@@ -67,6 +67,7 @@
     <Compile Include="Tokenizing\Token.cs" />
     <Compile Include="Tokenizing\TokenizationException.cs" />
     <Compile Include="Tokenizing\Tokenizer.cs" />
+    <Compile Include="Tokenizing\TokenizerFactory.cs" />
     <Compile Include="Tokenizing\TokenTemplate.cs" />
     <Compile Include="Tokenizing\TokenType.cs" />
   </ItemGroup>
