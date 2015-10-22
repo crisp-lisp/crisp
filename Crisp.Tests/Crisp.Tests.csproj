@@ -45,15 +45,26 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+          <Private>False</Private>
+        </Reference>
       </ItemGroup>
     </Otherwise>
   </Choose>
   <ItemGroup>
     <Compile Include="TokenizerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ParserTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Crisp.Core\Crisp.Core.csproj">
+      <Project>{6AB9A6EC-742D-4B88-9A22-58E3C98DA464}</Project>
+      <Name>Crisp.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Crisp.Visualization\Crisp.Visualization.csproj">
+      <Project>{ee206d73-5474-4b04-924e-b85da171bbcd}</Project>
+      <Name>Crisp.Visualization</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Crisp\Crisp.csproj">
       <Project>{809929b5-0646-4120-b0d9-a69eb59354d5}</Project>
       <Name>Crisp</Name>
