@@ -19,6 +19,9 @@ namespace Crisp.Parsing
         /// <returns></returns>
         private static bool IsBracketed(IList<Token> tokens)
         {
+            if (tokens == null || !tokens.Any())
+                return false;
+
             return tokens.First().Type == TokenType.OpeningParenthesis
                 && tokens.Last().Type == TokenType.ClosingParenthesis;
         }
