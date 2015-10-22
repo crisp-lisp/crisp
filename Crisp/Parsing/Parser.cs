@@ -166,7 +166,7 @@ namespace Crisp.Parsing
             var unbracketed = Unbracket(tokens);
             
             // Recurse into list.
-            return new Node(Parse(Head(unbracketed)), 
+            return new Pair(Parse(Head(unbracketed)), 
                 Parse(Tail(unbracketed)));
         }
     }

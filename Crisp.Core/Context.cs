@@ -41,21 +41,31 @@ namespace Crisp.Core
         /// <summary>
         /// Returns the binding for a given symbol.
         /// </summary>
-        /// <param name="target">The symbol to return the binding for.</param>
+        /// <param name="symbol">The symbol to return the binding for.</param>
         /// <returns></returns>
-        private Binding Lookup(SymbolAtom target)
+        private Binding Lookup(SymbolAtom symbol)
         {
-            return bindings.Last(b => b.Symbol.Matches(target));
+            return bindings.Last(b => b.Symbol.Matches(symbol));
         }
 
         /// <summary>
         /// Returns the bound expression for a given symbol.
         /// </summary>
-        /// <param name="target">The symbol to return the bound expression for.</param>
+        /// <param name="symbol">The symbol to return the bound expression for.</param>
         /// <returns></returns>
-        public SymbolicExpression LookupValue(SymbolAtom target)
+        public SymbolicExpression LookupValue(SymbolAtom symbol)
         {
-            return Lookup(target).Expression;
+            return Lookup(symbol).Expression;
+        }
+
+        /// <summary>
+        /// Returns whether or not a binding currently exists for a given symbol.
+        /// </summary>
+        /// <param name="symbol">The symbol to check for.</param>
+        /// <returns></returns>
+        public bool IsBound(SymbolAtom symbol)
+        {
+            return bindings.Any(b => b.Symbol.Matches(symbol));
         }
 
         /// <summary>

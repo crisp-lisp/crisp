@@ -6,13 +6,13 @@
     public static class SymbolicExpressionExtensions
     {
         /// <summary>
-        /// Gets the expression as a node or throws an exception in case of type mismatch.
+        /// Gets the expression as a pair or throws an exception in case of type mismatch.
         /// </summary>
         /// <param name="expression">The expression to attempt to cast.</param>
         /// <returns></returns>
-        public static Node AsNode(this SymbolicExpression expression)
+        public static Pair AsPair(this SymbolicExpression expression)
         {
-            return (Node)expression;
+            return (Pair)expression;
         }
 
         /// <summary>
@@ -46,6 +46,16 @@
         }
 
         /// <summary>
+        /// Gets the expression as a constant atom or throws an exception in case of type mismatch.
+        /// </summary>
+        /// <param name="expression">The expression to attempt to cast.</param>
+        /// <returns></returns>
+        public static ConstantAtom AsConstant(this SymbolicExpression expression)
+        {
+            return (ConstantAtom)expression;
+        }
+
+        /// <summary>
         /// Gets the expression as a function or throws an exception in the case of type mismatch.
         /// </summary>
         /// <param name="expression">The expression to attempt to case.</param>
@@ -56,23 +66,23 @@
         }
 
         /// <summary>
-        /// Returns the head of a node as a node.
+        /// Returns the head of a pair as a pair.
         /// </summary>
-        /// <param name="expression">The node to navigate.</param>
+        /// <param name="expression">The pair to navigate.</param>
         /// <returns></returns>
-        public static Node GoHead(this Node expression)
+        public static Pair GoHead(this Pair expression)
         {
-            return expression.AsNode().Head.AsNode();
+            return expression.AsPair().Head.AsPair();
         }
 
         /// <summary>
-        /// Returns the tail of a node as a node.
+        /// Returns the tail of a pair as a pair.
         /// </summary>
-        /// <param name="expression">The node to navigate.</param>
+        /// <param name="expression">The pair to navigate.</param>
         /// <returns></returns>
-        public static Node GoTail(this Node expression)
+        public static Pair GoTail(this Pair expression)
         {
-            return expression.AsNode().Tail.AsNode();
+            return expression.AsPair().Tail.AsPair();
         }
     }
 }

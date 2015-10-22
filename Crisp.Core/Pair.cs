@@ -1,9 +1,9 @@
 ﻿namespace Crisp.Core
 {
     /// <summary>
-    /// Represents a node-type expression that contains a head and a tail.
+    /// Represents a pair-type expression that contains a head and a tail.
     /// </summary>
-    public class Node : SymbolicExpression
+    public class Pair : SymbolicExpression
     {
         public override bool IsAtomic
         {
@@ -17,26 +17,26 @@
         {
             get
             {
-                return SymbolicExpressionType.Node;
+                return SymbolicExpressionType.Pair;
             }
         }
 
         /// <summary>
-        /// Gets the expression at the head of the node.
+        /// Gets the expression at the head of the pair.
         /// </summary>
         public SymbolicExpression Head { get; private set; }
 
         /// <summary>
-        /// Gets the expression at the tail of the node.
+        /// Gets the expression at the tail of the pair.
         /// </summary>
         public SymbolicExpression Tail { get; private set; }
 
         /// <summary>
-        /// Initializes a new instance of a node-type expression that contains a head and a tail.
+        /// Initializes a new instance of a pair-type expression that contains a head and a tail.
         /// </summary>
-        /// <param name="head">The expression to place at the head of the node.</param>
-        /// <param name="tail">The expression to place at the tail of the node.</param>
-        public Node(SymbolicExpression head, SymbolicExpression tail)
+        /// <param name="head">The expression to place at the head of the pair.</param>
+        /// <param name="tail">The expression to place at the tail of the pair.</param>
+        public Pair(SymbolicExpression head, SymbolicExpression tail)
         {
             Head = head;
             Tail = tail;

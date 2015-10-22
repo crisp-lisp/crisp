@@ -52,7 +52,7 @@
         }
 
         /// <summary>
-        /// Initializes a new instance of an an atomic symbolic expression.
+        /// Initializes a new instance of an atomic symbolic expression.
         /// </summary>
         /// <param name="name">The name of the symbol.</param>
         public SymbolAtom(string name)

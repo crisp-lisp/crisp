@@ -23,12 +23,12 @@ namespace Crisp
             // Create expression tree.
             var parser = new Parsing.Parser();
             var parsed = parser.Parse(tokens);
+            Console.WriteLine(new LispSerializer().Serialize(parsed));
 
             // Create evaluator.
             var evaluator = new Evaluator("native");
             var result = evaluator.Evaluate(parsed);
 
-            Console.WriteLine(new LispSerializer().Serialize(parsed));
             Console.WriteLine(new LispSerializer().Serialize(result));
         }
     }

@@ -48,14 +48,26 @@ namespace Crisp.Evaluation
                 }
             }
         }
-        
+
         public SymbolicExpression Evaluate(SymbolicExpression expression, Context context)
         {
-            if (expression == null || expression.IsAtomic)
-                return expression;
-
+            switch (expression.Type)
+            {
+                case SymbolicExpressionType.Symbol:
+                    var symbol = expression.AsSymbol();
+                    if (!context.IsBound(symbol))
+                        throw new RuntimeException($"Use of name {symbol.Name} which is unbound or outside its scope.");
+                    return context.LookupValue(symbol);
+                case SymbolicExpressionType.Numeric:
+                    return expression.AsNumeric();
+                case SymbolicExpressionType.String:
+                    return expression.AsString();
+                case SymbolicExpressionType.Constant:
+                    return expression.AsConstant();
+            }
+            
             // Is this a function we should apply?
-            var node = expression.AsNode();
+            var node = expression.AsPair();
             if (node.Head.Type == SymbolicExpressionType.Symbol)
             {
                 var symbol = node.Head.AsSymbol();
@@ -65,7 +77,7 @@ namespace Crisp.Evaluation
             else
             {
                 // Evaluate sub-expressions.
-                return new Node(Evaluate(node.Head, context), 
+                return new Pair(Evaluate(node.Head, context), 
                     Evaluate(node.Tail, context)); 
             }
         }

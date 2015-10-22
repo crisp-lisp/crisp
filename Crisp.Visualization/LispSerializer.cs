@@ -28,7 +28,7 @@ namespace Crisp.Visualization
                 }
 
             // Recurse into nodes.
-            var node = expression.AsNode();
+            var node = expression.AsPair();
             return "(" + Serialize(node.Head) + " . " + Serialize(node.Tail) + ")";
         }
     }

@@ -8,7 +8,7 @@ using Crisp.Core;
 
 namespace Crisp.Native
 {
-    public class ConsNativeFunction : IFunction
+    public class LetNativeFunction : IFunction
     {
         public IFunctionHost Host { get; set; }
 
@@ -16,7 +16,7 @@ namespace Crisp.Native
         {
             get
             {
-                return "cons";
+                return "let";
             }
         }
 
@@ -24,10 +24,14 @@ namespace Crisp.Native
         {
             var node = input.AsPair(); // Argument list is always a node.
 
-            var head = Host.Evaluate(node.Head, context);
-            var tail = Host.Evaluate(node.GoTail().Head, context);
+            var exp = node.Head;
+            var name = node.GoTail().GoHead().Head;
+            var value = node.GoTail().GoHead().Tail;
 
-            return new Pair(head, tail);
+            var ct = context.Bind(name.AsSymbol(), value);
+            var result = Host.Evaluate(exp, ct);
+
+            return result;
         }
     }
 }

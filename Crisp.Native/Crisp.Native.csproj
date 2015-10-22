@@ -45,6 +45,7 @@
     <Compile Include="CdrNativeFunction.cs" />
     <Compile Include="CarNativeFunction.cs" />
     <Compile Include="ConsNativeFunction.cs" />
+    <Compile Include="LetNativeFunction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuoteNativeFunction.cs" />
   </ItemGroup>

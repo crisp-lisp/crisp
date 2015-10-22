@@ -5,8 +5,12 @@
     /// </summary>
     public enum SymbolicExpressionType
     {
-        Node,
+        /// <summary>
+        /// Represents a pair.
+        /// </summary>
+        Pair,
         Symbol,
+        Constant,
         Numeric,
         String,
         Function,
