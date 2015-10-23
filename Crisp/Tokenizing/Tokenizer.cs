@@ -9,7 +9,7 @@ namespace Crisp.Tokenizing
     /// </summary>
     internal class Tokenizer
     {
-        private List<TokenTemplate> tokenTemplates;
+        private IList<TokenTemplate> tokenTemplates;
 
         /// <summary>
         /// Initializes a new instance of a string tokenizer.
