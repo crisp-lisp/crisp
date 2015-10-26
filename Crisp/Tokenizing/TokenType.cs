@@ -36,7 +36,7 @@
         String,
 
         /// <summary>
-        /// A dot notator token.
+        /// A dot notation token.
         /// </summary>
         Dot,
     }
