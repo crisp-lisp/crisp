@@ -9,14 +9,14 @@ namespace Crisp.Tokenizing
     /// </summary>
     internal class Tokenizer
     {
-        private IList<TokenTemplate> tokenTemplates;
+        private readonly IList<TokenTemplate> _tokenTemplates;
 
         /// <summary>
         /// Initializes a new instance of a string tokenizer.
         /// </summary>
         public Tokenizer()
         {
-            tokenTemplates = new List<TokenTemplate>();
+            _tokenTemplates = new List<TokenTemplate>();
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace Crisp.Tokenizing
         /// <param name="template">The template to add.</param>
         public void Add(TokenTemplate template)
         {
-            tokenTemplates.Add(template);
+            _tokenTemplates.Add(template);
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace Crisp.Tokenizing
         }
 
         /// <summary>
-        /// Gets the tokenizer's line position in the source.
+        /// Gets the current line position in the source.
         /// </summary>
         /// <param name="source">The complete source.</param>
         /// <param name="remaining">The source remaining to tokenize.</param>
@@ -60,7 +60,7 @@ namespace Crisp.Tokenizing
         }
 
         /// <summary>
-        /// Gets the tokenizer's column position in the source.
+        /// Gets the current column position in the source.
         /// </summary>
         /// <param name="source">The complete source.</param>
         /// <param name="remaining">The source remaining to tokenize.</param>
@@ -86,7 +86,7 @@ namespace Crisp.Tokenizing
             {
                 // Try to match each template against start of input.
                 var matches = false;
-                foreach (var tokenTemplate in tokenTemplates)
+                foreach (var tokenTemplate in _tokenTemplates)
                 {
                     var match = tokenTemplate.Pattern.Match(remaining);
                     if (match.Success && match.Index == 0)
