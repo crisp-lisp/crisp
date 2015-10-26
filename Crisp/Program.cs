@@ -1,9 +1,9 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 using Crisp.Evaluation;
-using System;
-using Crisp.Visualization;
 using Crisp.Tokenizing;
+using Crisp.Visualization;
 
 namespace Crisp
 {
