@@ -11,7 +11,7 @@ namespace Crisp
     {
         static void Main(string[] args)
         {
-            // Create tokeniser amd tokenise input.
+            // Create tokenizer amd tokenize input.
             var tokenizer = TokenizerFactory.GetCrispTokenizer();
             var tokens = tokenizer.Tokenize(File.ReadAllText("input.txt"));
 
