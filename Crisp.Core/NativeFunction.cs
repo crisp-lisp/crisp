@@ -8,37 +8,19 @@
         /// <summary>
         /// The underlying native function.
         /// </summary>
-        private IFunction wrapped;
+        private readonly IFunction _wrapped;
         
         public IFunctionHost Host { get; set; }
 
-        public override bool IsAtomic
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public override bool IsAtomic => false;
 
-        public string Name
-        {
-            get
-            {
-                return wrapped.Name;
-            }
-        }
+        public string Name => _wrapped.Name;
 
-        public override SymbolicExpressionType Type
-        {
-            get
-            {
-                return SymbolicExpressionType.Function;
-            }
-        }
+        public override SymbolicExpressionType Type => SymbolicExpressionType.Function;
 
-        public SymbolicExpression Apply(SymbolicExpression input, Context context)
+        public SymbolicExpression Apply(SymbolicExpression expression, Context context)
         {
-            return wrapped.Apply(input, context);
+            return _wrapped.Apply(expression, context);
         }
 
         /// <summary>
@@ -47,7 +29,7 @@
         /// <param name="wrapped">The function to wrap.</param>
         public NativeFunction(IFunction wrapped)
         {
-            this.wrapped = wrapped;
+            _wrapped = wrapped;
         }
     }
 }

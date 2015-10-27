@@ -18,8 +18,9 @@
         /// <summary>
         /// Applies the function to an expression.
         /// </summary>
-        /// <param name="input">The expression to apply the function to.</param>
+        /// <param name="expression">The expression to apply the function to.</param>
+        /// <param name="context">The context in which to evaluate the expression.</param>
         /// <returns></returns>
-        SymbolicExpression Apply(SymbolicExpression input, Context context);
+        SymbolicExpression Apply(SymbolicExpression expression, Context context);
     }
 }

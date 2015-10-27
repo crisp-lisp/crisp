@@ -5,21 +5,9 @@
     /// </summary>
     public class StringAtom : SymbolicExpression
     {
-        public override bool IsAtomic
-        {
-            get
-            {
-                return true;
-            }
-        }
+        public override bool IsAtomic => true;
 
-        public override SymbolicExpressionType Type
-        {
-            get
-            {
-                return SymbolicExpressionType.String;
-            }
-        }
+        public override SymbolicExpressionType Type => SymbolicExpressionType.String;
 
         /// <summary>
         /// Gets the value of the expression.

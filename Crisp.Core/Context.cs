@@ -11,7 +11,7 @@ namespace Crisp.Core
         /// <summary>
         /// A list of bindings between symbols and expressions.
         /// </summary>
-        private List<Binding> bindings;
+        private readonly List<Binding> _bindings;
 
         /// <summary>
         /// Adds a binding to the context.
@@ -21,8 +21,7 @@ namespace Crisp.Core
         private Context Bind(Binding binding)
         {
             // We need an all-new list.
-            var newBindings = new List<Binding>(bindings);
-            newBindings.Add(binding);
+            var newBindings = new List<Binding>(_bindings) {binding};
 
             return new Context(newBindings); // Return an all-new context.
         }
@@ -45,7 +44,7 @@ namespace Crisp.Core
         /// <returns></returns>
         private Binding Lookup(SymbolAtom symbol)
         {
-            return bindings.Last(b => b.Symbol.Matches(symbol));
+            return _bindings.Last(b => b.Symbol.Matches(symbol));
         }
 
         /// <summary>
@@ -65,7 +64,7 @@ namespace Crisp.Core
         /// <returns></returns>
         public bool IsBound(SymbolAtom symbol)
         {
-            return bindings.Any(b => b.Symbol.Matches(symbol));
+            return _bindings.Any(b => b.Symbol.Matches(symbol));
         }
 
         /// <summary>
@@ -73,7 +72,7 @@ namespace Crisp.Core
         /// </summary>
         public Context()
         {
-            bindings = new List<Binding>();
+            _bindings = new List<Binding>();
         }
 
         /// <summary>
@@ -82,7 +81,7 @@ namespace Crisp.Core
         /// <param name="bindings">A list of bindings from which to initialize the context.</param>
         public Context(List<Binding> bindings) 
         {
-            this.bindings = bindings;
+            _bindings = bindings;
         }
     }
 }

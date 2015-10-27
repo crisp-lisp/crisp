@@ -20,26 +20,14 @@
         /// </summary>
         public static readonly SymbolAtom False = new SymbolAtom("F");
 
-        public override bool IsAtomic
-        {
-            get
-            {
-                return true;
-            }
-        }
+        public override bool IsAtomic => true;
 
-        public override SymbolicExpressionType Type
-        {
-            get
-            {
-                return SymbolicExpressionType.Symbol;
-            }
-        }
+        public override SymbolicExpressionType Type => SymbolicExpressionType.Symbol;
 
         /// <summary>
         /// Gets the name of the symbol.
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; }
 
         /// <summary>
         /// Gets whether or not another symbol atom matches the name of this one.

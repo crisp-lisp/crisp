@@ -5,21 +5,9 @@
     /// </summary>
     public class ConstantAtom : SymbolicExpression
     {
-        public override bool IsAtomic
-        {
-            get
-            {
-                return true;
-            }
-        }
+        public override bool IsAtomic => true;
 
-        public override SymbolicExpressionType Type
-        {
-            get
-            {
-                return SymbolicExpressionType.Constant;
-            }
-        }
+        public override SymbolicExpressionType Type => SymbolicExpressionType.Constant;
 
         /// <summary>
         /// Gets the name of the constant.

@@ -5,21 +5,9 @@
     /// </summary>
     public class Pair : SymbolicExpression
     {
-        public override bool IsAtomic
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public override bool IsAtomic => false;
 
-        public override SymbolicExpressionType Type
-        {
-            get
-            {
-                return SymbolicExpressionType.Pair;
-            }
-        }
+        public override SymbolicExpressionType Type => SymbolicExpressionType.Pair;
 
         /// <summary>
         /// Gets the expression at the head of the pair.
