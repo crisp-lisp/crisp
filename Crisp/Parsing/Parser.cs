@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Net;
 using Crisp.Core;
 using Crisp.Tokenizing;
 
@@ -13,164 +13,142 @@ namespace Crisp.Parsing
     internal class Parser
     {
         /// <summary>
-        /// Gets whether or not a token list is enclosed in brackets.
+        /// Returns true if the given token list represents a list expression, otherwise return false.
         /// </summary>
         /// <param name="tokens">The token list to check.</param>
         /// <returns></returns>
-        private static bool IsBracketed(IList<Token> tokens)
+        private static bool IsSingleList(IList<Token> tokens)
         {
-            if (tokens == null || !tokens.Any())
+            if (tokens == null || tokens.Count < 2)
+            {
                 return false;
-
-            return tokens.First().Type == TokenType.OpeningParenthesis
-                && tokens.Last().Type == TokenType.ClosingParenthesis;
+            }
+            
+            var stream = new TokenStream(tokens);
+            return stream.ReadExpression().Count == tokens.Count;
         }
 
-        /// <summary>
-        /// Gets whether a token list is just a pair of empty brackets.
-        /// </summary>
-        /// <param name="tokens">The token list to check.</param>
-        /// <returns></returns>
-        private static bool IsEmptyBrackets(IList<Token> tokens)
+        private static IList<Token> RemoveBrackets(IList<Token> tokens)
         {
-            return IsBracketed(tokens) && tokens.Count == 2;
-        }
-
-
-        /// <summary>
-        /// Removes a set of brackets from around a list of tokens.
-        /// </summary>
-        /// <param name="tokens">The token list to operate on.</param>
-        /// <returns></returns>
-        private static IList<Token> Unbracket(IList<Token> tokens)
-        {
-            if (!IsBracketed(tokens))
-                throw new ParsingException("Tried to unbracket a non-bracketed token list.");
-
             return tokens.Except(new[]
             {
                 tokens.First(),
                 tokens.Last(),
             }).ToList();
         }
-                
-        /// <summary>
-        /// Wraps a list of tokens in a set of brackets.
-        /// </summary>
-        /// <param name="tokens">The token list to operate on.</param>
-        /// <returns></returns>
-        private static IList<Token> Bracket(IList<Token> tokens)
+
+        private static IList<Token> AddBrackets(IList<Token> tokens)
         {
-            var result = new List<Token>()
+            var g = new List<Token>()
             {
                 new Token(TokenType.OpeningParenthesis, string.Empty),
-                new Token(TokenType.ClosingParenthesis, string.Empty), 
+                new Token(TokenType.ClosingParenthesis, string.Empty)
             };
-            result.InsertRange(1, tokens);
-
-            return result;
+            g.InsertRange(1, tokens);
+            return g;
         }
 
-        /// <summary>
-        /// Reads a list from the beginning of the given list of tokens.
-        /// </summary>
-        /// <param name="tokens">The token list to operate on.</param>
-        /// <returns></returns>
-        private static IList<Token> ReadList(IList<Token> tokens)
+        private static bool IsEmptyBrackets(IList<Token> tokens)
         {
-            // TODO: Messy logic, clean up.
-            if (tokens.First().Type != TokenType.OpeningParenthesis)
-                throw new ParsingException("Tried to read list, but no list found at beginning of token list.");
+            return tokens.Count == 2
+                   && tokens.First().Type == TokenType.OpeningParenthesis
+                   && tokens.Last().Type == TokenType.ClosingParenthesis;
+        }
 
-            var result = new List<Token>();
-            
-            var level = 0; 
-            for (int i = 0; i == 0 || level > 0; i++)
+        private static SymbolicExpression Parse(IList<Token> tokens)
+        {
+            // If we have a list on our hands.
+            if (IsSingleList(tokens))
             {
-                if (i == tokens.Count())
-                    throw new ParsingException("Mismatched parenthesis.");
-                
-                if (tokens[i].Type == TokenType.OpeningParenthesis)
-                    level++;
-                else if (tokens[i].Type == TokenType.ClosingParenthesis)
-                    level--;
+                var unbracketed = RemoveBrackets(tokens); // Strip outer brackets.
 
-                result.Add(tokens[i]);
+                // If we have nothing inside them, return nil.
+                if (!unbracketed.Any())
+                {
+                    return SymbolAtom.Nil;
+                }
+
+                var stream = new TokenStream(unbracketed);
+                var head = stream.ReadExpression(); // Open a token stream, read head.
+
+                // Check for dotted notation.
+                var dotted = stream.Peek();
+                if (dotted != null && dotted.Type == TokenType.Dot)
+                {
+                    stream.Read(); // Get rid of dot.
+
+                    var tail = stream.ReadExpression(); // Read tail expression.
+
+                    // Check for excess.
+                    var excess = stream.ReadToEnd();
+                    if (excess.Count != 0)
+                    {
+                        var prob = excess.First();
+                        throw new ParsingException("Dotted pair contains too many elements at" +
+                                                   $" line {prob.Line} column {prob.Column}.", excess.First());
+                    }
+
+                    // Return cons cell.
+                    return new Pair(Parse(head), Parse(tail));
+                }
+                
+                // Return cons cell with implicit tail.
+                return new Pair(Parse(head), Parse(AddBrackets(stream.ReadToEnd())));
             }
 
-            return result;
-        }
-
-        /// <summary>
-        /// Gets the first expression from a list of tokens.
-        /// </summary>
-        /// <param name="tokens">The token list to operate on.</param>
-        /// <returns></returns>
-        private static IList<Token> Head(IList<Token> tokens)
-        {
-            // Is head a list?
-            if (tokens.First().Type == TokenType.OpeningParenthesis)
-                return ReadList(tokens); 
-            else
-                return new List<Token>()
-                {
-                    tokens.First(),
-                };
-        }
-
-        /// <summary>
-        /// Gets every token in a list of tokens apart from the first expression.
-        /// </summary>
-        /// <param name="tokens">The list of tokens to parse.</param>
-        /// <returns></returns>
-        private static IList<Token> Tail(IList<Token> tokens)
-        {
-            // Remove head from list.
-            var headless = tokens.Except(Head(tokens)).ToList();
-
-            // We might have no tail.
-            if (!headless.Any())
-                return null; 
-
-            return headless.First().Type == TokenType.Dot ?
-                 headless.Except(new[] { headless.First() }).ToList() // Remove leading dot.
-                 : Bracket(headless); // Add implicit brackets.
-        }
-
-        /// <summary>
-        /// Parses a list of tokens into an expresion tree.
-        /// </summary>
-        /// <param name="tokens">The list of tokens to parse.</param>
-        /// <returns></returns>
-        public SymbolicExpression Parse(IList<Token> tokens)
-        {
-            // A null or empty list gives nil.
-            if (tokens == null || !tokens.Any() || IsEmptyBrackets(tokens))
-                return SymbolAtom.Nil;
-
-            // If we have an atomic token.
-            if (!IsBracketed(tokens))
+            // We should have a single atom here.
+            var first = tokens.First();
+            if (tokens.Count > 1)
             {
-                var first = tokens.First();
-                switch (first.Type)
+                throw new ParsingException("Freestanding expressions must be inside a list at" +
+                                           $" line {first.Line} column {first.Column}.", first);
+            }
+            
+            switch (first.Type)
+            {
+                case TokenType.Symbol:
+                    return new SymbolAtom(first.Sequence);
+                case TokenType.Numeric:
+                    return new NumericAtom(double.Parse(first.Sequence));
+                case TokenType.String:
+                    return new StringAtom(first.Sequence.Trim('"')); // Remove double quotes from string atoms.
+                case TokenType.Dot:
+                    throw new ParsingException("Encountered unexpected dot notation.", first);
+                default:
+                    throw new ParsingException("", first);
+            }
+        }
+
+        public SymbolicExpression CreateExpressionTree(IList<Token> tokens)
+        {
+            // Use a stack to check brackets match.
+            var brackets = new Stack<Token>();
+            foreach (var token in tokens)
+            {
+                if (token.Type == TokenType.OpeningParenthesis)
                 {
-                    case TokenType.Symbol:
-                        return new SymbolAtom(first.Sequence);
-                    case TokenType.Numeric:
-                        return new NumericAtom(double.Parse(first.Sequence));
-                    case TokenType.String:
-                        return new StringAtom(first.Sequence.Trim('"')); // Remove double quotes from string atoms.
-                    case TokenType.Dot:
-                        throw new ParsingException("Encountered unexpected dot notator.");
+                    brackets.Push(token);
+                }
+                else if (token.Type == TokenType.ClosingParenthesis)
+                {
+                    if (!brackets.Any())
+                    {
+                        throw new ParsingException($"Mismatched closing parenthesis at line {token.Line}" +
+                                                   $" column {token.Column}.", token); // Mismatched closing bracket.
+                    }
+                    brackets.Pop();
                 }
             }
 
-            // If we have a list-type token, remove brackets.
-            var unbracketed = Unbracket(tokens);
-            
-            // Recurse into list.
-            return new Pair(Parse(Head(unbracketed)), 
-                Parse(Tail(unbracketed)));
+            // Mismatched opening bracket?
+            if (brackets.Any())
+            {
+                var bracket = brackets.Peek();
+                throw new ParsingException($"Mismatched opening parenthesis at line {bracket.Line}" +
+                                           $" column {bracket.Column}.", bracket);    
+            }
+
+            return Parse(tokens); // Actually do the parsing.
         }
     }
 }

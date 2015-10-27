@@ -17,7 +17,7 @@ namespace Crisp
 
             // Create expression tree.
             var parser = new Parsing.Parser();
-            var parsed = parser.Parse(tokens);
+            var parsed = parser.CreateExpressionTree(tokens);
             Console.WriteLine(new LispSerializer().Serialize(parsed));
 
             // Create evaluator.
