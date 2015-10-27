@@ -1,6 +1,4 @@
-﻿using System;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Crisp.Tokenizing;
 using Crisp.Parsing;
@@ -15,7 +13,8 @@ namespace Crisp.Tests
         public void ParserBuildsProperLists()
         {
             /**
-             * Description: 
+             * Description: The parser should build proper lists that end with a pointer
+             * to nil. This test checks that lists are built in this way.
              */ 
 
             var tokenizer = TokenizerFactory.GetCrispTokenizer();

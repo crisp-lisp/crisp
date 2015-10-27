@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
+
 using Crisp.Core;
 using Crisp.Tokenizing;
 
@@ -28,7 +27,12 @@ namespace Crisp.Parsing
             return stream.ReadExpression().Count == tokens.Count;
         }
 
-        private static IList<Token> RemoveBrackets(IList<Token> tokens)
+        /// <summary>
+        /// Removes the first and last token from a list of tokens.
+        /// </summary>
+        /// <param name="tokens">The token list to operate on.</param>
+        /// <returns></returns>
+        private static IList<Token> RemoveFirstAndLast(IList<Token> tokens)
         {
             return tokens.Except(new[]
             {
@@ -37,30 +41,33 @@ namespace Crisp.Parsing
             }).ToList();
         }
 
+        /// <summary>
+        /// Encloses a list of tokens in brackets.
+        /// </summary>
+        /// <param name="tokens">The token list to enclose.</param>
+        /// <returns></returns>
         private static IList<Token> AddBrackets(IList<Token> tokens)
         {
-            var g = new List<Token>()
+            var brackets = new List<Token>()
             {
                 new Token(TokenType.OpeningParenthesis, string.Empty),
                 new Token(TokenType.ClosingParenthesis, string.Empty)
             };
-            g.InsertRange(1, tokens);
-            return g;
+            brackets.InsertRange(1, tokens);
+            return brackets;
         }
 
-        private static bool IsEmptyBrackets(IList<Token> tokens)
-        {
-            return tokens.Count == 2
-                   && tokens.First().Type == TokenType.OpeningParenthesis
-                   && tokens.Last().Type == TokenType.ClosingParenthesis;
-        }
-
+        /// <summary>
+        /// Parses a list of tokens into an expression.
+        /// </summary>
+        /// <param name="tokens">The token list to parse.</param>
+        /// <returns></returns>
         private static SymbolicExpression Parse(IList<Token> tokens)
         {
             // If we have a list on our hands.
             if (IsSingleList(tokens))
             {
-                var unbracketed = RemoveBrackets(tokens); // Strip outer brackets.
+                var unbracketed = RemoveFirstAndLast(tokens); // Strip outer brackets.
 
                 // If we have nothing inside them, return nil.
                 if (!unbracketed.Any())
@@ -92,7 +99,7 @@ namespace Crisp.Parsing
                     return new Pair(Parse(head), Parse(tail));
                 }
                 
-                // Return cons cell with implicit tail.
+                // Return cons cell with implicit list as tail.
                 return new Pair(Parse(head), Parse(AddBrackets(stream.ReadToEnd())));
             }
 
@@ -104,6 +111,7 @@ namespace Crisp.Parsing
                                            $" line {first.Line} column {first.Column}.", first);
             }
             
+            // Turn token into atom.
             switch (first.Type)
             {
                 case TokenType.Symbol:
@@ -113,41 +121,21 @@ namespace Crisp.Parsing
                 case TokenType.String:
                     return new StringAtom(first.Sequence.Trim('"')); // Remove double quotes from string atoms.
                 case TokenType.Dot:
-                    throw new ParsingException("Encountered unexpected dot notation.", first);
+                    throw new ParsingException("Encountered unexpected dot notation at" +
+                                               $" line {first.Line} column {first.Column}.", first);
                 default:
-                    throw new ParsingException("", first);
+                    throw new ParsingException("Encountered unknown token type at" +
+                                               $" line {first.Line} column {first.Column}.", first);
             }
         }
 
+        /// <summary>
+        /// Turns a token list into an expression tree.
+        /// </summary>
+        /// <param name="tokens">The token list to parse.</param>
+        /// <returns></returns>
         public SymbolicExpression CreateExpressionTree(IList<Token> tokens)
         {
-            // Use a stack to check brackets match.
-            var brackets = new Stack<Token>();
-            foreach (var token in tokens)
-            {
-                if (token.Type == TokenType.OpeningParenthesis)
-                {
-                    brackets.Push(token);
-                }
-                else if (token.Type == TokenType.ClosingParenthesis)
-                {
-                    if (!brackets.Any())
-                    {
-                        throw new ParsingException($"Mismatched closing parenthesis at line {token.Line}" +
-                                                   $" column {token.Column}.", token); // Mismatched closing bracket.
-                    }
-                    brackets.Pop();
-                }
-            }
-
-            // Mismatched opening bracket?
-            if (brackets.Any())
-            {
-                var bracket = brackets.Peek();
-                throw new ParsingException($"Mismatched opening parenthesis at line {bracket.Line}" +
-                                           $" column {bracket.Column}.", bracket);    
-            }
-
             return Parse(tokens); // Actually do the parsing.
         }
     }
