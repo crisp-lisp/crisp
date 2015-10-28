@@ -13,7 +13,7 @@ namespace Crisp.Evaluation
     /// </summary>
     internal class Evaluator : IFunctionHost
     {
-        private Context baseContext;
+        private Context _baseContext;
 
         /// <summary>
         /// Gets whether or not a type qualifies as a native function type for loading.
@@ -44,11 +44,17 @@ namespace Crisp.Evaluation
                 {
                     var function = (IFunction)Activator.CreateInstance(assembly.GetType(type.ToString()));
                     function.Host = this;
-                    baseContext = baseContext.Bind(new SymbolAtom(function.Name), new NativeFunction(function));
+                    _baseContext = _baseContext.Bind(new SymbolAtom(function.Name), new NativeFunction(function));
                 }
             }
         }
 
+        /// <summary>
+        /// Evaluates an expression.
+        /// </summary>
+        /// <param name="expression">The expression to evaluate.</param>
+        /// <param name="context">The context in which to evaluate the expression.</param>
+        /// <returns></returns>
         public SymbolicExpression Evaluate(SymbolicExpression expression, Context context)
         {
             switch (expression.Type)
@@ -74,22 +80,20 @@ namespace Crisp.Evaluation
                 var function = context.LookupValue(symbol).AsFunction();
                 return function.Apply(node.Tail, context);
             }
-            else
-            {
-                // Evaluate sub-expressions.
-                return new Pair(Evaluate(node.Head, context), 
-                    Evaluate(node.Tail, context)); 
-            }
+
+            // Evaluate sub-expressions.
+            return new Pair(Evaluate(node.Head, context), 
+                Evaluate(node.Tail, context)); 
         }
 
         /// <summary>
         /// Evaluates an expression in the base context.
         /// </summary>
-        /// <param name="context">The context in which to evaluate the expression.</param>
+        /// <param name="expression">The expression to evaluate.</param>
         /// <returns></returns>
         public SymbolicExpression Evaluate(SymbolicExpression expression)
         {
-            return Evaluate(expression, baseContext);
+            return Evaluate(expression, _baseContext);
         }
 
         /// <summary>
@@ -102,7 +106,7 @@ namespace Crisp.Evaluation
                 throw new DirectoryNotFoundException("Could not load native function libraries because the directory was not found.");
 
             // Load native functions from directory.
-            baseContext = new Context();
+            _baseContext = new Context();
             LoadNativeFunctions(directory); 
         }
     }
