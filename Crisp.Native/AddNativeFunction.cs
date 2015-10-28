@@ -12,20 +12,14 @@ namespace Crisp.Native
     {
         public IFunctionHost Host { get; set; }
 
-        public string Name
-        {
-            get
-            {
-                return "add";
-            }
-        }
+        public string Name => "add";
 
         public SymbolicExpression Apply(SymbolicExpression input, Context context)
         {
-            var node = input.AsPair(); // Argument list is always a node.
-
-            var head = Host.Evaluate(node.Head, context).AsNumeric(); 
-            var tail = Host.Evaluate(node.GoTail().Head, context).AsNumeric();
+            var arguments = input.AsPair(); // Argument list is always a node.
+            
+            var head = Host.Evaluate(arguments.Head, context).AsNumeric(); 
+            var tail = Host.Evaluate(arguments.GoTail().Head, context).AsNumeric();
 
             return new NumericAtom(head.Value + tail.Value);
         }

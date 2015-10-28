@@ -11,13 +11,7 @@ namespace Crisp.Native
     {
         public IFunctionHost Host { get; set; }
 
-        public string Name
-        {
-            get
-            {
-                return "atom";
-            }
-        }
+        public string Name => "atom";
 
         public SymbolicExpression Apply(SymbolicExpression input, Context context)
         {
