@@ -53,6 +53,16 @@
     <Compile Include="AddNativeFunctionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Crisp.Core\Crisp.Core.csproj">
+      <Project>{6ab9a6ec-742d-4b88-9a22-58e3c98da464}</Project>
+      <Name>Crisp.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Crisp.Native\Crisp.Native.csproj">
+      <Project>{96a1a7f6-575f-4922-99ea-166135da886b}</Project>
+      <Name>Crisp.Native</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

@@ -65,18 +65,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="input.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Crisp.Core\Crisp.Core.csproj">
       <Project>{6ab9a6ec-742d-4b88-9a22-58e3c98da464}</Project>
       <Name>Crisp.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Crisp.Visualization\Crisp.Visualization.csproj">
-      <Project>{ee206d73-5474-4b04-924e-b85da171bbcd}</Project>
-      <Name>Crisp.Visualization</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
