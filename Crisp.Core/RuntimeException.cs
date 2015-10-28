@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Crisp.Evaluation
+namespace Crisp.Core
 {
-    internal class RuntimeException : Exception
+    public class RuntimeException : Exception
     {
         public RuntimeException(string message) : base(message) { }
     }

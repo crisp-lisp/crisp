@@ -59,7 +59,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Evaluation\Evaluator.cs" />
-    <Compile Include="Evaluation\RuntimeException.cs" />
     <Compile Include="Parsing\Parser.cs" />
     <Compile Include="Parsing\ParsingException.cs" />
     <Compile Include="Parsing\TokenStream.cs" />
