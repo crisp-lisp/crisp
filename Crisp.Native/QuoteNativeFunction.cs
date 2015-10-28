@@ -15,7 +15,7 @@ namespace Crisp.Native
 
         public SymbolicExpression Apply(SymbolicExpression input, Context context)
         {
-            return input.AsPair().Head; // Argument list is always a node.
+            return new ConstantAtom(input.AsPair().Head.AsSymbol()); // Argument list is always a node.
         }
     }
 }

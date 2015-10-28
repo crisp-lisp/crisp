@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,11 +21,13 @@ namespace Crisp.Visualization
                 switch (expression.Type)
                 {
                     case SymbolicExpressionType.Numeric:
-                        return expression.AsNumeric().Value.ToString();
+                        return expression.AsNumeric().Value.ToString(CultureInfo.InvariantCulture);
                     case SymbolicExpressionType.String:
                         return "\"" + expression.AsString().Value + "\"";
                     case SymbolicExpressionType.Symbol:
                         return expression.AsSymbol().Name;
+                    case SymbolicExpressionType.Constant:
+                        return expression.AsConstant().Name;
                 }
 
             // Recurse into nodes.

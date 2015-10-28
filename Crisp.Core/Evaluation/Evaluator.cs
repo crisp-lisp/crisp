@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 
-using Crisp.Core;
-
-namespace Crisp.Evaluation
+namespace Crisp.Core.Evaluation
 {
     /// <summary>
     /// An implementation of an expression evaluator.
     /// </summary>
-    internal class Evaluator : IFunctionHost
+    public class Evaluator : IFunctionHost
     {
         private Context _baseContext;
 

@@ -1,13 +1,13 @@
 ﻿using System;
 
-using Crisp.Tokenizing;
+using Crisp.Core.Tokenizing;
 
-namespace Crisp.Parsing
+namespace Crisp.Core.Parsing
 {
     /// <summary>
     /// Represents an error encountered during source parsing.
     /// </summary>
-    internal class ParsingException : Exception
+    public class ParsingException : Exception
     {
         /// <summary>
         /// Gets the line position in the source at which the parser encountered an error.

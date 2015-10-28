@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Crisp.Tests")]
+[assembly: AssemblyTitle("Crisp.Native.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Crisp.Tests")]
+[assembly: AssemblyProduct("Crisp.Native.Tests")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("9ee1baf0-e3da-4e65-9601-9458890b8097")]
+[assembly: Guid("9502d296-2bb2-49cd-8608-264d752b7d43")]
 
 // Version information for an assembly consists of the following four values:
 //

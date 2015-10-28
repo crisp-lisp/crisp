@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using Crisp.Core;
-using Crisp.Tokenizing;
+using Crisp.Core.Tokenizing;
 
-namespace Crisp.Parsing
+namespace Crisp.Core.Parsing
 {
     /// <summary>
     /// An implementation of a parser for the Crisp programming language.
     /// </summary>
-    internal class Parser
+    public class Parser
     {
         /// <summary>
         /// Returns true if the given token list represents a list expression, otherwise return false.

@@ -1,9 +1,9 @@
-﻿namespace Crisp.Tokenizing
+﻿namespace Crisp.Core.Tokenizing
 {
     /// <summary>
     /// Provides a static factory for different types of tokenizer.
     /// </summary>
-    internal static class TokenizerFactory
+    public static class TokenizerFactory
     {
         /// <summary>
         /// Gets a tokenizer configured to tokenize Crisp source files.

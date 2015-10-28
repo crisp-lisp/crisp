@@ -16,14 +16,35 @@ namespace Crisp.Native
 
         public SymbolicExpression Apply(SymbolicExpression input, Context context)
         {
-            var node = input.AsPair(); // Argument list is always a node.
+            // Ensure arguments are in list form.
+            if (input.Type != SymbolicExpressionType.Pair)
+            {
+                throw new RuntimeException("Native function let requires a list of arguments.");
+            }
+            
+            // Argument list is always a node.
+            var arguments = input.AsPair(); 
 
-            var exp = node.Head;
-            var name = node.GoTail().GoHead().Head;
-            var value = node.GoTail().GoHead().Tail;
+            // The expression to be returned by the let.
+            var exp = arguments.Head;
 
-            var ct = context.Bind(name.AsSymbol(), value);
-            var result = Host.Evaluate(exp, ct);
+            // Build a context containing all subsequent pairs.
+            var current = arguments.GoTail();
+            var newContext = context;
+            while (current != null)
+            {
+                var name = current.GoHead().Head;
+                var value = Host.Evaluate(current.GoHead().Tail, context);
+
+                newContext = newContext.Bind(name.AsSymbol(), value);
+
+                current = current.Tail.Type == SymbolicExpressionType.Pair
+                    ? current.GoTail()
+                    : null;
+            }
+
+            // Evaluate expression in our new context.
+            var result = Host.Evaluate(exp, newContext);
 
             return result;
         }

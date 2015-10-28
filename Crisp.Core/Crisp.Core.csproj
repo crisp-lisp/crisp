@@ -42,8 +42,12 @@
   <ItemGroup>
     <Compile Include="Binding.cs" />
     <Compile Include="Context.cs" />
+    <Compile Include="Evaluation\Evaluator.cs" />
     <Compile Include="NativeFunction.cs" />
     <Compile Include="ConstantAtom.cs" />
+    <Compile Include="Parsing\Parser.cs" />
+    <Compile Include="Parsing\ParsingException.cs" />
+    <Compile Include="Parsing\TokenStream.cs" />
     <Compile Include="RuntimeException.cs" />
     <Compile Include="SymbolicExpressionExtensions.cs" />
     <Compile Include="SymbolicExpressionType.cs" />
@@ -55,6 +59,12 @@
     <Compile Include="SymbolicExpression.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SymbolAtom.cs" />
+    <Compile Include="Tokenizing\Token.cs" />
+    <Compile Include="Tokenizing\TokenizationException.cs" />
+    <Compile Include="Tokenizing\Tokenizer.cs" />
+    <Compile Include="Tokenizing\TokenizerFactory.cs" />
+    <Compile Include="Tokenizing\TokenTemplate.cs" />
+    <Compile Include="Tokenizing\TokenType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

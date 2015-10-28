@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using Crisp.Tokenizing;
+using Crisp.Core.Tokenizing;
 
 namespace Crisp.Tests
 {

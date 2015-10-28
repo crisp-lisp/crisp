@@ -2,12 +2,12 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Crisp.Tokenizing
+namespace Crisp.Core.Tokenizing
 {
     /// <summary>
     /// An implementation of a string tokenizer.
     /// </summary>
-    internal class Tokenizer
+    public class Tokenizer
     {
         private readonly IList<TokenTemplate> _tokenTemplates;
 

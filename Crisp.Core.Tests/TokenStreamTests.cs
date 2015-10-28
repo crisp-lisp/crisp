@@ -1,9 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using Crisp.Parsing;
-using Crisp.Tokenizing;
+using Crisp.Core.Parsing;
+using Crisp.Core.Tokenizing;
 
-namespace Crisp.Tests
+namespace Crisp.Core.Tests
 {
     [TestClass]
     public class TokenStreamTests

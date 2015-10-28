@@ -1,8 +1,9 @@
 ﻿using System;
 using System.IO;
 
-using Crisp.Evaluation;
-using Crisp.Tokenizing;
+using Crisp.Core.Evaluation;
+using Crisp.Core.Parsing;
+using Crisp.Core.Tokenizing;
 using Crisp.Visualization;
 
 namespace Crisp
@@ -16,7 +17,7 @@ namespace Crisp
             var tokens = tokenizer.Tokenize(File.ReadAllText("input.txt"));
 
             // Create expression tree.
-            var parser = new Parsing.Parser();
+            var parser = new Parser();
             var parsed = parser.CreateExpressionTree(tokens);
             Console.WriteLine(new LispSerializer().Serialize(parsed));
 

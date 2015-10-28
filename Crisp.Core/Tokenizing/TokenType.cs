@@ -1,9 +1,9 @@
-﻿namespace Crisp.Tokenizing
+﻿namespace Crisp.Core.Tokenizing
 {
     /// <summary>
     /// An enumeration of token types.
     /// </summary>
-    internal enum TokenType
+    public enum TokenType
     {
         /// <summary>
         /// A token with no known type, used for testing.

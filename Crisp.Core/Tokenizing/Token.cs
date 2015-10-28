@@ -1,9 +1,9 @@
-﻿namespace Crisp.Tokenizing
+﻿namespace Crisp.Core.Tokenizing
 {
     /// <summary>
     /// Represents a token.
     /// </summary>
-    internal class Token
+    public class Token
     {
         /// <summary>
         /// Gets the token type.

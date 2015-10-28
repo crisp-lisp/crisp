@@ -1,4 +1,6 @@
-﻿namespace Crisp.Core
+﻿using System.Collections.Generic;
+
+namespace Crisp.Core
 {
     /// <summary>
     /// Contains convenient extension methods for working with symbolic expressions.

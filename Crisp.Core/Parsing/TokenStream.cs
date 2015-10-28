@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using Crisp.Tokenizing;
+using Crisp.Core.Tokenizing;
 
-namespace Crisp.Parsing
+namespace Crisp.Core.Parsing
 {
     /// <summary>
     /// Represents a controlled stream of tokens.
     /// </summary>
-    internal class TokenStream
+    public class TokenStream
     {
         private readonly IList<Token> _tokens;
 

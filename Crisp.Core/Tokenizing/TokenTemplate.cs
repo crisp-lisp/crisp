@@ -1,11 +1,11 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Crisp.Tokenizing
+namespace Crisp.Core.Tokenizing
 {
     /// <summary>
     /// Represents a regular expression template of a token type.
     /// </summary>
-    internal class TokenTemplate
+    public class TokenTemplate
     {
         /// <summary>
         /// Gets the regular expression that matches a token of this type.
