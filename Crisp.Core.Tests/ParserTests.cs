@@ -4,7 +4,7 @@ using Crisp.Core.Parsing;
 using Crisp.Core.Tokenizing;
 using Crisp.Visualization;
 
-namespace Crisp.Tests
+namespace Crisp.Core.Tests
 {
     [TestClass]
     public class ParserTests

@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Crisp.Core.Tokenizing;
 
-namespace Crisp.Tests
+namespace Crisp.Core.Tests
 {
     [TestClass]
     public class TokenizerTests
