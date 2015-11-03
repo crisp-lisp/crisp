@@ -1,7 +1,5 @@
 ﻿using Crisp.Core;
 
-using System.Linq;
-
 namespace Crisp.Native
 {
     /// <summary>

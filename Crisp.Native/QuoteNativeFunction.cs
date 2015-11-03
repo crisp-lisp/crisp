@@ -1,17 +1,34 @@
 ﻿using Crisp.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Crisp.Native
 {
+    /// <summary>
+    /// Represents the basic constant function.
+    /// </summary>
     public class QuoteNativeFunction : IFunction
     {
         public IFunctionHost Host { get; set; }
 
         public string Name => "quote";
+
+        /// <summary>
+        /// Recursively converts all symbols in an expression to constants.
+        /// </summary>
+        /// <param name="expression">The expression to convert.</param>
+        /// <returns></returns>
+        private static SymbolicExpression Quote(SymbolicExpression expression)
+        {
+            switch (expression.Type)
+            {
+                case SymbolicExpressionType.Symbol:
+                    return new ConstantAtom(expression.AsSymbol()); // Symbols to constants to avoid evaluation.
+                case SymbolicExpressionType.Pair:
+                    var pair = expression.AsPair();
+                    return new Pair(Quote(pair.Head), Quote(pair.Tail));
+            }
+
+            return expression;
+        }
 
         public SymbolicExpression Apply(SymbolicExpression expression, Context context)
         {
@@ -20,7 +37,7 @@ namespace Crisp.Native
             var arguments = expression.AsPair().Expand();
             arguments.ThrowIfWrongLength(Name, 1); // Must have one argument.
 
-            return new ConstantAtom(arguments[0].AsSymbol()); // Argument list is always a node.
+            return Quote(arguments[0]);
         }
     }
 }
