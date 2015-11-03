@@ -69,6 +69,10 @@
       <Project>{6ab9a6ec-742d-4b88-9a22-58e3c98da464}</Project>
       <Name>Crisp.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Crisp.Visualization\Crisp.Visualization.csproj">
+      <Project>{ee206d73-5474-4b04-924e-b85da171bbcd}</Project>
+      <Name>Crisp.Visualization</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
@@ -82,7 +86,11 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="input.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

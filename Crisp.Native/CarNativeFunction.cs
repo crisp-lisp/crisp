@@ -1,26 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Crisp.Core;
+﻿using Crisp.Core;
 
 namespace Crisp.Native
 {
+    /// <summary>
+    /// Represents the basic function to retrieve the head of a pair.
+    /// </summary>
     public class CarNativeFunction : IFunction
     {
         public IFunctionHost Host { get; set; }
 
         public string Name => "car";
 
-        public SymbolicExpression Apply(SymbolicExpression input, Context context)
+        public SymbolicExpression Apply(SymbolicExpression expression, Context context)
         {
-            var node = input.AsPair(); // Argument list is always a node.
+            expression.ThrowIfNotList(Name); // Takes a list of arguments.
 
-            var expression = Host.Evaluate(node.Head, context);
+            var arguments = expression.AsPair().Expand();
+            arguments.ThrowIfWrongLength(Name, 1); // Must have one argument.
 
-            return expression.AsPair().Head;
+            // Result of evaluation of argument must be a pair.
+            var evaluated = Host.Evaluate(arguments[0], context);
+            if (evaluated.Type != SymbolicExpressionType.Pair)
+            {
+                throw new RuntimeException($"The argument to the function {Name} must be a pair.");
+            }
+
+            return evaluated.AsPair().Head;
         }
     }
 }

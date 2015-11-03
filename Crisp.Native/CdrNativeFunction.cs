@@ -8,19 +8,30 @@ using Crisp.Core;
 
 namespace Crisp.Native
 {
+    /// <summary>
+    /// Represents the basic function to retrieve the tail of a pair.
+    /// </summary>
     public class CdrNativeFunction : IFunction
     {
         public IFunctionHost Host { get; set; }
 
         public string Name => "cdr";
 
-        public SymbolicExpression Apply(SymbolicExpression input, Context context)
+        public SymbolicExpression Apply(SymbolicExpression expression, Context context)
         {
-            var node = input.AsPair(); // Argument list is always a node.
+            expression.ThrowIfNotList(Name); // Takes a list of arguments.
 
-            var expression = Host.Evaluate(node.Head, context);
+            var arguments = expression.AsPair().Expand();
+            arguments.ThrowIfWrongLength(Name, 1); // Must have one argument.
 
-            return Host.Evaluate(expression.AsPair().Tail, context);
+            // Result of evaluation of argument must be a pair.
+            var evaluated = Host.Evaluate(arguments[0], context);
+            if (evaluated.Type != SymbolicExpressionType.Pair)
+            {
+                throw new RuntimeException($"The argument to the function {Name} must be a pair.");
+            }
+
+            return evaluated.AsPair().Tail;
         }
     }
 }

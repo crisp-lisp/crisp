@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Crisp.Core
 {
@@ -86,5 +87,33 @@ namespace Crisp.Core
         {
             return expression.AsPair().Tail.AsPair();
         }
+
+        /// <summary>
+        /// Expands nested pairs into a list.
+        /// </summary>
+        /// <param name="expression">The expression containing nested pairs to expand.</param>
+        /// <returns></returns>
+        public static IList<SymbolicExpression> Expand(this Pair expression)
+        {
+            var list = new List<SymbolicExpression> {expression.Head};
+            
+            if (expression.Tail.Type != SymbolicExpressionType.Pair)
+            {
+                return list;
+            }
+
+            // Pull values out of nested pairs.
+            var current = expression.GoTail();
+            while (current != null)
+            {
+                list.Add(current.Head);
+                current = current.Tail.Type == SymbolicExpressionType.Pair
+                    ? current.GoTail()
+                    : null;
+            }
+
+            return list;
+        }
+
     }
 }

@@ -1,27 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 
 using Crisp.Core;
 
 namespace Crisp.Native
 {
+    /// <summary>
+    /// Represents the basic addition function.
+    /// </summary>
     public class AddNativeFunction : IFunction
     {
         public IFunctionHost Host { get; set; }
 
         public string Name => "add";
 
-        public SymbolicExpression Apply(SymbolicExpression input, Context context)
+        public SymbolicExpression Apply(SymbolicExpression expression, Context context)
         {
-            var arguments = input.AsPair(); // Argument list is always a node.
-            
-            var head = Host.Evaluate(arguments.Head, context).AsNumeric(); 
-            var tail = Host.Evaluate(arguments.GoTail().Head, context).AsNumeric();
+            expression.ThrowIfNotList(Name); // Takes a list of arguments.
 
-            return new NumericAtom(head.Value + tail.Value);
+            var arguments = expression.AsPair().Expand();
+            arguments.ThrowIfWrongLength(Name, 2); // Must have two arguments.
+
+            // Attempt to evaluate every argument to a number.
+            var evaluated = arguments.Select(a => Host.Evaluate(a, context)).ToArray();
+            if (evaluated.Any(e => e.Type != SymbolicExpressionType.Numeric))
+            {
+                throw new RuntimeException(
+                    $"The arguments to the function '{Name}' must all evaluate to the numeric type.");
+            }
+
+            return new NumericAtom(evaluated[0].AsNumeric().Value + evaluated[1].AsNumeric().Value);
         }
     }
 }

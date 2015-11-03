@@ -14,39 +14,37 @@ namespace Crisp.Native
 
         public string Name => "let";
 
-        public SymbolicExpression Apply(SymbolicExpression input, Context context)
+        public SymbolicExpression Apply(SymbolicExpression expression, Context context)
         {
-            // Ensure arguments are in list form.
-            if (input.Type != SymbolicExpressionType.Pair)
-            {
-                throw new RuntimeException("Native function let requires a list of arguments.");
-            }
-            
-            // Argument list is always a node.
-            var arguments = input.AsPair(); 
+            expression.ThrowIfNotList(Name); // Takes a list of arguments.
 
-            // The expression to be returned by the let.
-            var exp = arguments.Head;
+            var arguments = expression.AsPair().Expand();
+            arguments.ThrowIfShorterThanLength(Name, 1); // Must have at least one argument (the body).
 
-            // Build a context containing all subsequent pairs.
-            var current = arguments.GoTail();
+            var evaluable = arguments[0];
+
+            var bindings = arguments.Where(a => a != evaluable);
             var newContext = context;
-            while (current != null)
+            foreach (var binding in bindings)
             {
-                var name = current.GoHead().Head;
-                var value = Host.Evaluate(current.GoHead().Tail, context);
+                // Bindings must be formatted as pairs.
+                if (binding.Type != SymbolicExpressionType.Pair)
+                {
+                    throw new RuntimeException(
+                        $"Bindings specified in a {Name} expression must be in the form of pairs.");
+                }
 
-                newContext = newContext.Bind(name.AsSymbol(), value);
+                // The target of each binding must be a symbol.
+                if (binding.AsPair().Head.Type != SymbolicExpressionType.Symbol)
+                {
+                    throw new RuntimeException(
+                        $"Bindings specified in a {Name} expression must bind symbols to expressions.");
+                }
 
-                current = current.Tail.Type == SymbolicExpressionType.Pair
-                    ? current.GoTail()
-                    : null;
+                newContext = newContext.Bind(binding.AsPair().Head.AsSymbol(), binding.AsPair().Tail);
             }
 
-            // Evaluate expression in our new context.
-            var result = Host.Evaluate(exp, newContext);
-
-            return result;
+            return Host.Evaluate(evaluable, newContext);
         }
     }
 }

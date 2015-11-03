@@ -13,9 +13,14 @@ namespace Crisp.Native
 
         public string Name => "quote";
 
-        public SymbolicExpression Apply(SymbolicExpression input, Context context)
+        public SymbolicExpression Apply(SymbolicExpression expression, Context context)
         {
-            return new ConstantAtom(input.AsPair().Head.AsSymbol()); // Argument list is always a node.
+            expression.ThrowIfNotList(Name); // Takes a list of arguments.
+
+            var arguments = expression.AsPair().Expand();
+            arguments.ThrowIfWrongLength(Name, 1); // Must have one argument.
+
+            return new ConstantAtom(arguments[0].AsSymbol()); // Argument list is always a node.
         }
     }
 }

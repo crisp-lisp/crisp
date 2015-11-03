@@ -4,6 +4,7 @@ using System.IO;
 using Crisp.Core.Evaluation;
 using Crisp.Core.Parsing;
 using Crisp.Core.Tokenizing;
+using Crisp.Visualization;
 
 namespace Crisp
 {
@@ -22,6 +23,9 @@ namespace Crisp
             // Create evaluator.
             var evaluator = new Evaluator("native");
             var result = evaluator.Evaluate(parsed);
+
+            // Write result to output.
+            Console.Write(new LispSerializer().Serialize(result));
         }
     }
 }
