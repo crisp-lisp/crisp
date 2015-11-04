@@ -4,6 +4,9 @@ using Crisp.Core;
 
 namespace Crisp.Native
 {
+    /// <summary>
+    /// Represents the basic function to bind symbols to expressions.
+    /// </summary>
     public class LetNativeFunction : IFunction
     {
         public IFunctionHost Host { get; set; }
@@ -37,7 +40,8 @@ namespace Crisp.Native
                         $"Bindings specified in a {Name} expression must bind symbols to expressions.");
                 }
 
-                newContext = newContext.Bind(binding.AsPair().Head.AsSymbol(), binding.AsPair().Tail);
+                newContext = newContext.Bind(binding.AsPair().Head.AsSymbol(),
+                    Host.Evaluate(binding.AsPair().Tail, context));
             }
 
             return Host.Evaluate(evaluable, newContext);

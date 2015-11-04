@@ -20,7 +20,8 @@ namespace Crisp.Native
 
             var evaluated = Host.Evaluate(arguments[0], context);
 
-            return evaluated.IsAtomic ? SymbolAtom.True : SymbolAtom.False;
+            return evaluated.IsAtomic ? Host.Evaluate(SymbolAtom.True, context) 
+                : Host.Evaluate(SymbolAtom.False, context);
         }
     }
 }

@@ -41,6 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddNativeFunction.cs" />
+    <Compile Include="LambdaNativeFunction.cs" />
+    <Compile Include="IfNativeFunction.cs" />
     <Compile Include="AtomNativeFunction.cs" />
     <Compile Include="CdrNativeFunction.cs" />
     <Compile Include="CarNativeFunction.cs" />
@@ -48,6 +50,7 @@
     <Compile Include="LetNativeFunction.cs" />
     <Compile Include="NativeFunctionExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="EqNativeFunction.cs" />
     <Compile Include="QuoteNativeFunction.cs" />
   </ItemGroup>
   <ItemGroup>

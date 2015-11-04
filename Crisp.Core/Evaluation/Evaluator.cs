@@ -106,7 +106,7 @@ namespace Crisp.Core.Evaluation
             _baseContext = new Context()
                 .Bind(SymbolAtom.Nil, new ConstantAtom(SymbolAtom.Nil))
                 .Bind(SymbolAtom.True, new ConstantAtom(SymbolAtom.True))
-                .Bind(SymbolAtom.True, new ConstantAtom(SymbolAtom.True));
+                .Bind(SymbolAtom.False, new ConstantAtom(SymbolAtom.False));
 
             // Load native functions from directory.
             LoadNativeFunctions(directory); 

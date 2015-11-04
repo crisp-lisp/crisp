@@ -43,6 +43,7 @@
     <Compile Include="Binding.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="Evaluation\Evaluator.cs" />
+    <Compile Include="Lambda.cs" />
     <Compile Include="NativeFunction.cs" />
     <Compile Include="ConstantAtom.cs" />
     <Compile Include="Parsing\Parser.cs" />
