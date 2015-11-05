@@ -1,13 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Crisp.Core
 {
+    /// <summary>
+    /// Represents a lambda expression.
+    /// </summary>
     public class Lambda : SymbolicExpression, IFunction
     {
+        /// <summary>
+        /// Contains the list of parameters that the lambda takes.
+        /// </summary>
+        private readonly IList<SymbolAtom> _parameters;
+
+        /// <summary>
+        /// Contains the body of the lambda.
+        /// </summary>
+        private readonly SymbolicExpression _body;
+
         public override bool IsAtomic => false;
 
         public override SymbolicExpressionType Type => SymbolicExpressionType.Function;
@@ -15,32 +24,36 @@ namespace Crisp.Core
         public string Name => null; // Lambdas are anonymous.
 
         public IFunctionHost Host { get; set; }
-
-        public IList<SymbolAtom> Parameters { get; private set; }
-
-        public SymbolicExpression Body { get; private set; }
         
         public SymbolicExpression Apply(SymbolicExpression expression, Context context)
         {
+            // Make sure we've got the right number of arguments.
             var arguments = expression.AsPair().Expand();
-            if (arguments.Count != Parameters.Count)
+            if (arguments.Count != _parameters.Count)
             {
                 throw new RuntimeException("Attempted to call lambda with wrong number of arguments.");
             }
 
-            for (var i = 0; i < Parameters.Count; i++)
+            // Bind arguments to parameters in context.
+            for (var i = 0; i < _parameters.Count; i++)
             {
-                context = context.Bind(Parameters[i], arguments[i]);
+                context = context.Bind(_parameters[i], arguments[i]);
             }
 
-            return Host.Evaluate(Body, context);
+            return Host.Evaluate(_body, context);
         }
 
+        /// <summary>
+        /// Initializes a new instance of a lambda expression.
+        /// </summary>
+        /// <param name="host">A reference to the function host, usually the executing interpreter.</param>
+        /// <param name="parameters">The list of parameters the lambda will take.</param>
+        /// <param name="body">The body of the lambda.</param>
         public Lambda(IFunctionHost host, IList<SymbolAtom> parameters, SymbolicExpression body)
         {
             Host = host;
-            Parameters = parameters;
-            Body = body;
+            _parameters = parameters;
+            _body = body;
         }
     }
 }
