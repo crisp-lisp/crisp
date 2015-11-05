@@ -4,7 +4,7 @@ using System.Linq;
 namespace Crisp.Core
 {
     /// <summary>
-    /// Represents a context in which expressions can be evaluated.
+    /// Represents an immutable context in which expressions can be evaluated.
     /// </summary>
     public class Context
     {
@@ -68,7 +68,7 @@ namespace Crisp.Core
         }
 
         /// <summary>
-        /// Initializes a new instance of a context in which expressions can be evaluated.
+        /// Initializes a new instance of an immutable context in which expressions can be evaluated.
         /// </summary>
         public Context()
         {
@@ -76,7 +76,7 @@ namespace Crisp.Core
         }
 
         /// <summary>
-        /// Initializes a new instance of a context in which expressions can be evaluated.
+        /// Initializes a new instance of an immutable context in which expressions can be evaluated.
         /// </summary>
         /// <param name="bindings">A list of bindings from which to initialize the context.</param>
         public Context(List<Binding> bindings) 
