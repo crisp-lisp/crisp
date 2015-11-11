@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Crisp.Core.Tokenizing;
@@ -16,7 +17,7 @@ namespace Crisp.Core.Tests
             subject.Add(@"[a-z]", TokenType.None);
 
             // Tokenize input.
-            var sample = "a b  c   d    e\r\na b  c   d    e";
+            const string sample = "a b  c   d    e\r\na b  c   d    e";
             var actual = subject.Tokenize(sample);
 
             // Expected output.
@@ -54,8 +55,8 @@ namespace Crisp.Core.Tests
             // Try to tokenize input.
             try
             {
-                var sample = "a b c\r\nd e 1 g";
-                var actual = subject.Tokenize(sample);
+                const string sample = "a b c\r\nd e 1 g";
+                subject.Tokenize(sample);
 
                 // We should have failed.
                 Assert.Fail("Tokenizer should have failed to tokenize input.");
@@ -74,7 +75,7 @@ namespace Crisp.Core.Tests
             var subject = new Tokenizer();
             subject.Add(@"[a-z]+", TokenType.None);
             
-            var sample = "hello world";
+            const string sample = "hello world";
             var actual = subject.Tokenize(sample);
             
             var expected = new List<Token>()

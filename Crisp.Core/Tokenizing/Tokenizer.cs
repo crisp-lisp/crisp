@@ -7,7 +7,7 @@ namespace Crisp.Core.Tokenizing
     /// <summary>
     /// An implementation of a string tokenizer.
     /// </summary>
-    public class Tokenizer
+    public class Tokenizer : ITokenizer
     {
         private readonly IList<TokenTemplate> _tokenTemplates;
 
@@ -71,11 +71,6 @@ namespace Crisp.Core.Tokenizing
             return processed.Length - processed.LastIndexOf('\n');
         }
 
-        /// <summary>
-        /// Tokenizes a string.
-        /// </summary>
-        /// <param name="source">The string to tokenize.</param>
-        /// <returns></returns>
         public IList<Token> Tokenize(string source)
         {
             // TODO: Come back to this. Code smells here.

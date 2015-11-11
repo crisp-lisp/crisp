@@ -9,7 +9,7 @@
         /// Gets a tokenizer configured to tokenize Crisp source files.
         /// </summary>
         /// <returns></returns>
-        public static Tokenizer GetCrispTokenizer()
+        public static ITokenizer GetCrispTokenizer()
         {
             var tokenizer = new Tokenizer();
             tokenizer.Add(@"[\(]", TokenType.OpeningParenthesis);
