@@ -103,7 +103,7 @@ namespace Crisp.Core.Evaluation
                 throw new DirectoryNotFoundException("Could not load native function libraries because the directory was not found.");
 
             // Initialize context with special symbols.
-            _baseContext = new Context()
+            _baseContext = new Context(this)
                 .Bind(SymbolAtom.Nil, new ConstantAtom(SymbolAtom.Nil))
                 .Bind(SymbolAtom.True, new ConstantAtom(SymbolAtom.True))
                 .Bind(SymbolAtom.False, new ConstantAtom(SymbolAtom.False));
