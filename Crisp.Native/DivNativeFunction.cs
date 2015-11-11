@@ -9,7 +9,7 @@ namespace Crisp.Native
     /// </summary>
     public class DivNativeFunction : IFunction
     {
-        public IFunctionHost Host { get; set; }
+        public IEvaluator Host { get; set; }
 
         public string Name => "div";
 

@@ -40,7 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LetRecNativeFunction.cs" />
+    <Compile Include="LetrecNativeFunction.cs" />
     <Compile Include="RemNativeFunction.cs" />
     <Compile Include="DivNativeFunction.cs" />
     <Compile Include="MulNativeFunction.cs" />

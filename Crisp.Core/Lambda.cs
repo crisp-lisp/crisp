@@ -23,7 +23,7 @@ namespace Crisp.Core
 
         public string Name => null; // Lambdas are anonymous.
 
-        public IFunctionHost Host { get; set; }
+        public IEvaluator Host { get; set; }
         
         public SymbolicExpression Apply(SymbolicExpression expression, Context context)
         {
@@ -49,7 +49,7 @@ namespace Crisp.Core
         /// <param name="host">A reference to the function host, usually the executing interpreter.</param>
         /// <param name="parameters">The list of parameters the lambda will take.</param>
         /// <param name="body">The body of the lambda.</param>
-        public Lambda(IFunctionHost host, IList<SymbolAtom> parameters, SymbolicExpression body)
+        public Lambda(IEvaluator host, IList<SymbolAtom> parameters, SymbolicExpression body)
         {
             Host = host;
             _parameters = parameters;

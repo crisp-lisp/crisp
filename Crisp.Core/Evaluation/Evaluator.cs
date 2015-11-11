@@ -8,7 +8,7 @@ namespace Crisp.Core.Evaluation
     /// <summary>
     /// An implementation of an expression evaluator.
     /// </summary>
-    public class Evaluator : IFunctionHost
+    public class Evaluator : IEvaluator
     {
         private Context _baseContext;
 

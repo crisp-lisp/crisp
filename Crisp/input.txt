@@ -1,2 +1,7 @@
-﻿(let (increment 1)
-	(increment . (lambda (x) (add x 1))))
+﻿(let 
+	(let
+		(let 
+			(addn 4)
+			(n . 20))
+		(addn . (lambda (x) (add x n))))
+	(n . 10))

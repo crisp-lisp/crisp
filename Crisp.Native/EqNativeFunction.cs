@@ -9,7 +9,7 @@ namespace Crisp.Native
     /// </summary>
     public class EqNativeFunction : IFunction
     {
-        public IFunctionHost Host { get; set; }
+        public IEvaluator Host { get; set; }
 
         public string Name => "eq";
 

@@ -13,7 +13,7 @@
         /// <summary>
         /// Contains a reference to the function host, usually the executing interpreter.
         /// </summary>
-        IFunctionHost Host { get; set; }
+        IEvaluator Host { get; set; }
 
         /// <summary>
         /// Applies the function to an expression.

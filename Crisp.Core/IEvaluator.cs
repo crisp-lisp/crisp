@@ -1,9 +1,9 @@
 ﻿namespace Crisp.Core
 {
     /// <summary>
-    /// Implemented by classes that wish to host functions, usually interpreters.
+    /// Implemented by classes that wish to evaluate expressions, usually interpreters.
     /// </summary>
-    public interface IFunctionHost
+    public interface IEvaluator
     {
         /// <summary>
         /// Evaluates an expression.

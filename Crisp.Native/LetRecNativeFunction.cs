@@ -7,9 +7,9 @@ namespace Crisp.Native
     /// <summary>
     /// Represents the basic function to bind symbols to expressions, allowing the definition of recursive functions.
     /// </summary>
-    public class LetRecNativeFunction : IFunction
+    public class LetrecNativeFunction : IFunction
     {
-        public IFunctionHost Host { get; set; }
+        public IEvaluator Host { get; set; }
 
         public string Name => "letrec";
 
@@ -40,9 +40,9 @@ namespace Crisp.Native
                         $"Bindings specified in a {Name} expression must bind symbols to expressions.");
                 }
 
-                newContext = newContext.Bind(binding.AsPair().Head.AsSymbol(),
-                    Host.Evaluate(binding.AsPair().Tail, context));
+                newContext = newContext.Bind(binding.AsPair().Head.AsSymbol(), binding.AsPair().Tail);
             }
+            bindings.
 
             return Host.Evaluate(evaluable, newContext);
         }

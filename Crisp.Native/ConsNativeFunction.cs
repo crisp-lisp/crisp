@@ -7,7 +7,7 @@ namespace Crisp.Native
     /// </summary>
     public class ConsNativeFunction : IFunction
     {
-        public IFunctionHost Host { get; set; }
+        public IEvaluator Host { get; set; }
 
         public string Name => "cons";
 

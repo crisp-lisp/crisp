@@ -23,7 +23,7 @@ namespace Crisp.Core
 
         public string Name => null; // Closures are anonymous.
 
-        public IFunctionHost Host { get; set; }
+        public IEvaluator Host { get; set; }
 
         public SymbolicExpression Apply(SymbolicExpression expression, Context context)
         {
@@ -37,7 +37,7 @@ namespace Crisp.Core
         /// <param name="parameters">The list of parameters the closure will take.</param>
         /// <param name="body">The body of the closure.</param>
         /// <param name="context">The parent context of the closure.</param>
-        public Closure(IFunctionHost host, IList<SymbolAtom> parameters, SymbolicExpression body, Context context)
+        public Closure(IEvaluator host, IList<SymbolAtom> parameters, SymbolicExpression body, Context context)
         {
             _lambda = new Lambda(host, parameters, body);
             _context = context;

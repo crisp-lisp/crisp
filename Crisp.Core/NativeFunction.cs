@@ -10,7 +10,7 @@
         /// </summary>
         private readonly IFunction _wrapped;
         
-        public IFunctionHost Host { get; set; }
+        public IEvaluator Host { get; set; }
 
         public override bool IsAtomic => false;
 
