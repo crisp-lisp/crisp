@@ -60,6 +60,7 @@
     <Compile Include="SymbolicExpression.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SymbolAtom.cs" />
+    <Compile Include="Tokenizing\ITokenizer.cs" />
     <Compile Include="Tokenizing\Token.cs" />
     <Compile Include="Tokenizing\TokenizationException.cs" />
     <Compile Include="Tokenizing\Tokenizer.cs" />
