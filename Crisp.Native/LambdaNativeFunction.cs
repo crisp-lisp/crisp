@@ -35,7 +35,7 @@ namespace Crisp.Native
             }
 
             var symbolicParameterList = parameterList.Select(p => (SymbolAtom) p).ToList();
-            return new Lambda(Host, symbolicParameterList, arguments[1]);
+            return new Closure(Host, symbolicParameterList, arguments[1], context);
         }
     }
 }
