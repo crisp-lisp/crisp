@@ -18,7 +18,12 @@ namespace Crisp.Core.Evaluation
         /// </summary>
         private readonly List<Binding> _bindings;
 
-        public Evaluator Bind(Binding binding)
+        /// <summary>
+        /// Returns a new evaluator with a binding added between a symbol and expression.
+        /// </summary>
+        /// <param name="binding">The binding to add to the evaluator.</param>
+        /// <returns></returns>
+        private Evaluator Bind(Binding binding)
         {
             // We need an all-new list.
             var newBindings = new List<Binding>(_bindings) { binding };
@@ -49,16 +54,6 @@ namespace Crisp.Core.Evaluation
         private Binding Lookup(SymbolAtom symbol)
         {
             return _bindings.Last(b => b.Symbol.Matches(symbol));
-        }
-
-        /// <summary>
-        /// Returns the bound expression for a given symbol.
-        /// </summary>
-        /// <param name="symbol">The symbol to return the bound expression for.</param>
-        /// <returns></returns>
-        private SymbolicExpression LookupValue(SymbolAtom symbol)
-        {
-            return Lookup(symbol).Evaluate(); // Lazy evaluation.
         }
 
         /// <summary>
@@ -121,7 +116,7 @@ namespace Crisp.Core.Evaluation
                     {
                         throw new RuntimeException($"Use of name {symbol.Name} which is unbound or outside its scope.");
                     }
-                    return LookupValue(symbol);
+                    return Lookup(symbol).Evaluate();
                 case SymbolicExpressionType.Numeric:
                     return expression.AsNumeric();
                 case SymbolicExpressionType.String:

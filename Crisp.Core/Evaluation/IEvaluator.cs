@@ -15,13 +15,6 @@
         /// <summary>
         /// Returns a new evaluator with a binding added between a symbol and expression.
         /// </summary>
-        /// <param name="binding">The binding to add to the evaluator.</param>
-        /// <returns></returns>
-        Evaluator Bind(Binding binding);
-
-        /// <summary>
-        /// Returns a new evaluator with a binding added between a symbol and expression.
-        /// </summary>
         /// <param name="symbol">The symbol to bind to the expression.</param>
         /// <param name="expression">The expression to bind to the symbol.</param>
         /// <returns></returns>
