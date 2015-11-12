@@ -17,7 +17,7 @@ namespace Crisp.Core.Evaluation
         /// </summary>
         /// <param name="type">The type to check.</param>
         /// <returns></returns>
-        private bool IsNativeFunctionType(Type type)
+        private static bool IsNativeFunctionType(Type type)
         {
             // Type must be public, concrete and implement INativeFunction.
             return type.IsPublic
