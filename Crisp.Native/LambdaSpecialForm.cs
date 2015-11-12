@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+
 using Crisp.Core;
 using Crisp.Core.Evaluation;
 
@@ -7,13 +8,11 @@ namespace Crisp.Native
     /// <summary>
     /// Represents the lambda creation function.
     /// </summary>
-    public class LambdaNativeFunction : IFunction
+    public class LambdaSpecialForm : SpecialForm
     {
-        public IEvaluator Host { get; set; }
+        public override string Name => "lambda";
 
-        public string Name => "lambda";
-
-        public SymbolicExpression Apply(SymbolicExpression expression, Context context)
+        public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
         {
             expression.ThrowIfNotList(Name); // Takes a list of arguments.
 
@@ -36,7 +35,7 @@ namespace Crisp.Native
             }
 
             var symbolicParameterList = parameterList.Select(p => (SymbolAtom) p).ToList();
-            return new Closure(Host, symbolicParameterList, arguments[1], context);
+            return new Lambda(symbolicParameterList, arguments[1]);
         }
     }
 }

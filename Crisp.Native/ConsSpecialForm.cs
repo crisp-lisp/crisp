@@ -6,21 +6,19 @@ namespace Crisp.Native
     /// <summary>
     /// Represents the basic function to create a pair from two expressions.
     /// </summary>
-    public class ConsNativeFunction : IFunction
+    public class ConsSpecialForm : SpecialForm
     {
-        public IEvaluator Host { get; set; }
+        public override string Name => "cons";
 
-        public string Name => "cons";
-
-        public SymbolicExpression Apply(SymbolicExpression expression, Context context)
+        public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
         {
             expression.ThrowIfNotList(Name); // Takes a list of arguments.
 
             var arguments = expression.AsPair().Expand();
             arguments.ThrowIfWrongLength(Name, 2); // Must have two arguments.
 
-            var head = Host.Evaluate(arguments[0], context);
-            var tail = Host.Evaluate(arguments[1], context);
+            var head = evaluator.Evaluate(arguments[0]);
+            var tail = evaluator.Evaluate(arguments[1]);
 
             return new Pair(head, tail);
         }

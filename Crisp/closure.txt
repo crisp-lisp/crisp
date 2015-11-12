@@ -1,0 +1,3 @@
+﻿(let
+	(ten 14)
+	(ten . (lambda (x) (if (eq (rem x 10) 0) x (ten (add x 1))))))

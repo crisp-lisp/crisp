@@ -8,13 +8,11 @@ namespace Crisp.Native
     /// <summary>
     /// Represents the basic multiplication function.
     /// </summary>
-    public class MulNativeFunction : IFunction
+    public class MulSpecialForm : SpecialForm
     {
-        public IEvaluator Host { get; set; }
+        public override string Name => "mul";
 
-        public string Name => "mul";
-
-        public SymbolicExpression Apply(SymbolicExpression expression, Context context)
+        public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
         {
             expression.ThrowIfNotList(Name); // Takes a list of arguments.
 
@@ -22,7 +20,7 @@ namespace Crisp.Native
             arguments.ThrowIfWrongLength(Name, 2); // Must have two arguments.
 
             // Attempt to evaluate every argument to a number.
-            var evaluated = arguments.Select(a => Host.Evaluate(a, context)).ToArray();
+            var evaluated = arguments.Select(evaluator.Evaluate).ToArray();
             if (evaluated.Any(e => e.Type != SymbolicExpressionType.Numeric))
             {
                 throw new RuntimeException(

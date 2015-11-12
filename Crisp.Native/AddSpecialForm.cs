@@ -1,20 +1,18 @@
 ﻿using System.Linq;
-
+using System.Runtime.Remoting.Contexts;
 using Crisp.Core;
 using Crisp.Core.Evaluation;
 
 namespace Crisp.Native
 {
     /// <summary>
-    /// Represents the basic remainder function.
+    /// Represents the basic addition function.
     /// </summary>
-    public class RemNativeFunction : IFunction
+    public class AddSpecialForm : SpecialForm
     {
-        public IEvaluator Host { get; set; }
+        public override string Name => "add";
 
-        public string Name => "rem";
-
-        public SymbolicExpression Apply(SymbolicExpression expression, Context context)
+        public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
         {
             expression.ThrowIfNotList(Name); // Takes a list of arguments.
 
@@ -22,14 +20,14 @@ namespace Crisp.Native
             arguments.ThrowIfWrongLength(Name, 2); // Must have two arguments.
 
             // Attempt to evaluate every argument to a number.
-            var evaluated = arguments.Select(a => Host.Evaluate(a, context)).ToArray();
+            var evaluated = arguments.Select(evaluator.Evaluate).ToArray();
             if (evaluated.Any(e => e.Type != SymbolicExpressionType.Numeric))
             {
                 throw new RuntimeException(
                     $"The arguments to the function '{Name}' must all evaluate to the numeric type.");
             }
 
-            return new NumericAtom(evaluated[0].AsNumeric().Value % evaluated[1].AsNumeric().Value);
+            return new NumericAtom(evaluated[0].AsNumeric().Value + evaluated[1].AsNumeric().Value);
         }
     }
 }

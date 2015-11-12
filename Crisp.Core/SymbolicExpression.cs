@@ -11,7 +11,7 @@ namespace Crisp.Core
         /// Gets whether or not the expression is atomic.
         /// </summary>
         public abstract bool IsAtomic { get; }
-
+        
         /// <summary>
         /// Gets the data type of the expression.
         /// </summary>

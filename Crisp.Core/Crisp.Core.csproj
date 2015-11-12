@@ -41,21 +41,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Binding.cs" />
-    <Compile Include="Closure.cs" />
-    <Compile Include="Context.cs" />
     <Compile Include="Evaluation\Evaluator.cs" />
+    <Compile Include="Function.cs" />
     <Compile Include="Lambda.cs" />
-    <Compile Include="NativeFunction.cs" />
     <Compile Include="ConstantAtom.cs" />
     <Compile Include="Parsing\Parser.cs" />
     <Compile Include="Parsing\ParsingException.cs" />
     <Compile Include="Parsing\TokenStream.cs" />
     <Compile Include="RuntimeException.cs" />
+    <Compile Include="SpecialForm.cs" />
     <Compile Include="SymbolicExpressionExtensions.cs" />
     <Compile Include="SymbolicExpressionType.cs" />
     <Compile Include="StringAtom.cs" />
     <Compile Include="NumericAtom.cs" />
-    <Compile Include="IFunction.cs" />
     <Compile Include="Evaluation\IEvaluator.cs" />
     <Compile Include="Pair.cs" />
     <Compile Include="SymbolicExpression.cs" />

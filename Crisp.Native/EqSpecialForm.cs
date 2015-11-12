@@ -8,13 +8,11 @@ namespace Crisp.Native
     /// <summary>
     /// Represents the basic equality test function.
     /// </summary>
-    public class EqNativeFunction : IFunction
+    public class EqSpecialForm : SpecialForm
     {
-        public IEvaluator Host { get; set; }
+        public override string Name => "eq";
 
-        public string Name => "eq";
-
-        public SymbolicExpression Apply(SymbolicExpression expression, Context context)
+        public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
         {
             expression.ThrowIfNotList(Name); // Takes a list of arguments.
 
@@ -22,17 +20,17 @@ namespace Crisp.Native
             arguments.ThrowIfWrongLength(Name, 2); // Must have two arguments.
 
             // Evaluate both parameters.
-            var x = Host.Evaluate(arguments[0], context);
-            var y = Host.Evaluate(arguments[1], context);
+            var x = evaluator.Evaluate(arguments[0]);
+            var y = evaluator.Evaluate(arguments[1]);
 
             // Grab true and false bindings from context.
-            var t = Host.Evaluate(SymbolAtom.True, context);
-            var f = Host.Evaluate(SymbolAtom.False, context);
+            var t = evaluator.Evaluate(SymbolAtom.True);
+            var f = evaluator.Evaluate(SymbolAtom.False);
             
             // Different types can never be equal.
             if (x.Type != y.Type)
             {
-                return Host.Evaluate(SymbolAtom.False, context);
+                return f;
             }
 
             switch (x.Type)

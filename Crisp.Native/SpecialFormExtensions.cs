@@ -4,7 +4,7 @@ using Crisp.Core;
 
 namespace Crisp.Native
 {
-    internal static class NativeFunctionExtensions
+    internal static class SpecialFormExtensions
     {
         public static void ThrowIfNotList(this SymbolicExpression expression, string functionName)
         {

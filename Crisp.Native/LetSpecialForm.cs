@@ -8,13 +8,11 @@ namespace Crisp.Native
     /// <summary>
     /// Represents the basic function to bind symbols to expressions.
     /// </summary>
-    public class LetNativeFunction : IFunction
+    public class LetSpecialForm : SpecialForm
     {
-        public IEvaluator Host { get; set; }
+        public override string Name => "let";
 
-        public string Name => "let";
-
-        public SymbolicExpression Apply(SymbolicExpression expression, Context context)
+        public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
         {
             expression.ThrowIfNotList(Name); // Takes a list of arguments.
 
@@ -24,7 +22,7 @@ namespace Crisp.Native
             var evaluable = arguments[0];
 
             var bindings = arguments.Where(a => a != evaluable);
-            var newContext = context;
+            var newContext = evaluator;
             foreach (var binding in bindings)
             {
                 // Bindings must be formatted as pairs.
@@ -41,11 +39,10 @@ namespace Crisp.Native
                         $"Bindings specified in a {Name} expression must bind symbols to expressions.");
                 }
 
-                newContext = newContext.Bind(binding.AsPair().Head.AsSymbol(),
-                    Host.Evaluate(binding.AsPair().Tail, context));
+                newContext = newContext.Bind(binding.AsPair().Head.AsSymbol(), binding.AsPair().Tail);
             }
-
-            return Host.Evaluate(evaluable, newContext);
+            
+            return newContext.Evaluate(evaluable);
         }
     }
 }

@@ -63,9 +63,9 @@ namespace Crisp.Core
         /// </summary>
         /// <param name="expression">The expression to attempt to case.</param>
         /// <returns></returns>
-        public static IFunction AsFunction(this SymbolicExpression expression)
+        public static Function AsFunction(this SymbolicExpression expression)
         {
-            return (IFunction)expression;
+            return (Function)expression;
         }
 
         /// <summary>

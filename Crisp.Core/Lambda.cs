@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+
 using Crisp.Core.Evaluation;
 
 namespace Crisp.Core
@@ -6,7 +7,7 @@ namespace Crisp.Core
     /// <summary>
     /// Represents a lambda expression.
     /// </summary>
-    public class Lambda : SymbolicExpression, IFunction
+    public class Lambda : Function
     {
         /// <summary>
         /// Contains the list of parameters that the lambda takes.
@@ -18,15 +19,9 @@ namespace Crisp.Core
         /// </summary>
         private readonly SymbolicExpression _body;
 
-        public override bool IsAtomic => false;
+        public override bool UseBoundEvaluator => true; // Evaluate lambdas in the context in which they were bound.
 
-        public override SymbolicExpressionType Type => SymbolicExpressionType.Function;
-
-        public string Name => null; // Lambdas are anonymous.
-
-        public IEvaluator Host { get; set; }
-        
-        public SymbolicExpression Apply(SymbolicExpression expression, Context context)
+        public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
         {
             // Make sure we've got the right number of arguments.
             var arguments = expression.AsPair().Expand();
@@ -38,21 +33,19 @@ namespace Crisp.Core
             // Bind arguments to parameters in context.
             for (var i = 0; i < _parameters.Count; i++)
             {
-                context = context.Bind(_parameters[i], arguments[i]);
+                evaluator = evaluator.Bind(_parameters[i], arguments[i]);
             }
 
-            return Host.Evaluate(_body, context);
+            return evaluator.Evaluate(_body);
         }
 
         /// <summary>
         /// Initializes a new instance of a lambda expression.
         /// </summary>
-        /// <param name="host">A reference to the function host, usually the executing interpreter.</param>
         /// <param name="parameters">The list of parameters the lambda will take.</param>
         /// <param name="body">The body of the lambda.</param>
-        public Lambda(IEvaluator host, IList<SymbolAtom> parameters, SymbolicExpression body)
+        public Lambda(List<SymbolAtom> parameters, SymbolicExpression body)
         {
-            Host = host;
             _parameters = parameters;
             _body = body;
         }

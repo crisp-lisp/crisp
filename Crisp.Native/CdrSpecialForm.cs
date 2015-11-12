@@ -4,15 +4,13 @@ using Crisp.Core.Evaluation;
 namespace Crisp.Native
 {
     /// <summary>
-    /// Represents the basic function to retrieve the head of a pair.
+    /// Represents the basic function to retrieve the tail of a pair.
     /// </summary>
-    public class CarNativeFunction : IFunction
+    public class CdrSpecialForm : SpecialForm
     {
-        public IEvaluator Host { get; set; }
+        public override string Name => "cdr";
 
-        public string Name => "car";
-
-        public SymbolicExpression Apply(SymbolicExpression expression, Context context)
+        public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
         {
             expression.ThrowIfNotList(Name); // Takes a list of arguments.
 
@@ -20,13 +18,13 @@ namespace Crisp.Native
             arguments.ThrowIfWrongLength(Name, 1); // Must have one argument.
 
             // Result of evaluation of argument must be a pair.
-            var evaluated = Host.Evaluate(arguments[0], context);
+            var evaluated = evaluator.Evaluate(arguments[0]);
             if (evaluated.Type != SymbolicExpressionType.Pair)
             {
                 throw new RuntimeException($"The argument to the function {Name} must be a pair.");
             }
 
-            return evaluated.AsPair().Head;
+            return evaluated.AsPair().Tail;
         }
     }
 }

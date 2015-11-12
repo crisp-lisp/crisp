@@ -6,11 +6,9 @@ namespace Crisp.Native
     /// <summary>
     /// Represents the basic constant function.
     /// </summary>
-    public class QuoteNativeFunction : IFunction
+    public class QuoteSpecialForm : SpecialForm
     {
-        public IEvaluator Host { get; set; }
-
-        public string Name => "quote";
+        public override string Name => "quote";
 
         /// <summary>
         /// Recursively converts all symbols in an expression to constants.
@@ -22,7 +20,7 @@ namespace Crisp.Native
             switch (expression.Type)
             {
                 case SymbolicExpressionType.Symbol:
-                    return new ConstantAtom(expression.AsSymbol()); // Symbols to constants to avoid evaluation.
+                    return new ConstantAtom(expression.AsSymbol().Name); // Symbols to constants to avoid evaluation.
                 case SymbolicExpressionType.Pair:
                     var pair = expression.AsPair();
                     return new Pair(Quote(pair.Head), Quote(pair.Tail));
@@ -31,7 +29,7 @@ namespace Crisp.Native
             return expression;
         }
 
-        public SymbolicExpression Apply(SymbolicExpression expression, Context context)
+        public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
         {
             expression.ThrowIfNotList(Name); // Takes a list of arguments.
 
