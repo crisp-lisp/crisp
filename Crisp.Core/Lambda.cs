@@ -44,7 +44,7 @@ namespace Crisp.Core
         /// </summary>
         /// <param name="parameters">The list of parameters the lambda will take.</param>
         /// <param name="body">The body of the lambda.</param>
-        public Lambda(List<SymbolAtom> parameters, SymbolicExpression body)
+        public Lambda(IList<SymbolAtom> parameters, SymbolicExpression body)
         {
             _parameters = parameters;
             _body = body;
