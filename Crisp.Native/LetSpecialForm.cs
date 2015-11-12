@@ -22,7 +22,7 @@ namespace Crisp.Native
             var evaluable = arguments[0];
 
             var bindings = arguments.Where(a => a != evaluable);
-            var newContext = evaluator;
+            var newEvaluator = evaluator;
             foreach (var binding in bindings)
             {
                 // Bindings must be formatted as pairs.
@@ -39,10 +39,10 @@ namespace Crisp.Native
                         $"Bindings specified in a {Name} expression must bind symbols to expressions.");
                 }
 
-                newContext = newContext.Bind(binding.AsPair().Head.AsSymbol(), binding.AsPair().Tail);
+                newEvaluator = newEvaluator.Bind(binding.AsPair().Head.AsSymbol(), binding.AsPair().Tail);
             }
             
-            return newContext.Evaluate(evaluable);
+            return newEvaluator.Evaluate(evaluable);
         }
     }
 }
