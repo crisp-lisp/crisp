@@ -1,4 +1,4 @@
-﻿namespace Crisp.Core
+﻿namespace Crisp.Core.Evaluation
 {
     /// <summary>
     /// Implemented by classes that wish to evaluate expressions, usually interpreters.

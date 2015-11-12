@@ -1,4 +1,6 @@
-﻿namespace Crisp.Core
+﻿using Crisp.Core.Evaluation;
+
+namespace Crisp.Core
 {   
     /// <summary>
     /// Implemented by classes that provide functions to the interpreter.

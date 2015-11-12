@@ -56,7 +56,7 @@
     <Compile Include="StringAtom.cs" />
     <Compile Include="NumericAtom.cs" />
     <Compile Include="IFunction.cs" />
-    <Compile Include="IEvaluator.cs" />
+    <Compile Include="Evaluation\IEvaluator.cs" />
     <Compile Include="Pair.cs" />
     <Compile Include="SymbolicExpression.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

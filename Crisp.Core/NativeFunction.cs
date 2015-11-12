@@ -1,4 +1,6 @@
-﻿namespace Crisp.Core
+﻿using Crisp.Core.Evaluation;
+
+namespace Crisp.Core
 {
     /// <summary>
     /// Represents a bindable, natively implemented function.
