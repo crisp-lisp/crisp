@@ -23,6 +23,10 @@
             Name = name;
         }
 
+        /// <summary>
+        /// Initializes a new instance of an atomic constant expression.
+        /// </summary>
+        /// <param name="symbol">The symbol to convert to a constant.</param>
         public ConstantAtom(SymbolAtom symbol)
         {
             Name = symbol.Name;

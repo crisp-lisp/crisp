@@ -5,9 +5,6 @@
     /// </summary>
     public enum SymbolicExpressionType
     {
-        /// <summary>
-        /// Represents a pair.
-        /// </summary>
         Pair,
         Symbol,
         Constant,
