@@ -15,11 +15,6 @@ namespace Crisp.Core
         private readonly List<Binding> _bindings;
 
         /// <summary>
-        /// Gets the evaluator associated with the context.
-        /// </summary>
-        public IEvaluator Evaluator { get; set; }
-
-        /// <summary>
         /// Adds a binding to the context.
         /// </summary>
         /// <param name="binding">The binding to add to the context.</param>
@@ -29,7 +24,7 @@ namespace Crisp.Core
             // We need an all-new list.
             var newBindings = new List<Binding>(_bindings) {binding};
 
-            return new Context(Evaluator, newBindings); // Return an all-new context.
+            return new Context(newBindings); // Return an all-new context.
         }
 
         /// <summary>
@@ -76,9 +71,8 @@ namespace Crisp.Core
         /// <summary>
         /// Initializes a new instance of an immutable context in which expressions can be evaluated.
         /// </summary>
-        public Context(IEvaluator evaluator)
+        public Context()
         {
-            Evaluator = evaluator;
             _bindings = new List<Binding>();
         }
 
@@ -86,9 +80,8 @@ namespace Crisp.Core
         /// Initializes a new instance of an immutable context in which expressions can be evaluated.
         /// </summary>
         /// <param name="bindings">A list of bindings from which to initialize the context.</param>
-        public Context(IEvaluator evaluator, List<Binding> bindings)
+        public Context(List<Binding> bindings)
         {
-            Evaluator = evaluator;
             _bindings = bindings;
         }
     }
