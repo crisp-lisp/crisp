@@ -66,6 +66,7 @@ namespace Crisp.Core.Parsing
             // If we have a list on our hands.
             if (IsSingleList(tokens))
             {
+                var isFunctionApplication = tokens.First().Sequence != string.Empty;
                 var unbracketed = RemoveFirstAndLast(tokens); // Strip outer brackets.
 
                 // If we have nothing inside them, return nil.
@@ -95,11 +96,11 @@ namespace Crisp.Core.Parsing
                     }
 
                     // Return cons cell.
-                    return new Pair(Parse(head), Parse(tail));
+                    return new Pair(Parse(head), Parse(tail), isFunctionApplication);
                 }
                 
                 // Return cons cell with implicit list as tail.
-                return new Pair(Parse(head), Parse(AddBrackets(stream.ReadToEnd())));
+                return new Pair(Parse(head), Parse(AddBrackets(stream.ReadToEnd())), isFunctionApplication);
             }
 
             // We should have a single atom here.

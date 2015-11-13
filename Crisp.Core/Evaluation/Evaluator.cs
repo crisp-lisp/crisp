@@ -133,7 +133,7 @@ namespace Crisp.Core.Evaluation
             
             // Is this a function we should apply?
             var node = expression.AsPair();
-            if (node.Head.Type == SymbolicExpressionType.Symbol)
+            if (node.Head.Type == SymbolicExpressionType.Symbol && node.IsFunctionApplication)
             {
                 var symbol = node.Head.AsSymbol();
                 var binding = Lookup(symbol);
