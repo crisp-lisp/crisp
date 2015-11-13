@@ -1,4 +1,6 @@
-﻿namespace Crisp.Core.Evaluation
+﻿using System.Collections.Generic;
+
+namespace Crisp.Core.Evaluation
 {
     /// <summary>
     /// Implemented by classes that wish to evaluate expressions, usually interpreters.
@@ -13,11 +15,18 @@
         SymbolicExpression Evaluate(SymbolicExpression expression);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bindings"></param>
+        /// <returns></returns>
+        IEvaluator BindMany(Dictionary<SymbolAtom, SymbolicExpression> bindings);
+
+        /// <summary>
         /// Returns a new evaluator with a binding added between a symbol and expression.
         /// </summary>
         /// <param name="symbol">The symbol to bind to the expression.</param>
         /// <param name="expression">The expression to bind to the symbol.</param>
         /// <returns></returns>
-        Evaluator Bind(SymbolAtom symbol, SymbolicExpression expression);
+        IEvaluator Bind(SymbolAtom symbol, SymbolicExpression expression);
     }
 }

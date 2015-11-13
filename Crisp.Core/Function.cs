@@ -10,12 +10,7 @@ namespace Crisp.Core
         public override bool IsAtomic => false;
 
         public override SymbolicExpressionType Type => SymbolicExpressionType.Function;
-
-        /// <summary>
-        /// Gets whether or not the interpreter should use this function's bound evaluator to apply it.
-        /// </summary>
-        public abstract bool UseBoundEvaluator { get; }
-
+        
         /// <summary>
         /// Applies the function to an expression.
         /// </summary>

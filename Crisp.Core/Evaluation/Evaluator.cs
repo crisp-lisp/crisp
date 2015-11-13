@@ -18,24 +18,23 @@ namespace Crisp.Core.Evaluation
         /// </summary>
         private readonly List<Binding> _bindings;
 
-        /// <summary>
-        /// Returns a new evaluator with a binding added between a symbol and expression.
-        /// </summary>
-        /// <param name="binding">The binding to add to the evaluator.</param>
-        /// <returns></returns>
-        private Evaluator Bind(Binding binding)
+        public IEvaluator BindMany(Dictionary<SymbolAtom, SymbolicExpression> bindings)
         {
             // We need an all-new list.
-            var newBindings = new List<Binding>(_bindings) { binding };
+            var newBindings = new List<Binding>(_bindings);
+            newBindings.AddRange(bindings.Select(b => new Binding(b.Key, b.Value)));
 
             return new Evaluator(newBindings); // Return an all-new evaluator.
         }
-        
-        public Evaluator Bind(SymbolAtom symbol, SymbolicExpression expression)
-        {
-            return Bind(new Binding(symbol, expression, this));
-        }
 
+        public IEvaluator Bind(SymbolAtom symbol, SymbolicExpression expression)
+        {
+            return BindMany(new Dictionary<SymbolAtom, SymbolicExpression>()
+            {
+                {symbol, expression}
+            });
+        }
+ 
         /// <summary>
         /// Binds a symbol to an expression in this evaluator.
         /// </summary>
@@ -43,7 +42,7 @@ namespace Crisp.Core.Evaluation
         /// <param name="expression">The expression to bind to the symbol.</param>
         private void MutableBind(SymbolAtom symbol, SymbolicExpression expression)
         {
-            _bindings.Add(new Binding(symbol, expression, this));
+            _bindings.Add(new Binding(symbol, expression));
         }
 
         /// <summary>
@@ -116,7 +115,7 @@ namespace Crisp.Core.Evaluation
                     {
                         throw new RuntimeException($"Use of name {symbol.Name} which is unbound or outside its scope.");
                     }
-                    return Lookup(symbol).Evaluate();
+                    return Lookup(symbol).Expression;
                 case SymbolicExpressionType.Numeric:
                     return expression.AsNumeric();
                 case SymbolicExpressionType.String:
@@ -133,8 +132,8 @@ namespace Crisp.Core.Evaluation
             {
                 var symbol = node.Head.AsSymbol();
                 var binding = Lookup(symbol);
-                var function = binding.Evaluate().AsFunction();
-                return function.Apply(node.Tail, function.UseBoundEvaluator ? binding.Evaluator : this);
+                var function = binding.Expression.AsFunction();
+                return function.Apply(node.Tail, this);
             }
 
             // Evaluate sub-expressions.

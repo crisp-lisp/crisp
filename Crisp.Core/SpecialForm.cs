@@ -5,8 +5,6 @@
     /// </summary>
     public abstract class SpecialForm : Function
     {
-        public override bool UseBoundEvaluator => false; // Special forms should not use their bound evaluator.
-
         /// <summary>
         /// Gets the name of the special form.
         /// </summary>

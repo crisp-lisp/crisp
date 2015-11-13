@@ -19,10 +19,9 @@ namespace Crisp.Native
             var arguments = expression.AsPair().Expand();
             arguments.ThrowIfShorterThanLength(Name, 1); // Must have at least one argument (the body).
 
-            var evaluable = arguments[0];
+            var evaluable = arguments[0]; // This is the actual evaluable bit.
 
-            var bindings = arguments.Where(a => a != evaluable);
-            var newEvaluator = evaluator;
+            var bindings = arguments.Where(a => a != evaluable).ToArray();
             foreach (var binding in bindings)
             {
                 // Bindings must be formatted as pairs.
@@ -38,9 +37,11 @@ namespace Crisp.Native
                     throw new RuntimeException(
                         $"Bindings specified in a {Name} expression must bind symbols to expressions.");
                 }
-
-                newEvaluator = newEvaluator.Bind(binding.AsPair().Head.AsSymbol(), binding.AsPair().Tail);
             }
+
+            // Create new evaluator containing new bindings.
+            var newEvaluator = evaluator.BindMany(bindings.ToDictionary(b => b.AsPair().Head.AsSymbol(), 
+                b => evaluator.Evaluate(b.AsPair().Tail)));
             
             return newEvaluator.Evaluate(evaluable);
         }
