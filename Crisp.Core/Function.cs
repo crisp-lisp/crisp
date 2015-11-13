@@ -11,7 +11,10 @@ namespace Crisp.Core
 
         public override SymbolicExpressionType Type => SymbolicExpressionType.Function;
         
-        public abstract bool EvaluateArguments { get; }
+        /// <summary>
+        /// Gets whether or not arguments to this function should be evaluated.
+        /// </summary>
+        public abstract bool IsSpecialForm { get; }
 
         /// <summary>
         /// Applies the function to an expression.

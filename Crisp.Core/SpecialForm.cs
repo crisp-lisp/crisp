@@ -7,7 +7,7 @@ namespace Crisp.Core
     /// </summary>
     public abstract class SpecialForm : Function
     {
-        public override bool EvaluateArguments => false;
+        public override bool IsSpecialForm => true;
 
         /// <summary>
         /// Gets the name of the special form.

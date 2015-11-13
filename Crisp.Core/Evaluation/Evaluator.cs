@@ -119,8 +119,10 @@ namespace Crisp.Core.Evaluation
                     var pair = expression.AsPair();
                     if (pair.IsFunctionApplication)
                     {
-                        var function = Lookup(pair.Head.AsSymbol()).Value.AsFunction();
-                        return function.Apply(pair.Tail, this);
+                        var binding = Lookup(pair.Head.AsSymbol());
+                        var function = binding.Value.AsFunction();
+                        var args = function.IsSpecialForm ? pair.Tail : Evaluate(pair.Tail);
+                        return function.Apply(args, this);
                     }
                     return new Pair(Evaluate(pair.Head), Evaluate(pair.Tail));
                 default:
