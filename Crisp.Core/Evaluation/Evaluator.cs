@@ -104,12 +104,7 @@ namespace Crisp.Core.Evaluation
                 }
             }
         }
-
-        /// <summary>
-        /// Evaluates an expression.
-        /// </summary>
-        /// <param name="expression">The expression to evaluate.</param>
-        /// <returns></returns>
+        
         public SymbolicExpression Evaluate(SymbolicExpression expression)
         {
             switch (expression.Type)

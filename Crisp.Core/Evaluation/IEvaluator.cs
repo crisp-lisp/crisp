@@ -15,9 +15,9 @@ namespace Crisp.Core.Evaluation
         SymbolicExpression Evaluate(SymbolicExpression expression);
 
         /// <summary>
-        /// 
+        /// Returns a new evaluator with bindings added between symbols and expressions.
         /// </summary>
-        /// <param name="bindings"></param>
+        /// <param name="bindings">The bindings to add.</param>
         /// <returns></returns>
         IEvaluator BindMany(Dictionary<SymbolAtom, SymbolicExpression> bindings);
 
@@ -29,6 +29,10 @@ namespace Crisp.Core.Evaluation
         /// <returns></returns>
         IEvaluator Bind(SymbolAtom symbol, SymbolicExpression expression);
 
+        /// <summary>
+        /// Binds symbols to expressions in this evaluator.
+        /// </summary>
+        /// <param name="bindings">The bindings to add.</param>
         void MutableBindMany(Dictionary<SymbolAtom, SymbolicExpression> bindings);
     }
 }
