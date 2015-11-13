@@ -22,7 +22,7 @@ namespace Crisp.Core.Evaluation
         {
             // We need an all-new list.
             var newBindings = new List<Binding>(_bindings);
-            newBindings.AddRange(bindings.Select(b => new Binding(b.Key, b.Value)));
+            newBindings.AddRange(bindings.Select(b => new Binding(b.Key, b.Value, this)));
 
             return new Evaluator(newBindings); // Return an all-new evaluator.
         }
@@ -34,7 +34,12 @@ namespace Crisp.Core.Evaluation
                 {symbol, expression}
             });
         }
- 
+
+        public void MutableBindMany(Dictionary<SymbolAtom, SymbolicExpression> bindings)
+        {
+            _bindings.AddRange(bindings.Select(b => new Binding(b.Key, b.Value, this)));
+        }
+
         /// <summary>
         /// Binds a symbol to an expression in this evaluator.
         /// </summary>
@@ -42,7 +47,7 @@ namespace Crisp.Core.Evaluation
         /// <param name="expression">The expression to bind to the symbol.</param>
         private void MutableBind(SymbolAtom symbol, SymbolicExpression expression)
         {
-            _bindings.Add(new Binding(symbol, expression));
+            _bindings.Add(new Binding(symbol, expression, this));
         }
 
         /// <summary>
@@ -115,7 +120,7 @@ namespace Crisp.Core.Evaluation
                     {
                         throw new RuntimeException($"Use of name {symbol.Name} which is unbound or outside its scope.");
                     }
-                    return Lookup(symbol).Expression;
+                    return Lookup(symbol).Value;
                 case SymbolicExpressionType.Numeric:
                     return expression.AsNumeric();
                 case SymbolicExpressionType.String:
@@ -132,7 +137,7 @@ namespace Crisp.Core.Evaluation
             {
                 var symbol = node.Head.AsSymbol();
                 var binding = Lookup(symbol);
-                var function = binding.Expression.AsFunction();
+                var function = binding.Value.AsFunction();
                 return function.Apply(node.Tail, this);
             }
 

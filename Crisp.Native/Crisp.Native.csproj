@@ -49,6 +49,7 @@
     <Compile Include="EqSpecialForm.cs" />
     <Compile Include="IfSpecialForm.cs" />
     <Compile Include="LambdaSpecialForm.cs" />
+    <Compile Include="LetrecSpecialForm.cs" />
     <Compile Include="LetSpecialForm.cs" />
     <Compile Include="MulSpecialForm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

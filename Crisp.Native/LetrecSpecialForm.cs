@@ -8,9 +8,9 @@ namespace Crisp.Native
     /// <summary>
     /// Represents the basic function to bind symbols to expressions.
     /// </summary>
-    public class LetSpecialForm : SpecialForm
+    public class LetrecSpecialForm : SpecialForm
     {
-        public override string Name => "let";
+        public override string Name => "letrec";
 
         public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
         {
@@ -39,11 +39,11 @@ namespace Crisp.Native
                 }
             }
 
-            // Create new evaluator containing new bindings.
-            var newEvaluator = evaluator.BindMany(bindings.ToDictionary(b => b.AsPair().Head.AsSymbol(), 
-                b => b.AsPair().Tail));
+            // Mutate existing evaluator.
+            var bindingDictionary = bindings.ToDictionary(b => b.AsPair().Head.AsSymbol(), b => b.AsPair().Tail);
+            evaluator.MutableBindMany(bindingDictionary);
             
-            return newEvaluator.Evaluate(evaluable);
+            return evaluator.Evaluate(evaluable);
         }
     }
 }
