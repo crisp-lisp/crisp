@@ -66,7 +66,12 @@ namespace Crisp.Core.Parsing
             // If we have a list on our hands.
             if (IsSingleList(tokens))
             {
-                var isFunctionApplication = tokens.First().Sequence != string.Empty;
+                /* 
+                 * If brackets were in the source code, this is a function application. Otherwise
+                 * they're implicit brackets added by the parser and shouldn't be interpreted this way. 
+                 */
+                var isFunctionApplication = tokens.First().Sequence != string.Empty; 
+
                 var unbracketed = RemoveFirstAndLast(tokens); // Strip outer brackets.
 
                 // If we have nothing inside them, return nil.
