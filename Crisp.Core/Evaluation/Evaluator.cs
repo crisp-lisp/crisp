@@ -121,7 +121,7 @@ namespace Crisp.Core.Evaluation
                     {
                         var binding = Lookup(pair.Head.AsSymbol());
                         var function = binding.Value.AsFunction();
-                        var args = function.IsSpecialForm ? pair.Tail : Evaluate(pair.Tail);
+                        var args = function.SkipArgumentEvaluation ? pair.Tail : Evaluate(pair.Tail);
                         return function.Apply(args, this);
                     }
                     return new Pair(Evaluate(pair.Head), Evaluate(pair.Tail));
