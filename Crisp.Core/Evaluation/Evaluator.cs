@@ -57,6 +57,10 @@ namespace Crisp.Core.Evaluation
         /// <returns></returns>
         private Binding Lookup(SymbolAtom symbol)
         {
+            if (!IsBound(symbol))
+            {
+                throw new RuntimeException($"Use of name {symbol.Name} which is unbound or outside its scope.");
+            }
             return _bindings.Last(b => b.Symbol.Matches(symbol));
         }
 
@@ -110,12 +114,7 @@ namespace Crisp.Core.Evaluation
             switch (expression.Type)
             {
                 case SymbolicExpressionType.Symbol:
-                    var symbol = expression.AsSymbol();
-                    if (!IsBound(symbol))
-                    {
-                        throw new RuntimeException($"Use of name {symbol.Name} which is unbound or outside its scope.");
-                    }
-                    return Lookup(symbol).Value;
+                    return Lookup(expression.AsSymbol()).Value;
                 case SymbolicExpressionType.Pair:
                     var pair = expression.AsPair();
                     if (pair.IsFunctionApplication)

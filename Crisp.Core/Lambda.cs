@@ -19,6 +19,8 @@ namespace Crisp.Core
         /// </summary>
         private readonly SymbolicExpression _body;
 
+        public override bool EvaluateArguments => true;
+
         public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
         {
             // Make sure we've got the right number of arguments.

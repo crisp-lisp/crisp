@@ -11,6 +11,8 @@ namespace Crisp.Core
 
         public override SymbolicExpressionType Type => SymbolicExpressionType.Function;
         
+        public abstract bool EvaluateArguments { get; }
+
         /// <summary>
         /// Applies the function to an expression.
         /// </summary>
