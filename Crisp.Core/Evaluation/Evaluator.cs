@@ -121,28 +121,17 @@ namespace Crisp.Core.Evaluation
                         throw new RuntimeException($"Use of name {symbol.Name} which is unbound or outside its scope.");
                     }
                     return Lookup(symbol).Value;
-                case SymbolicExpressionType.Numeric:
-                    return expression.AsNumeric();
-                case SymbolicExpressionType.String:
-                    return expression.AsString();
-                case SymbolicExpressionType.Constant:
-                    return expression.AsConstant();
-                case SymbolicExpressionType.Function:
-                    return expression.AsFunction();
+                case SymbolicExpressionType.Pair:
+                    var pair = expression.AsPair();
+                    if (pair.IsFunctionApplication)
+                    {
+                        var function = Lookup(pair.Head.AsSymbol()).Value.AsFunction();
+                        return function.Apply(pair.Tail, this);
+                    }
+                    return new Pair(Evaluate(pair.Head), Evaluate(pair.Tail));
+                default:
+                    return expression;
             }
-            
-            // Is this a function we should apply?
-            var node = expression.AsPair();
-            if (node.Head.Type == SymbolicExpressionType.Symbol && node.IsFunctionApplication)
-            {
-                var symbol = node.Head.AsSymbol();
-                var binding = Lookup(symbol);
-                var function = binding.Value.AsFunction();
-                return function.Apply(node.Tail, this);
-            }
-
-            // Evaluate sub-expressions.
-            return new Pair(Evaluate(node.Head), Evaluate(node.Tail)); 
         }
 
         /// <summary>
@@ -161,7 +150,7 @@ namespace Crisp.Core.Evaluation
             MutableBind(SymbolAtom.False, new ConstantAtom(SymbolAtom.False));
 
             // Load special forms from directory.
-            LoadSpecialForms(directory); 
+            LoadSpecialForms(directory);
         }
 
         /// <summary>
