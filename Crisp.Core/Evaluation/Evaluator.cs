@@ -40,12 +40,7 @@ namespace Crisp.Core.Evaluation
             _bindings.AddRange(bindings.Select(b => new Binding(b.Key, b.Value, this)));
         }
 
-        /// <summary>
-        /// Binds a symbol to an expression in this evaluator.
-        /// </summary>
-        /// <param name="symbol">The symbol to bind to the expression.</param>
-        /// <param name="expression">The expression to bind to the symbol.</param>
-        private void MutableBind(SymbolAtom symbol, SymbolicExpression expression)
+        public void MutableBind(SymbolAtom symbol, SymbolicExpression expression)
         {
             _bindings.Add(new Binding(symbol, expression, this));
         }
