@@ -40,7 +40,7 @@ namespace Crisp.Native
             }
 
             // Create new evaluator containing new bindings.
-            var newEvaluator = evaluator.BindMany(bindings.ToDictionary(b => b.AsPair().Head.AsSymbol(), 
+            var newEvaluator = evaluator.Bind(bindings.ToDictionary(b => b.AsPair().Head.AsSymbol(), 
                 b => b.AsPair().Tail));
             
             return newEvaluator.Evaluate(evaluable);

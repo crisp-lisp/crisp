@@ -41,7 +41,7 @@ namespace Crisp.Native
 
             // Mutate existing evaluator.
             var bindingDictionary = bindings.ToDictionary(b => b.AsPair().Head.AsSymbol(), b => b.AsPair().Tail);
-            evaluator.MutableBindMany(bindingDictionary);
+            evaluator.MutableBind(bindingDictionary);
             
             return evaluator.Evaluate(evaluable);
         }

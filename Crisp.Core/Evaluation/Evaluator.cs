@@ -18,7 +18,7 @@ namespace Crisp.Core.Evaluation
         /// </summary>
         private readonly List<Binding> _bindings;
 
-        public IEvaluator BindMany(Dictionary<SymbolAtom, SymbolicExpression> bindings)
+        public IEvaluator Bind(Dictionary<SymbolAtom, SymbolicExpression> bindings)
         {
             // We need an all-new list.
             var newBindings = new List<Binding>(_bindings);
@@ -29,13 +29,13 @@ namespace Crisp.Core.Evaluation
 
         public IEvaluator Bind(SymbolAtom symbol, SymbolicExpression expression)
         {
-            return BindMany(new Dictionary<SymbolAtom, SymbolicExpression>()
+            return Bind(new Dictionary<SymbolAtom, SymbolicExpression>()
             {
                 {symbol, expression}
             });
         }
 
-        public void MutableBindMany(Dictionary<SymbolAtom, SymbolicExpression> bindings)
+        public void MutableBind(Dictionary<SymbolAtom, SymbolicExpression> bindings)
         {
             _bindings.AddRange(bindings.Select(b => new Binding(b.Key, b.Value, this)));
         }
