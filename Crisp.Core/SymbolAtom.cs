@@ -8,17 +8,17 @@
         /// <summary>
         /// The nil special symbol.
         /// </summary>
-        public static readonly SymbolAtom Nil = new SymbolAtom("NIL");
+        public static readonly SymbolAtom Nil = new SymbolAtom("nil");
 
         /// <summary>
         /// The true boolean special symbol.
         /// </summary>
-        public static readonly SymbolAtom True = new SymbolAtom("T");
+        public static readonly SymbolAtom True = new SymbolAtom("t");
 
         /// <summary>
         /// The false boolean special symbol.
         /// </summary>
-        public static readonly SymbolAtom False = new SymbolAtom("F");
+        public static readonly SymbolAtom False = new SymbolAtom("f");
 
         public override bool IsAtomic => true;
 
