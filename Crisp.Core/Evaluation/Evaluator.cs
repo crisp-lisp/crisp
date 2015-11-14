@@ -119,8 +119,13 @@ namespace Crisp.Core.Evaluation
                     var pair = expression.AsPair();
                     if (pair.IsFunctionApplication)
                     {
-                        var binding = Lookup(pair.Head.AsSymbol());
-                        var function = binding.Value.AsFunction();
+                        var head = Evaluate(pair.Head);
+                        if (head.Type != SymbolicExpressionType.Function)
+                        {
+                            throw new RuntimeException(
+                                "The first value in a function application expression must evaluate to a function.");
+                        }
+                        var function = head.AsFunction();
                         var args = function.SkipArgumentEvaluation ? pair.Tail : Evaluate(pair.Tail);
                         return function.Apply(args, this);
                     }
@@ -137,7 +142,10 @@ namespace Crisp.Core.Evaluation
         public Evaluator(string directory)
         {
             if (!Directory.Exists(directory))
-                throw new DirectoryNotFoundException("Could not load special form libraries because the directory was not found.");
+            {
+                throw new DirectoryNotFoundException(
+                    "Could not load special form libraries because the directory was not found.");
+            }
 
             // Initialize evaluator with special symbols.
             _bindings = new List<Binding>();
