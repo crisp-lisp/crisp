@@ -11,6 +11,8 @@ namespace Crisp.Core
 
         private readonly SymbolicExpression _expression;
 
+        private SymbolicExpression _evaluated;
+
         /// <summary>
         /// The symbol that is bound to the expression.
         /// </summary>
@@ -19,7 +21,7 @@ namespace Crisp.Core
         /// <summary>
         /// The expression that is bound to the symbol.
         /// </summary>
-        public SymbolicExpression Value => _evaluator.Evaluate(_expression);
+        public SymbolicExpression Value => _evaluated ?? (_evaluated = _evaluator.Evaluate(_expression));
         
         /// <summary>
         /// Initializes a new instance of a binding between a symbol and an expression.
