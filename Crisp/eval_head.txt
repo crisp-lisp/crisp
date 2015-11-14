@@ -1,0 +1,3 @@
+﻿(letrec
+	((if (eq x 2) add mul) 4 5)
+	(x . 1))

@@ -14,7 +14,7 @@ namespace Crisp
         {
             // Create tokenizer amd tokenize input.
             var tokenizer = TokenizerFactory.GetCrispTokenizer();
-            var tokens = tokenizer.Tokenize(File.ReadAllText("input.txt"));
+            var tokens = tokenizer.Tokenize(File.ReadAllText("eval_head.txt"));
 
             // Create expression tree.
             var parser = new Parser();
