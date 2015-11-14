@@ -1,0 +1,9 @@
+﻿(letrec 
+	(reverse (cons 1 (cons 2 (cons 3 nil))))
+	(reverse . (lambda (l)
+		(if (eq l nil) nil
+			(append (reverse (cdr l))
+				(cons (car l) nil)))))
+	(append . (lambda (a b)
+		(if (eq a nil) b
+			(cons (car a) (append (cdr a) b))))))
