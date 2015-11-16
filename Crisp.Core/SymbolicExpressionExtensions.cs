@@ -113,6 +113,5 @@ namespace Crisp.Core
 
             return list;
         }
-
     }
 }
