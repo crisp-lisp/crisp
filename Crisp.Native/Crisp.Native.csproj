@@ -46,6 +46,7 @@
     <Compile Include="CdrSpecialForm.cs" />
     <Compile Include="ConsSpecialForm.cs" />
     <Compile Include="DivSpecialForm.cs" />
+    <Compile Include="LeqSpecialForm.cs" />
     <Compile Include="EqSpecialForm.cs" />
     <Compile Include="IfSpecialForm.cs" />
     <Compile Include="LambdaSpecialForm.cs" />
