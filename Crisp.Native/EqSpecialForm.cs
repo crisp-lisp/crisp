@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics.Eventing.Reader;
-using Crisp.Core;
+﻿using Crisp.Core;
 using Crisp.Core.Evaluation;
 
 namespace Crisp.Native
