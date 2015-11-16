@@ -9,6 +9,9 @@ namespace Crisp.Core
     /// </summary>
     public class Closure : Lambda
     {
+        /// <summary>
+        /// The evaluator to use to apply the lambda.
+        /// </summary>
         private readonly IEvaluator _evaluator;
         
         public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)

@@ -19,7 +19,7 @@ namespace Crisp.Core
         /// </summary>
         private readonly SymbolicExpression _body;
 
-        public override bool SkipArgumentEvaluation => false;
+        public override bool SkipArgumentEvaluation => false; // Calls to lambda expressions must have arguments pre-evaluated.
 
         public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
         {

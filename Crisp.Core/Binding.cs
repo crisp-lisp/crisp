@@ -7,10 +7,19 @@ namespace Crisp.Core
     /// </summary>
     public class Binding
     {
+        /// <summary>
+        /// The evaluator to use when the bound expression is lazily evaluated
+        /// </summary>
         private readonly IEvaluator _evaluator;
 
+        /// <summary>
+        /// The original, unevaluated bound expression.
+        /// </summary>
         private readonly SymbolicExpression _expression;
 
+        /// <summary>
+        /// Holds the expression once it has been lazily evaluated.
+        /// </summary>
         private SymbolicExpression _evaluated;
 
         /// <summary>
@@ -28,7 +37,7 @@ namespace Crisp.Core
         /// </summary>
         /// <param name="symbol">The symbol that is bound to the expression.</param>
         /// <param name="expression">The expression that is bound to the symbol.</param>
-        /// <param name="evaluator"></param>
+        /// <param name="evaluator">The evaluator to use when the bound expression is lazily evaluated.</param>
         public Binding(SymbolAtom symbol, SymbolicExpression expression, IEvaluator evaluator)
         {
             Symbol = symbol;
