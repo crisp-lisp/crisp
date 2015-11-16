@@ -11,6 +11,11 @@ namespace Crisp.Core.Tests
         [TestMethod]
         public void TestTokenStreamReadsSingleTokens()
         {
+            /**
+             * Description: The token stream should be capable of reading single tokens at
+             * a time. This test ensures that this is the case.
+             */
+
             // Tokenize input.
             const string sample = "a b c d e";
             var actual = TokenizerFactory.GetCrispTokenizer().Tokenize(sample);
@@ -32,6 +37,12 @@ namespace Crisp.Core.Tests
         [TestMethod]
         public void TestTokenStreamReadsAtomicExpressions()
         {
+            /**
+             * Description: The token stream should be capable of reading single atoms
+             * at a time when asked to read an expression. This test ensures that this is
+             * the case.
+             */
+
             const string sample = "1 (2 3) (4 5)";
             var tokens = TokenizerFactory.GetCrispTokenizer().Tokenize(sample);
 
@@ -51,6 +62,12 @@ namespace Crisp.Core.Tests
         [TestMethod]
         public void TestTokenStreamReadsListExpressions()
         {
+            /**
+             * Description: The token stream should be capable of reading entire lists
+             * at a time when asked to read an expression. This test ensures that this
+             * is the case.
+             */
+
             const string sample = "(1 (2 3)) (4 5)";
             var tokens = TokenizerFactory.GetCrispTokenizer().Tokenize(sample);
 
@@ -70,6 +87,12 @@ namespace Crisp.Core.Tests
         [TestMethod]
         public void TestTokenStreamReadsWholeInputListExpressions()
         {
+            /**
+             * Description: The token stream should be capable of reading the entire input
+             * at once if the entire input consists of just one list expression. This test
+             * ensures that this is the case.
+             */
+
             const string sample = "(1 (2 3) 4 5)";
             var tokens = TokenizerFactory.GetCrispTokenizer().Tokenize(sample);
 

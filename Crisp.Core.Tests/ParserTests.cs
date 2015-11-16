@@ -15,17 +15,20 @@ namespace Crisp.Core.Tests
             /**
              * Description: The parser should build proper lists that end with a pointer
              * to nil. This test checks that lists are built in this way.
-             */ 
+             */
 
+            // Setup tokenizer and tokenize input.
             var tokenizer = TokenizerFactory.GetCrispTokenizer();
             const string sample = "(add 1 2 3 4.5 5)";
             var tokens = tokenizer.Tokenize(sample);
             
+            // Parse and serialize expression tree.
             var subject = new Parser();
             var actual = new LispSerializer().Serialize(subject.CreateExpressionTree(tokens));
             
-            const string expected = "(add . (1 . (2 . (3 . (4.5 . (5 . NIL))))))";
+            const string expected = "(add . (1 . (2 . (3 . (4.5 . (5 . nil))))))";
             
+            // Check accuracy of expression tree.
             Assert.AreEqual(expected, actual);
         }
 
@@ -44,7 +47,7 @@ namespace Crisp.Core.Tests
             var subject = new Parser();
             var actual = new LispSerializer().Serialize(subject.CreateExpressionTree(tokens));
             
-            const string expected = "(let . ((add . (x . (y . NIL))) . ((x . 3) . ((y . 5) . NIL))))";
+            const string expected = "(let . ((add . (x . (y . nil))) . ((x . 3) . ((y . 5) . nil))))";
             
             Assert.AreEqual(expected, actual);
         }
@@ -65,10 +68,13 @@ namespace Crisp.Core.Tests
             try
             {
                 subject.CreateExpressionTree(tokens);
+
+                // We should have failed.
                 Assert.Fail("Parser should have detected mismatched brackets.");
             }
             catch (ParsingException ex)
             {
+                // Error position should be reported correctly.
                 Assert.AreEqual(1, ex.Line);
                 Assert.AreEqual(1, ex.Column);
             }
@@ -90,7 +96,7 @@ namespace Crisp.Core.Tests
             var subject = new Parser();
             var actual = new LispSerializer().Serialize(subject.CreateExpressionTree(tokens));
             
-            const string expected = "(NIL . (NIL . NIL))";
+            const string expected = "(nil . (nil . nil))";
             
             Assert.AreEqual(expected, actual);
         }

@@ -12,6 +12,12 @@ namespace Crisp.Core.Tests
         [TestMethod]
         public void TestTokenizerTracksPositionProperly()
         {
+            /**
+             * Description: The tokenizer should track its position in the source code in
+             * order to report on the position of errors. This test ensures that this tracking
+             * is performed properly.
+             */
+
             // Setup tokenizer.
             var subject = new Tokenizer();
             subject.Add(@"[a-z]", TokenType.None);
@@ -49,6 +55,13 @@ namespace Crisp.Core.Tests
         [TestMethod]
         public void TestTokenizerThrowsErrorForUnexpectedCharacters()
         {
+            /**
+             * Description: The parser should throw an error for unexpected characters and
+             * report the position of those characters accurately in the exception thrown.
+             * This test checks that the error is thrown and that the reported position is
+             * accurate.
+             */
+
             var subject = new Tokenizer();
             subject.Add(@"[a-z]", TokenType.None);
 
@@ -72,6 +85,12 @@ namespace Crisp.Core.Tests
         [TestMethod]
         public void TestTokenizerCapturesSequences()
         {
+            /**
+             * Description: The tokenizer should capture the raw character sequences it
+             * encounters in the tokens it generates. This test checks that this happens
+             * accurately.
+             */
+
             var subject = new Tokenizer();
             subject.Add(@"[a-z]+", TokenType.None);
             
