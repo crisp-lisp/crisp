@@ -1,4 +1,6 @@
-﻿namespace Crisp.Core.Tokenizing
+﻿using System.Collections;
+
+namespace Crisp.Core.Tokenizing
 {
     /// <summary>
     /// Provides a static factory for different types of tokenizer.
@@ -18,6 +20,25 @@
             tokenizer.Add(@"[-+]?[0-9]\d*(\.\d+)?", TokenType.Numeric);
             tokenizer.Add(@"\.", TokenType.Dot);
             tokenizer.Add(@"[^\s\(\)\.]+", TokenType.Symbol);
+
+            return tokenizer;
+        }
+
+        public static ITokenizer GetCrispPreprocessorTokenizer()
+        {
+            var tokenizer = new Tokenizer
+            {
+                IgnoreWhitespace = false
+            };
+            tokenizer.Add("^#import\\s+\".+?\"\r?$", TokenType.PreprocessorImportStatement);
+            tokenizer.Add(";;.+?\r?$", TokenType.PreprocessorComment);
+            tokenizer.Add(@"[\(]", TokenType.OpeningParenthesis);
+            tokenizer.Add(@"[\)]", TokenType.ClosingParenthesis);
+            tokenizer.Add("\"[^\"]*\"", TokenType.String);
+            tokenizer.Add(@"[-+]?[0-9]\d*(\.\d+)?", TokenType.Numeric);
+            tokenizer.Add(@"\.", TokenType.Dot);
+            tokenizer.Add(@"[^\s\(\)\.]+", TokenType.Symbol);
+            tokenizer.Add("\\s+", TokenType.PreprocessorWhitespace);
 
             return tokenizer;
         }

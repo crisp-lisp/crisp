@@ -34,7 +34,7 @@ namespace Crisp.Core.Tokenizing
         /// <param name="pattern">The regular expression string that matches a token of this type.</param>
         /// <param name="type">The token type that maps to the template pattern.</param>
         public TokenTemplate(string pattern, TokenType type)
-            : this(new Regex(pattern), type)
+            : this(new Regex(pattern, RegexOptions.Multiline), type)
         {
 
         }

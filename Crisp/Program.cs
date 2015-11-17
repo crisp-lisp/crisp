@@ -12,6 +12,10 @@ namespace Crisp
     {
         static void Main(string[] args)
         {
+            // Pre-process input.
+            var preprocessorTokenizer = TokenizerFactory.GetCrispPreprocessorTokenizer();
+            var preprocessorTokens = preprocessorTokenizer.Tokenize(File.ReadAllText("eval_head.txt"));
+
             // Create tokenizer amd tokenize input.
             var tokenizer = TokenizerFactory.GetCrispTokenizer();
             var tokens = tokenizer.Tokenize(File.ReadAllText("eval_head.txt"));

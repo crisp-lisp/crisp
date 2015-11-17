@@ -39,5 +39,11 @@
         /// A dot notation token.
         /// </summary>
         Dot,
+
+        PreprocessorImportStatement,
+
+        PreprocessorWhitespace,
+
+        PreprocessorComment,
     }
 }

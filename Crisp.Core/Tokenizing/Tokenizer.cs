@@ -12,6 +12,11 @@ namespace Crisp.Core.Tokenizing
         private readonly IList<TokenTemplate> _tokenTemplates;
 
         /// <summary>
+        /// Gets or sets whether or not this tokenizer will disregard whitespace.
+        /// </summary>
+        public bool IgnoreWhitespace { get; set; } = true;
+
+        /// <summary>
         /// Initializes a new instance of a string tokenizer.
         /// </summary>
         public Tokenizer()
@@ -77,7 +82,7 @@ namespace Crisp.Core.Tokenizing
             var tokens = new List<Token>();
 
             // Tokenize input.
-            var remaining = source.Trim();
+            var remaining = IgnoreWhitespace ? source.Trim() : source;
             while (!string.IsNullOrEmpty(remaining))
             {
                 // Try to match each template against start of input.
@@ -91,7 +96,11 @@ namespace Crisp.Core.Tokenizing
                         tokens.Add(new Token(tokenTemplate.Type, match.Value, 
                             GetLinePosition(source, remaining), GetColumnPosition(source, remaining)));
 
-                        remaining = tokenTemplate.Pattern.Replace(remaining, string.Empty, 1).Trim();
+                        remaining = tokenTemplate.Pattern.Replace(remaining, string.Empty, 1);
+                        if (IgnoreWhitespace)
+                        {
+                            remaining = remaining.Trim();
+                        }
                         matches = true;
                         break;
                     }
@@ -102,7 +111,8 @@ namespace Crisp.Core.Tokenizing
                 {
                     var line = GetLinePosition(source, remaining);
                     var column = GetColumnPosition(source, remaining);
-                    throw new TokenizationException($"Unexpected character at line {line} column {column}.", line, column);
+                    var character = remaining.First();
+                    throw new TokenizationException($"Unexpected character '{character}' at line {line} column {column}.", line, column);
                 }
             }
 
