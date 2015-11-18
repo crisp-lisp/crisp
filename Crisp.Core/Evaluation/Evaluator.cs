@@ -11,8 +11,6 @@ namespace Crisp.Core.Evaluation
     /// </summary>
     public class Evaluator : IEvaluator
     {
-        #region Binding
-        
         /// <summary>
         /// A list of bindings between symbols and expressions.
         /// </summary>
@@ -69,8 +67,6 @@ namespace Crisp.Core.Evaluation
             return _bindings.Any(b => b.Symbol.Matches(symbol));
         }
 
-        #endregion
-
         /// <summary>
         /// Gets whether or not a type qualifies as a special form type for loading.
         /// </summary>
@@ -103,7 +99,7 @@ namespace Crisp.Core.Evaluation
                 }
             }
         }
-        
+
         public SymbolicExpression Evaluate(SymbolicExpression expression)
         {
             switch (expression.Type)

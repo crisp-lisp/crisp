@@ -49,6 +49,8 @@
     <Compile Include="Parsing\Parser.cs" />
     <Compile Include="Parsing\ParsingException.cs" />
     <Compile Include="Parsing\TokenStream.cs" />
+    <Compile Include="Preprocessing\PreprocessingException.cs" />
+    <Compile Include="Preprocessing\Preprocessor.cs" />
     <Compile Include="RuntimeException.cs" />
     <Compile Include="SpecialForm.cs" />
     <Compile Include="SymbolicExpressionExtensions.cs" />
@@ -64,6 +66,7 @@
     <Compile Include="Tokenizing\Token.cs" />
     <Compile Include="Tokenizing\TokenizationException.cs" />
     <Compile Include="Tokenizing\Tokenizer.cs" />
+    <Compile Include="Tokenizing\TokenizerExtensions.cs" />
     <Compile Include="Tokenizing\TokenizerFactory.cs" />
     <Compile Include="Tokenizing\TokenTemplate.cs" />
     <Compile Include="Tokenizing\TokenType.cs" />

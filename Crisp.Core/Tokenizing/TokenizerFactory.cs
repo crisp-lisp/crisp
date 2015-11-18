@@ -13,19 +13,6 @@ namespace Crisp.Core.Tokenizing
         /// <returns></returns>
         public static ITokenizer GetCrispTokenizer()
         {
-            var tokenizer = new Tokenizer();
-            tokenizer.Add(@"[\(]", TokenType.OpeningParenthesis);
-            tokenizer.Add(@"[\)]", TokenType.ClosingParenthesis);
-            tokenizer.Add("\"[^\"]*\"", TokenType.String);
-            tokenizer.Add(@"[-+]?[0-9]\d*(\.\d+)?", TokenType.Numeric);
-            tokenizer.Add(@"\.", TokenType.Dot);
-            tokenizer.Add(@"[^\s\(\)\.]+", TokenType.Symbol);
-
-            return tokenizer;
-        }
-
-        public static ITokenizer GetCrispPreprocessorTokenizer()
-        {
             var tokenizer = new Tokenizer
             {
                 IgnoreWhitespace = false
