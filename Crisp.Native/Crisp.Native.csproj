@@ -54,6 +54,7 @@
     <Compile Include="LetSpecialForm.cs" />
     <Compile Include="MulSpecialForm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ListSpecialForm.cs" />
     <Compile Include="QuoteSpecialForm.cs" />
     <Compile Include="RemSpecialForm.cs" />
     <Compile Include="SpecialFormExtensions.cs" />
