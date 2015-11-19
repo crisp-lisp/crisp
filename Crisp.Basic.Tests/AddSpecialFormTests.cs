@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Ploeh.AutoFixture;
 
-namespace Crisp.Native.Tests
+namespace Crisp.Basic.Tests
 {
     [TestClass]
     public class AddSpecialFormTests

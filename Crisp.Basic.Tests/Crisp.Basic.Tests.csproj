@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9502D296-2BB2-49CD-8608-264D752B7D43}</ProjectGuid>
+    <ProjectGuid>{75BFF235-9C98-4934-BAF8-97D3DE0734E3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Crisp.Native.Tests</RootNamespace>
-    <AssemblyName>Crisp.Native.Tests</AssemblyName>
+    <RootNamespace>Crisp.Basic.Tests</RootNamespace>
+    <AssemblyName>Crisp.Basic.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -39,8 +39,8 @@
       <HintPath>..\packages\Moq.4.2.1510.2205\lib\net40\Moq.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Ploeh.AutoFixture, Version=3.36.9.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoFixture.3.36.9\lib\net40\Ploeh.AutoFixture.dll</HintPath>
+    <Reference Include="Ploeh.AutoFixture, Version=3.36.11.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoFixture.3.36.11\lib\net40\Ploeh.AutoFixture.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -59,21 +59,17 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AddSpecialFormTests.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpecialFormTestExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Crisp.Basic\Crisp.Basic.csproj">
+      <Project>{cf6dc28d-8a9f-468b-b3d3-1f04c7692975}</Project>
+      <Name>Crisp.Basic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Crisp.Core\Crisp.Core.csproj">
       <Project>{6ab9a6ec-742d-4b88-9a22-58e3c98da464}</Project>
       <Name>Crisp.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Crisp.Native\Crisp.Native.csproj">
-      <Project>{96a1a7f6-575f-4922-99ea-166135da886b}</Project>
-      <Name>Crisp.Native</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Crisp.Visualization\Crisp.Visualization.csproj">
-      <Project>{ee206d73-5474-4b04-924e-b85da171bbcd}</Project>
-      <Name>Crisp.Visualization</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

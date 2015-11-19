@@ -1,16 +1,16 @@
 ﻿using System.Linq;
-using System.Runtime.Remoting.Contexts;
+
 using Crisp.Core;
 using Crisp.Core.Evaluation;
 
-namespace Crisp.Native
+namespace Crisp.Basic
 {
     /// <summary>
-    /// Represents the basic addition function.
+    /// Represents the basic remainder function.
     /// </summary>
-    public class AddSpecialForm : SpecialForm
+    public class RemSpecialForm : SpecialForm
     {
-        public override string Name => "add";
+        public override string Name => "rem";
 
         public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
         {
@@ -27,7 +27,7 @@ namespace Crisp.Native
                     $"The arguments to the function '{Name}' must all evaluate to the numeric type.");
             }
 
-            return new NumericAtom(evaluated[0].AsNumeric().Value + evaluated[1].AsNumeric().Value);
+            return new NumericAtom(evaluated[0].AsNumeric().Value % evaluated[1].AsNumeric().Value);
         }
     }
 }

@@ -2,7 +2,7 @@
 
 using Crisp.Core;
 
-namespace Crisp.Native
+namespace Crisp.Basic
 {
     internal static class SpecialFormExtensions
     {

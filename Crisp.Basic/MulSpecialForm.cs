@@ -3,14 +3,14 @@
 using Crisp.Core;
 using Crisp.Core.Evaluation;
 
-namespace Crisp.Native
+namespace Crisp.Basic
 {
     /// <summary>
-    /// Represents the basic remainder function.
+    /// Represents the basic multiplication function.
     /// </summary>
-    public class RemSpecialForm : SpecialForm
+    public class MulSpecialForm : SpecialForm
     {
-        public override string Name => "rem";
+        public override string Name => "mul";
 
         public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
         {
@@ -27,7 +27,7 @@ namespace Crisp.Native
                     $"The arguments to the function '{Name}' must all evaluate to the numeric type.");
             }
 
-            return new NumericAtom(evaluated[0].AsNumeric().Value % evaluated[1].AsNumeric().Value);
+            return new NumericAtom(evaluated[0].AsNumeric().Value * evaluated[1].AsNumeric().Value);
         }
     }
 }

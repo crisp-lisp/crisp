@@ -1,10 +1,8 @@
 ﻿using System;
-using System.IO;
 
 using Crisp.Core.Evaluation;
 using Crisp.Core.Parsing;
 using Crisp.Core.Preprocessing;
-using Crisp.Core.Tokenizing;
 using Crisp.Visualization;
 
 namespace Crisp
@@ -15,7 +13,7 @@ namespace Crisp
         {
             // Pre-process input. The pre-processor does the tokenizing.
             var preprocessor = new Preprocessor();
-            var tokens = preprocessor.Process("import.txt");
+            var tokens = preprocessor.Process("reverse.txt");
 
             // Create expression tree.
             var parser = new Parser();

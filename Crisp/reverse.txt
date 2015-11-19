@@ -1,5 +1,5 @@
 ﻿(letrec 
-	(reverse (cons 1 (cons 2 (cons 3 nil))))
+	(reverse (list 1 2 3))
 	(reverse . (lambda (l)
 		(if (eq l nil) nil
 			(append (reverse (cdr l))

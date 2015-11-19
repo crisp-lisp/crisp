@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Crisp.Core;
 
-namespace Crisp.Native.Tests
+namespace Crisp.Basic.Tests
 {
     internal static class SpecialFormTestExtensions
     {

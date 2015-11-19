@@ -1,14 +1,14 @@
 ﻿using Crisp.Core;
 using Crisp.Core.Evaluation;
 
-namespace Crisp.Native
+namespace Crisp.Basic
 {
     /// <summary>
-    /// Represents the basic less then or equal to test function.
+    /// Represents the basic equality test function.
     /// </summary>
-    public class LeqSpecialForm : SpecialForm
+    public class EqSpecialForm : SpecialForm
     {
-        public override string Name => "leq";
+        public override string Name => "eq";
 
         public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
         {
@@ -36,7 +36,7 @@ namespace Crisp.Native
                 case SymbolicExpressionType.Constant:
                     return x.AsConstant().Name == y.AsConstant().Name ? t : f;
                 case SymbolicExpressionType.Numeric:
-                    return x.AsNumeric().Value <= y.AsNumeric().Value ? t : f; // Less than only relevant for numeric atoms.
+                    return x.AsNumeric().Value == y.AsNumeric().Value ? t : f;
                 case SymbolicExpressionType.String:
                     return x.AsString().Value == y.AsString().Value ? t : f;
                 default:

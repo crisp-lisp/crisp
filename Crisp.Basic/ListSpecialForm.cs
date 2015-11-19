@@ -1,7 +1,7 @@
 ﻿using Crisp.Core;
 using Crisp.Core.Evaluation;
 
-namespace Crisp.Native
+namespace Crisp.Basic
 {
     /// <summary>
     /// Represents the basic list function.

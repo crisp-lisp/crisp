@@ -1,14 +1,14 @@
 ﻿using Crisp.Core;
 using Crisp.Core.Evaluation;
 
-namespace Crisp.Native
+namespace Crisp.Basic
 {
     /// <summary>
-    /// Represents the basic atomic test function.
+    /// Represents the basic function to retrieve the head of a pair.
     /// </summary>
-    public class AtomSpecialForm : SpecialForm
+    public class CarSpecialForm : SpecialForm
     {
-        public override string Name => "atom";
+        public override string Name => "car";
 
         public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
         {
@@ -17,10 +17,14 @@ namespace Crisp.Native
             var arguments = expression.AsPair().Expand();
             arguments.ThrowIfWrongLength(Name, 1); // Must have one argument.
 
+            // Result of evaluation of argument must be a pair.
             var evaluated = evaluator.Evaluate(arguments[0]);
+            if (evaluated.Type != SymbolicExpressionType.Pair)
+            {
+                throw new RuntimeException($"The argument to the function {Name} must be a pair.");
+            }
 
-            return evaluated.IsAtomic ? evaluator.Evaluate(SymbolAtom.True) 
-                : evaluator.Evaluate(SymbolAtom.False);
+            return evaluated.AsPair().Head;
         }
     }
 }
