@@ -13,16 +13,9 @@ namespace Crisp
     {
         static void Main(string[] args)
         {
-            // Pre-process file to get dependencies.
+            // Pre-process input. The pre-processor does the tokenizing.
             var preprocessor = new Preprocessor();
-            preprocessor.Process("import.txt");
-
-            // Create tokenizer amd tokenize input.
-            var tokenizer = TokenizerFactory.GetCrispTokenizer();
-            var tokens = tokenizer.Tokenize(File.ReadAllText("import.txt"))
-                .RemoveTokens(TokenType.PreprocessorComment, 
-                TokenType.PreprocessorImportStatement, 
-                TokenType.PreprocessorWhitespace); // Remove preprocessor stuff.
+            var tokens = preprocessor.Process("import.txt");
 
             // Create expression tree.
             var parser = new Parser();

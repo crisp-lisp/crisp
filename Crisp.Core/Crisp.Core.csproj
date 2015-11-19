@@ -49,6 +49,7 @@
     <Compile Include="Parsing\Parser.cs" />
     <Compile Include="Parsing\ParsingException.cs" />
     <Compile Include="Parsing\TokenStream.cs" />
+    <Compile Include="Preprocessing\IPreprocessor.cs" />
     <Compile Include="Preprocessing\PreprocessingException.cs" />
     <Compile Include="Preprocessing\Preprocessor.cs" />
     <Compile Include="RuntimeException.cs" />
