@@ -13,7 +13,7 @@ namespace Crisp
         {
             // Pre-process input. The pre-processor does the tokenizing.
             var preprocessor = new Preprocessor();
-            var tokens = preprocessor.Process("reverse.txt");
+            var tokens = preprocessor.Process("test.txt");
 
             // Create expression tree.
             var parser = new Parser();

@@ -12,10 +12,16 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crisp.Core.Tests", "Crisp.Core.Tests\Crisp.Core.Tests.csproj", "{D7CE2CFB-4153-4F13-A91C-41FA84E4F2B2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crisp.Basic", "Crisp.Basic\Crisp.Basic.csproj", "{CF6DC28D-8A9F-468B-B3D3-1F04C7692975}"
+	ProjectSection(ProjectDependencies) = postProject
+		{809929B5-0646-4120-B0D9-A69EB59354D5} = {809929B5-0646-4120-B0D9-A69EB59354D5}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crisp.Basic.Tests", "Crisp.Basic.Tests\Crisp.Basic.Tests.csproj", "{75BFF235-9C98-4934-BAF8-97D3DE0734E3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crisp.String", "Crisp.String\Crisp.String.csproj", "{F494C7EC-8963-4746-88CA-B1EB1E18DEE6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{809929B5-0646-4120-B0D9-A69EB59354D5} = {809929B5-0646-4120-B0D9-A69EB59354D5}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
