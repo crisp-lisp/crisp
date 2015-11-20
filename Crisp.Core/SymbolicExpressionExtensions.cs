@@ -113,5 +113,27 @@ namespace Crisp.Core
 
             return list;
         }
+
+        /// <summary>
+        /// Converts a list of symbolic expressions to a proper list formed from pairs.
+        /// </summary>
+        /// <param name="members">The members of the list.</param>
+        /// <param name="index">The index to begin processing the list at.</param>
+        /// <returns></returns>
+        private static SymbolicExpression ToProperList(IList<SymbolicExpression> members, int index)
+        {
+            return new Pair(members[index],
+                index == members.Count - 1 ? SymbolAtom.Nil : ToProperList(members, index + 1));
+        }
+
+        /// <summary>
+        /// Converts a list of symbolic expressions to a proper list formed from pairs.
+        /// </summary>
+        /// <param name="members">The members of the list.</param>
+        /// <returns></returns>
+        public static SymbolicExpression ToProperList(this IList<SymbolicExpression> members)
+        {
+            return ToProperList(members, 0);
+        }
     }
 }

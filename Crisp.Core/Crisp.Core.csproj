@@ -54,6 +54,7 @@
     <Compile Include="Preprocessing\Preprocessor.cs" />
     <Compile Include="RuntimeException.cs" />
     <Compile Include="SpecialForm.cs" />
+    <Compile Include="SpecialFormExtensions.cs" />
     <Compile Include="SymbolicExpressionExtensions.cs" />
     <Compile Include="SymbolicExpressionType.cs" />
     <Compile Include="StringAtom.cs" />

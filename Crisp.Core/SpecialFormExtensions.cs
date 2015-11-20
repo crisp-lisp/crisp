@@ -2,9 +2,9 @@
 
 using Crisp.Core;
 
-namespace Crisp.Basic
+namespace Crisp.Core
 {
-    internal static class SpecialFormExtensions
+    public static class SpecialFormExtensions
     {
         public static void ThrowIfNotList(this SymbolicExpression expression, string functionName)
         {

@@ -59,7 +59,6 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AddSpecialFormTests.cs" />
-    <Compile Include="SpecialFormTestExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
