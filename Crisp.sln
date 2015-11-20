@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crisp.Basic", "Crisp.Basic\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crisp.Basic.Tests", "Crisp.Basic.Tests\Crisp.Basic.Tests.csproj", "{75BFF235-9C98-4934-BAF8-97D3DE0734E3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crisp.String", "Crisp.String\Crisp.String.csproj", "{F494C7EC-8963-4746-88CA-B1EB1E18DEE6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{75BFF235-9C98-4934-BAF8-97D3DE0734E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75BFF235-9C98-4934-BAF8-97D3DE0734E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75BFF235-9C98-4934-BAF8-97D3DE0734E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F494C7EC-8963-4746-88CA-B1EB1E18DEE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F494C7EC-8963-4746-88CA-B1EB1E18DEE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F494C7EC-8963-4746-88CA-B1EB1E18DEE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F494C7EC-8963-4746-88CA-B1EB1E18DEE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
