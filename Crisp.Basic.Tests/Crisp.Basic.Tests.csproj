@@ -58,6 +58,11 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AtomSpecialFormTests.cs" />
+    <Compile Include="RemSpecialFormTests.cs" />
+    <Compile Include="MulSpecialFormTests.cs" />
+    <Compile Include="DivSpecialFormTests.cs" />
+    <Compile Include="SubSpecialFormTests.cs" />
     <Compile Include="AddSpecialFormTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

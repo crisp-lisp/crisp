@@ -18,7 +18,7 @@ namespace Crisp.Core.Tests
 
             // Tokenize input.
             const string sample = "a b c d e";
-            var actual = TokenizerFactory.GetCrispTokenizer().Tokenize(sample);
+            var actual = TokenizerFactory.GetCrispTokenizer(true).Tokenize(sample);
 
             // Expected sequences.
             var expected = new[] {"a", "b", "c", "d", "e"};
@@ -69,7 +69,7 @@ namespace Crisp.Core.Tests
              */
 
             const string sample = "(1 (2 3)) (4 5)";
-            var tokens = TokenizerFactory.GetCrispTokenizer().Tokenize(sample);
+            var tokens = TokenizerFactory.GetCrispTokenizer(true).Tokenize(sample);
 
             var expected = new[] { "(", "1", "(", "2", "3", ")", ")" };
             
@@ -94,7 +94,7 @@ namespace Crisp.Core.Tests
              */
 
             const string sample = "(1 (2 3) 4 5)";
-            var tokens = TokenizerFactory.GetCrispTokenizer().Tokenize(sample);
+            var tokens = TokenizerFactory.GetCrispTokenizer(true).Tokenize(sample);
 
             var expected = new[] {"(", "1", "(", "2", "3", ")", "4", "5", ")"};
             

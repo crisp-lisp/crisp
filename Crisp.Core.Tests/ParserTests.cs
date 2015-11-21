@@ -18,7 +18,7 @@ namespace Crisp.Core.Tests
              */
 
             // Setup tokenizer and tokenize input.
-            var tokenizer = TokenizerFactory.GetCrispTokenizer();
+            var tokenizer = TokenizerFactory.GetCrispTokenizer(true);
             const string sample = "(add 1 2 3 4.5 5)";
             var tokens = tokenizer.Tokenize(sample);
             
@@ -40,7 +40,7 @@ namespace Crisp.Core.Tests
              * checks that dot notation is supported as required.
              */
 
-            var tokenizer = TokenizerFactory.GetCrispTokenizer();
+            var tokenizer = TokenizerFactory.GetCrispTokenizer(true);
             const string sample = "(let (add x y) (x . 3) (y . 5))";
             var tokens = tokenizer.Tokenize(sample);
             
@@ -60,7 +60,7 @@ namespace Crisp.Core.Tests
              * reasons. This test checks that a failure takes place as expected.
              */
 
-            var tokenizer = TokenizerFactory.GetCrispTokenizer();
+            var tokenizer = TokenizerFactory.GetCrispTokenizer(true);
             const string sample = "((add 1 2)";
             var tokens = tokenizer.Tokenize(sample);
             
@@ -89,7 +89,7 @@ namespace Crisp.Core.Tests
              * place.
              */
 
-            var tokenizer = TokenizerFactory.GetCrispTokenizer();
+            var tokenizer = TokenizerFactory.GetCrispTokenizer(true);
             const string sample = "(() ())";
             var tokens = tokenizer.Tokenize(sample);
             
@@ -109,7 +109,7 @@ namespace Crisp.Core.Tests
              * fail. This test checks for that failure.
              */
 
-            var tokenizer = TokenizerFactory.GetCrispTokenizer();
+            var tokenizer = TokenizerFactory.GetCrispTokenizer(true);
             const string sample = "(. 1)";
             var tokens = tokenizer.Tokenize(sample);
             
@@ -134,7 +134,7 @@ namespace Crisp.Core.Tests
              * elements, it should fail. This test checks for that failure.
              */ 
 
-            var tokenizer = TokenizerFactory.GetCrispTokenizer();
+            var tokenizer = TokenizerFactory.GetCrispTokenizer(true);
             const string sample = "(1 . 2 . 3)";
             var tokens = tokenizer.Tokenize(sample);
 
@@ -160,7 +160,7 @@ namespace Crisp.Core.Tests
              * test checks for that failure.
              */
 
-            var tokenizer = TokenizerFactory.GetCrispTokenizer();
+            var tokenizer = TokenizerFactory.GetCrispTokenizer(true);
             const string sample = "a b c";
             var tokens = tokenizer.Tokenize(sample);
 
@@ -185,7 +185,7 @@ namespace Crisp.Core.Tests
              * to form an improper list. This unit test ensures that the parser doesn't choke.
              */
 
-            var tokenizer = TokenizerFactory.GetCrispTokenizer();
+            var tokenizer = TokenizerFactory.GetCrispTokenizer(true);
             const string sample = "(1 2 . 3)";
             var tokens = tokenizer.Tokenize(sample);
 

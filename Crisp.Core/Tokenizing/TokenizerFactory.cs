@@ -10,12 +10,13 @@ namespace Crisp.Core.Tokenizing
         /// <summary>
         /// Gets a tokenizer configured to tokenize Crisp source files.
         /// </summary>
+        /// <param name="ignoreWhitespace">Whether or not to include whitespace tokens in the output.</param>
         /// <returns></returns>
-        public static ITokenizer GetCrispTokenizer()
+        public static ITokenizer GetCrispTokenizer(bool ignoreWhitespace = false)
         {
             var tokenizer = new Tokenizer
             {
-                IgnoreWhitespace = false
+                IgnoreWhitespace = ignoreWhitespace
             };
             tokenizer.Add("^#import\\s+\".+?\"\r?$", TokenType.PreprocessorImportStatement);
             tokenizer.Add(";;.+?\r?$", TokenType.PreprocessorComment);
