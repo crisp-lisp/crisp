@@ -46,7 +46,7 @@ namespace Crisp.Basic.Tests
             var args = new List<SymbolicExpression> { x, y }.ToProperList();
             var ans = function.Apply(args, _mockEvaluator);
             
-            // We should have a the correct numeric atom as a result.
+            // We should have the correct numeric atom as a result.
             Assert.AreEqual(ans.Type, SymbolicExpressionType.Numeric);
             Assert.AreEqual(x.Value - y.Value, ans.AsNumeric().Value);
         }

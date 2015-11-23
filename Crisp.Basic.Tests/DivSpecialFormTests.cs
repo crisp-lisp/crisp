@@ -33,7 +33,7 @@ namespace Crisp.Basic.Tests
         {
             /**
              * Description: The div special form should return a numeric atom that contains
-             * the sum of two given numeric atoms as its value. This test ensures that this is
+             * the quotient of two given numeric atoms as its value. This test ensures that this is
              * the case.
              */
 
@@ -46,7 +46,7 @@ namespace Crisp.Basic.Tests
             var args = new List<SymbolicExpression> { x, y }.ToProperList();
             var ans = function.Apply(args, _mockEvaluator);
             
-            // We should have a the correct numeric atom as a result.
+            // We should have the correct numeric atom as a result.
             Assert.AreEqual(ans.Type, SymbolicExpressionType.Numeric);
             Assert.AreEqual(x.Value / y.Value, ans.AsNumeric().Value);
         }
