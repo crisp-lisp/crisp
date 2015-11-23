@@ -45,7 +45,7 @@ namespace Crisp.Basic.Tests
             var args = new List<SymbolicExpression> { head, tail }.ToProperList();
             var ans = function.Apply(args, _mockEvaluator).AsPair();
             
-            // We should have the tail of the pair as a result.
+            // We should have a pair containing the head and the tail as a result.
             Assert.AreEqual(head, ans.Head);
             Assert.AreEqual(tail, ans.Tail);
         }
