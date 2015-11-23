@@ -58,6 +58,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="CarSpecialFormTests.cs" />
     <Compile Include="AtomSpecialFormTests.cs" />
     <Compile Include="RemSpecialFormTests.cs" />
     <Compile Include="MulSpecialFormTests.cs" />
