@@ -1,9 +1,10 @@
-﻿(letrec 
-	(reverse (list 1 2 3))
-	(reverse . (lambda (l)
-		(if (eq l nil) nil
-			(append (reverse (cdr l))
-				(cons (car l) nil)))))
-	(append . (lambda (a b)
-		(if (eq a nil) b
-			(cons (car a) (append (cdr a) b))))))
+﻿(lambda (lst)
+	(letrec 
+		(reverse lst)
+		(reverse . (lambda (l)
+			(if (eq l nil) nil
+				(append (reverse (cdr l))
+					(cons (car l) nil)))))
+		(append . (lambda (a b)
+			(if (eq a nil) b
+				(cons (car a) (append (cdr a) b)))))))

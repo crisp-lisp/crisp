@@ -15,7 +15,7 @@ namespace Crisp.Visualization
         public string Serialize(SymbolicExpression expression)
         {
             if (expression == null)
-                return SymbolAtom.Nil.Name;
+                return SymbolAtom.Nil.Value;
 
             // Base case with atoms.
             if (expression.IsAtomic)
@@ -26,9 +26,9 @@ namespace Crisp.Visualization
                     case SymbolicExpressionType.String:
                         return "\"" + expression.AsString().Value + "\"";
                     case SymbolicExpressionType.Symbol:
-                        return expression.AsSymbol().Name;
+                        return expression.AsSymbol().Value;
                     case SymbolicExpressionType.Constant:
-                        return expression.AsConstant().Name;
+                        return expression.AsConstant().Value;
                 }
 
             // Recurse into nodes.

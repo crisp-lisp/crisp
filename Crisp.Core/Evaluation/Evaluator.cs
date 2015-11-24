@@ -54,7 +54,7 @@ namespace Crisp.Core.Evaluation
         {
             if (!IsBound(symbol))
             {
-                throw new RuntimeException($"Use of name {symbol.Name} which is unbound or outside its scope.");
+                throw new RuntimeException($"Use of name {symbol.Value} which is unbound or outside its scope.");
             }
             return _bindings.Last(b => b.Symbol.Matches(symbol));
         }
@@ -145,9 +145,9 @@ namespace Crisp.Core.Evaluation
 
             // Initialize evaluator with special symbols.
             _bindings = new List<Binding>();
-            MutableBind(SymbolAtom.Nil, new ConstantAtom(SymbolAtom.Nil));
-            MutableBind(SymbolAtom.True, new ConstantAtom(SymbolAtom.True));
-            MutableBind(SymbolAtom.False, new ConstantAtom(SymbolAtom.False));
+            MutableBind(SymbolAtom.Nil, new ConstantAtom(SymbolAtom.Nil.Value));
+            MutableBind(SymbolAtom.True, new ConstantAtom(SymbolAtom.True.Value));
+            MutableBind(SymbolAtom.False, new ConstantAtom(SymbolAtom.False.Value));
 
             // Load special forms from directory.
             LoadSpecialForms(directory);

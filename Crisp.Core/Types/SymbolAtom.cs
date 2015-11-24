@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents an atomic symbolic expression.
     /// </summary>
-    public class SymbolAtom : SymbolicExpression
+    public sealed class SymbolAtom : Atom<string>
     {
         /// <summary>
         /// The nil special symbol.
@@ -19,15 +19,10 @@
         /// The false boolean special symbol.
         /// </summary>
         public static readonly SymbolAtom False = new SymbolAtom("f");
-
-        public override bool IsAtomic => true;
-
+        
         public override SymbolicExpressionType Type => SymbolicExpressionType.Symbol;
-
-        /// <summary>
-        /// Gets the name of the symbol.
-        /// </summary>
-        public string Name { get; }
+        
+        public override string Value { get; protected set; }
 
         /// <summary>
         /// Gets whether or not another symbol atom matches the name of this one.
@@ -36,7 +31,7 @@
         /// <returns></returns>
         public bool Matches(SymbolAtom other)
         {
-            return Name == other.Name;
+            return Value == other.Value;
         }
 
         /// <summary>
@@ -45,7 +40,7 @@
         /// <param name="name">The name of the symbol.</param>
         public SymbolAtom(string name)
         {
-            Name = name;
+            Value = name;
         }
     }
 }

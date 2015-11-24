@@ -3,33 +3,19 @@
     /// <summary>
     /// Represents an atomic constant expression.
     /// </summary>
-    public class ConstantAtom : SymbolicExpression
+    public sealed class ConstantAtom : Atom<string>
     {
-        public override bool IsAtomic => true;
-
         public override SymbolicExpressionType Type => SymbolicExpressionType.Constant;
-
-        /// <summary>
-        /// Gets the name of the constant.
-        /// </summary>
-        public string Name { get; private set; }
+        
+        public override string Value { get; protected set; }
 
         /// <summary>
         /// Initializes a new instance of an atomic constant expression.
         /// </summary>
-        /// <param name="name">The name of the constant.</param>
-        public ConstantAtom(string name)
+        /// <param name="value">The Value of the constant.</param>
+        public ConstantAtom(string value)
         {
-            Name = name;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of an atomic constant expression.
-        /// </summary>
-        /// <param name="symbol">The symbol to convert to a constant.</param>
-        public ConstantAtom(SymbolAtom symbol)
-        {
-            Name = symbol.Name;
+            Value = value;
         }
     }
 }

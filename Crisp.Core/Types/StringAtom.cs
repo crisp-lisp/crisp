@@ -3,16 +3,11 @@
     /// <summary>
     /// Represents an atomic string expression.
     /// </summary>
-    public class StringAtom : SymbolicExpression
+    public sealed class StringAtom : Atom<string>
     {
-        public override bool IsAtomic => true;
-
         public override SymbolicExpressionType Type => SymbolicExpressionType.String;
-
-        /// <summary>
-        /// Gets the value of the expression.
-        /// </summary>
-        public string Value { get; private set; }
+        
+        public override string Value { get; protected set; }
 
         /// <summary>
         /// Initializes a new instance of a string atomic expression.

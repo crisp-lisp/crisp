@@ -46,8 +46,8 @@ namespace Crisp.Basic.Tests
             var nonAtomic = new List<SymbolicExpression> {_fixture.Create<Pair>()}.ToProperList();
 
             // We should get "t" for atomic and "f" otherwise.
-            Assert.AreEqual(function.Apply(atomic, _mockEvaluator).AsSymbol().Name, "t");
-            Assert.AreEqual(function.Apply(nonAtomic, _mockEvaluator).AsSymbol().Name, "f");
+            Assert.AreEqual(function.Apply(atomic, _mockEvaluator).AsSymbol().Value, "t");
+            Assert.AreEqual(function.Apply(nonAtomic, _mockEvaluator).AsSymbol().Value, "f");
         }
 
         [TestMethod]

@@ -3,16 +3,11 @@
     /// <summary>
     /// Represents an atomic numeric expression.
     /// </summary>
-    public class NumericAtom : SymbolicExpression
+    public sealed class NumericAtom : Atom<double>
     {
-        public override bool IsAtomic => true;
-
         public override SymbolicExpressionType Type => SymbolicExpressionType.Numeric;
-
-        /// <summary>
-        /// Gets the value of the expression.
-        /// </summary>
-        public double Value { get; private set; }
+        
+        public override double Value { get; protected set; }
 
         /// <summary>
         /// Initializes a new instance of a numeric atomic expression.

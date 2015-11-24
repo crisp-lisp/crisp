@@ -21,7 +21,7 @@ namespace Crisp.Basic
             switch (expression.Type)
             {
                 case SymbolicExpressionType.Symbol:
-                    return new ConstantAtom(expression.AsSymbol().Name); // Symbols to constants to avoid evaluation.
+                    return new ConstantAtom(expression.AsSymbol().Value); // Symbols to constants to avoid evaluation.
                 case SymbolicExpressionType.Pair:
                     var pair = expression.AsPair();
                     return new Pair(Quote(pair.Head), Quote(pair.Tail));
