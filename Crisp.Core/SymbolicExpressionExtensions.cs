@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+
 using Crisp.Core.Types;
 
 namespace Crisp.Core

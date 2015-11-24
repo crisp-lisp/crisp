@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-namespace Crisp.Core.Tokenizing
+﻿namespace Crisp.Core.Tokenizing
 {
     /// <summary>
     /// Provides a static factory for different types of tokenizer.
