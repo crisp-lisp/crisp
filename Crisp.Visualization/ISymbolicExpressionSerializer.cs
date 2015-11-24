@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Crisp.Core;
+using Crisp.Core.Types;
 
 namespace Crisp.Visualization
 {

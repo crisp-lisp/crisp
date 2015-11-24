@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-
 using Crisp.Core.Evaluation;
 
-namespace Crisp.Core
+namespace Crisp.Core.Types
 {
     /// <summary>
     /// Represents a lambda expression that will always be applied using a specific evaluator.

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 
 using Crisp.Core;
+using Crisp.Core.Types;
 
 namespace Crisp.Core
 {

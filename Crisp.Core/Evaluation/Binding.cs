@@ -1,6 +1,6 @@
-﻿using Crisp.Core.Evaluation;
+﻿using Crisp.Core.Types;
 
-namespace Crisp.Core
+namespace Crisp.Core.Evaluation
 {
     /// <summary>
     /// Represents a binding between a symbol and an expression.

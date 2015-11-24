@@ -1,4 +1,4 @@
-﻿namespace Crisp.Core
+﻿namespace Crisp.Core.Types
 {
     /// <summary>
     /// Represents a pair-type expression that contains a head and a tail.

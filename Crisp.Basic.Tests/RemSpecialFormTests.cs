@@ -2,7 +2,7 @@
 
 using Crisp.Core;
 using Crisp.Core.Evaluation;
-
+using Crisp.Core.Types;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Moq;

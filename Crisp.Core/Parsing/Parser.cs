@@ -2,6 +2,7 @@
 using System.Linq;
 
 using Crisp.Core.Tokenizing;
+using Crisp.Core.Types;
 
 namespace Crisp.Core.Parsing
 {

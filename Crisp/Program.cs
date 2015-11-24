@@ -7,6 +7,7 @@ using Crisp.Core.Evaluation;
 using Crisp.Core.Parsing;
 using Crisp.Core.Preprocessing;
 using Crisp.Core.Tokenizing;
+using Crisp.Core.Types;
 using Crisp.Visualization;
 
 namespace Crisp

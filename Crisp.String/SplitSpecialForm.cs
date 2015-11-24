@@ -3,6 +3,7 @@ using System.Linq;
 
 using Crisp.Core;
 using Crisp.Core.Evaluation;
+using Crisp.Core.Types;
 
 namespace Crisp.String
 {

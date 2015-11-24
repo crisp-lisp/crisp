@@ -1,4 +1,4 @@
-﻿namespace Crisp.Core
+﻿namespace Crisp.Core.Types
 {
     /// <summary>
     /// Represents a symbolic expression in an expression tree.

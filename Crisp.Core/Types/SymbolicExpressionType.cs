@@ -1,4 +1,4 @@
-﻿namespace Crisp.Core
+﻿namespace Crisp.Core.Types
 {
     /// <summary>
     /// An enumeration of different expression data types.

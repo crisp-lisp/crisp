@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using Crisp.Core.Evaluation;
 using Crisp.Core.Parsing;
 using Crisp.Core.Tokenizing;
+using Crisp.Core.Types;
 
 namespace Crisp.Core.Preprocessing
 {

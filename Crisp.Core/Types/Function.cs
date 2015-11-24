@@ -1,6 +1,6 @@
 ﻿using Crisp.Core.Evaluation;
 
-namespace Crisp.Core
+namespace Crisp.Core.Types
 {
     /// <summary>
     /// Represents a function that can be applied to an expression.
