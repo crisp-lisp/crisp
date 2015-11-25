@@ -62,6 +62,7 @@
     <Compile Include="Tokenizing\TokenTemplate.cs" />
     <Compile Include="Tokenizing\TokenType.cs" />
     <Compile Include="Types\Atom.cs" />
+    <Compile Include="Types\BooleanAtom.cs" />
     <Compile Include="Types\Closure.cs" />
     <Compile Include="Types\ConstantAtom.cs" />
     <Compile Include="Types\Function.cs" />
