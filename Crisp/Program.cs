@@ -58,7 +58,7 @@ namespace Crisp
 
             // Create evaluator.
             var evaluator = new Evaluator("native");
-            preprocessor.BindExpressions(evaluator); // Load imported bindings from preprocessor.
+            preprocessor.BindExpressions(evaluator); // Load required bindings from preprocessor.
 
             // Evaluate program, which should give a function.
             var result = evaluator.Evaluate(parsed);

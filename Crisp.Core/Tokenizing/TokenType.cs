@@ -12,7 +12,7 @@
         Numeric,
         String,
         Dot,
-        ImportStatement,
+        RequireStatement,
         Whitespace,
         Comment,
         BooleanTrue,

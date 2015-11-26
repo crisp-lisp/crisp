@@ -17,28 +17,28 @@ namespace Crisp.Core.Preprocessing
     public class Preprocessor : IPreprocessor
     {
         /// <summary>
-        /// Gets a list of the filepaths of currently loaded (imported) libraries.
+        /// Gets a list of the filepaths of currently loaded (required) libraries.
         /// </summary>
         public IList<string> LoadedLibraries { get; }
 
         /// <summary>
-        /// Returns true if the library with the given filename has already been imported.
+        /// Returns true if the library with the given filename has already been required.
         /// </summary>
         /// <param name="filename">The filename to check.</param>
         /// <returns></returns>
-        private bool IsAlreadyImported(string filename)
+        private bool IsAlreadyRequired(string filename)
         {
             return LoadedLibraries.Any(p => p.Equals(filename, StringComparison.InvariantCultureIgnoreCase));
         }
 
         /// <summary>
-        /// Extracts the filename from an import statement token.
+        /// Extracts the filename from an require statement token.
         /// </summary>
-        /// <param name="token">The import statement token to extract the filename from.</param>
+        /// <param name="token">The require statement token to extract the filename from.</param>
         /// <returns></returns>
         private static string ExtractFilename(Token token)
         {
-            if (token.Type != TokenType.ImportStatement)
+            if (token.Type != TokenType.RequireStatement)
             {
                 throw new PreprocessingException($"Could not extract filename from token of type '{token.Type}'.");
             }
@@ -51,11 +51,11 @@ namespace Crisp.Core.Preprocessing
             {
                 var source = File.ReadAllText(library);
 
-                // Remove comments, whitespace and imports (we have crawled them already).
+                // Remove comments, whitespace and requires (we have crawled them already).
                 var tokens = TokenizerFactory.GetCrispTokenizer().Tokenize(source);
                 tokens = tokens.RemoveTokens(TokenType.Comment, 
                     TokenType.Whitespace,
-                    TokenType.ImportStatement); 
+                    TokenType.RequireStatement); 
 
                 // Parse tokens and check we got one list of bindings back.
                 var parsed = new Parser().CreateExpressionTree(tokens);
@@ -99,14 +99,14 @@ namespace Crisp.Core.Preprocessing
             var sanitized = tokens.RemoveTokens(TokenType.Whitespace,
                 TokenType.Comment);
             
-            // Process imports.
-            var importQueue = new Queue<Token>(sanitized);
-            while (importQueue.Count > 0 
-                && importQueue.Peek().Type == TokenType.ImportStatement)
+            // Process requires.
+            var requireQueue = new Queue<Token>(sanitized);
+            while (requireQueue.Count > 0 
+                && requireQueue.Peek().Type == TokenType.RequireStatement)
             {
-                // Pop import statement from top of file, extract filename.
-                var import = importQueue.Dequeue();
-                var libraryFilename = ExtractFilename(import);
+                // Pop require statement from top of file, extract filename.
+                var require = requireQueue.Dequeue();
+                var libraryFilename = ExtractFilename(require);
 
                 // Use absolute or relative path.
                 var fileInfo = new FileInfo(filename);
@@ -115,7 +115,7 @@ namespace Crisp.Core.Preprocessing
                     : Path.Combine(fileInfo.DirectoryName ?? string.Empty, libraryFilename);
 
                 // Check that this library isn't already loaded.
-                if (!IsAlreadyImported(absolutePath)) 
+                if (!IsAlreadyRequired(absolutePath)) 
                 {
                     LoadedLibraries.Add(absolutePath);
                     Process(absolutePath);
@@ -123,7 +123,7 @@ namespace Crisp.Core.Preprocessing
             }
 
             // Return sanitized token list.
-            return importQueue.ToList(); 
+            return requireQueue.ToList(); 
         }
 
         /// <summary>

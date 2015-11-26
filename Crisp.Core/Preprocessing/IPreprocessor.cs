@@ -11,10 +11,10 @@ namespace Crisp.Core.Preprocessing
     public interface IPreprocessor
     {
         /// <summary>
-        /// Crawls the dependency tree for a program source file and loads imported libraries.
+        /// Crawls the dependency tree for a program source file and loads required libraries.
         /// </summary>
         /// <param name="filename">The path of the file to start crawling at.</param>
-        /// <returns>The sanitized token list without imports, comments or whitespace.</returns>
+        /// <returns>The sanitized token list without requires, comments or whitespace.</returns>
         IList<Token> Process(string filename);
 
         /// <summary>
