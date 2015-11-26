@@ -16,15 +16,15 @@
             {
                 IgnoreWhitespace = ignoreWhitespace
             };
-            tokenizer.Add("^#import\\s+\".+?\"\r?$", TokenType.PreprocessorImportStatement);
-            tokenizer.Add(";;.+?\r?$", TokenType.PreprocessorComment);
+            tokenizer.Add("^#import\\s+\".+?\"\r?$", TokenType.ImportStatement);
+            tokenizer.Add(";;.+?\r?$", TokenType.Comment);
             tokenizer.Add(@"[\(]", TokenType.OpeningParenthesis);
             tokenizer.Add(@"[\)]", TokenType.ClosingParenthesis);
             tokenizer.Add("\"[^\"]*\"", TokenType.String);
             tokenizer.Add(@"[-+]?[0-9]\d*(\.\d+)?", TokenType.Numeric);
             tokenizer.Add(@"\.", TokenType.Dot);
             tokenizer.Add(@"[^\s\(\)\.]+", TokenType.Symbol);
-            tokenizer.Add("\\s+", TokenType.PreprocessorWhitespace);
+            tokenizer.Add("\\s+", TokenType.Whitespace);
 
             return tokenizer;
         }

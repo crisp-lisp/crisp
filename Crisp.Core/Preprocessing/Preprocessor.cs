@@ -38,7 +38,7 @@ namespace Crisp.Core.Preprocessing
         /// <returns></returns>
         private static string ExtractFilename(Token token)
         {
-            if (token.Type != TokenType.PreprocessorImportStatement)
+            if (token.Type != TokenType.ImportStatement)
             {
                 throw new PreprocessingException($"Could not extract filename from token of type '{token.Type}'.");
             }
@@ -53,9 +53,9 @@ namespace Crisp.Core.Preprocessing
 
                 // Remove comments, whitespace and imports (we have crawled them already).
                 var tokens = TokenizerFactory.GetCrispTokenizer().Tokenize(source);
-                tokens = tokens.RemoveTokens(TokenType.PreprocessorComment, 
-                    TokenType.PreprocessorWhitespace,
-                    TokenType.PreprocessorImportStatement); 
+                tokens = tokens.RemoveTokens(TokenType.Comment, 
+                    TokenType.Whitespace,
+                    TokenType.ImportStatement); 
 
                 // Parse tokens and check we got one list of bindings back.
                 var parsed = new Parser().CreateExpressionTree(tokens);
@@ -96,13 +96,13 @@ namespace Crisp.Core.Preprocessing
             var tokens = TokenizerFactory.GetCrispTokenizer().Tokenize(source);
 
             // Remove whitespace and comments.
-            var sanitized = tokens.RemoveTokens(TokenType.PreprocessorWhitespace,
-                TokenType.PreprocessorComment);
+            var sanitized = tokens.RemoveTokens(TokenType.Whitespace,
+                TokenType.Comment);
             
             // Process imports.
             var importQueue = new Queue<Token>(sanitized);
             while (importQueue.Count > 0 
-                && importQueue.Peek().Type == TokenType.PreprocessorImportStatement)
+                && importQueue.Peek().Type == TokenType.ImportStatement)
             {
                 // Pop import statement from top of file, extract filename.
                 var import = importQueue.Dequeue();
