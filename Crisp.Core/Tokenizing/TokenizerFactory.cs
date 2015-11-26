@@ -16,7 +16,7 @@
             {
                 IgnoreWhitespace = ignoreWhitespace
             };
-            tokenizer.Add("^#import\\s+\".+?\"\r?$", TokenType.RequireStatement);
+            tokenizer.Add("^#require\\s+\".+?\"\r?$", TokenType.RequireStatement);
             tokenizer.Add(";;.+?\r?$", TokenType.Comment);
             tokenizer.Add(@"[\(]", TokenType.OpeningParenthesis);
             tokenizer.Add(@"[\)]", TokenType.ClosingParenthesis);
