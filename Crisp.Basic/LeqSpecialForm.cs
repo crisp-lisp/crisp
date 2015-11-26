@@ -21,11 +21,10 @@ namespace Crisp.Basic
             // Evaluate both parameters.
             var x = evaluator.Evaluate(arguments[0]);
             var y = evaluator.Evaluate(arguments[1]);
-
-            // Grab true and false bindings from context.
-            var t = evaluator.Evaluate(SymbolAtom.True);
-            var f = evaluator.Evaluate(SymbolAtom.False);
             
+            var t = new BooleanAtom(true);
+            var f = new BooleanAtom(false);
+
             // Different types can never be equal.
             if (x.Type != y.Type)
             {

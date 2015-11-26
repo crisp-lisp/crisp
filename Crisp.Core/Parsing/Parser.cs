@@ -78,7 +78,7 @@ namespace Crisp.Core.Parsing
                 // If we have nothing inside them, return nil.
                 if (!unbracketed.Any())
                 {
-                    return SymbolAtom.Nil;
+                    return new Nil();
                 }
 
                 var stream = new TokenStream(unbracketed);
@@ -126,6 +126,12 @@ namespace Crisp.Core.Parsing
                     return new NumericAtom(double.Parse(first.Sequence));
                 case TokenType.String:
                     return new StringAtom(first.Sequence.Trim('"')); // Remove double quotes from string atoms.
+                case TokenType.BooleanTrue:
+                    return new BooleanAtom(true);
+                case TokenType.BooleanFalse:
+                    return new BooleanAtom(false);
+                case TokenType.Nil:
+                    return new Nil();
                 case TokenType.Dot:
                     throw new ParsingException("Encountered unexpected dot notation at" +
                                                $" line {first.Line} column {first.Column}.", first);

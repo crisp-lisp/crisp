@@ -20,8 +20,8 @@ namespace Crisp.Basic
 
             var evaluated = evaluator.Evaluate(arguments[0]);
 
-            return evaluated.IsAtomic ? evaluator.Evaluate(SymbolAtom.True) 
-                : evaluator.Evaluate(SymbolAtom.False);
+            return evaluated.IsAtomic ? new BooleanAtom(true)
+                : new BooleanAtom(false);
         }
     }
 }

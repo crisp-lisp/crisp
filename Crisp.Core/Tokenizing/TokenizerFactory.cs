@@ -23,6 +23,9 @@
             tokenizer.Add("\"[^\"]*\"", TokenType.String);
             tokenizer.Add(@"[-+]?[0-9]\d*(\.\d+)?", TokenType.Numeric);
             tokenizer.Add(@"\.", TokenType.Dot);
+            tokenizer.Add(@"true", TokenType.BooleanTrue);
+            tokenizer.Add(@"false", TokenType.BooleanFalse);
+            tokenizer.Add(@"nil", TokenType.Nil);
             tokenizer.Add(@"[^\s\(\)\.]+", TokenType.Symbol);
             tokenizer.Add("\\s+", TokenType.Whitespace);
 

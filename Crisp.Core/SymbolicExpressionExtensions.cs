@@ -60,6 +60,16 @@ namespace Crisp.Core
         }
 
         /// <summary>
+        /// Gets the expression as a boolean atom or throws an exception in case of type mismatch.
+        /// </summary>
+        /// <param name="expression">The expression to attempt to cast.</param>
+        /// <returns></returns>
+        public static BooleanAtom AsBoolean(this SymbolicExpression expression)
+        {
+            return (BooleanAtom)expression;
+        }
+
+        /// <summary>
         /// Gets the expression as a function or throws an exception in the case of type mismatch.
         /// </summary>
         /// <param name="expression">The expression to attempt to case.</param>
@@ -125,7 +135,7 @@ namespace Crisp.Core
         private static SymbolicExpression ToProperList(IList<SymbolicExpression> members, int index)
         {
             return new Pair(members[index],
-                index == members.Count - 1 ? SymbolAtom.Nil : ToProperList(members, index + 1));
+                index == members.Count - 1 ? new Nil() : ToProperList(members, index + 1));
         }
 
         /// <summary>

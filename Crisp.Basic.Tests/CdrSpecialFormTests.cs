@@ -47,7 +47,7 @@ namespace Crisp.Basic.Tests
             var ans = function.Apply(args, _mockEvaluator);
             
             // We should have the tail of the pair as a result.
-            Assert.AreEqual(head, ans);
+            Assert.AreEqual(tail, ans);
         }
         
         [TestMethod]

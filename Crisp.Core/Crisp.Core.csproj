@@ -67,6 +67,7 @@
     <Compile Include="Types\ConstantAtom.cs" />
     <Compile Include="Types\Function.cs" />
     <Compile Include="Types\Lambda.cs" />
+    <Compile Include="Types\Nil.cs" />
     <Compile Include="Types\NumericAtom.cs" />
     <Compile Include="Types\Pair.cs" />
     <Compile Include="Types\SpecialForm.cs" />

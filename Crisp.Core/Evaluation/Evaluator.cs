@@ -142,14 +142,9 @@ namespace Crisp.Core.Evaluation
                 throw new DirectoryNotFoundException(
                     "Could not load special form libraries because the directory was not found.");
             }
-
-            // Initialize evaluator with special symbols.
-            _bindings = new List<Binding>();
-            MutableBind(SymbolAtom.Nil, new ConstantAtom(SymbolAtom.Nil.Value));
-            MutableBind(SymbolAtom.True, new ConstantAtom(SymbolAtom.True.Value));
-            MutableBind(SymbolAtom.False, new ConstantAtom(SymbolAtom.False.Value));
-
+            
             // Load special forms from directory.
+            _bindings = new List<Binding>();
             LoadSpecialForms(directory);
         }
 

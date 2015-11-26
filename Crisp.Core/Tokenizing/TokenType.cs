@@ -15,5 +15,8 @@
         ImportStatement,
         Whitespace,
         Comment,
+        BooleanTrue,
+        BooleanFalse,
+        Nil,
     }
 }

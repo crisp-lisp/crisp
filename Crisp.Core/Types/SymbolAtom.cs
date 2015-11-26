@@ -5,21 +5,6 @@
     /// </summary>
     public sealed class SymbolAtom : Atom<string>
     {
-        /// <summary>
-        /// The nil special symbol.
-        /// </summary>
-        public static readonly SymbolAtom Nil = new SymbolAtom("nil");
-
-        /// <summary>
-        /// The true boolean special symbol.
-        /// </summary>
-        public static readonly SymbolAtom True = new SymbolAtom("t");
-
-        /// <summary>
-        /// The false boolean special symbol.
-        /// </summary>
-        public static readonly SymbolAtom False = new SymbolAtom("f");
-        
         public override SymbolicExpressionType Type => SymbolicExpressionType.Symbol;
         
         public override string Value { get; protected set; }

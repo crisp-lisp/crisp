@@ -22,27 +22,9 @@ namespace Crisp.Basic
             var x = evaluator.Evaluate(arguments[0]);
             var y = evaluator.Evaluate(arguments[1]);
 
-            // Grab true and false bindings from context.
-            var t = evaluator.Evaluate(SymbolAtom.True);
-            var f = evaluator.Evaluate(SymbolAtom.False);
-            
-            // Different types can never be equal.
-            if (x.Type != y.Type)
-            {
-                return f;
-            }
-
-            switch (x.Type)
-            {
-                case SymbolicExpressionType.Constant:
-                    return x.AsConstant().Value == y.AsConstant().Value ? t : f;
-                case SymbolicExpressionType.Numeric:
-                    return x.AsNumeric().Value == y.AsNumeric().Value ? t : f;
-                case SymbolicExpressionType.String:
-                    return x.AsString().Value == y.AsString().Value ? t : f;
-                default:
-                    return f;
-            }
+            return x.Equals(y)
+                ? new BooleanAtom(true)
+                : new BooleanAtom(false);
         }
     }
 }

@@ -17,19 +17,18 @@ namespace Crisp.Basic
 
             var arguments = expression.AsPair().Expand();
             arguments.ThrowIfWrongLength(Name, 3); // Must have three arguments.
-
-            // Grab true and false bindings from context.
-            var t = evaluator.Evaluate(SymbolAtom.True);
-            var f = evaluator.Evaluate(SymbolAtom.False);
+            
+            var t = new BooleanAtom(true);
+            var f = new BooleanAtom(false);
 
             // Evaluate predicate.
             var predicate = evaluator.Evaluate(arguments[0]);
-            if (predicate != t && predicate != f)
+            if (predicate.Equals(t) && predicate.Equals(f))
             {
                 throw new RuntimeException($"The first argument to the function '{Name}' must evaluate to a boolean special atom.");
             }
             
-            return predicate == t ? evaluator.Evaluate(arguments[1]) 
+            return predicate.Equals(t) ? evaluator.Evaluate(arguments[1]) 
                 : evaluator.Evaluate(arguments[2]);
         }
     }

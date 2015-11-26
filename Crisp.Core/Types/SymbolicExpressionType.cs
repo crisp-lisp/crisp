@@ -12,5 +12,6 @@
         String,
         Function,
         Boolean,
+        Nil
     }
 }
