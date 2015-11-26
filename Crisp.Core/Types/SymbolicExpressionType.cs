@@ -11,5 +11,6 @@
         Numeric,
         String,
         Function,
+        Boolean,
     }
 }

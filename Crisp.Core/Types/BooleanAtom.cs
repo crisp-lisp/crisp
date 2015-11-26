@@ -5,7 +5,7 @@
     /// </summary>
     public sealed class BooleanAtom : Atom<bool>
     {
-        public override SymbolicExpressionType Type => SymbolicExpressionType.String;
+        public override SymbolicExpressionType Type => SymbolicExpressionType.Boolean;
 
         public override bool Value { get; protected set; }
 
