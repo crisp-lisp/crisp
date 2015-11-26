@@ -7,5 +7,5 @@
 	(if (eq x nil) 0 (add (car x) (sum (cdr x))))))
 
 ;;; Calculates the factorial of a number.
-;;; @param x	the number to calculate the factorial  for
+;;; @param x	the number to calculate the factorial for
 (factorial . (lambda (x) (if (eq x 1) x (mul x (factorial (sub x 1))))))
