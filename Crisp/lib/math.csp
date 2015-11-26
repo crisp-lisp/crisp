@@ -1,0 +1,11 @@
+﻿;;; The ratio of the circumference of a circle to its diameter.
+(pi . 3.14159265358979323846)
+
+;;; Gives the sum total of all values in a given list.
+;;; @param x	the list of numerical values
+(sum . (lambda (x) 
+	(if (eq x nil) 0 (add (car x) (sum (cdr x))))))
+
+;;; Calculates the factorial of a number.
+;;; @param x	the number to calculate the factorial  for
+(factorial . (lambda (x) (if (eq x 1) x (mul x (factorial (sub x 1))))))

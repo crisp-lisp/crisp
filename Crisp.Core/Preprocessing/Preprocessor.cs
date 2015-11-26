@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 
 using Crisp.Core.Evaluation;
@@ -20,6 +21,11 @@ namespace Crisp.Core.Preprocessing
         /// Gets a list of the filepaths of currently loaded (required) libraries.
         /// </summary>
         public IList<string> LoadedLibraries { get; }
+        
+        /// <summary>
+        /// Gets the directory path that the currently running interpreter executable is located at.
+        /// </summary>
+        public string InterpreterDirectory { get; private set; }
 
         /// <summary>
         /// Returns true if the library with the given filename has already been required.
@@ -52,16 +58,24 @@ namespace Crisp.Core.Preprocessing
                 var source = File.ReadAllText(library);
 
                 // Remove comments, whitespace and requires (we have crawled them already).
-                var tokens = TokenizerFactory.GetCrispTokenizer().Tokenize(source);
-                tokens = tokens.RemoveTokens(TokenType.Comment, 
+                var rawTokens = TokenizerFactory.GetCrispTokenizer().Tokenize(source);
+                rawTokens = rawTokens.RemoveTokens(TokenType.Comment, 
                     TokenType.Whitespace,
                     TokenType.RequireStatement); 
+
+                // Enclose entire file in brackets.
+                var tokens = new List<Token>
+                {
+                    new Token(TokenType.OpeningParenthesis, string.Empty),
+                    new Token(TokenType.ClosingParenthesis, string.Empty)
+                };
+                tokens.InsertRange(1, rawTokens);
 
                 // Parse tokens and check we got one list of bindings back.
                 var parsed = new Parser().CreateExpressionTree(tokens);
                 if (parsed.Type != SymbolicExpressionType.Pair)
                 {
-                    throw new PreprocessingException($"Imported library '{library}' must contain a list of bindings.");
+                    throw new PreprocessingException($"Required library '{library}' must contain a list of bindings.");
                 }
 
                 // Go through each binding.
@@ -94,7 +108,7 @@ namespace Crisp.Core.Preprocessing
             // Read source file.
             var source = File.ReadAllText(filename);
             var tokens = TokenizerFactory.GetCrispTokenizer().Tokenize(source);
-
+            
             // Remove whitespace and comments.
             var sanitized = tokens.RemoveTokens(TokenType.Whitespace,
                 TokenType.Comment);
@@ -107,6 +121,11 @@ namespace Crisp.Core.Preprocessing
                 // Pop require statement from top of file, extract filename.
                 var require = requireQueue.Dequeue();
                 var libraryFilename = ExtractFilename(require);
+                if (libraryFilename.StartsWith("~/"))
+                {
+                    libraryFilename = libraryFilename.Trim('~');
+                    libraryFilename = InterpreterDirectory.TrimEnd('\'') + libraryFilename;
+                }
 
                 // Use absolute or relative path.
                 var fileInfo = new FileInfo(filename);
@@ -129,9 +148,10 @@ namespace Crisp.Core.Preprocessing
         /// <summary>
         /// Initializes a new instance of a preprocessor for the Crisp language.
         /// </summary>
-        public Preprocessor()
+        public Preprocessor(string interpreterDirectory)
         {
             LoadedLibraries = new List<string>();
+            InterpreterDirectory = interpreterDirectory.TrimEnd('\'');
         }
     }
 }

@@ -49,7 +49,7 @@ namespace Crisp
             }
 
             // Pre-process input. The pre-processor does the tokenizing.
-            var preprocessor = new Preprocessor();
+            var preprocessor = new Preprocessor(new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName);
             var tokens = preprocessor.Process(args[0]);
 
             // Create expression tree.
