@@ -7,5 +7,18 @@
 	(if (eq x nil) 0 (add (car x) (sum (cdr x))))))
 
 ;;; Calculates the factorial of a number.
-;;; @param x	the number to calculate the factorial for
+;;; @param x	the number to calculate the factorial of
 (factorial . (lambda (x) (if (eq x 1) x (mul x (factorial (sub x 1))))))
+
+;;; Raises a number to a power.
+;;; @param x	the base number
+;;; @param e	the exponent
+(pow . (lambda (x e) (if (eq e 0) 1 (mul x (pow x (sub e 1))))))
+
+;;; Squares a number.
+;;; @param x	the number to square
+(square . (lambda (x) (pow x 2)))
+
+;;; Cubes a number.
+;;; @param x	the number to cube
+(cube . (lambda (x) (pow x 3)))
