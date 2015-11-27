@@ -39,6 +39,8 @@ namespace Crisp
             container.Register<IDirectoryPathProvider, InterpreterDirectoryPathProvider>();
             container.Register<IRequirePathTransformer, RequirePathTransformer>();
             container.Register<IRequirePathExtractor, RequirePathExtractor>();
+            container.Register(() => TokenizerFactory.GetCrispTokenizer());
+            container.Register<IDependencyTreeCrawler, DependencyTreeCrawler>();
             container.Register<IPreprocessor, Preprocessor>();
             container.Verify();
 
@@ -59,7 +61,7 @@ namespace Crisp
 
             // Pre-process input. The pre-processor does the tokenizing.
             var preprocessor = container.GetInstance<IPreprocessor>();
-            var tokens = preprocessor.Process(args[0]);
+            var tokens = container.GetInstance<ITokenizer>().Tokenize(File.ReadAllText(args[0])).RemoveTokens(TokenType.Comment, TokenType.Whitespace, TokenType.RequireStatement);
 
             // Create expression tree.
             var parser = new Parser();
@@ -67,7 +69,7 @@ namespace Crisp
 
             // Create evaluator.
             var evaluator = new Evaluator("native");
-            preprocessor.BindExpressions(evaluator); // Load required bindings from preprocessor.
+            preprocessor.BindExpressions(args[0], evaluator); // Load required bindings from preprocessor.
 
             // Evaluate program, which should give a function.
             var result = evaluator.Evaluate(parsed);
