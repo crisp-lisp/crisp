@@ -1,3 +1,0 @@
-﻿(let 
-	(concat (concat (car comps) ",") (car (cdr comps)))
-	(comps . (split "hello, world" ",")))

@@ -1,2 +1,0 @@
-﻿;; This is also a comment.
-((sum . (lambda (l) (add (car l) (if (eq (cdr l) nil) 0 (sum (cdr l))))))) ;; This is a comment

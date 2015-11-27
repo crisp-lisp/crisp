@@ -1,7 +1,0 @@
-﻿(let 
-	(letrec
-		(let 
-			(addn 4)
-			(n . 20))
-		(addn . (lambda (x) (add x n))))
-	(n . 10))

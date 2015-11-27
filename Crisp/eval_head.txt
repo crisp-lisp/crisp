@@ -1,5 +1,0 @@
-﻿#require "whatever"
-
-(letrec
-	((if (eq x 2) add mul) 4 5) ;; A comment.
-	(x . 1))
