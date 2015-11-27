@@ -1,4 +1,7 @@
-﻿;;; The ratio of the circumference of a circle to its diameter.
+﻿;; Crisp math library
+;; Copyright © Saul Johnson 2015-2016
+
+;;; The ratio of the circumference of a circle to its diameter.
 (pi . 3.14159265358979323846)
 
 ;;; Gives the sum total of all values in a given list.

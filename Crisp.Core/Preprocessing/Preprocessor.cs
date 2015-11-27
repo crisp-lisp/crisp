@@ -22,10 +22,9 @@ namespace Crisp.Core.Preprocessing
         /// </summary>
         public IList<string> LoadedLibraries { get; }
         
-        /// <summary>
-        /// Gets the directory path that the currently running interpreter executable is located at.
-        /// </summary>
-        public string InterpreterDirectory { get; private set; }
+        private readonly IRequirePathTransformer _requirePathTransformer;
+
+        private readonly IRequirePathExtractor _requirePathExtractor;
 
         /// <summary>
         /// Returns true if the library with the given filename has already been required.
@@ -36,21 +35,7 @@ namespace Crisp.Core.Preprocessing
         {
             return LoadedLibraries.Any(p => p.Equals(filename, StringComparison.InvariantCultureIgnoreCase));
         }
-
-        /// <summary>
-        /// Extracts the filename from an require statement token.
-        /// </summary>
-        /// <param name="token">The require statement token to extract the filename from.</param>
-        /// <returns></returns>
-        private static string ExtractFilename(Token token)
-        {
-            if (token.Type != TokenType.RequireStatement)
-            {
-                throw new PreprocessingException($"Could not extract filename from token of type '{token.Type}'.");
-            }
-            return Regex.Match(token.Sequence, "\"(.+?)\"").Captures[0].Value.Trim('\"');
-        }
-
+        
         public void BindExpressions(IEvaluator evaluator)
         {
             foreach (var library in LoadedLibraries)
@@ -120,24 +105,14 @@ namespace Crisp.Core.Preprocessing
             {
                 // Pop require statement from top of file, extract filename.
                 var require = requireQueue.Dequeue();
-                var libraryFilename = ExtractFilename(require);
-                if (libraryFilename.StartsWith("~/"))
-                {
-                    libraryFilename = libraryFilename.Trim('~');
-                    libraryFilename = InterpreterDirectory.TrimEnd('\'') + libraryFilename;
-                }
-
-                // Use absolute or relative path.
-                var fileInfo = new FileInfo(filename);
-                var absolutePath = Path.IsPathRooted(libraryFilename)
-                    ? libraryFilename
-                    : Path.Combine(fileInfo.DirectoryName ?? string.Empty, libraryFilename);
+                var rawFilename = _requirePathExtractor.Extract(require.Sequence);
+                var libraryFilename = _requirePathTransformer.Transform(rawFilename);
 
                 // Check that this library isn't already loaded.
-                if (!IsAlreadyRequired(absolutePath)) 
+                if (!IsAlreadyRequired(libraryFilename)) 
                 {
-                    LoadedLibraries.Add(absolutePath);
-                    Process(absolutePath);
+                    LoadedLibraries.Add(libraryFilename);
+                    Process(libraryFilename);
                 }
             }
 
@@ -148,10 +123,11 @@ namespace Crisp.Core.Preprocessing
         /// <summary>
         /// Initializes a new instance of a preprocessor for the Crisp language.
         /// </summary>
-        public Preprocessor(string interpreterDirectory)
+        public Preprocessor(IRequirePathExtractor requirePathExtractor, IRequirePathTransformer requirePathTransformer)
         {
             LoadedLibraries = new List<string>();
-            InterpreterDirectory = interpreterDirectory.TrimEnd('\'');
+            _requirePathExtractor = requirePathExtractor;
+            _requirePathTransformer = requirePathTransformer;
         }
     }
 }

@@ -9,6 +9,7 @@ using Crisp.Core.Preprocessing;
 using Crisp.Core.Tokenizing;
 using Crisp.Core.Types;
 using Crisp.Visualization;
+using SimpleInjector;
 
 namespace Crisp
 {
@@ -33,6 +34,14 @@ namespace Crisp
         
         static void Main(string[] args)
         {
+            // Dependency injection.
+            var container = new Container();
+            container.Register<IDirectoryPathProvider, InterpreterDirectoryPathProvider>();
+            container.Register<IRequirePathTransformer, RequirePathTransformer>();
+            container.Register<IRequirePathExtractor, RequirePathExtractor>();
+            container.Register<IPreprocessor, Preprocessor>();
+            container.Verify();
+
             // Not enough arguments given.
             if (args.Length < 1)
             {
@@ -49,7 +58,7 @@ namespace Crisp
             }
 
             // Pre-process input. The pre-processor does the tokenizing.
-            var preprocessor = new Preprocessor(new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName);
+            var preprocessor = container.GetInstance<IPreprocessor>();
             var tokens = preprocessor.Process(args[0]);
 
             // Create expression tree.
