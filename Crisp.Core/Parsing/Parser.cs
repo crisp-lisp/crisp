@@ -9,7 +9,7 @@ namespace Crisp.Core.Parsing
     /// <summary>
     /// An implementation of a parser for the Crisp programming language.
     /// </summary>
-    public class Parser
+    public class Parser : IParser
     {
         /// <summary>
         /// Returns true if the given token list represents a list expression, otherwise return false.
@@ -141,11 +141,6 @@ namespace Crisp.Core.Parsing
             }
         }
 
-        /// <summary>
-        /// Turns a token list into an expression tree.
-        /// </summary>
-        /// <param name="tokens">The token list to parse.</param>
-        /// <returns></returns>
         public SymbolicExpression CreateExpressionTree(IList<Token> tokens)
         {
             return Parse(tokens); // Actually do the parsing.

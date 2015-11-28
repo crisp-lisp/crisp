@@ -36,12 +36,13 @@ namespace Crisp
         {
             // Dependency injection.
             var container = new Container();
-            container.Register<IDirectoryPathProvider, InterpreterDirectoryPathProvider>();
+            container.Register<IInterpreterDirectoryPathProvider, InterpreterDirectoryPathProvider>();
             container.Register<IRequirePathTransformer, RequirePathTransformer>();
             container.Register<IRequirePathExtractor, RequirePathExtractor>();
             container.Register(() => TokenizerFactory.GetCrispTokenizer());
-            container.Register<IDependencyTreeCrawler, DependencyTreeCrawler>();
-            container.Register<IPreprocessor, Preprocessor>();
+            container.Register<IParser, Parser>();
+            container.Register<IDependencyFinder, DependencyFinder>();
+            container.Register<IDependencyLoader, DependencyLoader>();
             container.Verify();
 
             // Not enough arguments given.
@@ -60,16 +61,19 @@ namespace Crisp
             }
 
             // Pre-process input. The pre-processor does the tokenizing.
-            var preprocessor = container.GetInstance<IPreprocessor>();
-            var tokens = container.GetInstance<ITokenizer>().Tokenize(File.ReadAllText(args[0])).RemoveTokens(TokenType.Comment, TokenType.Whitespace, TokenType.RequireStatement);
+            var preprocessor = container.GetInstance<IDependencyLoader>();
+            var filter = TokenFilterFactory.GetCommentWhitespaceAndDirectiveFilter();
+            var tokens = filter.Filter(container.GetInstance<ITokenizer>().Tokenize(File.ReadAllText(args[0])));
 
             // Create expression tree.
             var parser = new Parser();
             var parsed = parser.CreateExpressionTree(tokens);
 
             // Create evaluator.
+            var defs = preprocessor.GetBindings(args[0]); // Load required bindings from preprocessor.
+
             var evaluator = new Evaluator("native");
-            preprocessor.BindExpressions(args[0], evaluator); // Load required bindings from preprocessor.
+            evaluator.MutableBind(defs);
 
             // Evaluate program, which should give a function.
             var result = evaluator.Evaluate(parsed);

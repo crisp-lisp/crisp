@@ -42,18 +42,19 @@
   <ItemGroup>
     <Compile Include="Evaluation\Binding.cs" />
     <Compile Include="Evaluation\Evaluator.cs" />
+    <Compile Include="Parsing\IParser.cs" />
     <Compile Include="Parsing\Parser.cs" />
     <Compile Include="Parsing\ParsingException.cs" />
     <Compile Include="Parsing\TokenStream.cs" />
-    <Compile Include="Preprocessing\DependencyTreeCrawler.cs" />
-    <Compile Include="Preprocessing\IDependencyTreeCrawler.cs" />
-    <Compile Include="Preprocessing\IDirectoryPathProvider.cs" />
+    <Compile Include="Preprocessing\DependencyFinder.cs" />
+    <Compile Include="Preprocessing\IDependencyFinder.cs" />
+    <Compile Include="Preprocessing\IInterpreterDirectoryPathProvider.cs" />
     <Compile Include="Preprocessing\IRequirePathExtractor.cs" />
     <Compile Include="Preprocessing\IRequirePathTransformer.cs" />
-    <Compile Include="Preprocessing\IPreprocessor.cs" />
+    <Compile Include="Preprocessing\IDependencyLoader.cs" />
     <Compile Include="Preprocessing\RequirePathExtractor.cs" />
     <Compile Include="Preprocessing\RequirePathTransformer.cs" />
-    <Compile Include="Preprocessing\Preprocessor.cs" />
+    <Compile Include="Preprocessing\DependencyLoader.cs" />
     <Compile Include="RuntimeException.cs" />
     <Compile Include="SpecialFormExtensions.cs" />
     <Compile Include="SymbolicExpressionExtensions.cs" />
@@ -61,9 +62,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tokenizing\ITokenizer.cs" />
     <Compile Include="Tokenizing\Token.cs" />
+    <Compile Include="Tokenizing\TokenFilter.cs" />
+    <Compile Include="Tokenizing\TokenFilterFactory.cs" />
     <Compile Include="Tokenizing\TokenizationException.cs" />
     <Compile Include="Tokenizing\Tokenizer.cs" />
-    <Compile Include="Tokenizing\TokenizerExtensions.cs" />
     <Compile Include="Tokenizing\TokenizerFactory.cs" />
     <Compile Include="Tokenizing\TokenTemplate.cs" />
     <Compile Include="Tokenizing\TokenType.cs" />

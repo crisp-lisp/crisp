@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 
 namespace Crisp.Core.Preprocessing
 {
+    /// <summary>
+    /// An implementation of a require path extractor.
+    /// </summary>
     public class RequirePathExtractor : IRequirePathExtractor
     {
         public string Extract(string sequence)
         {
+            // Pull contents out of quotes.
             return Regex.Match(sequence, "\"(.+?)\"").Captures[0].Value.Trim('\"');
         }
     }
