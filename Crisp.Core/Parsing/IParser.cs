@@ -6,7 +6,7 @@ using Crisp.Core.Types;
 namespace Crisp.Core.Parsing
 {
     /// <summary>
-    /// 
+    /// Represents a parser.
     /// </summary>
     public interface IParser
     {

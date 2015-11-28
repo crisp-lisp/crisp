@@ -7,7 +7,7 @@ using Crisp.Core.Types;
 namespace Crisp.Core.Parsing
 {
     /// <summary>
-    /// An implementation of a parser for the Crisp programming language.
+    /// An implementation of a parser.
     /// </summary>
     public class Parser : IParser
     {
