@@ -78,7 +78,6 @@ namespace Crisp.Core.Tokenizing
 
         public IList<Token> Tokenize(string source)
         {
-            // TODO: Come back to this. Code smells here.
             var tokens = new List<Token>();
 
             // Tokenize input.

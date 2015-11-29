@@ -43,6 +43,7 @@ namespace Crisp
             container.Register<IParser, Parser>();
             container.Register<IDependencyFinder, DependencyFinder>();
             container.Register<IDependencyLoader, DependencyLoader>();
+            container.Register<ISpecialFormLoader, SpecialFormLoader>();
             container.Verify();
 
             // Not enough arguments given.
@@ -72,8 +73,9 @@ namespace Crisp
             // Create evaluator.
             var defs = preprocessor.GetBindings(args[0]); // Load required bindings from preprocessor.
 
-            var evaluator = new Evaluator("native");
+            var evaluator = new Evaluator();
             evaluator.MutableBind(defs);
+            evaluator.MutableBind(container.GetInstance<ISpecialFormLoader>().GetBindings("native"));
 
             // Evaluate program, which should give a function.
             var result = evaluator.Evaluate(parsed);

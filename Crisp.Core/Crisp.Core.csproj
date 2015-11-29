@@ -52,10 +52,12 @@
     <Compile Include="Preprocessing\IRequirePathExtractor.cs" />
     <Compile Include="Preprocessing\IRequirePathTransformer.cs" />
     <Compile Include="Preprocessing\IDependencyLoader.cs" />
+    <Compile Include="Preprocessing\ISpecialFormLoader.cs" />
     <Compile Include="Preprocessing\RequirePathExtractor.cs" />
     <Compile Include="Preprocessing\RequirePathTransformer.cs" />
     <Compile Include="Preprocessing\DependencyLoader.cs" />
     <Compile Include="RuntimeException.cs" />
+    <Compile Include="Preprocessing\SpecialFormLoader.cs" />
     <Compile Include="SpecialFormExtensions.cs" />
     <Compile Include="SymbolicExpressionExtensions.cs" />
     <Compile Include="Evaluation\IEvaluator.cs" />

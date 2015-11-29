@@ -68,40 +68,7 @@ namespace Crisp.Core.Evaluation
         {
             return _bindings.Any(b => b.Symbol.Matches(symbol));
         }
-
-        /// <summary>
-        /// Gets whether or not a type qualifies as a special form type for loading.
-        /// </summary>
-        /// <param name="type">The type to check.</param>
-        /// <returns></returns>
-        private static bool IsSpecialFormType(Type type)
-        {
-            // Type must be public, concrete and subclass SpecialForm.
-            return type.IsPublic
-                && !type.IsAbstract
-                && type.BaseType == typeof(SpecialForm);
-        }
-
-        /// <summary>
-        /// Loads all special form libraries from a directory and binds them against their names.
-        /// </summary>
-        /// <param name="directory">The directory path to load libraries from.</param>
-        /// <returns></returns>
-        private void LoadSpecialForms(string directory)
-        {
-            foreach (var file in Directory.GetFiles(directory, "*.dll"))
-            {
-                var assembly = Assembly.LoadFrom(file);
-                var types = assembly.GetTypes().Where(IsSpecialFormType);
-
-                foreach (var type in types)
-                {
-                    var function = (SpecialForm)Activator.CreateInstance(assembly.GetType(type.ToString()));
-                    MutableBind(new SymbolAtom(function.Name), function);
-                }
-            }
-        }
-
+        
         public SymbolicExpression Evaluate(SymbolicExpression expression)
         {
             switch (expression.Type)
@@ -134,18 +101,9 @@ namespace Crisp.Core.Evaluation
         /// <summary>
         /// Initializes a new instance of an expression evaluator.
         /// </summary>
-        /// <param name="directory">The directory path from which to load special form libraries.</param>
-        public Evaluator(string directory)
+        public Evaluator()
         {
-            if (!Directory.Exists(directory))
-            {
-                throw new DirectoryNotFoundException(
-                    "Could not load special form libraries because the directory was not found.");
-            }
-            
-            // Load special forms from directory.
             _bindings = new List<Binding>();
-            LoadSpecialForms(directory);
         }
 
         /// <summary>
