@@ -5,7 +5,7 @@ using Crisp.Core.Preprocessing;
 
 namespace Crisp
 {
-    public class InterpreterDirectoryPathProvider : IInterpreterDirectoryPathProvider
+    internal class InterpreterDirectoryPathProvider : IInterpreterDirectoryPathProvider
     {
         public string GetPath()
         {

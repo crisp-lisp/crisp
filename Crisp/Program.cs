@@ -2,6 +2,7 @@
 using System.IO;
 using System.Reflection;
 using System.Text;
+using Crisp.Configuration;
 using Crisp.Core;
 using Crisp.Core.Evaluation;
 using Crisp.Core.Parsing;
@@ -37,6 +38,8 @@ namespace Crisp
             // Dependency injection.
             var container = new Container();
             container.Register<IInterpreterDirectoryPathProvider, InterpreterDirectoryPathProvider>();
+            container.Register<IConfigurationProvider, ConfigurationProvider>();
+            container.Register<ISpecialFormDirectoryPathProvider, SpecialFormDirectoryPathProvider>();
             container.Register<IRequirePathTransformer, RequirePathTransformer>();
             container.Register<IRequirePathExtractor, RequirePathExtractor>();
             container.Register(() => TokenizerFactory.GetCrispTokenizer());
@@ -75,7 +78,7 @@ namespace Crisp
 
             var evaluator = new Evaluator();
             evaluator.MutableBind(defs);
-            evaluator.MutableBind(container.GetInstance<ISpecialFormLoader>().GetBindings("native"));
+            evaluator.MutableBind(container.GetInstance<ISpecialFormLoader>().GetBindings());
 
             // Evaluate program, which should give a function.
             var result = evaluator.Evaluate(parsed);

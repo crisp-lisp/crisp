@@ -10,7 +10,7 @@ namespace Crisp.Core.Preprocessing
 {
     public class SpecialFormLoader : ISpecialFormLoader
     {
-        private readonly IInterpreterDirectoryPathProvider _interpreterDirectoryPathProvider;
+        private readonly ISpecialFormDirectoryPathProvider _specialFormDirectoryPathProvider;
 
         /// <summary>
         /// Gets whether or not a type is a special form type for loading.
@@ -25,25 +25,13 @@ namespace Crisp.Core.Preprocessing
                 && type.BaseType == typeof(SpecialForm);
         }
 
-        /// <summary>
-        /// Gets the absolute directory path from the relative path provided.
-        /// </summary>
-        /// <param name="directory"></param>
-        /// <returns></returns>
-        private string GetAbsoluteDirectoryPath(string directory)
-        {
-            return Path.IsPathRooted(directory)
-                ? directory
-                : Path.Combine(_interpreterDirectoryPathProvider.GetPath() ?? string.Empty, directory);
-        }
-
-        public Dictionary<SymbolAtom, SymbolicExpression> GetBindings(string directory)
+        public Dictionary<SymbolAtom, SymbolicExpression> GetBindings()
         {
             // Prepare list of definitions to pass back.
             var definitions = new Dictionary<SymbolAtom, SymbolicExpression>();
 
             // Loop through each file in target directory.
-            foreach (var file in Directory.GetFiles(GetAbsoluteDirectoryPath(directory), "*.dll"))
+            foreach (var file in Directory.GetFiles(_specialFormDirectoryPathProvider.GetPath(), "*.dll"))
             {
                 // Load assembly and find special form types.
                 var assembly = Assembly.LoadFrom(file);
@@ -60,9 +48,9 @@ namespace Crisp.Core.Preprocessing
             return definitions;
         }
 
-        public SpecialFormLoader(IInterpreterDirectoryPathProvider interpreterDirectoryPathProvider)
+        public SpecialFormLoader(ISpecialFormDirectoryPathProvider specialFormDirectoryPathProvider)
         {
-            _interpreterDirectoryPathProvider = interpreterDirectoryPathProvider;
+            _specialFormDirectoryPathProvider = specialFormDirectoryPathProvider;
         }
     }
 }

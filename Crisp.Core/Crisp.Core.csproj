@@ -52,6 +52,7 @@
     <Compile Include="Preprocessing\IRequirePathExtractor.cs" />
     <Compile Include="Preprocessing\IRequirePathTransformer.cs" />
     <Compile Include="Preprocessing\IDependencyLoader.cs" />
+    <Compile Include="Preprocessing\ISpecialFormDirectoryPathProvider.cs" />
     <Compile Include="Preprocessing\ISpecialFormLoader.cs" />
     <Compile Include="Preprocessing\RequirePathExtractor.cs" />
     <Compile Include="Preprocessing\RequirePathTransformer.cs" />

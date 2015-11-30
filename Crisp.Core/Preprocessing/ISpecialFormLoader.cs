@@ -11,10 +11,9 @@ namespace Crisp.Core.Preprocessing
     public interface ISpecialFormLoader
     {
         /// <summary>
-        /// Gets all compiled special forms residing in files within the directory at the specified path.
+        /// Gets all compiled special forms residing in files within the configured directory.
         /// </summary>
-        /// <param name="directory">The directory to scan for special forms.</param>
         /// <returns></returns>
-        Dictionary<SymbolAtom, SymbolicExpression> GetBindings(string directory);
+        Dictionary<SymbolAtom, SymbolicExpression> GetBindings();
     }
 }
