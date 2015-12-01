@@ -8,6 +8,10 @@ using Crisp.Core.Types;
 
 namespace Crisp.Core.Preprocessing
 {
+    /// <summary>
+    /// An implementation of a special form loader, capable of loading compiled special forms from libraries and 
+    /// returning bindings associating them with their names.
+    /// </summary>
     public class SpecialFormLoader : ISpecialFormLoader
     {
         private readonly ISpecialFormDirectoryPathProvider _specialFormDirectoryPathProvider;
@@ -48,6 +52,10 @@ namespace Crisp.Core.Preprocessing
             return definitions;
         }
 
+        /// <summary>
+        /// Initializes a new instance of a special form loader.
+        /// </summary>
+        /// <param name="specialFormDirectoryPathProvider">A service capable of returning the special form directory path.</param>
         public SpecialFormLoader(ISpecialFormDirectoryPathProvider specialFormDirectoryPathProvider)
         {
             _specialFormDirectoryPathProvider = specialFormDirectoryPathProvider;

@@ -27,7 +27,7 @@ namespace Crisp.Core.Preprocessing
         /// <summary>
         /// Initializes a new instance of a require path transformer.
         /// </summary>
-        /// <param name="interpreterDirectoryPathProvider"></param>
+        /// <param name="interpreterDirectoryPathProvider">A service capable of returning the interpreter directory path.</param>
         public RequirePathTransformer(IInterpreterDirectoryPathProvider interpreterDirectoryPathProvider)
         {
             _interpreterDirectoryPathProvider = interpreterDirectoryPathProvider;

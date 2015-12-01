@@ -1,13 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Crisp.Core.Preprocessing
+﻿namespace Crisp.Core.Preprocessing
 {
+    /// <summary>
+    /// Represents a service that returns the fully-qualified directory path of the directory in which compiled special
+    /// form binaries are stored.
+    /// </summary>
     public interface ISpecialFormDirectoryPathProvider
     {
+        /// <summary>
+        /// Gets the directory of the directory in which compiled special form binaries are stored.
+        /// </summary>
+        /// <returns></returns>
         string GetPath();
     }
 }
