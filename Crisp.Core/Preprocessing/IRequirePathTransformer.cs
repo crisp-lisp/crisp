@@ -1,7 +1,8 @@
 ﻿namespace Crisp.Core.Preprocessing
 {
     /// <summary>
-    /// Represents a require path transformer.
+    /// Represents a require path transformer, capable of converting raw filepaths extracted from require statements
+    /// into fully qualified paths for loading.
     /// </summary>
     public interface IRequirePathTransformer
     {
