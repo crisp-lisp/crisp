@@ -3,7 +3,7 @@
 namespace Crisp.Core.Preprocessing
 {
     /// <summary>
-    /// Represents a dependency finder.
+    /// Represents a dependency finder, capable of traversing a source file and retrieving the paths of required files.
     /// </summary>
     public interface IDependencyFinder
     {

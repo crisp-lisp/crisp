@@ -8,7 +8,8 @@ using Crisp.Core.Tokenizing;
 namespace Crisp.Core.Preprocessing
 {
     /// <summary>
-    /// An implementation of a dependency finder.
+    /// An implementation of a dependency finder, capable of traversing a source file and retrieving the paths of 
+    /// required files.
     /// </summary>
     public class DependencyFinder : IDependencyFinder
     {
@@ -46,8 +47,12 @@ namespace Crisp.Core.Preprocessing
             {
                 // Pop require statement off queue.
                 var require = requireQueue.Dequeue();
-                var rawFilename = _requirePathExtractor.Extract(require.Sequence); // Extract filename from token sequence.
-                var libraryFilename = _requirePathTransformer.Transform(rawFilename); // Transform path according to special rules.
+
+                // Extract filename from token sequence.
+                var rawFilename = _requirePathExtractor.Extract(require.Sequence);
+
+                // Transform path according to special rules.
+                var libraryFilename = _requirePathTransformer.Transform(rawFilename); 
                 
                 // Record filename if we haven't found it yet.
                 if (!found.Any(l => l.Equals(libraryFilename, StringComparison.InvariantCultureIgnoreCase))) 
@@ -66,11 +71,11 @@ namespace Crisp.Core.Preprocessing
         }
 
         /// <summary>
-        /// Initializes a new instance of a dependency finder.
+        /// Initializes a new instance of a dependency finder. 
         /// </summary>
         /// <param name="tokenizer">The tokenizer to use to tokenize source files.</param>
-        /// <param name="requirePathExtractor">The require path extractor to use to extract require paths from token sequences.</param>
-        /// <param name="requirePathTransformer">The require path transformer to use to transform require paths for loading.</param>
+        /// <param name="requirePathExtractor">The service to use to extract require paths from tokens.</param>
+        /// <param name="requirePathTransformer">The service to use to transform require paths for loading.</param>
         public DependencyFinder(ITokenizer tokenizer, IRequirePathExtractor requirePathExtractor,
             IRequirePathTransformer requirePathTransformer)
         {

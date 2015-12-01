@@ -5,7 +5,7 @@ using Crisp.Core.Types;
 namespace Crisp.Core.Preprocessing
 {
     /// <summary>
-    /// Represents a dependency loader.
+    /// Represents a dependency loader, capable of returning the bindings required by a source file.
     /// </summary>
     public interface IDependencyLoader
     {

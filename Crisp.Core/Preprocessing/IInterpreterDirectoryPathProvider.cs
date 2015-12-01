@@ -1,7 +1,8 @@
 ﻿namespace Crisp.Core.Preprocessing
 {
     /// <summary>
-    /// Represents an interpreter directory path provider.
+    /// Represents an interpreter directory path provider, capable of returning the directory that contains the 
+    /// currently executing interpreter.
     /// </summary>
     public interface IInterpreterDirectoryPathProvider
     {
