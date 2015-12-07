@@ -7,7 +7,7 @@ using Crisp.Core.Preprocessing;
 namespace Crisp.Configuration
 {
     /// <summary>
-    /// Represents an application configuration settings provider.
+    /// An implementation of an application configuration settings provider.
     /// </summary>
     internal class ConfigurationProvider : IConfigurationProvider
     {
@@ -17,10 +17,14 @@ namespace Crisp.Configuration
 
         public Configuration GetConfiguration()
         {
+            // Load configuration if not already loaded.
             if (_loadedConfiguration == null)
             {
-                _loadedConfiguration = JsonConvert.DeserializeObject<Configuration>(File.ReadAllText(Path.Combine(_interpreterDirectoryPathProvider.GetPath(), "config.json")));
+                var path = Path.Combine(_interpreterDirectoryPathProvider.GetPath(), "config.json");
+                var text = File.ReadAllText(path);
+                _loadedConfiguration = JsonConvert.DeserializeObject<Configuration>(text);
             }
+
             return _loadedConfiguration;
         }
 
