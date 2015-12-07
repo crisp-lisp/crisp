@@ -2,7 +2,7 @@
 
 (lambda (lst)
 	(letrec 
-		(factorial 5)
+		(reverse lst)
 		(reverse . (lambda (l)
 			(if (eq l nil) nil
 				(append (reverse (cdr l))
