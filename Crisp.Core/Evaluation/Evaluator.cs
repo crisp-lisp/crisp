@@ -75,19 +75,17 @@ namespace Crisp.Core.Evaluation
                 case SymbolicExpressionType.Pair:
                     var pair = expression.AsPair();
 
-                    // If pair is function application expression.
+                    // Might pair be a function application?
                     if (pair.IsExplicitlyBracketed) 
                     {
                         // Evaluate head to get function.
                         var head = Evaluate(pair.Head); 
-                        if (head.Type != SymbolicExpressionType.Function)
+                        if (head.Type == SymbolicExpressionType.Function)
                         {
-                            throw new RuntimeException(
-                                "The first value in a function application expression must evaluate to a function.");
-                        }
-                        var function = head.AsFunction();
-                        var args = function.SkipArgumentEvaluation ? pair.Tail : Evaluate(pair.Tail); // Don't evaluate arguments to special forms.
-                        return function.Apply(args, this);
+                            var function = head.AsFunction();
+                            var args = function.SkipArgumentEvaluation ? pair.Tail : Evaluate(pair.Tail); // Don't evaluate arguments to special forms.
+                            return function.Apply(args, this);
+                        }  
                     }
                     return new Pair(Evaluate(pair.Head), Evaluate(pair.Tail)); // Evaluate pair.
                 default:
