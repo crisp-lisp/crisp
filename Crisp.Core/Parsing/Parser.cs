@@ -68,10 +68,10 @@ namespace Crisp.Core.Parsing
             if (IsSingleList(tokens))
             {
                 /* 
-                 * If brackets were in the source code, this is a function application. Otherwise
+                 * If brackets were in the source code, this might be a function application. Otherwise
                  * they're implicit brackets added by the parser and shouldn't be interpreted this way. 
                  */
-                var isFunctionApplication = tokens.First().Sequence != string.Empty; 
+                var isExplicitlyBracketed = tokens.First().Sequence != string.Empty; 
 
                 var unbracketed = RemoveFirstAndLast(tokens); // Strip outer brackets.
 
@@ -102,11 +102,11 @@ namespace Crisp.Core.Parsing
                     }
 
                     // Return cons cell.
-                    return new Pair(Parse(head), Parse(tail), isFunctionApplication);
+                    return new Pair(Parse(head), Parse(tail), isExplicitlyBracketed);
                 }
                 
                 // Return cons cell with implicit list as tail.
-                return new Pair(Parse(head), Parse(AddBrackets(stream.ReadToEnd())), isFunctionApplication);
+                return new Pair(Parse(head), Parse(AddBrackets(stream.ReadToEnd())), isExplicitlyBracketed);
             }
 
             // We should have a single atom here.

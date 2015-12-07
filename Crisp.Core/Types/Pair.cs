@@ -20,21 +20,21 @@
         public SymbolicExpression Tail { get; private set; }
 
         /// <summary>
-        /// Gets whether or not the pair is a function application.
+        /// Whether or not the pair is explicitly bracketed.
         /// </summary>
-        public bool IsFunctionApplication { get; private set; }
+        public bool IsExplicitlyBracketed { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of a pair-type expression that contains a head and a tail.
         /// </summary>
         /// <param name="head">The expression to place at the head of the pair.</param>
         /// <param name="tail">The expression to place at the tail of the pair.</param>
-        /// <param name="isFunctionApplication">Whether or not the pair is a function application.</param>
-        public Pair(SymbolicExpression head, SymbolicExpression tail, bool isFunctionApplication = false)
+        /// <param name="isExplicitlyBracketed">Whether or not the pair is explicitly bracketed.</param>
+        public Pair(SymbolicExpression head, SymbolicExpression tail, bool isExplicitlyBracketed = false)
         {
             Head = head;
             Tail = tail;
-            IsFunctionApplication = isFunctionApplication;
+            IsExplicitlyBracketed = isExplicitlyBracketed;
         }
     }
 }

@@ -76,7 +76,7 @@ namespace Crisp.Core.Evaluation
                     var pair = expression.AsPair();
 
                     // If pair is function application expression.
-                    if (pair.IsFunctionApplication) 
+                    if (pair.IsExplicitlyBracketed) 
                     {
                         // Evaluate head to get function.
                         var head = Evaluate(pair.Head); 
