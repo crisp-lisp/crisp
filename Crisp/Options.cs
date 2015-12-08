@@ -16,7 +16,8 @@ namespace Crisp
         /// <summary>
         /// Gets or sets he arguments to the program contained in the input file.
         /// </summary>
-        [Option('a', "args", Required = false, HelpText = "The arguments to the program as a list.")]
+        [Option('a', "args", Required = false, HelpText = "The arguments to the program as a list.", 
+            DefaultValue = "()")]
         public string Args { get; set; }
     }
 }
