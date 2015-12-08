@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using System.Text;
+
 using Crisp.Configuration;
 using Crisp.Core;
 using Crisp.Core.Evaluation;
@@ -10,31 +10,66 @@ using Crisp.Core.Preprocessing;
 using Crisp.Core.Tokenizing;
 using Crisp.Core.Types;
 using Crisp.Visualization;
+
 using SimpleInjector;
+
+using CommandLine.Text;
 
 namespace Crisp
 {
     class Program
     {
-        private static void PrintHelp()
+        /// <summary>
+        /// Prints the help card for the application.
+        /// </summary>
+        /// <param name="options">The command-line options passed to the program.</param>
+        private static void PrintHelp(Options options)
         {
+            // Write ASCII art.
+            var titleCard = new[]
+            {
+                "      __                         ",
+                "    /    )         ,             ",
+                "   /        )__       __      __ ",
+                "  /        /   ) /   (_ `   /   )",
+                " (____/___/_____/___(__)___/___/ ",
+                "                          /      ",
+                "                         /       ",
+            };
+            foreach (var line in titleCard)
+            {
+                Console.WriteLine(line);
+            }
+
             var version = Assembly.GetEntryAssembly().GetName().Version;
-            Console.Write("      __                         \r\n"
-                          + "    /    )         ,             \r\n"
-                          + "   /        )__       __      __  \r\n"
-                          + "  /        /   ) /   (_ `   /   )\r\n"
-                          + " (____/___/_____/___(__)___/___/ \r\n"
-                          + "                          /      \r\n"
-                          + "                         /       \r\n"
-                          + $" Intepreter v{version}             \r\n"
-                          + " Usage: Crisp.exe <Filename> <Args>\r\n"
-                          + " Notes: The source file should pass back a lambda\r\n"
-                          + "        which may take arguments passed to the   \r\n"
-                          + "        program from the command line in <Args>. \r\n");
+
+            // Automatically build help text based on options class.
+            var helpText = HelpText.AutoBuild(options);
+            helpText.AdditionalNewLineAfterOption = true;
+            helpText.Heading = $"Interpreter v{version}";
+            helpText.Copyright = "Copyright © Saul Johnson 2015";
+
+            Console.Write(helpText);
         }
         
         static void Main(string[] args)
         {
+            // Parse command-line options.
+            var options = new Options();
+            if (!CommandLine.Parser.Default.ParseArguments(args, options))
+            {
+                PrintHelp(options);
+                return;
+            }
+
+            // Check file exists.
+            if (!File.Exists(options.InputFile))
+            {
+                PrintHelp(options);
+                Console.WriteLine("Could not file input file.");
+                return;
+            }
+
             // Dependency injection.
             var container = new Container();
             container.Register<IInterpreterDirectoryPathProvider, InterpreterDirectoryPathProvider>();
@@ -49,58 +84,44 @@ namespace Crisp
             container.Register<ISpecialFormLoader, SpecialFormLoader>();
             container.Verify();
 
-            // Not enough arguments given.
-            if (args.Length < 1)
-            {
-                PrintHelp();
-                return;
-            }
+            // Get special form bindings.
+            var specialFormLoader = container.GetInstance<ISpecialFormLoader>();
+            var specialFormBindings = specialFormLoader.GetBindings();
 
-            // File not found.
-            if (!File.Exists(args[0]))
-            {
-                PrintHelp();
-                Console.WriteLine("Error: Could not find input file.");
-                return;
-            }
+            // Get dependencies for input source file.
+            var dependencyLoader = container.GetInstance<IDependencyLoader>();
+            var dependencyBindings = dependencyLoader.GetBindings(options.InputFile);
 
-            // Pre-process input. The pre-processor does the tokenizing.
-            var preprocessor = container.GetInstance<IDependencyLoader>();
+            // Prepare evaluator with special forms and dependencies.
+            var evaluator = new Evaluator(); 
+            evaluator.MutableBind(specialFormBindings);
+            evaluator.MutableBind(dependencyBindings);
+
+            // Read and tokenize input source file.
+            var source = File.ReadAllText(options.InputFile);
             var filter = TokenFilterFactory.GetCommentWhitespaceAndDirectiveFilter();
-            var tokens = filter.Filter(container.GetInstance<ITokenizer>().Tokenize(File.ReadAllText(args[0])));
-
+            var tokens = filter.Filter(container.GetInstance<ITokenizer>().Tokenize(source));
+            
             // Create expression tree.
-            var parser = new Parser();
+            var parser = container.GetInstance<IParser>();
             var parsed = parser.CreateExpressionTree(tokens);
-
-            // Create evaluator.
-            var defs = preprocessor.GetBindings(args[0]); // Load required bindings from preprocessor.
-
-            var evaluator = new Evaluator();
-            evaluator.MutableBind(defs);
-            evaluator.MutableBind(container.GetInstance<ISpecialFormLoader>().GetBindings());
-
+            
             // Evaluate program, which should give a function.
             var result = evaluator.Evaluate(parsed);
             if (result.Type != SymbolicExpressionType.Function)
             {
-                PrintHelp();
+                PrintHelp(options);
                 Console.WriteLine("Error: The program must return a lambda for execution.");
                 return;
             }
-
-            // Parse arguments and pass them into the function.
-            var sb = new StringBuilder();
-            for (var i = 1; i < args.Length; i++)
-            {
-                sb.Append(sb.Length != 0 ? " " : "");
-                sb.Append(args[i]);
-            }
-            var argumentTokens = TokenizerFactory.GetCrispTokenizer(true).Tokenize($"({sb})");
+            
+            // Parse arguments passed in.
+            var argumentTokens = TokenizerFactory.GetCrispTokenizer(true).Tokenize($"({options.Args})");
             var parsedArgumentList = parser.CreateExpressionTree(argumentTokens);
 
-            var output = result.AsFunction().Apply(parsedArgumentList, null); // Don't need an evaluator. This is a closure.
-
+            // Don't need an evaluator. This is a closure.
+            var output = result.AsFunction().Apply(parsedArgumentList, null); 
+            
             // Write result to output.
             Console.Write(new LispSerializer().Serialize(output));
         }
