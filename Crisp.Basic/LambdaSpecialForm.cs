@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 using Crisp.Core;
 using Crisp.Core.Evaluation;
@@ -20,19 +21,26 @@ namespace Crisp.Basic
             var arguments = expression.AsPair().Expand();
             arguments.ThrowIfWrongLength(Name, 2); // Must have two arguments.
 
-            // Ensure parameter list was given.
+            // Parameter list is given in first argument.
             var parameters = arguments[0];
-            if (parameters.Type != SymbolicExpressionType.Pair)
-            {
-                throw new RuntimeException($"Parameter list must be provided as argument 1 to the '{Name}' function.");
-            }
 
-            // Ensure only symbols in parameter list.
-            var parameterList = parameters.AsPair().Expand();
-            if (parameterList.Any(p => p.Type != SymbolicExpressionType.Symbol))
+            // Parameter list may be empty (nil) so account for that.
+            IList<SymbolicExpression> parameterList = new List<SymbolicExpression>();
+            if (parameters.Type != SymbolicExpressionType.Nil)
             {
-                throw new RuntimeException(
-                    $"Parameter list provided to the '{Name}' function must be a list of symbols only.");
+                if (parameters.Type != SymbolicExpressionType.Pair)
+                {
+                    throw new RuntimeException(
+                        $"Parameter list must be provided as argument 1 to the '{Name}' function.");
+                }
+
+                // Ensure only symbols in parameter list.
+                parameterList = parameters.AsPair().Expand();
+                if (parameterList.Any(p => p.Type != SymbolicExpressionType.Symbol))
+                {
+                    throw new RuntimeException(
+                        $"Parameter list provided to the '{Name}' function must be a list of symbols only.");
+                }
             }
 
             var symbolicParameterList = parameterList.Select(p => (SymbolAtom) p).ToList();
