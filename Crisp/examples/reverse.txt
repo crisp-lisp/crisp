@@ -1,6 +1,4 @@
-﻿#require "~/lib/math.csp"
-
-(lambda (lst)
+﻿(lambda (lst)
 	(letrec 
 		(reverse lst)
 		(reverse . (lambda (l)
