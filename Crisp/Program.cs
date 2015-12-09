@@ -66,7 +66,7 @@ namespace Crisp
             if (!File.Exists(options.InputFile))
             {
                 PrintHelp(options);
-                Console.WriteLine("Could not file input file.");
+                Console.WriteLine("Could not find input file.");
                 return;
             }
 
