@@ -33,8 +33,8 @@ namespace Crisp.Basic.Tests
         public void AtomSpecialFormShouldDetectAtoms()
         {
             /**
-             * Description: The atom special form should return a constant "t" if given an atom, 
-             * otherwise it should return the constant "f". This test ensures that this behavior
+             * Description: The atom special form should return a true boolean atom if given an atom, 
+             * otherwise it should return a true boolean atom. This test ensures that this behavior
              * is present.
              */
 
@@ -45,9 +45,9 @@ namespace Crisp.Basic.Tests
             var atomic = new List<SymbolicExpression> {_fixture.Create<NumericAtom>()}.ToProperList();
             var nonAtomic = new List<SymbolicExpression> {_fixture.Create<Pair>()}.ToProperList();
 
-            // We should get "t" for atomic and "f" otherwise.
-            Assert.AreEqual(function.Apply(atomic, _mockEvaluator).AsSymbol().Value, "t");
-            Assert.AreEqual(function.Apply(nonAtomic, _mockEvaluator).AsSymbol().Value, "f");
+            // We should get a true boolean atom for atomic and a false boolean atom otherwise.
+            Assert.AreEqual(function.Apply(atomic, _mockEvaluator), new BooleanAtom(true));
+            Assert.AreEqual(function.Apply(nonAtomic, _mockEvaluator), new BooleanAtom(false));
         }
 
         [TestMethod]
