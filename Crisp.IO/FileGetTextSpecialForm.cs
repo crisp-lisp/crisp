@@ -6,9 +6,9 @@ using Crisp.Core.Types;
 
 namespace Crisp.IO
 {
-    public class FileReadAllTextSpecialForm : SpecialForm
+    public class FileGetTextSpecialForm : SpecialForm
     {
-        public override string Name => "file-read-all-text";
+        public override string Name => "file-get-text";
 
         public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
         {
