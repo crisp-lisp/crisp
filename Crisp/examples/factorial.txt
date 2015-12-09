@@ -1,0 +1,4 @@
+#require "~/lib/math.csp"
+
+(lambda (n)
+	(factorial n))
