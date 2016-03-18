@@ -1,4 +1,7 @@
-﻿(lambda (lst)
+﻿;; Crisp example program. Reverses a list.
+;; Copyright © Saul Johnson 2015-2016
+
+(lambda (lst)
 	(letrec 
 		(reverse lst)
 		(reverse . (lambda (l)
