@@ -12,14 +12,14 @@ namespace Crisp.String
     /// </summary>
     public class ReplaceSpecialForm : SpecialForm
     {
-        public override string Name => "replace-text";
+        public override string Name => "replace";
 
         public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
         {
             expression.ThrowIfNotList(Name); // Takes a list of arguments.
 
             var arguments = expression.AsPair().Expand();
-            arguments.ThrowIfWrongLength(Name, 3); // Must have two arguments.
+            arguments.ThrowIfWrongLength(Name, 3); // Must have three arguments.
 
             // Attempt to evaluate every argument to a string.
             var evaluated = arguments.Select(evaluator.Evaluate).ToArray();
@@ -29,9 +29,9 @@ namespace Crisp.String
                     $"The arguments to the function '{Name}' must all evaluate to the string type.");
             }
 
-            var subject = arguments[0].AsString().Value;
-            var search = arguments[1].AsString().Value;
-            var replacement = arguments[2].AsString().Value;
+            var subject = evaluated[0].AsString().Value;
+            var search = evaluated[1].AsString().Value;
+            var replacement = evaluated[2].AsString().Value;
             
             return new StringAtom(subject.Replace(search, replacement));
         }
