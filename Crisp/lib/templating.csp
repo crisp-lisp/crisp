@@ -1,0 +1,13 @@
+﻿;; Crisp templating library
+;; Copyright © Saul Johnson 2015-2016
+
+;; Substitutes a set of bracketed ({}) terms in a document.
+(render-template . (lambda (document bindings)
+	(let 
+		(if (eq bindings nil) document (render-template (replace document term replacement) (cdr bindings)))
+		(term . (concat "{" (concat (car (car bindings)) "}")))
+		(replacement . (cdr (car bindings))))))
+
+;; Substitutes a set of bracketed ({}) terms in a document read from a file.
+(render-template-file . (lambda (filepath bindings)
+	(render-template (file-get-text filepath) bindings)))
