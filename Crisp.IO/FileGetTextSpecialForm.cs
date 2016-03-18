@@ -18,7 +18,7 @@ namespace Crisp.IO
             arguments.ThrowIfWrongLength(Name, 1); // Must have one argument.
 
             // Check file exists.
-            var path = arguments[0].AsString().Value;
+            var path = evaluator.Evaluate(arguments[0]).AsString().Value;
             if (!File.Exists(path))
             {
                 throw new FileNotFoundException($"File {path} could not be found for reading.", path);
