@@ -4,4 +4,6 @@
 #require "~/lib/templating.csp"
 
 (lambda (x)
-	(render-template-file "G:\test.html" (("title" . "Greetings!") ("name" . "Saul"))))
+	(render-template-file "G:\test.html" (
+		("title" . "Greetings!") 
+		("name" . "Saul"))))

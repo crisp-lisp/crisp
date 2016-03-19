@@ -4,4 +4,9 @@
 #require "~/lib/templating.csp"
 
 (lambda (url verb post)
-	(render-template-file "G:\test.html" (("title" . "Greetings!") ("name" . "Saul") ("url" . url) ("verb" . verb))))
+	(render-template-file "G:\test.html" (
+		("title" . "Greetings!") 
+		("name" . "Saul") 
+		("url" . url) 
+		("verb" . verb)
+		("post" . (if (eq post nil) "" post)))))
