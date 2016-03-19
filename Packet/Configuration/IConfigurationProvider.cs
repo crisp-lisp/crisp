@@ -5,6 +5,10 @@
     /// </summary>
     internal interface IConfigurationProvider
     {
+        /// <summary>
+        /// Gets the configuration object.
+        /// </summary>
+        /// <returns></returns>
         Configuration GetConfiguration();
     }
 }
