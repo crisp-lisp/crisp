@@ -20,7 +20,7 @@ namespace Crisp.Configuration
             // Load configuration if not already loaded.
             if (_loadedConfiguration == null)
             {
-                var path = Path.Combine(_interpreterDirectoryPathProvider.GetPath(), "config.json");
+                var path = Path.Combine(_interpreterDirectoryPathProvider.GetPath(), "crisp.json");
                 var text = File.ReadAllText(path);
                 _loadedConfiguration = JsonConvert.DeserializeObject<Configuration>(text);
             }
