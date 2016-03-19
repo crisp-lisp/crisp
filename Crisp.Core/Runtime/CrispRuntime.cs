@@ -38,7 +38,8 @@ namespace Crisp.Core.Runtime
         private SymbolicExpression EvaluateSource(string source, string arguments)
         {
             // Parse arguments passed in as a string.
-            var argumentTokens = _tokenizer.Tokenize($"({arguments})");
+            var filter = TokenFilterFactory.GetCommentAndWhitespaceFilter();
+            var argumentTokens = filter.Filter(_tokenizer.Tokenize($"({arguments})"));
             var parsedArgumentList = _parser.CreateExpressionTree(argumentTokens);
 
             return EvaluateSource(source, parsedArgumentList);
