@@ -1,11 +1,12 @@
 ﻿using SimpleInjector;
 
-using Packet.Configuration;
 using Crisp.Core.Evaluation;
 using Crisp.Core.Parsing;
 using Crisp.Core.Preprocessing;
 using Crisp.Core.Runtime;
 using Crisp.Core.Tokenizing;
+
+using Packet.Configuration;
 
 namespace Packet
 {
