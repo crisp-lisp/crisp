@@ -25,12 +25,8 @@ namespace Packet
             
             if (processor.HttpUrl.EndsWith(".csp"))
             {
-                var txt = File.ReadAllText("public-www/" + processor.HttpUrl);
-                var tokenizer = TokenizerFactory.GetCrispTokenizer(true);
-                var tokens = TokenFilterFactory.GetCommentWhitespaceAndDirectiveFilter().Filter(tokenizer.Tokenize(txt));
-                var t = _tokenizer.Tokenize(txt);
-                var p = _parser.CreateExpressionTree(t);
-                var result = _evaluator.Evaluate(p);
+                var runtime = CrispRuntimeFactory.GetCrispRuntime("public-www/" + processor.HttpUrl);
+                var result = runtime.Run("0");
 
                 if (result.Type != SymbolicExpressionType.String)
                 {

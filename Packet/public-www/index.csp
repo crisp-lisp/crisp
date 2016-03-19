@@ -1,8 +1,7 @@
-﻿<html>
-	<head>
-	<title>{title}</title>
-	</head>
-	<body>
-		Hi there {name}!
-	</body>
-</html>
+﻿;; Crisp example program. returns the text in a file.
+;; Copyright © Saul Johnson 2015-2016
+
+#require "~/lib/templating.csp"
+
+(lambda (x)
+	(render-template-file "G:\test.html" (("title" . "Greetings!") ("name" . "Saul"))))

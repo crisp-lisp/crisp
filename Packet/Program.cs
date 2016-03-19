@@ -15,20 +15,6 @@ namespace Packet
     {
         static void Main(string[] args)
         {
-            // Dependency injection.
-            var container = new Container();
-            container.Register<IInterpreterDirectoryPathProvider, InterpreterDirectoryPathProvider>();
-            container.Register<IConfigurationProvider, ConfigurationProvider>();
-            container.Register<ISpecialFormDirectoryPathProvider, SpecialFormDirectoryPathProvider>();
-            container.Register<IRequirePathTransformer, RequirePathTransformer>();
-            container.Register<IRequirePathExtractor, RequirePathExtractor>();
-            container.Register(() => TokenizerFactory.GetCrispTokenizer());
-            container.Register<IParser, Parser>();
-            container.Register<IDependencyFinder, DependencyFinder>();
-            container.Register<IDependencyLoader, DependencyLoader>();
-            container.Register<ISpecialFormLoader, SpecialFormLoader>();
-            container.Verify();
-
             HttpServer httpServer;
             if (args.GetLength(0) > 0)
             {
