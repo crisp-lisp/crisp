@@ -1,35 +1,54 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Packet
 {
+    /// <summary>
+    /// An implementation of a HTTP/1.0 request processor.
+    /// </summary>
     public class HttpProcessor
     {
+        /// <summary>
+        /// Gets the maximum allowed size of a POST request body.
+        /// </summary>
+        private const int MaxPostSize = 10*1024*1024;
+
         private readonly TcpClient _socket;
+
         private readonly HttpServer _server;
 
         private Stream _inputStream;
+
         private string _httpMethod;
+
         private string _httpProtocolVersionString;
-        private Hashtable _httpHeaders = new Hashtable();
 
-        private static int MAX_POST_SIZE = 10*1024*1024;
+        private readonly Hashtable _httpHeaders;
 
+        /// <summary>
+        /// Gets the <see cref="StreamWriter"/> used to write a response to the client.
+        /// </summary>
         public StreamWriter OutputStream { get; private set; }
 
+        /// <summary>
+        /// Gets the URL passed up to the server as part of the request.
+        /// </summary>
         public string HttpUrl { get; private set; }
 
+        /// <summary>
+        /// Initializes a new instance of of a HTTP/1.0 request processor.
+        /// </summary>
+        /// <param name="socket">The socket to write to.</param>
+        /// <param name="server">The server that spawned this processor.</param>
         public HttpProcessor(TcpClient socket, HttpServer server)
         {
             _socket = socket;
             _server = server;
+            _httpHeaders = new Hashtable();
         }
 
         private static string StreamReadLine(Stream inputStream)
@@ -141,7 +160,7 @@ namespace Packet
             if (_httpHeaders.ContainsKey("Content-Length"))
             {
                 content_len = Convert.ToInt32(_httpHeaders["Content-Length"]);
-                if (content_len > MAX_POST_SIZE)
+                if (content_len > MaxPostSize)
                 {
                     throw new Exception("Post length too big!");
                 }
