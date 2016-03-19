@@ -120,22 +120,22 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="examples\cat.txt">
+    <None Include="examples\cat.csp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="examples\factorial.txt">
+    </None>
+    <None Include="examples\factorial.csp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="examples\pi.txt">
+    </None>
+    <None Include="examples\pi.csp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="examples\templating.txt">
+    </None>
+    <None Include="examples\templating.csp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </None>
     <Content Include="icon.ico" />
-    <Content Include="examples\reverse.txt">
+    <None Include="examples\reverse.csp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
