@@ -1,20 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using System.Runtime.InteropServices;
-using Crisp.Configuration;
-using Crisp.Core;
-using Crisp.Core.Evaluation;
-using Crisp.Core.Parsing;
-using Crisp.Core.Preprocessing;
-using Crisp.Core.Tokenizing;
-using Crisp.Core.Types;
-using Crisp.Visualization;
-
-using SimpleInjector;
 
 using CommandLine.Text;
-using Crisp.Core.Runtime;
+
+using Crisp.Visualization;
 
 namespace Crisp
 {
@@ -48,7 +38,7 @@ namespace Crisp
             var helpText = HelpText.AutoBuild(options);
             helpText.AdditionalNewLineAfterOption = true;
             helpText.Heading = $"Interpreter v{version}";
-            helpText.Copyright = "Copyright © Saul Johnson 2015";
+            helpText.Copyright = "Copyright © Saul Johnson 2016";
 
             Console.Write(helpText);
         }
