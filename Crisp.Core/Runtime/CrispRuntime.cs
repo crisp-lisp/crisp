@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
+
 using Crisp.Core.Evaluation;
 using Crisp.Core.Parsing;
+using Crisp.Core.Preprocessing;
 using Crisp.Core.Tokenizing;
 using Crisp.Core.Types;
 
@@ -13,11 +10,12 @@ namespace Crisp.Core.Runtime
 {
     public class CrispRuntime : ICrispRuntime
     {
+        private readonly ISourceFilePathProvider _sourceFilePathProvider;
         private readonly ITokenizer _tokenizer;
         private readonly IParser _parser;
         private readonly IEvaluator _evaluator;
 
-        public SymbolicExpression EvaluateSource(string source, SymbolicExpression arguments)
+        private SymbolicExpression EvaluateSource(string source, SymbolicExpression arguments)
         {
             // Remove comments, whitespace, directives.
             var filter = TokenFilterFactory.GetCommentWhitespaceAndDirectiveFilter();
@@ -37,7 +35,7 @@ namespace Crisp.Core.Runtime
             return result.AsFunction().Apply(arguments, null);
         }
 
-        public SymbolicExpression EvaluateSource(string source, string arguments)
+        private SymbolicExpression EvaluateSource(string source, string arguments)
         {
             // Parse arguments passed in as a string.
             var argumentTokens = _tokenizer.Tokenize($"({arguments})");
@@ -46,18 +44,33 @@ namespace Crisp.Core.Runtime
             return EvaluateSource(source, parsedArgumentList);
         }
 
-        public SymbolicExpression EvaluateSourceFile(string filepath, SymbolicExpression arguments)
+        private SymbolicExpression EvaluateSourceFile(string filepath, SymbolicExpression arguments)
         {
             return EvaluateSource(File.ReadAllText(filepath), arguments);
         }
 
-        public SymbolicExpression EvaluateSourceFile(string filepath, string arguments)
+        private SymbolicExpression EvaluateSourceFile(string filepath, string arguments)
         {
             return EvaluateSource(File.ReadAllText(filepath), arguments);
         }
 
-        public CrispRuntime(ITokenizer tokenizer, IParser parser, IEvaluator evaluator)
+        public SymbolicExpression Run(string arguments)
         {
+            return EvaluateSourceFile(_sourceFilePathProvider.GetPath(), arguments);
+        }
+
+        public SymbolicExpression Run(SymbolicExpression arguments)
+        {
+            return EvaluateSourceFile(_sourceFilePathProvider.GetPath(), arguments);
+        }
+
+        public CrispRuntime(
+            ISourceFilePathProvider sourceFilePathProvider, 
+            ITokenizer tokenizer, 
+            IParser parser, 
+            IEvaluator evaluator)
+        {
+            _sourceFilePathProvider = sourceFilePathProvider;
             _tokenizer = tokenizer;
             _parser = parser;
             _evaluator = evaluator;
