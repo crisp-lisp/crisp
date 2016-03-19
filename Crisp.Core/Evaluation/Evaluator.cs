@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-
+using Crisp.Core.Preprocessing;
 using Crisp.Core.Types;
 
 namespace Crisp.Core.Evaluation
@@ -96,9 +96,11 @@ namespace Crisp.Core.Evaluation
         /// <summary>
         /// Initializes a new instance of an expression evaluator.
         /// </summary>
-        public Evaluator()
+        public Evaluator(ISpecialFormLoader specialFormLoader, IDependencyLoader dependencyLoader)
         {
             _bindings = new List<Binding>();
+            MutableBind(specialFormLoader.GetBindings());
+            MutableBind(dependencyLoader.GetBindings());
         }
 
         /// <summary>

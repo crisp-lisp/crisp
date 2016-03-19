@@ -32,13 +32,13 @@ namespace Packet
             HttpServer httpServer;
             if (args.GetLength(0) > 0)
             {
-                httpServer = new MyHttpServer(Convert.ToInt16(args[0]));
+                httpServer = new PacketHttpServer(Convert.ToInt16(args[0]));
             }
             else
             {
-                httpServer = new MyHttpServer(8080);
+                httpServer = new PacketHttpServer(8080);
             }
-            Thread thread = new Thread(new ThreadStart(httpServer.listen));
+            Thread thread = new Thread(new ThreadStart(httpServer.Listen));
             thread.Start();
         }
     }

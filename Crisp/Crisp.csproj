@@ -76,10 +76,12 @@
     <Compile Include="Configuration\Configuration.cs" />
     <Compile Include="Configuration\ConfigurationProvider.cs" />
     <Compile Include="Configuration\IConfigurationProvider.cs" />
+    <Compile Include="CrispRuntimeFactory.cs" />
     <Compile Include="InterpreterDirectoryPathProvider.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SourceFilePathProvider.cs" />
     <Compile Include="SpecialFormDirectoryPathProvider.cs" />
   </ItemGroup>
   <ItemGroup>

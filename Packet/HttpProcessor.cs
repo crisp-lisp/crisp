@@ -12,8 +12,8 @@ namespace Packet
 {
     public class HttpProcessor
     {
-        private TcpClient _socket;
-        private HttpServer _server;
+        private readonly TcpClient _socket;
+        private readonly HttpServer _server;
 
         private Stream _inputStream;
         private string _httpMethod;

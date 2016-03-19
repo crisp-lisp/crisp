@@ -13,19 +13,21 @@ namespace Crisp.Core.Preprocessing
     /// </summary>
     public class DependencyLoader : IDependencyLoader
     {
+        private readonly ISourceFilePathProvider _sourceFilePathProvider;
+
         private readonly ITokenizer _tokenizer;
 
         private readonly IParser _parser;
 
         private readonly IDependencyFinder _dependencyFinder;
         
-        public Dictionary<SymbolAtom, SymbolicExpression> GetBindings(string filepath)
+        public Dictionary<SymbolAtom, SymbolicExpression> GetBindings()
         {
             // Prepare list of definitions to pass back.
             var definitions = new Dictionary<SymbolAtom, SymbolicExpression>();
 
             // Find dependency files first.
-            var dependencies = _dependencyFinder.FindDependencyFilepaths(filepath);
+            var dependencies = _dependencyFinder.FindDependencyFilepaths(_sourceFilePathProvider.GetPath());
 
             // Loop through each dependency file.
             foreach (var library in dependencies)
@@ -73,11 +75,17 @@ namespace Crisp.Core.Preprocessing
         /// <summary>
         /// Initializes a new instance of a dependency loader.
         /// </summary>
+        /// <param name="sourceFilePathProvider">The provider to use to get the path to the source file.</param>
         /// <param name="tokenizer">The tokenizer to use to tokenize source files.</param>
         /// <param name="parser">The parser to use to parse source files.</param>
         /// <param name="dependencyFinder">The dependency finder to use to locate source file dependencies.</param>
-        public DependencyLoader(ITokenizer tokenizer, IParser parser, IDependencyFinder dependencyFinder)
+        public DependencyLoader(
+            ISourceFilePathProvider sourceFilePathProvider,
+            ITokenizer tokenizer, 
+            IParser parser, 
+            IDependencyFinder dependencyFinder)
         {
+            _sourceFilePathProvider = sourceFilePathProvider;
             _tokenizer = tokenizer;
             _parser = parser;
             _dependencyFinder = dependencyFinder;

@@ -52,6 +52,7 @@
     <Compile Include="Preprocessing\IRequirePathExtractor.cs" />
     <Compile Include="Preprocessing\IRequirePathTransformer.cs" />
     <Compile Include="Preprocessing\IDependencyLoader.cs" />
+    <Compile Include="Preprocessing\ISourceFilePathProvider.cs" />
     <Compile Include="Preprocessing\ISpecialFormDirectoryPathProvider.cs" />
     <Compile Include="Preprocessing\ISpecialFormLoader.cs" />
     <Compile Include="Preprocessing\RequirePathExtractor.cs" />
@@ -59,6 +60,8 @@
     <Compile Include="Preprocessing\DependencyLoader.cs" />
     <Compile Include="RuntimeException.cs" />
     <Compile Include="Preprocessing\SpecialFormLoader.cs" />
+    <Compile Include="Runtime\CrispRuntime.cs" />
+    <Compile Include="Runtime\ICrispRuntime.cs" />
     <Compile Include="SpecialFormExtensions.cs" />
     <Compile Include="SymbolicExpressionExtensions.cs" />
     <Compile Include="Evaluation\IEvaluator.cs" />

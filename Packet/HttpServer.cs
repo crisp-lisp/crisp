@@ -1,41 +1,66 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
+using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Packet
 {
+    /// <summary>
+    /// Represents an abstract HTTP server.
+    /// </summary>
     public abstract class HttpServer
     {
-        protected int _port;
         private TcpListener _listener;
-        private bool isActive = true;
+        
+        /// <summary>
+        /// Gets whether or not this server is currently actively listening for requests.
+        /// </summary>
+        protected bool IsActive { get; private set; }
 
+        /// <summary>
+        /// Gets the port number that this server is currently listening on.
+        /// </summary>
+        protected int Port { get; }
+
+        /// <summary>
+        /// Initializes a new instance of an abstract HTTP server.
+        /// </summary>
+        /// <param name="port">The port that the server should listen for requests on.</param>
         protected HttpServer(int port)
         {
-            _port = port;
+            Port = port;
         }
-
-
-        public void listen()
+        
+        public void Listen()
         {
-            _listener = new TcpListener(_port);
+            // Start TCP listener.
+            var ipAddress = Dns.GetHostEntry("localhost").AddressList[0];
+            _listener = new TcpListener(ipAddress, Port);
             _listener.Start();
-            while (isActive)
+            IsActive = true;
+
+            // While we're actively listening for connections.
+            while (IsActive) // TODO: Weird way to listen for multiple requests.
             {
-                TcpClient s = _listener.AcceptTcpClient();
-                HttpProcessor processot = new HttpProcessor(s, this);
-                Thread thread = new Thread(new ThreadStart(processot.Process));
+                // Pass request to processor and process in a new thread.
+                var client = _listener.AcceptTcpClient();
+                var processor = new HttpProcessor(client, this);
+                var thread = new Thread(processor.Process);
                 thread.Start();
-                Thread.Sleep(1);
             }
         }
 
-        public abstract void HandleGetRequest(HttpProcessor p);
-        public abstract void HandlePostRequest(HttpProcessor p, StreamReader inputData);
+        /// <summary>
+        /// Handles a request with a GET HTTP verb submitted to the server.
+        /// </summary>
+        /// <param name="processor">The processor to use to handle the request.</param>
+        public abstract void HandleGetRequest(HttpProcessor processor);
+
+        /// <summary>
+        /// Handles a request with a POST HTTP verb submitted to the server.
+        /// </summary>
+        /// <param name="processor"></param>
+        /// <param name="inputStream"></param>
+        public abstract void HandlePostRequest(HttpProcessor processor, StreamReader inputStream);
     }
 }
