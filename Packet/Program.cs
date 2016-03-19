@@ -1,30 +1,56 @@
 ﻿using System;
+using System.Reflection;
 using System.Threading;
 
-using Crisp.Core.Parsing;
-using Crisp.Core.Preprocessing;
-using Crisp.Core.Tokenizing;
-
-using Packet.Configuration;
-
-using SimpleInjector;
+using CommandLine.Text;
 
 namespace Packet
 {
     class Program
     {
+        /// <summary>
+        /// Prints the help card for the application.
+        /// </summary>
+        /// <param name="options">The command-line options passed to the program.</param>
+        private static void PrintHelp(Options options)
+        {
+            // Write ASCII art.
+            var titleCard = new[]
+            {
+                "    ____                                ",
+                "    /    )               /              ",
+                "   /____/    __    __   / __    __  _/_ ",
+                "  /        /   ) /   ' /(     /___) /   ",
+                " /________(___(_(___ _/___\\__(___ _(_   "
+            };
+            foreach (var line in titleCard)
+            {
+                Console.WriteLine(line);
+            }
+
+            var version = Assembly.GetEntryAssembly().GetName().Version;
+
+            // Automatically build help text based on options class.
+            var helpText = HelpText.AutoBuild(options);
+            helpText.AdditionalNewLineAfterOption = true;
+            helpText.Heading = $"Server v{version}";
+            helpText.Copyright = "Copyright © Saul Johnson 2016";
+
+            Console.Write(helpText);
+        }
+
         static void Main(string[] args)
         {
-            HttpServer httpServer;
-            if (args.GetLength(0) > 0)
+            // Parse command-line options.
+            var options = new Options();
+            if (!CommandLine.Parser.Default.ParseArguments(args, options))
             {
-                httpServer = new PacketHttpServer(Convert.ToInt16(args[0]));
+                PrintHelp(options);
+                return;
             }
-            else
-            {
-                httpServer = new PacketHttpServer(8080);
-            }
-            Thread thread = new Thread(new ThreadStart(httpServer.Listen));
+
+            var server = new PacketHttpServer(options.Port);
+            var thread = new Thread(server.Listen);
             thread.Start();
         }
     }

@@ -47,10 +47,12 @@ namespace Packet
         {
             // Get post data.
             var data = inputStream.ReadToEnd();
+            var npqs = processor.HttpUrl.Split('?').First();
+            var ext = npqs.Split('.').Last();
 
-            if (processor.HttpUrl.EndsWith(".csp"))
+            if (ext == "csp")
             {
-                var runtime = CrispRuntimeFactory.GetCrispRuntime("public-www/" + processor.HttpUrl);
+                var runtime = CrispRuntimeFactory.GetCrispRuntime("public-www/" + npqs);
                 var result = runtime.Run($"\"{processor.HttpUrl}\" \"POST\" \"{data}\"");
 
                 if (result.Type != SymbolicExpressionType.String)

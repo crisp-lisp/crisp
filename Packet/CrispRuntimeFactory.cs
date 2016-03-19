@@ -10,16 +10,11 @@ using Crisp.Core.Tokenizing;
 namespace Packet
 {
     /// <summary>
-    /// Provides a static factory for creating Crisp runtime instances.
+    /// An implementation of a factory for creating Crisp runtime instances.
     /// </summary>
-    internal static class CrispRuntimeFactory
+    internal class CrispRuntimeFactory : ICrispRuntimeFactory
     {
-        /// <summary>
-        /// Creates a new Crisp runtime to run the file at the specified path.
-        /// </summary>
-        /// <param name="inputFile">The path of the input file to create the runtime for.</param>
-        /// <returns></returns>
-        public static ICrispRuntime GetCrispRuntime(string inputFile)
+        public ICrispRuntime GetCrispRuntime(string inputFile)
         {
             // Dependency injection.
             var container = new Container();
