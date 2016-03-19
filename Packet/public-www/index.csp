@@ -1,7 +1,7 @@
-﻿;; Crisp example program. returns the text in a file.
+﻿;; Crisp example webpage.
 ;; Copyright © Saul Johnson 2015-2016
 
 #require "~/lib/templating.csp"
 
-(lambda (x)
-	(render-template-file "G:\test.html" (("title" . "Greetings!") ("name" . "Saul"))))
+(lambda (url verb post)
+	(render-template-file "G:\test.html" (("title" . "Greetings!") ("name" . "Saul") ("url" . url) ("verb" . verb))))
