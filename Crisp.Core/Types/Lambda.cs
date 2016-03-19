@@ -26,7 +26,7 @@ namespace Crisp.Core.Types
             // Make sure we've got the right number of arguments.
             var arguments = expression.AsPair().Expand();
             if (arguments.Count != _parameters.Count
-                && (arguments.Count == 1 && arguments[0].Equals(new Nil()))) // Account for parameterless lambdas.
+                && !(arguments.Count == 1 && arguments[0].Equals(new Nil()))) // Account for parameterless lambdas.
             {
                 throw new RuntimeException("Attempted to call lambda with wrong number of arguments.");
             }
