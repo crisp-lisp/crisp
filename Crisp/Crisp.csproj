@@ -89,6 +89,9 @@
     <None Include="crisp.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="examples\data.csp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="lib\math.csp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

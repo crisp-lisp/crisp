@@ -90,6 +90,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+    <None Include="public-www\data.csp" />
     <None Include="public-www\index.csp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
