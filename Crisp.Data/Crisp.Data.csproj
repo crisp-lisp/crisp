@@ -97,7 +97,6 @@
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)Crisp\bin\Debug\native\$(TargetFileName)" /y
 copy "$(TargetPath)" "$(SolutionDir)Packet\bin\Debug\native\$(TargetFileName)" /y
-copy "$(TargetPath)" "$(SolutionDir)Packet\bin\Debug\native\$(TargetFileName)" /y
 </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
