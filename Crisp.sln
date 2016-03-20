@@ -30,6 +30,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crisp.IO", "Crisp.IO\Crisp.
 		{809929B5-0646-4120-B0D9-A69EB59354D5} = {809929B5-0646-4120-B0D9-A69EB59354D5}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crisp.Data", "Crisp.Data\Crisp.Data.csproj", "{93252813-55AD-4D1E-9563-24AC298E8314}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,6 +74,10 @@ Global
 		{FD77F47E-4D84-4657-9AE2-5AFC757E729C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD77F47E-4D84-4657-9AE2-5AFC757E729C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD77F47E-4D84-4657-9AE2-5AFC757E729C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93252813-55AD-4D1E-9563-24AC298E8314}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93252813-55AD-4D1E-9563-24AC298E8314}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93252813-55AD-4D1E-9563-24AC298E8314}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93252813-55AD-4D1E-9563-24AC298E8314}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
