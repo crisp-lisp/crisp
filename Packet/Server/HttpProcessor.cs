@@ -5,12 +5,12 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 
-namespace Packet
+namespace Packet.Server
 {
     /// <summary>
     /// An implementation of a HTTP/1.0 request processor.
     /// </summary>
-    public class HttpProcessor
+    internal class HttpProcessor
     {
         /// <summary>
         /// Gets the maximum allowed size of a POST request body.

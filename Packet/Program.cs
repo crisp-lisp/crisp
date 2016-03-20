@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Threading;
 
 using CommandLine.Text;
+using Packet.Server;
 
 namespace Packet
 {
@@ -49,7 +50,12 @@ namespace Packet
                 return;
             }
 
-            var server = new PacketHttpServer(options.Port);
+            // Start server.
+            var server = HttpServerFactory.GetPacketHttpServer(new ServerStartupSettings
+            {
+                Port = options.Port,
+                WebRoot = options.WebRoot,
+            });
             var thread = new Thread(server.Listen);
             thread.Start();
         }

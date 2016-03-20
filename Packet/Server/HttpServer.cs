@@ -3,12 +3,12 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 
-namespace Packet
+namespace Packet.Server
 {
     /// <summary>
     /// Represents an abstract HTTP server.
     /// </summary>
-    public abstract class HttpServer
+    internal abstract class HttpServer : IHttpServer
     {
         private TcpListener _listener;
         
@@ -50,17 +50,8 @@ namespace Packet
             }
         }
 
-        /// <summary>
-        /// Handles a request with a GET HTTP verb submitted to the server.
-        /// </summary>
-        /// <param name="processor">The processor to use to handle the request.</param>
         public abstract void HandleGetRequest(HttpProcessor processor);
 
-        /// <summary>
-        /// Handles a request with a POST HTTP verb submitted to the server.
-        /// </summary>
-        /// <param name="processor"></param>
-        /// <param name="inputStream"></param>
         public abstract void HandlePostRequest(HttpProcessor processor, StreamReader inputStream);
     }
 }

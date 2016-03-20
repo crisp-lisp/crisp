@@ -1,30 +1,31 @@
-﻿using System;
-using System.CodeDom;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using Crisp.Core;
-using Crisp.Core.Evaluation;
-using Crisp.Core.Parsing;
-using Crisp.Core.Tokenizing;
 using Crisp.Core.Types;
 
-namespace Packet
+namespace Packet.Server
 {
-    public class PacketHttpServer : HttpServer
+    internal class PacketHttpServer : HttpServer
     {
-        public PacketHttpServer(int port)
-            : base(port)
+        private readonly IServerStartupSettingsProvider _serverStartupSettingsProvider;
+
+        private readonly ICrispRuntimeFactory _crispRuntimeFactory;
+
+        public PacketHttpServer(
+            IServerStartupSettingsProvider serverStartupSettingsProvider,
+            ICrispRuntimeFactory crispRuntimeFactory)
+            : base(serverStartupSettingsProvider.GetSettings().Port)
         {
+            _serverStartupSettingsProvider = serverStartupSettingsProvider;
+            _crispRuntimeFactory = crispRuntimeFactory;
         }
 
         public override void HandleGetRequest(HttpProcessor processor)
         {
             if (processor.HttpUrl.EndsWith(".csp"))
             {
-                var runtime = CrispRuntimeFactory.GetCrispRuntime("public-www/" + processor.HttpUrl);
+                var runtime = _crispRuntimeFactory.GetCrispRuntime("public-www/" + processor.HttpUrl);
                 var result = runtime.Run($"\"{processor.HttpUrl}\" \"GET\" nil");
 
                 if (result.Type != SymbolicExpressionType.String)
@@ -52,7 +53,7 @@ namespace Packet
 
             if (ext == "csp")
             {
-                var runtime = CrispRuntimeFactory.GetCrispRuntime("public-www/" + npqs);
+                var runtime = _crispRuntimeFactory.GetCrispRuntime("public-www/" + npqs);
                 var result = runtime.Run($"\"{processor.HttpUrl}\" \"POST\" \"{data}\"");
 
                 if (result.Type != SymbolicExpressionType.String)
