@@ -2,4 +2,6 @@
 ;; Copyright © Saul Johnson 2015-2016
 
 (lambda ()
-	(data-non-query "G:\data.db3" "CREATE TABLE Test (id INT PRIMARY KEY AUTOINCREMENT, name TEXT)"))
+	(let 
+		result
+		(result . (data-query "G:\data.db3" "SELECT * FROM Test"))))

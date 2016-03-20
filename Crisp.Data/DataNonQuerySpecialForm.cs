@@ -1,4 +1,4 @@
-﻿using System.Data.SQLite;
+﻿using Community.CsharpSqlite.SQLiteClient;
 
 using Crisp.Core;
 using Crisp.Core.Evaluation;
@@ -23,8 +23,9 @@ namespace Crisp.Data
 
             // Execute SQLite command.
             int result;
-            using (var connection = new SQLiteConnection($"Data Source={connectionString};Version=3;"))
+            using (var connection = new SqliteConnection($"Data Source={connectionString};Version=3;"))
             {
+                connection.Open();
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText = query;
