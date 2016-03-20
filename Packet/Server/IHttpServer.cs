@@ -2,6 +2,9 @@
 
 namespace Packet.Server
 {
+    /// <summary>
+    /// Represents a HTTP/1.0 server.
+    /// </summary>
     internal interface IHttpServer
     {
         /// <summary>
