@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
 using System.Text;
@@ -49,6 +50,28 @@ namespace Packet.Server
             _socket = socket;
             _server = server;
             _httpHeaders = new Hashtable();
+        }
+
+        private static string GetReasonPhrase(int statusCode)
+        {
+            return new Dictionary<int, string>
+            {
+                {200, "OK"},
+                {201, "CREATED"},
+                {202, "ACCEPTED"},
+                {204, "No Content"},
+                {301, "Moved Permanently"},
+                {302, "Moved Temporarily"},
+                {304, "Not Modified"},
+                {400, "Bad Request"},
+                {401, "Unauthorized"},
+                {403, "Forbidden"},
+                {404, "Not Found"},
+                {500, "Internal Server Error"},
+                {501, "Not Implemented"},
+                {502, "Bad Gateway"},
+                {503, "Service Unavailable"}
+            }[statusCode];
         }
 
         private static string StreamReadLine(Stream inputStream)
@@ -188,6 +211,14 @@ namespace Packet.Server
             }
             Console.WriteLine("Get post data end");
             _server.HandlePostRequest(this, new StreamReader(ms));
+        }
+
+        public void WriteResponse(int statusCode, string mimeType)
+        {
+            OutputStream.WriteLine($"HTTP/1.0 {statusCode} {GetReasonPhrase(statusCode)}");
+            OutputStream.WriteLine("Content-Type: " + mimeType);
+            OutputStream.WriteLine("Connection: close");
+            OutputStream.WriteLine("");
         }
 
         public void WriteSuccess(string contentType = "text/html")

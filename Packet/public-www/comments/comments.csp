@@ -4,6 +4,7 @@
 #require "~/lib/core.csp"
 #require "~/lib/querystring.csp"
 #require "~/lib/namevaluecollection.csp"
+#require "~/lib/web.csp"
 #require "~/lib/templating.csp"
 
 (lambda (url verb post)
@@ -19,9 +20,10 @@
 			(comment . (nvc-get (parse-query-string post) "comment"))) 
 		(letrec
 			;; Render the template file for the main page.
-			(render-template-file "comments.html" (
-				("title" . "Crisp Example - Comments System") 
-				("comments" . (build existing))))
+			(respond 
+				(render-template-file "comments.html" (
+					("title" . "Crisp Example - Comments System") 
+					("comments" . (build existing)))) 200 "text/html")
 			(create-block . (lambda (row)
 				;; Render a partial for a comment.
 				(render-template-file "_comment.html" (

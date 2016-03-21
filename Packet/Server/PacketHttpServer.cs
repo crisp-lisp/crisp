@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 
 using Crisp.Core;
@@ -28,14 +29,15 @@ namespace Packet.Server
                 var runtime = _crispRuntimeFactory.GetCrispRuntime("public-www/" + processor.HttpUrl);
                 var result = runtime.Run($"\"{processor.HttpUrl}\" \"GET\" nil");
 
-                if (result.Type != SymbolicExpressionType.String)
+                if (result.Type != SymbolicExpressionType.Pair)
                 {
                     // TODO: Error page.
                 }
                 else
                 {
-                    processor.WriteSuccess();
-                    processor.OutputStream.Write(result.AsString().Value);
+                    var expanded = result.AsPair().Expand();
+                    processor.WriteResponse(Convert.ToInt32(expanded[1].AsNumeric().Value), expanded[2].AsString().Value);
+                    processor.OutputStream.Write(expanded[0].AsString().Value);
                 }
             }
             else
@@ -56,14 +58,15 @@ namespace Packet.Server
                 var runtime = _crispRuntimeFactory.GetCrispRuntime("public-www/" + npqs);
                 var result = runtime.Run($"\"{processor.HttpUrl}\" \"POST\" \"{data}\"");
 
-                if (result.Type != SymbolicExpressionType.String)
+                if (result.Type != SymbolicExpressionType.Pair)
                 {
                     // TODO: Error page.
                 }
                 else
                 {
-                    processor.WriteSuccess();
-                    processor.OutputStream.Write(result.AsString().Value);
+                    var expanded = result.AsPair().Expand();
+                    processor.WriteResponse(Convert.ToInt32(expanded[1].AsNumeric().Value), expanded[2].AsString().Value);
+                    processor.OutputStream.Write(expanded[0].AsString().Value);
                 }
             }
             else

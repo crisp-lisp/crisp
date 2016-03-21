@@ -89,6 +89,9 @@
     <None Include="lib\querystring.csp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="lib\web.csp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packet.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
