@@ -31,6 +31,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crisp.IO", "Crisp.IO\Crisp.
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crisp.Data", "Crisp.Data\Crisp.Data.csproj", "{93252813-55AD-4D1E-9563-24AC298E8314}"
+	ProjectSection(ProjectDependencies) = postProject
+		{809929B5-0646-4120-B0D9-A69EB59354D5} = {809929B5-0646-4120-B0D9-A69EB59354D5}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
