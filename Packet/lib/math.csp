@@ -25,3 +25,7 @@
 ;;; Cubes a number.
 ;;; @param x	the number to cube
 (cube . (lambda (x) (pow x 3)))
+
+;;; Calculates the absolute value of a number.
+;;; @param x	the number to calculate the absolute value of
+(abs . (lambda (x) (if (leq x 0) (mul x -1) x)))

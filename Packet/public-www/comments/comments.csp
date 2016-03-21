@@ -2,19 +2,33 @@
 ;; Copyright © Saul Johnson 2015-2016
 
 #require "~/lib/core.csp"
+#require "~/lib/querystring.csp"
+#require "~/lib/namevaluecollection.csp"
 #require "~/lib/templating.csp"
 
 (lambda (url verb post)
+	;; The prog function will evaluate each of the following expressions in sequence and return the result of the last.	
 	(prog 
-		((render-template-file "comments.html" (
-			("title" . "Greetings!") 
-			("name" . "Saul") 
-			("url" . url) 
-			("verb" . verb)
-			("post" . (if (eq post nil) "" post))))
 		(let
-			(if (eq verb "POST")
+			;; If we have a POST request, insert new record into database.
+			(if (eq verb "POST") 
 				(data-non-query "comments.db3" (concat-all ("INSERT INTO Comments (name, comment) VALUES ('" name "', '" comment "')")))
 				nil)
+			;; Get name and comment from form data.
 			(name . (nvc-get (parse-query-string post) "name"))
-			(comment . (nvc-get (parse-query-string post) "comment"))))))
+			(comment . (nvc-get (parse-query-string post) "comment"))) 
+		(letrec
+			;; Render the template file for the main page.
+			(render-template-file "comments.html" (
+				("title" . "Crisp Example - Comments System") 
+				("comments" . (build existing))))
+			(create-block . (lambda (row)
+				;; Render a partial for a comment.
+				(render-template-file "_comment.html" (
+					("name" . (nvc-get row "name") ) 
+					("comment" . (nvc-get row "comment"))))))
+			(build . (lambda (rows)
+				(if (eq rows nil) "" (concat (create-block (car rows)) (build (cdr rows))))))
+			;; Query database for existing comments.
+			(existing . (data-query "comments.db3" "SELECT * FROM Comments")))))
+			

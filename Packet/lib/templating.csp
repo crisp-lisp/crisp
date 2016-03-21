@@ -1,7 +1,7 @@
 ﻿;; Crisp templating library
 ;; Copyright © Saul Johnson 2015-2016
 
-;; Substitutes a set of bracketed ({}) terms in a document.
+;; Substitutes a set of bracketed ({}) bindings in a document.
 ;; @param document	the document to perform the replace operation on
 ;; @param bindings	the data bindings for the document
 (render-template . (lambda (document bindings)
@@ -10,37 +10,10 @@
 		(term . (concat "{" (concat (car (car bindings)) "}")))
 		(replacement . (cdr (car bindings))))))
 
-;; Substitutes a set of bracketed ({}) terms in a document read from a file.
+;; Substitutes a set of bracketed ({}) bindings in a document read from a file.
 ;; @param filepath	the file path of the document to perform the replace operation on
 ;; @param bindings	the data bindings for the document
 (render-template-file . (lambda (filepath bindings)
 	(render-template (file-get-text filepath) bindings)))
-	
-;; Converts a split query string into a name-value collection.
-;; @param lst	the list to convert
-(query-string-nvc . (lambda (lst)
-	(let 
-		(if (eq lst nil)
-			lst
-			(cons ((car cur) . (car (cdr cur))) (query-string-nvc (cdr lst))))
-		(cur . (split (car lst) "=")))))
 
-;; Parses a query string.
-;; @param str	the string to parse
-(parse-query-string . (lambda (str)
-	(let
-		(query-string-nvc entries)
-		(entries . (split str "&")))))
-
-;; Gets the value from a name-value collection that corresponds to the specified name.
-;; @param nvc	the name-value collection
-;; @param name	the name to retrieve the value for
-(nvc-get . (lambda (nvc name)
-	(if (eq nvc nil)
-		nil
-		(let
-			(if (eq (car cur) name)
-				(cdr cur)
-				(nvc-get (cdr nvc) name))
-			(cur . (car nvc))))))
 		
