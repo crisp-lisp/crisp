@@ -1,4 +1,4 @@
-﻿;; Crisp query string library
+﻿;; Crisp query string library.
 ;; Copyright © Saul Johnson 2015-2016
 
 ;; Converts a split query string into a name-value collection.

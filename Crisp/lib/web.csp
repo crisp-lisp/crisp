@@ -1,0 +1,9 @@
+﻿;; Crisp web library.
+;; Copyright © Saul Johnson 2015-2016
+
+;; Passes back a response list structure designed for the Packet webserver.
+;; @param content	the response content (body)
+;; @param status	the response status code
+;; @param mime		the MIME type (content-type) of the response
+(respond . (lambda (content status mime)
+	(list content status mime)))
