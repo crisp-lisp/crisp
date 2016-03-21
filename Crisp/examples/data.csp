@@ -2,6 +2,4 @@
 ;; Copyright © Saul Johnson 2015-2016
 
 (lambda ()
-	(let 
-		result
-		(result . (data-query "G:\data.db3" "SELECT * FROM Test"))))
+	(data-query "G:\data.db3" "SELECT * FROM Test"))

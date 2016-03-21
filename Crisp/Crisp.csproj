@@ -144,9 +144,12 @@
     <None Include="examples\pi.csp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="examples\templating.csp">
+    <None Include="examples\template\template.csp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Content Include="examples\template\template.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="icon.ico" />
     <None Include="examples\reverse.csp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -1,0 +1,10 @@
+﻿;; Crisp example program. Demonstrates templating.
+;; Copyright © Saul Johnson 2015-2016
+
+#require "~/lib/templating.csp"
+
+(lambda (x)
+	;; Render the template file stored in this directory.
+	(render-template-file "template.html" (
+		("title" . "Greetings!") 
+		("name" . "Saul"))))
