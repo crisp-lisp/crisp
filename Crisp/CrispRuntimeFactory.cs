@@ -36,7 +36,9 @@ namespace Crisp
             container.Register<ISpecialFormLoader, SpecialFormLoader>();
             container.Register<IEvaluator>(() =>
             {
-                var evaluator = new Evaluator(container.GetInstance<ISpecialFormLoader>(), 
+                var evaluator = new Evaluator(
+                    container.GetInstance<ISourceFilePathProvider>(),
+                    container.GetInstance<ISpecialFormLoader>(), 
                     container.GetInstance<IDependencyLoader>());
                 return evaluator;
             });

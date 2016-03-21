@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 using Crisp.Core.Preprocessing;
@@ -16,13 +17,48 @@ namespace Crisp.Core.Evaluation
         /// </summary>
         private readonly List<Binding> _bindings;
 
+        public string SourceFilePath { get; }
+
+        public string SourceFolderPath { get; }
+
+        /// <summary>
+        /// Initializes a new instance of an expression evaluator.
+        /// </summary>
+        /// <param name="sourceFilePathProvider"></param>
+        /// <param name="specialFormLoader"></param>
+        /// <param name="dependencyLoader"></param>
+        public Evaluator(
+            ISourceFilePathProvider sourceFilePathProvider, 
+            ISpecialFormLoader specialFormLoader, 
+            IDependencyLoader dependencyLoader)
+        {
+            _bindings = new List<Binding>();
+            SourceFilePath = sourceFilePathProvider.GetPath();
+            SourceFolderPath = Path.GetDirectoryName(SourceFilePath);
+            MutableBind(specialFormLoader.GetBindings());
+            MutableBind(dependencyLoader.GetBindings());
+        }
+
+        /// <summary>
+        /// Initializes a new instance of an expression evaluator.
+        /// </summary>
+        /// <param name="sourceFilePath"></param>
+        /// <param name="sourceFolderPath"></param>
+        /// <param name="bindings">A list of bindings from which to initialize the evaluator.</param>
+        public Evaluator(string sourceFilePath, string sourceFolderPath, List<Binding> bindings)
+        {
+            _bindings = bindings;
+            SourceFilePath = sourceFilePath;
+            SourceFolderPath = sourceFolderPath;
+        }
+
         public IEvaluator Bind(Dictionary<SymbolAtom, SymbolicExpression> bindings)
         {
             // We need an all-new list.
             var newBindings = new List<Binding>(_bindings);
             newBindings.AddRange(bindings.Select(b => new Binding(b.Key, b.Value, this)));
 
-            return new Evaluator(newBindings); // Return an all-new evaluator.
+            return new Evaluator(SourceFilePath, SourceFolderPath, newBindings); // Return an all-new evaluator.
         }
 
         public IEvaluator Bind(SymbolAtom symbol, SymbolicExpression expression)
@@ -66,7 +102,7 @@ namespace Crisp.Core.Evaluation
         {
             return _bindings.Any(b => b.Symbol.Matches(symbol));
         }
-        
+
         public SymbolicExpression Evaluate(SymbolicExpression expression)
         {
             switch (expression.Type)
@@ -92,25 +128,6 @@ namespace Crisp.Core.Evaluation
                 default:
                     return expression; // Non-symbol atoms evaluate to themselves.
             }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of an expression evaluator.
-        /// </summary>
-        public Evaluator(ISpecialFormLoader specialFormLoader, IDependencyLoader dependencyLoader)
-        {
-            _bindings = new List<Binding>();
-            MutableBind(specialFormLoader.GetBindings());
-            MutableBind(dependencyLoader.GetBindings());
-        }
-
-        /// <summary>
-        /// Initializes a new instance of an expression evaluator.
-        /// </summary>
-        /// <param name="bindings">A list of bindings from which to initialize the evaluator.</param>
-        public Evaluator(List<Binding> bindings)
-        {
-            _bindings = bindings;
         }
     }
 }

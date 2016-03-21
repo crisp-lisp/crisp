@@ -1,4 +1,6 @@
-﻿using SimpleInjector;
+﻿using System.Globalization;
+using System.IO;
+using SimpleInjector;
 
 using Crisp.Core.Evaluation;
 using Crisp.Core.Parsing;
@@ -32,7 +34,9 @@ namespace Packet
             container.Register<ISpecialFormLoader, SpecialFormLoader>();
             container.Register<IEvaluator>(() =>
             {
-                var evaluator = new Evaluator(container.GetInstance<ISpecialFormLoader>(), 
+                var evaluator = new Evaluator(
+                    container.GetInstance<ISourceFilePathProvider>(),
+                    container.GetInstance<ISpecialFormLoader>(), 
                     container.GetInstance<IDependencyLoader>());
                 return evaluator;
             });

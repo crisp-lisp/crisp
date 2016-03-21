@@ -1,0 +1,6 @@
+﻿(concat-all . (lambda (lst)
+	(if (eq lst nil) 
+		""
+		(concat (car lst) (concat-all (cdr lst))))))
+
+(prog . (lambda (prog) (car prog)))

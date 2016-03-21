@@ -1,0 +1,16 @@
+﻿<html>
+<head>
+    <title>{title}</title>
+</head>
+<body>
+    Hi there {name}! This was a {verb} request to URL: {url}
+    <p>
+        Form data: {post}
+    </p>
+    <form action="comments.csp" method="POST">
+        <input type="text" name="name">
+        <textarea name="comment"></textarea>
+        <input type="submit">
+    </form>
+</body>
+</html>

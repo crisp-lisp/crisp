@@ -4,7 +4,7 @@
 #require "~/lib/templating.csp"
 
 (lambda (url verb post)
-	(render-template-file "G:\test.html" (
+	(render-template-file "index.html" (
 		("title" . "Greetings!") 
 		("name" . "Saul") 
 		("url" . url) 

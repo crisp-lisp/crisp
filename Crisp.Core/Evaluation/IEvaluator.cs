@@ -10,6 +10,16 @@ namespace Crisp.Core.Evaluation
     public interface IEvaluator
     {
         /// <summary>
+        /// Gets the path of the source file being evaluated.
+        /// </summary>
+        string SourceFilePath { get; }
+
+        /// <summary>
+        /// Gets the folder path of the source file being evaluated.
+        /// </summary>
+        string SourceFolderPath { get; }
+
+        /// <summary>
         /// Evaluates an expression.
         /// </summary>
         /// <param name="expression">The expression to evaluate.</param>

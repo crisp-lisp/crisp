@@ -105,7 +105,11 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)Crisp\bin\Debug\native\$(TargetFileName)" /y
+copy "$(SolutionDir)Crisp.Data\bin\Debug\Community.CsharpSqlite.dll" "$(SolutionDir)Crisp\bin\Debug\native\Community.CsharpSqlite.dll" /y
+copy "$(SolutionDir)Crisp.Data\bin\Debug\Community.CsharpSqlite.SQLiteClient.dll" "$(SolutionDir)Crisp\bin\Debug\native\Community.CsharpSqlite.SQLiteClient.dll" /y
 copy "$(TargetPath)" "$(SolutionDir)Packet\bin\Debug\native\$(TargetFileName)" /y
+copy "$(SolutionDir)Crisp.Data\bin\Debug\Community.CsharpSqlite.dll" "$(SolutionDir)Packet\bin\Debug\native\Community.CsharpSqlite.dll" /y
+copy "$(SolutionDir)Crisp.Data\bin\Debug\Community.CsharpSqlite.SQLiteClient.dll" "$(SolutionDir)Packet\bin\Debug\native\Community.CsharpSqlite.SQLiteClient.dll" /y
 </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,0 +1,7 @@
+﻿;; Crisp example program. Parses a query string.
+;; Copyright © Saul Johnson 2015-2016
+
+#require "~/lib/templating.csp"
+
+(lambda ()
+	(parse-query-string "comment=Great job!&name=Adam"))

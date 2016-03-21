@@ -1,0 +1,20 @@
+﻿;; Crisp example data-driven page.
+;; Copyright © Saul Johnson 2015-2016
+
+#require "~/lib/core.csp"
+#require "~/lib/templating.csp"
+
+(lambda (url verb post)
+	(prog 
+		((render-template-file "comments.html" (
+			("title" . "Greetings!") 
+			("name" . "Saul") 
+			("url" . url) 
+			("verb" . verb)
+			("post" . (if (eq post nil) "" post))))
+		(let
+			(if (eq verb "POST")
+				(data-non-query "comments.db3" (concat-all ("INSERT INTO Comments (name, comment) VALUES ('" name "', '" comment "')")))
+				nil)
+			(name . (nvc-get (parse-query-string post) "name"))
+			(comment . (nvc-get (parse-query-string post) "comment"))))))
