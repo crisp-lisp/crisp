@@ -1,13 +1,7 @@
 ﻿;; Crisp example program. Reverses a list.
 ;; Copyright © Saul Johnson 2015-2016
 
+#require "~/lib/core.csp"
+
 (lambda (lst)
-	(letrec 
-		(reverse lst)
-		(reverse . (lambda (l)
-			(if (eq l nil) nil
-				(append (reverse (cdr l))
-					(cons (car l) nil)))))
-		(append . (lambda (a b)
-			(if (eq a nil) b
-				(cons (car a) (append (cdr a) b)))))))
+	(reverse lst))
