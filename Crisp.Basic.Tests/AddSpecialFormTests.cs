@@ -3,6 +3,7 @@
 using Crisp.Core;
 using Crisp.Core.Evaluation;
 using Crisp.Core.Types;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Moq;
@@ -32,9 +33,8 @@ namespace Crisp.Basic.Tests
         public void AddSpecialFormShouldProduceCorrectTotal()
         {
             /**
-             * Description: The add special form should return a numeric atom that contains
-             * the sum of two given numeric atoms as its value. This test ensures that this is
-             * the case.
+             * Description: The add special form should return a numeric atom that contains the sum of two given 
+             * numeric atoms as its value. This test ensures that this is the case.
              */
 
             // Special form to test.
@@ -55,8 +55,8 @@ namespace Crisp.Basic.Tests
         public void AddSpecialFormShouldTakeCorrectNumberOfParameters()
         {
             /**
-             * Description: This special form only takes a certain number of parameters, this
-             * test ensures that an exception is thrown in case more than that amount is given.
+             * Description: This special form only takes a certain number of parameters, this test ensures that an 
+             * exception is thrown in case more than that amount is given.
              */
 
             var function = new AddSpecialForm();
