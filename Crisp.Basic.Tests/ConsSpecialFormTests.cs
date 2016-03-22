@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 
-using Crisp.Core;
-using Crisp.Core.Evaluation;
-using Crisp.Core.Types;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Moq;
 using Ploeh.AutoFixture;
+
+using Crisp.Core;
+using Crisp.Core.Evaluation;
+using Crisp.Core.Types;
 
 namespace Crisp.Basic.Tests
 {
@@ -32,8 +33,8 @@ namespace Crisp.Basic.Tests
         public void ConsSpecialFormShouldReturnCorrectPair()
         {
             /**
-             * Description: The cons special form should return a pair with the given head
-             * and tail. This test ensures that this behavior is present.
+             * Description: The cons special form should return a pair with the given head and tail. This test ensures 
+             * that this behavior is present.
              */
 
             // Special form to test.
@@ -54,8 +55,8 @@ namespace Crisp.Basic.Tests
         public void ConsSpecialFormShouldTakeCorrectNumberOfParameters()
         {
             /**
-             * Description: This special form only takes a certain number of parameters, this
-             * test ensures that an exception is thrown in case more than that amount is given.
+             * Description: This special form only takes a certain number of parameters, this test ensures that an 
+             * exception is thrown in case more than that amount is given.
              */
 
             var function = new ConsSpecialForm();

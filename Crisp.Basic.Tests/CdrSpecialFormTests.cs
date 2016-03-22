@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 
-using Crisp.Core;
-using Crisp.Core.Evaluation;
-using Crisp.Core.Types;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Moq;
 using Ploeh.AutoFixture;
+
+using Crisp.Core;
+using Crisp.Core.Evaluation;
+using Crisp.Core.Types;
 
 namespace Crisp.Basic.Tests
 {
@@ -33,8 +34,8 @@ namespace Crisp.Basic.Tests
         public void CdrSpecialFormShouldReturnListTail()
         {
             /**
-             * Description: The cdr special form should return the tail of the pair it is 
-             * given as an argument. This test ensures that this behavior is present.
+             * Description: The cdr special form should return the tail of the pair it is given as an argument. This 
+             test ensures that this behavior is present.
              */
 
             // Special form to test.
@@ -54,8 +55,8 @@ namespace Crisp.Basic.Tests
         public void CdrSpecialFormShouldTakeCorrectNumberOfParameters()
         {
             /**
-             * Description: This special form only takes a certain number of parameters, this
-             * test ensures that an exception is thrown in case more than that amount is given.
+             * Description: This special form only takes a certain number of parameters, this test ensures that an 
+             * exception is thrown in case more than that amount is given.
              */
 
             var function = new CdrSpecialForm();

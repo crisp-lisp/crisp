@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 
-using Crisp.Core;
-using Crisp.Core.Evaluation;
-using Crisp.Core.Types;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Moq;
 using Ploeh.AutoFixture;
+
+using Crisp.Core;
+using Crisp.Core.Evaluation;
+using Crisp.Core.Types;
 
 namespace Crisp.Basic.Tests
 {
@@ -43,7 +43,7 @@ namespace Crisp.Basic.Tests
             // Compute answer.
             var x = _fixture.Create<NumericAtom>();
             var y = _fixture.Create<NumericAtom>();
-            var args = new List<SymbolicExpression> { x, y }.ToProperList();
+            var args = new List<SymbolicExpression> {x, y}.ToProperList();
             var ans = function.Apply(args, _mockEvaluator);
             
             // We should have the correct numeric atom as a result.
