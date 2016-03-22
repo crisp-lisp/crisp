@@ -1,16 +1,46 @@
 <html>
-	<head>
-	<title>{title}</title>
-	</head>
-	<body>
-	Hi there {name}! This was a {verb} request to URL: {url}
-
-		<p>
-			Form data: {post}
-		</p>
-		<form action="/index.csp" method="POST">
-			<input type="text" value="whatever" name="box">
-			<input type="submit">
-		</form>
-	</body>
+<head>
+    <title>{title}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.2.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Crisp/Packet Example - Basic Page</h1>
+                <p>
+                    This is an example page showing both GET and POST actions.
+                </p>
+                <p>
+                    <b>URL: </b> {url}
+                </p>
+                <p>
+                    <b>Verb: </b> {verb}
+                </p>
+                <form method="POST">
+                    <div class="form-group">
+                        <label>Field 1</label>
+                        <input type="text" name="field1" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Field 2</label>
+                        <input type="text" name="field2" class="form-control">
+                    </div>
+                    <p class="text-right">
+                        <input type="submit" class="btn btn-primary">
+                    </p>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    <b>Post Data:</b> {post}
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
 </html>

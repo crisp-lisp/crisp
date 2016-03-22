@@ -1,12 +1,13 @@
 ﻿;; Crisp example webpage.
 ;; Copyright © Saul Johnson 2015-2016
 
+#require "~/lib/web.csp"
 #require "~/lib/templating.csp"
 
 (lambda (url verb post)
-	(render-template-file "index.html" (
-		("title" . "Greetings!") 
-		("name" . "Saul") 
-		("url" . url) 
-		("verb" . verb)
-		("post" . (if (eq post nil) "" post)))))
+	(respond
+		(render-template-file "index.html" (
+			("title" . "Crisp/Packet Example - Basic Page") 
+			("url" . url) 
+			("verb" . verb)
+			("post" . (if (eq post nil) "No data." post)))) 200 "text/html"))
