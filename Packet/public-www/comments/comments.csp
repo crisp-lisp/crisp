@@ -3,7 +3,7 @@
 
 #require "~/lib/core.csp"
 #require "~/lib/querystring.csp"
-#require "~/lib/namevaluecollection.csp"
+#require "~/lib/nvc.csp"
 #require "~/lib/web.csp"
 #require "~/lib/templating.csp"
 

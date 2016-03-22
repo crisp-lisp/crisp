@@ -104,7 +104,7 @@
     <None Include="lib\math.csp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="lib\namevaluecollection.csp">
+    <None Include="lib\nvc.csp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="lib\querystring.csp">
