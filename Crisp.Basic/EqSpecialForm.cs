@@ -22,7 +22,7 @@ namespace Crisp.Basic
             var x = evaluator.Evaluate(arguments[0]);
             var y = evaluator.Evaluate(arguments[1]);
 
-            return x.Equals(y)
+            return x.Equals(y) && x.IsAtomic && y.IsAtomic // Non-atoms can never be compared.
                 ? new BooleanAtom(true)
                 : new BooleanAtom(false);
         }
