@@ -134,6 +134,10 @@ namespace Crisp.Core
         /// <returns></returns>
         private static SymbolicExpression ToProperList(IList<SymbolicExpression> members, int index)
         {
+            if (members.Count == 0)
+            {
+                return new Nil();
+            }
             return new Pair(members[index],
                 index == members.Count - 1 ? new Nil() : ToProperList(members, index + 1));
         }
