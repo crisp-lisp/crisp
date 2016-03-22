@@ -1,11 +1,11 @@
 ﻿;; Crisp example data-driven page.
 ;; Copyright © Saul Johnson 2015-2016
 
-#require "~/lib/core.csp"
-#require "~/lib/querystring.csp"
-#require "~/lib/nvc.csp"
-#require "~/lib/web.csp"
-#require "~/lib/templating.csp"
+#require "~/lib/core.cspl"
+#require "~/lib/querystring.cspl"
+#require "~/lib/nvc.cspl"
+#require "~/lib/web.cspl"
+#require "~/lib/templating.cspl"
 
 (lambda (url verb post)
 	;; The prog function will evaluate each of the following expressions in sequence and return the result of the last.	

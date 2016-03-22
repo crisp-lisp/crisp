@@ -98,22 +98,22 @@
     <None Include="examples\query.csp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="lib\core.csp">
+    <None Include="lib\core.cspl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="lib\math.csp">
+    <None Include="lib\math.cspl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="lib\nvc.csp">
+    <None Include="lib\nvc.cspl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="lib\querystring.csp">
+    <None Include="lib\querystring.cspl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="lib\templating.csp">
+    <None Include="lib\templating.cspl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="lib\web.csp">
+    <None Include="lib\web.cspl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />

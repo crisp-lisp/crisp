@@ -1,8 +1,8 @@
 ﻿;; Crisp example webpage.
 ;; Copyright © Saul Johnson 2015-2016
 
-#require "~/lib/web.csp"
-#require "~/lib/templating.csp"
+#require "~/lib/web.cspl"
+#require "~/lib/templating.cspl"
 
 (lambda (url verb post)
 	(respond
