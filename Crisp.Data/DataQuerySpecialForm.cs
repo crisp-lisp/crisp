@@ -38,7 +38,7 @@ namespace Crisp.Data
                         while (reader.Read())
                         {
                             var names = new List<string>();
-                            for (int i = 0; i < reader.FieldCount; i++)
+                            for (var i = 0; i < reader.FieldCount; i++)
                             {
                                 names.Add(reader.GetName(i));
                             }
