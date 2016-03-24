@@ -1,4 +1,5 @@
 ﻿using System.IO;
+
 using Community.CsharpSqlite.SQLiteClient;
 
 using Crisp.Core;
@@ -27,11 +28,11 @@ namespace Crisp.Data
             int result;
             using (var connection = new SqliteConnection($"Data Source={path};Version=3;"))
             {
-                connection.Open();
+                connection.Open(); // Open connection.
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText = query;
-                    result = command.ExecuteNonQuery();
+                    result = command.ExecuteNonQuery(); // Return number of affected rows.
                 }
             }
             
