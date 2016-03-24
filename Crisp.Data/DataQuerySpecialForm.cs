@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using Community.CsharpSqlite.SQLiteClient;
 using System.Linq;
+
+using Community.CsharpSqlite.SQLiteClient;
 
 using Crisp.Core;
 using Crisp.Core.Evaluation;
@@ -29,7 +30,7 @@ namespace Crisp.Data
             var results = new List<SymbolicExpression>();
             using (var connection = new SqliteConnection($"Data Source={path};Version=3;"))
             {
-                connection.Open();
+                connection.Open(); // Open connection.
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText = query;
@@ -37,6 +38,7 @@ namespace Crisp.Data
                     {
                         while (reader.Read())
                         {
+                            // Build up collection of name-value pairs.
                             var names = new List<string>();
                             for (var i = 0; i < reader.FieldCount; i++)
                             {
