@@ -62,6 +62,7 @@
     <Compile Include="CdrSpecialFormTests.cs" />
     <Compile Include="CarSpecialFormTests.cs" />
     <Compile Include="AtomSpecialFormTests.cs" />
+    <Compile Include="LeqSpecialFormTests.cs" />
     <Compile Include="EqSpecialFormTests.cs" />
     <Compile Include="IfSpecialFormTests.cs" />
     <Compile Include="RemSpecialFormTests.cs" />
