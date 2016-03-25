@@ -33,12 +33,14 @@ namespace Crisp.Basic
 
             switch (x.Type)
             {
+                case SymbolicExpressionType.Boolean:
+                    return x.AsBoolean().Equals(y) ? t : f;
                 case SymbolicExpressionType.Constant:
-                    return x.AsConstant().Value == y.AsConstant().Value ? t : f;
+                    return x.AsConstant().Equals(y) ? t : f;
                 case SymbolicExpressionType.Numeric:
                     return x.AsNumeric().Value <= y.AsNumeric().Value ? t : f; // Less than only relevant for numeric atoms.
                 case SymbolicExpressionType.String:
-                    return x.AsString().Value == y.AsString().Value ? t : f;
+                    return x.AsString().Equals(y) ? t : f;
                 default:
                     return f;
             }
