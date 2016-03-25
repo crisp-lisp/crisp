@@ -110,6 +110,9 @@
     <None Include="lib\querystring.cspl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="lib\string.cspl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="lib\templating.cspl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

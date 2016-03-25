@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{75BFF235-9C98-4934-BAF8-97D3DE0734E3}</ProjectGuid>
+    <ProjectGuid>{FD95AD55-E377-4937-A455-E71F56143CE4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Crisp.Basic.Tests</RootNamespace>
-    <AssemblyName>Crisp.Basic.Tests</AssemblyName>
+    <RootNamespace>Crisp.String.Tests</RootNamespace>
+    <AssemblyName>Crisp.String.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -16,6 +16,7 @@
     <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,8 +40,8 @@
       <HintPath>..\packages\Moq.4.2.1510.2205\lib\net40\Moq.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Ploeh.AutoFixture, Version=3.36.11.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoFixture.3.36.11\lib\net40\Ploeh.AutoFixture.dll</HintPath>
+    <Reference Include="Ploeh.AutoFixture, Version=3.42.0.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoFixture.3.42.0\lib\net40\Ploeh.AutoFixture.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -58,31 +59,21 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ConsSpecialFormTests.cs" />
-    <Compile Include="CdrSpecialFormTests.cs" />
-    <Compile Include="CarSpecialFormTests.cs" />
-    <Compile Include="AtomSpecialFormTests.cs" />
-    <Compile Include="EqSpecialFormTests.cs" />
-    <Compile Include="IfSpecialFormTests.cs" />
-    <Compile Include="RemSpecialFormTests.cs" />
-    <Compile Include="MulSpecialFormTests.cs" />
-    <Compile Include="DivSpecialFormTests.cs" />
-    <Compile Include="SubSpecialFormTests.cs" />
-    <Compile Include="AddSpecialFormTests.cs" />
+    <Compile Include="ConcatSpecialFormTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Crisp.Basic\Crisp.Basic.csproj">
-      <Project>{cf6dc28d-8a9f-468b-b3d3-1f04c7692975}</Project>
-      <Name>Crisp.Basic</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Crisp.Core\Crisp.Core.csproj">
-      <Project>{6ab9a6ec-742d-4b88-9a22-58e3c98da464}</Project>
-      <Name>Crisp.Core</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\Crisp.Core\Crisp.Core.csproj">
+      <Project>{6AB9A6EC-742D-4B88-9A22-58E3C98DA464}</Project>
+      <Name>Crisp.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Crisp.String\Crisp.String.csproj">
+      <Project>{f494c7ec-8963-4746-88ca-b1eb1e18dee6}</Project>
+      <Name>Crisp.String</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
