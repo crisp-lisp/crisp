@@ -18,5 +18,9 @@ namespace Packet.Configuration
         public IEnumerable<string> CrispFileExtensions { get; set; }
 
         public IDictionary<string, string> MimeTypeMappings { get; set; }
+
+        public string InternalServerErrorPage { get; set; }
+
+        public string NotFoundErrorPage { get; set; }
     }
 }

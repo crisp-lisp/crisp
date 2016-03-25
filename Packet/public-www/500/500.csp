@@ -1,0 +1,19 @@
+﻿;; Packet default 500 error page.
+;; Copyright © Saul Johnson 2015-2016
+
+#require "~/lib/web.cspl"
+#require "~/lib/templating.cspl"
+#require "~/lib/querystring.cspl"
+#require "~/lib/nvc.cspl"
+
+(lambda (url verb post)
+	(letrec
+		(respond
+			(render-template-file "500.html" (
+				("filename" . filename)
+				("programResult" . (url-decode programResult))
+				("errorMessage" . errorMessage))) 500 "text/html")
+		(query . (parse-query-string post))
+		(programResult . (nvc-get query "programResult"))
+		(filename . (replace (nvc-get query "filename") "\" "/"))
+		(errorMessage . (nvc-get query "errorMessage"))))

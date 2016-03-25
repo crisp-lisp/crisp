@@ -50,6 +50,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -62,6 +63,11 @@
     <Compile Include="Configuration\ConfigurationProvider.cs" />
     <Compile Include="Configuration\IConfigurationProvider.cs" />
     <Compile Include="CrispRuntimeFactory.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Server\HttpProcessor.cs" />
     <Compile Include="Server\HttpServer.cs" />
     <Compile Include="ICrispRuntimeFactory.cs" />
@@ -84,6 +90,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+    <None Include="public-www\404\404.csp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="public-www\500\500.csp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="public-www\comments\comments.csp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -93,13 +105,25 @@
     <None Include="public-www\index.csp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="public-www\500.csp">
+    <None Include="public-www\shared\nickainley\nickainley-webfont.eot">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="public-www\shared\nickainley\nickainley-webfont.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="public-www\shared\nickainley\nickainley-webfont.woff">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="public-www\shared\nickainley\nickainley-webfont.woff2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="icon.ico" />
-    <Content Include="public-www\500.html">
+    <Content Include="public-www\404\404.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="public-www\500\500.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="public-www\comments\comments.html">
@@ -117,15 +141,50 @@
     <Content Include="public-www\index.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="public-www\shared\logo_packet.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="public-www\shared\nickainley\generator_config.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="public-www\shared\nickainley\nickainley-demo.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="public-www\shared\nickainley\nickainley-webfont.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="public-www\shared\nickainley\specimen_files\easytabs.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="public-www\shared\nickainley\specimen_files\grid_12-825-55-15.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="public-www\shared\nickainley\specimen_files\specimen_stylesheet.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="public-www\shared\nickainley\stylesheet.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="References.txt" />
+    <None Include="Resources\DefaultInternalServerErrorPage.txt" />
+    <None Include="Resources\DefaultNotFoundErrorPage.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Crisp.Core\Crisp.Core.csproj">
       <Project>{6ab9a6ec-742d-4b88-9a22-58e3c98da464}</Project>
       <Name>Crisp.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Crisp.Visualization\Crisp.Visualization.csproj">
+      <Project>{EE206D73-5474-4B04-924E-B85DA171BBCD}</Project>
+      <Name>Crisp.Visualization</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>if not exist "$(TargetDir)native" mkdir "$(TargetDir)native"

@@ -16,11 +16,11 @@
             {
                 IgnoreWhitespace = ignoreWhitespace
             };
+            tokenizer.Add("\"[^\"]*\"", TokenType.String);
             tokenizer.Add("^#require\\s+\".+?\"\r?$", TokenType.RequireStatement);
             tokenizer.Add(";;.+?\r?$", TokenType.Comment);
             tokenizer.Add(@"[\(]", TokenType.OpeningParenthesis);
             tokenizer.Add(@"[\)]", TokenType.ClosingParenthesis);
-            tokenizer.Add("\"[^\"]*\"", TokenType.String);
             tokenizer.Add(@"[-+]?[0-9]\d*(\.\d+)?", TokenType.Numeric);
             tokenizer.Add(@"\.", TokenType.Dot);
             tokenizer.Add(@"true", TokenType.BooleanTrue);

@@ -1,0 +1,51 @@
+﻿<html>
+<head>
+    <title>500 - Internal Server Error ({filename})</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/shared/nickainley/stylesheet.css" />
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.2.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <img src="/shared/logo_packet.svg" style="width: 256px; margin-top: 40px;" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h1 style="font-family: nickainleyregular">500 - Internal Server Error</h1>
+                <p>
+                    Dear Sir/Madam/Other,
+                </p>
+                <p>
+                    We regret to inform you that the dynamic page you requested encountered a spot of bother during
+                    execution, and couldn't offer you a coherent response. We apologise, and hope to have things
+                    resolved tout-suite. The following error occurred:
+                </p>
+                <pre>{errorMessage} ({filename}) 
+
+Result:
+{programResult}</pre>
+                <p>
+                    We hope this doesn't inconvenience you, have an otherwise splendid day.
+                </p>
+                <p>
+                    Yours most faithfully,
+                </p>
+                <p>
+                    The Server
+                </p>
+                <hr />
+                <p class="text-center text-muted">
+                    <small>
+                        This is the a default error page for the Packet webserver. |
+                        <a target="_blank" href="http://crisp.site/">http://crisp.site/</a>
+                    </small>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

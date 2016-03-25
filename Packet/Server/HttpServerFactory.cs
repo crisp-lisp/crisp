@@ -1,4 +1,5 @@
 ﻿using Crisp.Core.Preprocessing;
+using Crisp.Visualization;
 using Packet.Configuration;
 
 using SimpleInjector;
@@ -18,6 +19,7 @@ namespace Packet.Server
         {
             var container = new Container();
             container.Register<IInterpreterDirectoryPathProvider, InterpreterDirectoryPathProvider>();
+            container.Register<ISymbolicExpressionSerializer, LispSerializer>();
             container.Register<IConfigurationProvider, ConfigurationProvider>();
             container.Register<ICrispRuntimeFactory, CrispRuntimeFactory>();
             container.Register<IServerStartupSettingsProvider>(() =>
