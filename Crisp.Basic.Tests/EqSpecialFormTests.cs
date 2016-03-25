@@ -254,7 +254,7 @@ namespace Crisp.Basic.Tests
              * exception is thrown in case more than that amount is given.
              */
 
-            var function = new DivSpecialForm();
+            var function = new EqSpecialForm();
             
             var arg = _fixture.Create<NumericAtom>();
             var correct = new List<SymbolicExpression> {arg, arg}.ToProperList();
