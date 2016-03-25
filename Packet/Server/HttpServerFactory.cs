@@ -1,4 +1,7 @@
-﻿using SimpleInjector;
+﻿using Crisp.Core.Preprocessing;
+using Packet.Configuration;
+
+using SimpleInjector;
 
 namespace Packet.Server
 {
@@ -14,6 +17,8 @@ namespace Packet.Server
         public static IHttpServer GetPacketHttpServer(ServerStartupSettings serverStartupSettings)
         {
             var container = new Container();
+            container.Register<IInterpreterDirectoryPathProvider, InterpreterDirectoryPathProvider>();
+            container.Register<IConfigurationProvider, ConfigurationProvider>();
             container.Register<ICrispRuntimeFactory, CrispRuntimeFactory>();
             container.Register<IServerStartupSettingsProvider>(() =>
                 new ServerStartupSettingsProvider(serverStartupSettings));
