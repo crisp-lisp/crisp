@@ -33,7 +33,8 @@ namespace Crisp.Basic.Tests
         public void IfSpecialFormShouldProduceCorrectResult()
         {
             /**
-             * Description: 
+             * Description: The if special form should return its second argument if its first argument evaluates to
+             * true, otherwise it should return its third argument. This test ensures that this is the case.
              */
 
             // Special form to test.
