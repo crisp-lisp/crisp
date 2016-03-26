@@ -41,7 +41,11 @@ namespace Packet.Server
         private string GetUrlPath(string url)
         {
             // Need to remove slash so it's not considered an absolute path.
-            var trimmed = url.TrimStart('/'); 
+            var trimmed = url.TrimStart('/');
+            if (trimmed.Contains('?'))
+            {
+                trimmed = trimmed.Split('?').First(); // Remove query string.
+            }
             return Path.Combine(_serverStartupSettingsProvider.GetSettings().WebRoot, trimmed);
         }
         
@@ -139,7 +143,7 @@ namespace Packet.Server
                 try
                 {
                     var runtime = _crispRuntimeFactory.GetCrispRuntime(path);
-                    var serialized = HttpUtility.UrlEncode(HttpUtility.HtmlEncode(_symbolicExpressionSerializer.Serialize(programResult)));
+                    var serialized = HttpUtility.UrlEncode(_symbolicExpressionSerializer.Serialize(programResult));
                     var args = $"\"{processor.HttpUrl}\" \"POST\" \"filename={filename}&programResult={serialized}&errorMessage={errorMessage}\"";
                     result = runtime.Run(args);
                 }
@@ -205,7 +209,7 @@ namespace Packet.Server
                 }
                 catch
                 {
-                    // Throw a 500 for problems executing the program.
+                    // Serve default 404 error page if configured error page throws an error.
                     ServeDefaultNotFoundPage(processor);
                     return;
                 }
@@ -213,7 +217,7 @@ namespace Packet.Server
                 // Resulting expression should be a list.
                 if (result.Type != SymbolicExpressionType.Pair)
                 {
-                    // Resulting expression was not a list, error.
+                    // Resulting expression was not a list, serve default page.
                     ServeDefaultNotFoundPage(processor);
                 }
                 else
@@ -222,7 +226,7 @@ namespace Packet.Server
                     var expanded = result.AsPair().Expand();
                     if (expanded.Count != 3)
                     {
-                        // Resulting expression was not a response, error.
+                        // Resulting expression was not a response, serve default page.
                         ServeDefaultNotFoundPage(processor);
                     }
 
@@ -311,30 +315,74 @@ namespace Packet.Server
 
         public override void HandlePostRequest(HttpProcessor processor, StreamReader inputStream)
         {
-            // Get post data.
-            var data = inputStream.ReadToEnd();
-            var npqs = processor.HttpUrl.Split('?').First();
-            var ext = npqs.Split('.').Last();
+            // Read posted data.
+            var posted = inputStream.ReadToEnd();
 
-            if (ext == "csp")
+            // Get file path of requested resource.
+            var path = GetUrlPath(processor.HttpUrl);
+            var extension = Path.GetExtension(path);
+
+            // Serve configured 404 page if file doesn't exist.
+            if (!File.Exists(path))
             {
-                var runtime = _crispRuntimeFactory.GetCrispRuntime("public-www/" + npqs);
-                var result = runtime.Run($"\"{processor.HttpUrl}\" \"POST\" \"{data}\"");
+                HandleNotFoundError(processor, "The file was not found on the server.", path);
+                return;
+            }
 
+            // Check if file should be interpreted.
+            if (IsInterpretedFileExtension(extension))
+            {
+                // Try to evaluate program.
+                SymbolicExpression result;
+                try
+                {
+                    var runtime = _crispRuntimeFactory.GetCrispRuntime(path);
+                    var encoded = HttpUtility.UrlEncode(posted);
+                    result = runtime.Run(
+                        $"\"{processor.HttpUrl}\" \"POST\" {encoded}");
+                }
+                catch (Exception ex)
+                {
+                    // Throw a 500 for problems executing the program.
+                    HandleInternalServerError(processor, ex.Message, path, new Nil());
+                    return;
+                }
+
+                // Resulting expression should be a list.
                 if (result.Type != SymbolicExpressionType.Pair)
                 {
-                    // TODO: Error page.
+                    // Resulting expression was not a list, error.
+                    HandleInternalServerError(
+                        processor,
+                        "The result of program evaluation was not of the correct type.",
+                        path,
+                        result);
                 }
                 else
                 {
+                    // The response should consist of 3 parts.
                     var expanded = result.AsPair().Expand();
-                    processor.WriteResponse(Convert.ToInt32(expanded[1].AsNumeric().Value), expanded[2].AsString().Value);
+                    if (expanded.Count != 3)
+                    {
+                        // Resulting expression was not a response, error.
+                        HandleInternalServerError(
+                            processor,
+                            "The result of program evaluation was not of the correct form.",
+                            path,
+                            result);
+                    }
+
+                    // Pass response back to client.
+                    processor.WriteResponse(
+                        Convert.ToInt32(expanded[1].AsNumeric().Value),
+                        expanded[2].AsString().Value);
                     processor.OutputStream.Write(expanded[0].AsString().Value);
                 }
             }
             else
             {
-                // TODO: Serve static files or whatever.
+                // Client asked for a static file.
+                ServeStaticFile(processor);
             }
         }
     }
