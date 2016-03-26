@@ -120,16 +120,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
-    <Content Include="public-www\404\404.html">
+    <Content Include="public-www\404\404.template.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="public-www\500\500.html">
+    <Content Include="public-www\500\500.template.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="public-www\comments\comments.html">
+    <Content Include="public-www\comments\comments.template.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="public-www\comments\_comment.html">
+    <Content Include="public-www\comments\_comment.template.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="public-www\image\index.html">
@@ -138,7 +138,7 @@
     <Content Include="public-www\image\scrap.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="public-www\index.html">
+    <Content Include="public-www\index.template.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="public-www\shared\logo_packet.svg">
@@ -166,6 +166,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="References.txt" />
+    <None Include="Resources\DefaultForbiddenPage.txt" />
     <None Include="Resources\DefaultInternalServerErrorPage.txt" />
     <None Include="Resources\DefaultNotFoundErrorPage.txt" />
   </ItemGroup>

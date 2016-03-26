@@ -6,7 +6,7 @@
 
 (lambda (url verb post)
 	(respond
-		(render-template-file "index.html" (
+		(render-template-file "index.template.html" (
 			("title" . "Crisp/Packet Example - Basic Page") 
 			("url" . url) 
 			("verb" . verb)

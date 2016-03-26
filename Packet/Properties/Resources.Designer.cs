@@ -61,6 +61,15 @@ namespace Packet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DefaultForbiddenPage {
+            get {
+                return ResourceManager.GetString("DefaultForbiddenPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;html&gt;
         ///&lt;head&gt;
         ///    &lt;title&gt;500 - Internal Server Error&lt;/title&gt;

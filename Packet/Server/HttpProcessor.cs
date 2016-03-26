@@ -118,7 +118,7 @@ namespace Packet.Server
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Exception: {ex.Message}");
+              Console.WriteLine($"Exception: {ex.Message}");
                 WriteFailure();
             }
 

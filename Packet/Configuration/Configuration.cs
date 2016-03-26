@@ -24,5 +24,7 @@ namespace Packet.Configuration
         public string NotFoundErrorPage { get; set; }
 
         public IEnumerable<string> DirectoryIndices { get; set; } 
+
+        public IEnumerable<string> DoNotServePatterns { get; set; }
     }
 }

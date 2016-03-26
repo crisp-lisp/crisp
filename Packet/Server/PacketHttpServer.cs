@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 
 using Crisp.Core;
@@ -102,6 +103,11 @@ namespace Packet.Server
             return _configurationProvider.GetConfiguration().CrispFileExtensions.Contains(extension);
         }
 
+        private bool IsForbiddenPath(string path)
+        {
+            return _configurationProvider.GetConfiguration().DoNotServePatterns.Any(p => Regex.IsMatch(path, p));
+        }
+
         /// <summary>
         /// Serves the default 404 error page.
         /// </summary>
@@ -163,6 +169,13 @@ namespace Packet.Server
             if (!File.Exists(path))
             {
                 ServeDefaultInternalServerErrorPage(processor);
+                return;
+            }
+
+            // Check for forbidden.
+            if (IsForbiddenPath(path))
+            {
+                ServeDefaultForbiddenPage(processor);
                 return;
             }
 
@@ -234,6 +247,13 @@ namespace Packet.Server
                 return;
             }
 
+            // Check for forbidden.
+            if (IsForbiddenPath(path))
+            {
+                ServeDefaultForbiddenPage(processor);
+                return;
+            }
+
             // Check if file should be interpreted.
             if (IsInterpretedFileExtension(extension))
             {
@@ -281,6 +301,16 @@ namespace Packet.Server
             }
         }
 
+        /// <summary>
+        /// Serves the default 403 error page.
+        /// </summary>
+        /// <param name="processor">The <see cref="HttpProcessor"/> to write the response to.</param>
+        private static void ServeDefaultForbiddenPage(HttpProcessor processor)
+        {
+            processor.WriteResponse(403, "text/html");
+            processor.OutputStream.Write(Properties.Resources.DefaultForbiddenPage);
+        }
+
         public override void HandleGetRequest(HttpProcessor processor)
         {
             // Get file path of requested resource.
@@ -291,6 +321,13 @@ namespace Packet.Server
             if (!File.Exists(path))
             {
                 HandleNotFoundError(processor, "The file was not found on the server.", path);
+                return;
+            }
+
+            // Check for forbidden.
+            if (IsForbiddenPath(path))
+            {
+                ServeDefaultForbiddenPage(processor);
                 return;
             }
 
@@ -363,6 +400,13 @@ namespace Packet.Server
             if (!File.Exists(path))
             {
                 HandleNotFoundError(processor, "The file was not found on the server.", path);
+                return;
+            }
+
+            // Check for forbidden.
+            if (IsForbiddenPath(path))
+            {
+                ServeDefaultForbiddenPage(processor);
                 return;
             }
 

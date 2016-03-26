@@ -22,12 +22,12 @@
 		(letrec
 			;; Render the template file for the main page.
 			(respond 
-				(render-template-file "comments.html" (
+				(render-template-file "comments.template.html" (
 					("title" . "Crisp Example - Comments System") 
 					("comments" . (build existing)))) 200 "text/html")
 			(create-block . (lambda (row)
 				;; Render a partial for a comment.
-				(render-template-file "_comment.html" (
+				(render-template-file "_comment.template.html" (
 					("name" . (nvc-get row "name") ) 
 					("comment" . (nvc-get row "comment"))))))
 			(build . (lambda (rows)

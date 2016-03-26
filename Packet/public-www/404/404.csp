@@ -9,7 +9,7 @@
 (lambda (url verb post)
 	(letrec
 		(respond
-			(render-template-file "404.html" (
+			(render-template-file "404.template.html" (
 				("filename" . filename)
 				("errorMessage" . errorMessage))) 404 "text/html")
 		(query . (parse-query-string post))

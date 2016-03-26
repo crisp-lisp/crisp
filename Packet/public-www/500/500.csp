@@ -9,7 +9,7 @@
 (lambda (url verb post)
 	(letrec
 		(respond
-			(render-template-file "500.html" (
+			(render-template-file "500.template.html" (
 				("filename" . filename)
 				("programResult" . (html-encode (url-decode programResult)))
 				("errorMessage" . errorMessage))) 500 "text/html")

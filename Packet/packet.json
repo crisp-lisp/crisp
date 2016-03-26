@@ -4,7 +4,8 @@
   "CrispFileExtensions": [ ".csp" ],
   "InternalServerErrorPage": "500/500.csp",
   "NotFoundErrorPage": "404/404.csp",
-  "DirectoryIndices":  ["index.csp", "index.html"],
+  "DirectoryIndices": [ "index.csp", "index.html" ],
+  "DoNotServePatterns": [ ".*\\.template\\.html", ".*\\.db3" ],
   "MimeTypeMappings": {
     ".3dm": "x-world/x-3dmf",
     ".3dmf": "x-world/x-3dmf",
