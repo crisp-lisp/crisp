@@ -42,10 +42,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConcatSpecialForm.cs" />
+    <Compile Include="HtmlEncodeSpecialForm.cs" />
     <Compile Include="HtmlDecodeSpecialForm.cs" />
     <Compile Include="ReplaceSpecialForm.cs" />
     <Compile Include="SplitSpecialForm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UrlEncodeSpecialForm.cs" />
     <Compile Include="UrlDecodeSpecialForm.cs" />
   </ItemGroup>
   <ItemGroup>
