@@ -11,7 +11,7 @@
 		(respond
 			(render-template-file "500.html" (
 				("filename" . filename)
-				("programResult" . (url-decode programResult))
+				("programResult" . (html-encode (url-decode programResult)))
 				("errorMessage" . errorMessage))) 500 "text/html")
 		(query . (parse-query-string post))
 		(programResult . (nvc-get query "programResult"))
