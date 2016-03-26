@@ -376,7 +376,7 @@ namespace Packet.Server
                     var runtime = _crispRuntimeFactory.GetCrispRuntime(path);
                     var encoded = HttpUtility.UrlEncode(posted);
                     result = runtime.Run(
-                        $"\"{processor.HttpUrl}\" \"POST\" {encoded}");
+                        $"\"{processor.HttpUrl}\" \"POST\" \"{encoded}\"");
                 }
                 catch (Exception ex)
                 {
