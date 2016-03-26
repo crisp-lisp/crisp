@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Web;
+
 using Crisp.Core;
 using Crisp.Core.Types;
 using Crisp.Visualization;
@@ -10,6 +11,9 @@ using Packet.Configuration;
 
 namespace Packet.Server
 {
+    /// <summary>
+    /// Represents a Packet HTTP/1.0 server.
+    /// </summary>
     internal class PacketHttpServer : HttpServer
     {
         private readonly IConfigurationProvider _configurationProvider;
@@ -20,6 +24,13 @@ namespace Packet.Server
 
         private readonly ISymbolicExpressionSerializer _symbolicExpressionSerializer;
 
+        /// <summary>
+        /// Initializes a new instance of a Packet HTTP/1.0 server.
+        /// </summary>
+        /// <param name="configurationProvider">The configuration provider for the application.</param>
+        /// <param name="serverStartupSettingsProvider">The startup settings provider for the server.</param>
+        /// <param name="crispRuntimeFactory">The factory to use to create Crisp runtime instances.</param>
+        /// <param name="symbolicExpressionSerializer">The serializer to use to display debug output.</param>
         public PacketHttpServer(
             IConfigurationProvider configurationProvider,
             IServerStartupSettingsProvider serverStartupSettingsProvider,
@@ -46,7 +57,27 @@ namespace Packet.Server
             {
                 trimmed = trimmed.Split('?').First(); // Remove query string.
             }
-            return Path.Combine(_serverStartupSettingsProvider.GetSettings().WebRoot, trimmed);
+
+            // Compute real path.
+            var path = Path.Combine(_serverStartupSettingsProvider.GetSettings().WebRoot, trimmed);
+
+            if (Directory.Exists(path)) // If real path is a directory.
+            {
+                var files = Directory.GetFiles(path)
+                    .Select(Path.GetFileName)
+                    .Where(f => _configurationProvider.GetConfiguration().DirectoryIndices.Contains(f))
+                    .ToArray(); // Get any configured index pages.
+                if (files.Any())
+                {
+                    path = Path.Combine(path, files.First()); // Pass back path to configured index page.
+                }
+                else
+                {
+                    // TODO: Serve default directory index?
+                }
+            }
+
+            return path;
         }
         
         /// <summary>
@@ -184,6 +215,12 @@ namespace Packet.Server
             }
         }
 
+        /// <summary>
+        /// Handles a 404 not found error.
+        /// </summary>
+        /// <param name="processor">The <see cref="HttpProcessor"/> to write the response to.</param>
+        /// <param name="errorMessage">A human-readable error message.</param>
+        /// <param name="filename">The filename of the file that could not be found.</param>
         private void HandleNotFoundError(HttpProcessor processor, string errorMessage, string filename)
         {
             // Get file path of 404 error page.
