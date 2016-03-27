@@ -6,6 +6,9 @@ using Crisp.Core.Types;
 
 namespace Crisp.IO
 {
+    /// <summary>
+    /// An implementation of a function that will read all text from a file and return it as a string atom.
+    /// </summary>
     public class FileGetTextSpecialForm : SpecialForm
     {
         public override string Name => "file-get-text";

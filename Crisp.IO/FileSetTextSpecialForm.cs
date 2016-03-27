@@ -7,6 +7,9 @@ using Crisp.Core.Types;
 
 namespace Crisp.IO
 {
+    /// <summary>
+    /// An implementation of a function that will write the given text to the file at the specified path.
+    /// </summary>
     public class FileSetTextSpecialForm : SpecialForm
     {
         public override string Name => "file-set-text";

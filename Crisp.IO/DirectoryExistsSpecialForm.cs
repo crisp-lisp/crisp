@@ -6,6 +6,10 @@ using Crisp.Core.Types;
 
 namespace Crisp.IO
 {
+    /// <summary>
+    /// An implementation of a function that will return true if a directory exists at the specified path or false 
+    /// otherwise.
+    /// </summary>
     public class DirectoryExistsSpecialForm : SpecialForm
     {
         public override string Name => "directory-exists";
