@@ -1,0 +1,9 @@
+﻿;; Crisp example program. Shows boolean operators in action.
+;; Copyright © Saul Johnson 2015-2016
+
+#require "~/lib/core.cspl"
+
+(lambda ()
+	(list 
+		(list (and true false) (and true true) (and false false))
+		(list (or true false) (or true true) (or false false))))
