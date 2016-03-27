@@ -2,7 +2,7 @@
 ;; Copyright © Saul Johnson 2015-2016
 
 ;;; Converts a split query string into a name-value collection.
-;;; @param lst	the list to convert
+;;; @param [list] lst	the list to convert
 (query-string-nvc . (lambda (lst)
 	(let 
 		(if (eq lst nil)
@@ -11,7 +11,7 @@
 		(cur . (split (car lst) "=")))))
 
 ;;; Parses a query string.
-;;; @param str	the string to parse
+;;; @param [string] str	the string to parse
 (parse-query-string . (lambda (str)
 	(let
 		(query-string-nvc entries)

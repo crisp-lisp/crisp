@@ -2,8 +2,8 @@
 ;; Copyright © Saul Johnson 2015-2016
 
 ;;; Gets the value from a name-value collection that corresponds to the specified name.
-;;; @param nvc	the name-value collection
-;;; @param name	the name to retrieve the value for
+;;; @param [list] nvc		the name-value collection
+;;; @param [string] name	the name to retrieve the value for
 (nvc-get . (lambda (nvc name)
 	(if (eq nvc nil)
 		nil
