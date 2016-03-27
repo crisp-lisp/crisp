@@ -5,7 +5,7 @@ using Crisp.Core.Types;
 namespace Crisp.Basic
 {
     /// <summary>
-    /// Represents the basic less then or equal to test function.
+    /// Represents the basic less than or equal to test function.
     /// </summary>
     public class LeqSpecialForm : SpecialForm
     {

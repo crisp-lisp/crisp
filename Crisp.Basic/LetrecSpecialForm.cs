@@ -7,7 +7,7 @@ using Crisp.Core.Types;
 namespace Crisp.Basic
 {
     /// <summary>
-    /// Represents the basic function to bind symbols to expressions.
+    /// Represents the basic function to bind symbols to expressions, allowing for recursion.
     /// </summary>
     public class LetrecSpecialForm : SpecialForm
     {

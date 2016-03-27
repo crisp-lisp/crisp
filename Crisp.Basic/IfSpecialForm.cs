@@ -5,7 +5,7 @@ using Crisp.Core.Types;
 namespace Crisp.Basic
 {
     /// <summary>
-    /// Represents the basic atomic test function.
+    /// Represents the basic conditional branching function.
     /// </summary>
     public class IfSpecialForm : SpecialForm
     {
