@@ -17,7 +17,7 @@ namespace Crisp.Data
             expression.ThrowIfNotList(Name); // Takes a list of arguments.
 
             var arguments = expression.AsPair().Expand();
-            arguments.ThrowIfWrongLength(Name, 2); // Must have two argument.
+            arguments.ThrowIfWrongLength(Name, 2); // Must have two arguments.
 
             // Get arguments.
             var rawPath = evaluator.Evaluate(arguments[0]).AsString().Value;
