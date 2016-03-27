@@ -1,18 +1,18 @@
 ﻿;; Crisp templating library.
 ;; Copyright © Saul Johnson 2015-2016
 
-;; Substitutes a set of bracketed ({}) bindings in a document.
-;; @param document	the document to perform the replace operation on
-;; @param bindings	the data bindings for the document
+;;; Substitutes a set of bracketed ({}) bindings in a document.
+;;; @param document	the document to perform the replace operation on
+;;; @param bindings	the data bindings for the document
 (render-template . (lambda (document bindings)
 	(let 
 		(if (eq bindings nil) document (render-template (replace document term replacement) (cdr bindings)))
 		(term . (concat "{" (concat (car (car bindings)) "}")))
 		(replacement . (cdr (car bindings))))))
 
-;; Substitutes a set of bracketed ({}) bindings in a document read from a file.
-;; @param filepath	the file path of the document to perform the replace operation on
-;; @param bindings	the data bindings for the document
+;;; Substitutes a set of bracketed ({}) bindings in a document read from a file.
+;;; @param filepath	the file path of the document to perform the replace operation on
+;;; @param bindings	the data bindings for the document
 (render-template-file . (lambda (filepath bindings)
 	(render-template (file-get-text filepath) bindings)))
 

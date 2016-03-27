@@ -1,35 +1,53 @@
 ﻿;; Crisp core library.
 ;; Copyright © Saul Johnson 2015-2016
 
-;; Returns the last element in a proper list.
-;; @param lst	the proper list to return the last element of
+;;; Returns the last element in a proper list.
+;;; @param lst	the proper list to return the last element of
 (last . (lambda (lst)
 	(if (eq (cdr lst) nil) 
 		(car lst)
 		(last (cdr lst)))))
 
-;; Concatenates a list of string expressions into one string expression.
-;; @param lst	the list of string expressions to concatenate
+;;; Concatenates a list of string expressions into one string expression.
+;;; @param lst	the list of string expressions to concatenate
 (concat-all . (lambda (lst)
 	(if (eq lst nil) 
 		""
 		(concat (car lst) (concat-all (cdr lst))))))
 
-;; Returns true if the given paramters is nil.
-;; @param x	the expression to check
+;;; Returns true if the given paramters is nil.
+;;; @param x	the expression to check
 (null . (lambda (x)
 	(eq x nil)))
 
-;; Appends an atom or list to another list.
-;; @param lst	the base list
-;; @param x		the list of atom to append
+;;; Returns true if both parameters evaluate to true.
+;;; @param x the first argument
+;;; @param y the second argument
+(and . (lambda (x y)
+	(if x (if y true false) false)))
+
+;;; Returns true if one or both parameters evaluate to true.
+;;; @param x the first argument
+;;; @param y the second argument
+(or . (lambda (x y)
+	(if x true (if y true false))))
+
+;;; Returns true if one input (but not both inputs) evaluates to true.
+;;; @param x the first argument
+;;; @param y the second argument
+(xor . (lambda (x y)
+	(if x (if y false true) (if y true false))))
+
+;;; Appends an atom or list to another list.
+;;; @param lst	the base list
+;;; @param x	the list of atom to append
 (append . (lambda (lst x)
 	(if (null lst)
 		x
 		(cons (car lst) (append (cdr lst) x)))))
 
-;; Reverses a proper list.
-;; @param lst	the proper list to reverse
+;;; Reverses a proper list.
+;;; @param lst	the proper list to reverse
 (reverse . (lambda (lst)
 	(if (null lst)
 		nil
