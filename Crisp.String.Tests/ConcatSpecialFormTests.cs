@@ -34,8 +34,8 @@ namespace Crisp.String.Tests
         public void ConcatSpecialFormShouldProduceCorrectResult()
         {
             /**
-             * Description: The concat special form should return a a string atom that contains the concatenation of
-             * the two given string atoms as its value. This test ensures that this is the case.
+             * Description: The concat special form should return a string atom that contains the concatenation of the 
+             * two given string atoms as its value. This test ensures that this is the case.
              */
 
             // Special form to test.
