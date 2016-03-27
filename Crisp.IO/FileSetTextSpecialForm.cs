@@ -35,11 +35,11 @@ namespace Crisp.IO
             try
             {
                 File.WriteAllText(path, text);
-                return new BooleanAtom(true);
+                return new BooleanAtom(true); // Success.
             }
             catch
             {
-                return new BooleanAtom(false);
+                return new BooleanAtom(false); // Failure.
             }
         }
     }
