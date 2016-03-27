@@ -17,17 +17,26 @@ namespace Crisp.IO
             var arguments = expression.AsPair().Expand();
             arguments.ThrowIfWrongLength(Name, 1); // Must have one argument.
 
-            // Check file exists.
-            var rawPath = evaluator.Evaluate(arguments[0]).AsString().Value;
+            // Evaluate argument.
+            var evaluated = evaluator.Evaluate(arguments[0]);
+            if (evaluated.Type != SymbolicExpressionType.String)
+            {
+                throw new RuntimeException(
+                    $"The argument to the function '{Name}' must evaluate to the string type.");
+            }
+
+            // Compute filepath.
+            var rawPath = evaluated.AsString().Value;
             var path = Path.IsPathRooted(rawPath) ? rawPath : Path.Combine(evaluator.SourceFolderPath, rawPath);
+
+            // Check file exists
             if (!File.Exists(path))
             {
                 throw new FileNotFoundException($"File {path} could not be found for reading.", path);
             }
 
-            // Read file.
+            // Return file content.
             var content = File.ReadAllText(path);
-
             return new StringAtom(content);
         }
     }
