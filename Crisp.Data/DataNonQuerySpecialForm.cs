@@ -8,6 +8,9 @@ using Crisp.Core.Types;
 
 namespace Crisp.Data
 {
+    /// <summary>
+    /// An implementation of a function to execute SQLite non-queries against a database.
+    /// </summary>
     public class DataNonQuerySpecialForm : SpecialForm
     {
         public override string Name => "data-non-query";

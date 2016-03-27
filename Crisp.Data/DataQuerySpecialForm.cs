@@ -10,6 +10,9 @@ using Crisp.Core.Types;
 
 namespace Crisp.Data
 {
+    /// <summary>
+    /// An implementation of a function to execute SQLite queries against a database.
+    /// </summary>
     public class DataQuerySpecialForm : SpecialForm
     {
         public override string Name => "data-query";
