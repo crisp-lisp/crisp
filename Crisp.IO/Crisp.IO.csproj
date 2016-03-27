@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileExistsSpecialForm.cs" />
     <Compile Include="FileSetTextSpecialForm.cs" />
     <Compile Include="FileGetTextSpecialForm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
