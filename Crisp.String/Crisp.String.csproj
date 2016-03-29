@@ -41,9 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChrSpecialForm.cs" />
     <Compile Include="ConcatSpecialForm.cs" />
     <Compile Include="HtmlEncodeSpecialForm.cs" />
     <Compile Include="HtmlDecodeSpecialForm.cs" />
+    <Compile Include="RegexReplaceSpecialForm.cs" />
     <Compile Include="ReplaceSpecialForm.cs" />
     <Compile Include="SplitSpecialForm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
