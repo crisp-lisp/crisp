@@ -5,7 +5,7 @@ using Crisp.Core.Types;
 namespace Crisp.Basic
 {
     /// <summary>
-    /// Represents the basic constant function.
+    /// A function that will convert all symbols in an expression to constants.
     /// </summary>
     public class QuoteSpecialForm : SpecialForm
     {

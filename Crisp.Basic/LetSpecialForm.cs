@@ -7,7 +7,7 @@ using Crisp.Core.Types;
 namespace Crisp.Basic
 {
     /// <summary>
-    /// Represents the basic function to bind symbols to expressions.
+    /// A function that binds symbols to expressions.
     /// </summary>
     public class LetSpecialForm : SpecialForm
     {

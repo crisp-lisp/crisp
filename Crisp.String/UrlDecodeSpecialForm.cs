@@ -12,7 +12,7 @@ namespace Crisp.String
      */
 
     /// <summary>
-    /// Represents the basic URL decode function.
+    /// URL-decodes a string atom and returns the result.
     /// </summary>
     public class UrlDecodeSpecialForm : SpecialForm // TODO: Implement in Crisp.
     {

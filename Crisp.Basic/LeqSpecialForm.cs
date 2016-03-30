@@ -5,7 +5,8 @@ using Crisp.Core.Types;
 namespace Crisp.Basic
 {
     /// <summary>
-    /// Represents the basic less than or equal to test function.
+    /// Returns a true boolean atom if the first argument evaluates to less than or equal to the second argument. 
+    /// Otherwise returns a false boolean atom.
     /// </summary>
     public class LeqSpecialForm : SpecialForm
     {

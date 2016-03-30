@@ -12,7 +12,7 @@ namespace Crisp.String
      */
 
     /// <summary>
-    /// Represents the basic URL encode function.
+    /// URL-encodes a string atom and returns the result.
     /// </summary>
     public class UrlEncodeSpecialForm : SpecialForm // TODO: Implement in Crisp.
     {

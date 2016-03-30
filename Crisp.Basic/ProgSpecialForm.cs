@@ -7,8 +7,9 @@ using Crisp.Core.Types;
 namespace Crisp.Basic
 {
     /// <summary>
-    /// Represents the basic prog special function.
+    /// A function that sequentially evaluates its arguments, returning the result of evaluation of its last argument.
     /// </summary>
+    /// <remarks>Useful for programming with side-effects.</remarks>
     public class ProgSpecialForm : SpecialForm
     {
         public override string Name => "prog";

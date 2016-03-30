@@ -8,7 +8,7 @@ using Crisp.Core.Types;
 namespace Crisp.Basic
 {
     /// <summary>
-    /// Represents the lambda creation function.
+    /// Returns a callable function (closure) with the specified parameters and body.
     /// </summary>
     public class LambdaSpecialForm : SpecialForm
     {

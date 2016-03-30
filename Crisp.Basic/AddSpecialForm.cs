@@ -7,7 +7,7 @@ using Crisp.Core.Types;
 namespace Crisp.Basic
 {
     /// <summary>
-    /// Represents the basic addition function.
+    /// Adds two numeric atoms together and returns the result as a new numeric atom.
     /// </summary>
     public class AddSpecialForm : SpecialForm
     {

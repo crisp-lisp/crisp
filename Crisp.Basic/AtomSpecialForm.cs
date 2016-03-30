@@ -5,7 +5,8 @@ using Crisp.Core.Types;
 namespace Crisp.Basic
 {
     /// <summary>
-    /// Represents the basic atomic test function.
+    /// Returns a true boolean atom if the given expression evaluates to an atom. Otherwise returns a false boolean
+    /// atom.
     /// </summary>
     public class AtomSpecialForm : SpecialForm
     {

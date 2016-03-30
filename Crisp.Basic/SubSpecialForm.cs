@@ -7,7 +7,7 @@ using Crisp.Core.Types;
 namespace Crisp.Basic
 {
     /// <summary>
-    /// Represents the basic subtraction function.
+    /// Subtracts a numeric atom from another and returns the result as a new numeric atom.
     /// </summary>
     public class SubSpecialForm : SpecialForm
     {

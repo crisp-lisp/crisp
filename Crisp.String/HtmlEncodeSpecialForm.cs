@@ -12,7 +12,7 @@ namespace Crisp.String
      */
 
     /// <summary>
-    /// Represents the basic HTML encode function.
+    /// HTML-encodes a string atom and returns the result.
     /// </summary>
     public class HtmlEncodeSpecialForm : SpecialForm // TODO: Implement in Crisp.
     {

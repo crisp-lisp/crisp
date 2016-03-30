@@ -5,7 +5,8 @@ using Crisp.Core.Types;
 namespace Crisp.Basic
 {
     /// <summary>
-    /// Represents the basic conditional branching function.
+    /// A function that returns its second parameter if its first parameter evaluates to a true boolean atom. Otherwise 
+    /// returns its third parameter.
     /// </summary>
     public class IfSpecialForm : SpecialForm
     {
@@ -23,7 +24,7 @@ namespace Crisp.Basic
 
             // Evaluate predicate.
             var predicate = evaluator.Evaluate(arguments[0]);
-            if (predicate.Equals(t) && predicate.Equals(f))
+            if (predicate.Type != SymbolicExpressionType.Boolean)
             {
                 throw new RuntimeException($"The first argument to the function '{Name}' must evaluate to a boolean special atom.");
             }

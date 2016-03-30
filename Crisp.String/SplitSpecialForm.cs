@@ -8,7 +8,7 @@ using Crisp.Core.Types;
 namespace Crisp.String
 {
     /// <summary>
-    /// Represents the basic string split function.
+    /// Returns a list of substrings created by splitting a string along a delimiter.
     /// </summary>
     public class SplitSpecialForm : SpecialForm
     {

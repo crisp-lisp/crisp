@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using Crisp.Core;
 using Crisp.Core.Evaluation;
 using Crisp.Core.Types;
@@ -10,7 +8,7 @@ using Crisp.Core.Types;
 namespace Crisp.String
 {
     /// <summary>
-    /// An implementation of a function to convert from a numeric ASCII code to its character equivalent.
+    /// A function that converts from a numeric ASCII code to its character equivalent.
     /// </summary>
     public class ChrSpecialForm : SpecialForm
     {

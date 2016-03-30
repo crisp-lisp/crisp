@@ -8,7 +8,8 @@ using Crisp.Core.Types;
 namespace Crisp.IO
 {
     /// <summary>
-    /// An implementation of a function that will write the given text to the file at the specified path.
+    /// Writes the given text to the file at the specified path and returns a true boolean atom on success. On failure
+    /// returns a false boolean atom.
     /// </summary>
     public class FileSetTextSpecialForm : SpecialForm
     {

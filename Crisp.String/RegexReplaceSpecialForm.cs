@@ -7,7 +7,8 @@ using Crisp.Core.Types;
 namespace Crisp.String
 {
     /// <summary>
-    /// Represents the basic string replace function.
+    /// Returns a string atom consisting of the first argument passed to this function with all matches to the regular
+    /// expression specified as the second argument replaced with the string passed as the third argument.
     /// </summary>
     public class RegexReplaceSpecialForm : SpecialForm
     {

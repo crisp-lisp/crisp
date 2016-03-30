@@ -9,7 +9,7 @@ using Crisp.Core.Types;
 namespace Crisp.Data
 {
     /// <summary>
-    /// An implementation of a function to execute SQLite non-queries against a database.
+    /// Executes an SQLite non-query against a database file, returning the number of affected rows.
     /// </summary>
     public class DataNonQuerySpecialForm : SpecialForm
     {

@@ -5,7 +5,7 @@ using Crisp.Core.Types;
 namespace Crisp.Basic
 {
     /// <summary>
-    /// Represents the basic function to create a pair from two expressions.
+    /// Returns a cons cell (pair) containing as its head and tail the two expressions given.
     /// </summary>
     public class ConsSpecialForm : SpecialForm
     {

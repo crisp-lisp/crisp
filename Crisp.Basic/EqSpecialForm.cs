@@ -5,7 +5,8 @@ using Crisp.Core.Types;
 namespace Crisp.Basic
 {
     /// <summary>
-    /// Represents the basic equality test function.
+    /// Returns a true boolean atom if the two given arguments are considered equal. Otherwise returns a false boolean
+    /// atom.
     /// </summary>
     public class EqSpecialForm : SpecialForm
     {

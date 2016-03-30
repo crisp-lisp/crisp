@@ -5,7 +5,7 @@ using Crisp.Core.Types;
 namespace Crisp.Basic
 {
     /// <summary>
-    /// Represents the basic function to retrieve the head of a pair.
+    /// Returns the head (first) of a cons cell (pair).
     /// </summary>
     public class CarSpecialForm : SpecialForm
     {

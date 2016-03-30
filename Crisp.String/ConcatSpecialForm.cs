@@ -7,7 +7,7 @@ using Crisp.Core.Types;
 namespace Crisp.String
 {
     /// <summary>
-    /// Represents the basic string concatenation function.
+    /// Returns a new string atom consisting of two string atoms concatenated together.
     /// </summary>
     public class ConcatSpecialForm : SpecialForm
     {

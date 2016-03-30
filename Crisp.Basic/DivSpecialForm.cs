@@ -7,7 +7,7 @@ using Crisp.Core.Types;
 namespace Crisp.Basic
 {
     /// <summary>
-    /// Represents the basic remainder function.
+    /// Divides a numeric atom by another and returns the result as a new numeric atom.
     /// </summary>
     public class DivSpecialForm : SpecialForm
     {

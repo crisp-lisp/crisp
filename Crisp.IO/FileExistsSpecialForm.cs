@@ -7,8 +7,7 @@ using Crisp.Core.Types;
 namespace Crisp.IO
 {
     /// <summary>
-    /// An implementation of a function that will return true if a file exists at the specified path or false 
-    /// otherwise.
+    /// Returns a true boolean atom if a file exists at the specified path. Otherwise returns a false boolean atom.
     /// </summary>
     public class FileExistsSpecialForm : SpecialForm
     {

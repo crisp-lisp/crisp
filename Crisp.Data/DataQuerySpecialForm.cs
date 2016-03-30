@@ -11,7 +11,8 @@ using Crisp.Core.Types;
 namespace Crisp.Data
 {
     /// <summary>
-    /// An implementation of a function to execute SQLite queries against a database.
+    /// Executes an SQLite query against a database file, returning a set of name-value collections representing rows 
+    /// retrieved.
     /// </summary>
     public class DataQuerySpecialForm : SpecialForm
     {

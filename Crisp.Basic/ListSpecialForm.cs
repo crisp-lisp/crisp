@@ -5,7 +5,7 @@ using Crisp.Core.Types;
 namespace Crisp.Basic
 {
     /// <summary>
-    /// Represents the basic list function.
+    /// A function that returns its arguments as a proper list.
     /// </summary>
     public class ListSpecialForm : SpecialForm
     {
