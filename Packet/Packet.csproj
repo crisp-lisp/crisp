@@ -166,6 +166,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="References.txt" />
+    <None Include="Resources\DefaultBadRequestPage.txt" />
     <None Include="Resources\DefaultForbiddenPage.txt" />
     <None Include="Resources\DefaultInternalServerErrorPage.txt" />
     <None Include="Resources\DefaultNotFoundErrorPage.txt" />

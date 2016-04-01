@@ -4,10 +4,10 @@
 #require "~/lib/web.cspl"
 #require "~/lib/templating.cspl"
 
-(lambda (url verb post)
+(lambda (url verb post headers)
 	(respond
 		(render-template-file "index.template.html" (
 			("title" . "Crisp/Packet Example - Basic Page") 
 			("url" . url) 
 			("verb" . verb)
-			("post" . (if (eq post nil) "No data." post)))) 200 "text/html"))
+			("post" . (if (eq post nil) "No data." post)))) 200 "text/html" ()))

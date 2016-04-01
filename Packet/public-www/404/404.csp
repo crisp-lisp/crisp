@@ -6,12 +6,12 @@
 #require "~/lib/querystring.cspl"
 #require "~/lib/nvc.cspl"
 
-(lambda (url verb post)
+(lambda (url verb post headers)
 	(letrec
 		(respond
 			(render-template-file "404.template.html" (
 				("filename" . filename)
-				("errorMessage" . errorMessage))) 404 "text/html")
+				("errorMessage" . errorMessage))) 404 "text/html" ())
 		(query . (parse-query-string post))
 		(filename . (replace (nvc-get query "filename") "\" "/"))
 		(errorMessage . (nvc-get query "errorMessage"))))

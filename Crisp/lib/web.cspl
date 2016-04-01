@@ -5,5 +5,6 @@
 ;;; @param [string] content		the response content (body)
 ;;; @param [num] status			the response status code
 ;;; @param [string] mime		the MIME type (content-type) of the response
-(respond . (lambda (content status mime)
-	(list content status mime)))
+;;; @param [list] headers		any headers to include in the response
+(respond . (lambda (content status mime headers)
+	(list content status mime headers)))

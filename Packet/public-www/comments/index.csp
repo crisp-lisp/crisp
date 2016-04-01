@@ -7,7 +7,7 @@
 #require "~/lib/web.cspl"
 #require "~/lib/templating.cspl"
 
-(lambda (url verb post)
+(lambda (url verb post headers)
 	;; The prog function will evaluate each of the following expressions in sequence and return the result of the last.	
 	(prog 
 		(letrec
@@ -24,7 +24,7 @@
 			(respond 
 				(render-template-file "comments.template.html" (
 					("title" . "Crisp Example - Comments System") 
-					("comments" . (build existing)))) 200 "text/html")
+					("comments" . (build existing)))) 200 "text/html" ())
 			(create-block . (lambda (row)
 				;; Render a partial for a comment.
 				(render-template-file "_comment.template.html" (

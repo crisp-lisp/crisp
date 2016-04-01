@@ -28,7 +28,10 @@ namespace Packet.Server
 
         private string _httpProtocolVersionString;
 
-        private readonly Hashtable _httpHeaders;
+        /// <summary>
+        /// Gets a collection of HTTP headers passed up by the client.
+        /// </summary>
+        public Dictionary<string, string> Headers { get; }
 
         /// <summary>
         /// Gets the <see cref="StreamWriter"/> used to write a response to the client.
@@ -49,9 +52,14 @@ namespace Packet.Server
         {
             _socket = socket;
             _server = server;
-            _httpHeaders = new Hashtable();
+            Headers = new Dictionary<string, string>();
         }
 
+        /// <summary>
+        /// Gets the reason phrase for a HTTP status code.
+        /// </summary>
+        /// <param name="statusCode">The HTTP status code.</param>
+        /// <returns></returns>
         private static string GetReasonPhrase(int statusCode)
         {
             return new Dictionary<int, string>
@@ -116,10 +124,11 @@ namespace Packet.Server
                         break;
                 }
             }
-            catch (Exception ex)
+            catch
             {
-              Console.WriteLine($"Exception: {ex.Message}");
-                WriteFailure();
+                // We consider a failure here to be a bad request.
+                WriteResponse(400, "text/html");
+                OutputStream.Write(Properties.Resources.DefaultBadRequestPage);
             }
 
             OutputStream.Flush();
@@ -166,7 +175,7 @@ namespace Packet.Server
                 }
                 string value = line.Substring(pos, line.Length - pos);
                 Console.WriteLine("header: {0}:{1}", name, value);
-                _httpHeaders[name] = value;
+                Headers.Add(name, value);
             }
         }
 
@@ -180,9 +189,9 @@ namespace Packet.Server
             Console.Write("Get post data start.");
             int content_len = 0;
             var ms = new MemoryStream();
-            if (_httpHeaders.ContainsKey("Content-Length"))
+            if (Headers.ContainsKey("Content-Length"))
             {
-                content_len = Convert.ToInt32(_httpHeaders["Content-Length"]);
+                content_len = Convert.ToInt32(Headers["Content-Length"]);
                 if (content_len > MaxPostSize)
                 {
                     throw new Exception("Post length too big!");
@@ -213,27 +222,32 @@ namespace Packet.Server
             _server.HandlePostRequest(this, new StreamReader(ms));
         }
 
-        public void WriteResponse(int statusCode, string mimeType)
+        /// <summary>
+        /// Writes a set of response headers to the output stream.
+        /// </summary>
+        /// <param name="statusCode">The status code of the response.</param>
+        /// <param name="contentType">The content type of the response.</param>
+        /// <param name="headers">Any additional headers to include in the response.</param>
+        public void WriteResponse(int statusCode, string contentType, Dictionary<string, string> headers)
         {
             OutputStream.WriteLine($"HTTP/1.0 {statusCode} {GetReasonPhrase(statusCode)}");
-            OutputStream.WriteLine("Content-Type: " + mimeType);
-            OutputStream.WriteLine("Connection: close");
-            OutputStream.WriteLine("");
-        }
-
-        public void WriteSuccess(string contentType = "text/html")
-        {
-            OutputStream.WriteLine("HTTP/1.0 200 OK");
             OutputStream.WriteLine("Content-Type: " + contentType);
             OutputStream.WriteLine("Connection: close");
+            foreach (var entry in headers)
+            {
+                OutputStream.WriteLine(entry.Key + ": " + entry.Value);
+            }
             OutputStream.WriteLine("");
         }
 
-        public void WriteFailure()
+        /// <summary>
+        /// Writes a set of response headers to the output stream.
+        /// </summary>
+        /// <param name="statusCode">The status code of the response.</param>
+        /// <param name="contentType">The content type of the response.</param>
+        public void WriteResponse(int statusCode, string contentType)
         {
-            OutputStream.WriteLine("HTTP/1.0 404 File not found");
-            OutputStream.WriteLine("Connection: close");
-            OutputStream.WriteLine("");
+            WriteResponse(statusCode, contentType, new Dictionary<string, string>());
         }
     }
 }

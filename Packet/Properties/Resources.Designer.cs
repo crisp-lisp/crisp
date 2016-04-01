@@ -61,7 +61,36 @@ namespace Packet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to &lt;html&gt;
+        ///&lt;head&gt;
+        ///    &lt;title&gt;400 - Bad Request&lt;/title&gt;
+        ///&lt;/head&gt;
+        ///&lt;body&gt;
+        ///	&lt;h1&gt;400 - Bad Request&lt;/h1&gt;
+        ///    &lt;p&gt;
+        ///		The request was invalid.
+        ///	&lt;/p&gt;
+        ///&lt;/body&gt;
+        ///&lt;/html&gt;.
+        /// </summary>
+        internal static string DefaultBadRequestPage {
+            get {
+                return ResourceManager.GetString("DefaultBadRequestPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;html&gt;
+        ///&lt;head&gt;
+        ///    &lt;title&gt;403 - Forbidden&lt;/title&gt;
+        ///&lt;/head&gt;
+        ///&lt;body&gt;
+        ///	&lt;h1&gt;403 - Forbidden&lt;/h1&gt;
+        ///    &lt;p&gt;
+        ///		You do not have permission to access this resource.
+        ///	&lt;/p&gt;
+        ///&lt;/body&gt;
+        ///&lt;/html&gt;.
         /// </summary>
         internal static string DefaultForbiddenPage {
             get {

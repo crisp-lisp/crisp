@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -72,10 +73,6 @@ namespace Packet.Server
                 {
                     path = Path.Combine(path, files.First()); // Pass back path to configured index page.
                 }
-                else
-                {
-                    // TODO: Serve default directory index?
-                }
             }
 
             return path;
@@ -103,6 +100,11 @@ namespace Packet.Server
             return _configurationProvider.GetConfiguration().CrispFileExtensions.Contains(extension);
         }
 
+        /// <summary>
+        /// Returns true if the given path matches a 'do not serve' rule. Otherwise returns false.
+        /// </summary>
+        /// <param name="path">The path to check.</param>
+        /// <returns></returns>
         private bool IsForbiddenPath(string path)
         {
             return _configurationProvider.GetConfiguration().DoNotServePatterns.Any(p => Regex.IsMatch(path, p));
@@ -139,6 +141,31 @@ namespace Packet.Server
         }
 
         /// <summary>
+        /// Converts a dictionary of HTTP headers to a serialized Crisp name-value collection.
+        /// </summary>
+        /// <param name="headers">The header dictionary to convert.</param>
+        /// <returns></returns>
+        private static string TransformHeadersForCrisp(Dictionary<string, string> headers)
+        {
+            return new LispSerializer().Serialize(
+                headers.Select(header => new Pair(new StringAtom(header.Key), new StringAtom(header.Value)))
+                    .Cast<SymbolicExpression>()
+                    .ToArray()
+                    .ToProperList());
+        }
+
+        private static Dictionary<string, string> TransformHeadersForPacket(SymbolicExpression headers)
+        {
+            if (headers.Type == SymbolicExpressionType.Nil)
+            {
+                return new Dictionary<string, string>();
+            }
+
+            var expanded = headers.AsPair().Expand();
+            return expanded.ToDictionary(p => p.AsPair().Head.AsString().Value, p => p.AsPair().Tail.AsString().Value);
+        }
+
+        /// <summary>
         /// Serves the default 500 error page.
         /// </summary>
         /// <param name="processor">The <see cref="HttpProcessor"/> to write the response to.</param>
@@ -146,6 +173,16 @@ namespace Packet.Server
         {
             processor.WriteResponse(500, "text/html");
             processor.OutputStream.Write(Properties.Resources.DefaultInternalServerErrorPage);
+        }
+
+        private static bool IsValidResult(IList<SymbolicExpression> expandedResult)
+        {
+            return expandedResult.Count == 4
+                   && expandedResult[0].Type == SymbolicExpressionType.String
+                   && expandedResult[1].Type == SymbolicExpressionType.Numeric
+                   && expandedResult[2].Type == SymbolicExpressionType.String
+                   && (expandedResult[3].Type == SymbolicExpressionType.Pair
+                       || expandedResult[3].Type == SymbolicExpressionType.Nil);
         }
 
         /// <summary>
@@ -188,7 +225,9 @@ namespace Packet.Server
                 {
                     var runtime = _crispRuntimeFactory.GetCrispRuntime(path);
                     var serialized = HttpUtility.UrlEncode(_symbolicExpressionSerializer.Serialize(programResult));
-                    var args = $"\"{processor.HttpUrl}\" \"POST\" \"filename={filename}&programResult={serialized}&errorMessage={errorMessage}\"";
+                    var headers = TransformHeadersForCrisp(processor.Headers);
+                    var args = $"\"{processor.HttpUrl}\" \"POST\" \"filename={filename}&programResult={serialized}" +
+                               $"&errorMessage={errorMessage}\" {headers}";
                     result = runtime.Run(args);
                 }
                 catch
@@ -206,9 +245,9 @@ namespace Packet.Server
                 }
                 else
                 {
-                    // The response should consist of 3 parts.
+                    // The response should be valid.
                     var expanded = result.AsPair().Expand();
-                    if (expanded.Count != 3)
+                    if (!IsValidResult(expanded))
                     {
                         // Resulting expression was not a response, error.
                         ServeDefaultInternalServerErrorPage(processor);
@@ -217,7 +256,7 @@ namespace Packet.Server
                     // Pass response back to client.
                     processor.WriteResponse(
                         Convert.ToInt32(expanded[1].AsNumeric().Value),
-                        expanded[2].AsString().Value);
+                        expanded[2].AsString().Value, TransformHeadersForPacket(expanded[3]));
                     processor.OutputStream.Write(expanded[0].AsString().Value);
                 }
             }
@@ -262,7 +301,9 @@ namespace Packet.Server
                 try
                 {
                     var runtime = _crispRuntimeFactory.GetCrispRuntime(path);
-                    result = runtime.Run($"\"{processor.HttpUrl}\" \"POST\" \"filename={filename}&errorMessage={errorMessage}\"");
+                    var headers = TransformHeadersForCrisp(processor.Headers);
+                    result = runtime.Run($"\"{processor.HttpUrl}\" \"POST\" \"filename={filename}" +
+                                         $"&errorMessage={errorMessage}\" {headers}");
                 }
                 catch
                 {
@@ -279,9 +320,9 @@ namespace Packet.Server
                 }
                 else
                 {
-                    // The response should consist of 3 parts.
+                    // The response should be valid.
                     var expanded = result.AsPair().Expand();
-                    if (expanded.Count != 3)
+                    if (!IsValidResult(expanded))
                     {
                         // Resulting expression was not a response, serve default page.
                         ServeDefaultNotFoundPage(processor);
@@ -290,7 +331,7 @@ namespace Packet.Server
                     // Pass response back to client.
                     processor.WriteResponse(
                         Convert.ToInt32(expanded[1].AsNumeric().Value),
-                        expanded[2].AsString().Value);
+                        expanded[2].AsString().Value, TransformHeadersForPacket(expanded[3]));
                     processor.OutputStream.Write(expanded[0].AsString().Value);
                 }
             }
@@ -339,8 +380,9 @@ namespace Packet.Server
                 try
                 {
                     var runtime = _crispRuntimeFactory.GetCrispRuntime(path);
+                    var headers = TransformHeadersForCrisp(processor.Headers);
                     result = runtime.Run(
-                        $"\"{processor.HttpUrl}\" \"GET\" nil");
+                        $"\"{processor.HttpUrl}\" \"GET\" nil {headers}");
                 }
                 catch (Exception ex)
                 {
@@ -359,11 +401,11 @@ namespace Packet.Server
                         path,
                         result); 
                 }
-                else 
+                else
                 {
-                    // The response should consist of 3 parts.
+                    // The response should be valid.
                     var expanded = result.AsPair().Expand();
-                    if (expanded.Count != 3)
+                    if (!IsValidResult(expanded))
                     {
                         // Resulting expression was not a response, error.
                         HandleInternalServerError(
@@ -376,7 +418,7 @@ namespace Packet.Server
                     // Pass response back to client.
                     processor.WriteResponse(
                         Convert.ToInt32(expanded[1].AsNumeric().Value), 
-                        expanded[2].AsString().Value);
+                        expanded[2].AsString().Value, TransformHeadersForPacket(expanded[3]));
                     processor.OutputStream.Write(expanded[0].AsString().Value);
                 }
             }
@@ -419,8 +461,9 @@ namespace Packet.Server
                 {
                     var runtime = _crispRuntimeFactory.GetCrispRuntime(path);
                     var encoded = HttpUtility.UrlEncode(posted);
+                    var headers = TransformHeadersForCrisp(processor.Headers);
                     result = runtime.Run(
-                        $"\"{processor.HttpUrl}\" \"POST\" \"{encoded}\"");
+                        $"\"{processor.HttpUrl}\" \"POST\" \"{encoded}\" {headers}");
                 }
                 catch (Exception ex)
                 {
@@ -441,9 +484,9 @@ namespace Packet.Server
                 }
                 else
                 {
-                    // The response should consist of 3 parts.
+                    // The response should be valid.
                     var expanded = result.AsPair().Expand();
-                    if (expanded.Count != 3)
+                    if (!IsValidResult(expanded))
                     {
                         // Resulting expression was not a response, error.
                         HandleInternalServerError(
@@ -456,7 +499,7 @@ namespace Packet.Server
                     // Pass response back to client.
                     processor.WriteResponse(
                         Convert.ToInt32(expanded[1].AsNumeric().Value),
-                        expanded[2].AsString().Value);
+                        expanded[2].AsString().Value, TransformHeadersForPacket(expanded[3]));
                     processor.OutputStream.Write(expanded[0].AsString().Value);
                 }
             }
