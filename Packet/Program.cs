@@ -10,10 +10,9 @@ namespace Packet
     class Program
     {
         /// <summary>
-        /// Prints the help card for the application.
+        /// Prints the ASCII art title for the application.
         /// </summary>
-        /// <param name="options">The command-line options passed to the program.</param>
-        private static void PrintHelp(Options options)
+        private static void PrintAsciiArt()
         {
             // Write ASCII art.
             var titleCard = new[]
@@ -28,6 +27,27 @@ namespace Packet
             {
                 Console.WriteLine(line);
             }
+        }
+
+        /// <summary>
+        /// Prints version and copyright information for the application.
+        /// </summary>
+        private static void PrintVersionAndCopyright()
+        {
+            var version = Assembly.GetEntryAssembly().GetName().Version;
+
+            // Automatically build help text based on options class.
+            Console.WriteLine($"Server v{version}");
+            Console.WriteLine("Copyright © Saul Johnson 2016");
+        }
+        
+        /// <summary>
+        /// Prints the help card for the application.
+        /// </summary>
+        /// <param name="options">The command-line options passed to the program.</param>
+        private static void PrintHelp(Options options)
+        {
+            PrintAsciiArt(); // Print ASCII art.
 
             var version = Assembly.GetEntryAssembly().GetName().Version;
 
@@ -49,6 +69,11 @@ namespace Packet
                 PrintHelp(options);
                 return;
             }
+
+            // Arguments were valid, show title card.
+            PrintAsciiArt();
+            PrintVersionAndCopyright();
+            Console.WriteLine();
 
             // Start server.
             var server = HttpServerFactory.GetPacketHttpServer(new ServerStartupSettings

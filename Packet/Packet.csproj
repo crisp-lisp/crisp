@@ -74,7 +74,9 @@
     <Compile Include="InterpreterDirectoryPathProvider.cs" />
     <Compile Include="Server\IHttpServer.cs" />
     <Compile Include="Options.cs" />
+    <Compile Include="Server\ILogger.cs" />
     <Compile Include="Server\IServerStartupSettingsProvider.cs" />
+    <Compile Include="Server\Logger.cs" />
     <Compile Include="Server\PacketHttpServer.cs" />
     <Compile Include="Server\HttpServerFactory.cs" />
     <Compile Include="Program.cs" />

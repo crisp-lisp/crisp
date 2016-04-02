@@ -26,6 +26,8 @@ namespace Packet.Server
 
         private readonly ISymbolicExpressionSerializer _symbolicExpressionSerializer;
 
+        private readonly ILogger _logger;
+
         /// <summary>
         /// Initializes a new instance of a Packet HTTP/1.0 server.
         /// </summary>
@@ -33,11 +35,13 @@ namespace Packet.Server
         /// <param name="serverStartupSettingsProvider">The startup settings provider for the server.</param>
         /// <param name="crispRuntimeFactory">The factory to use to create Crisp runtime instances.</param>
         /// <param name="symbolicExpressionSerializer">The serializer to use to display debug output.</param>
+        /// <param name="logger">The logger to use for logging server events.</param>
         public PacketHttpServer(
             IConfigurationProvider configurationProvider,
             IServerStartupSettingsProvider serverStartupSettingsProvider,
             ICrispRuntimeFactory crispRuntimeFactory,
-            ISymbolicExpressionSerializer symbolicExpressionSerializer)
+            ISymbolicExpressionSerializer symbolicExpressionSerializer,
+            ILogger logger)
             : base(configurationProvider.GetConfiguration().BindingIpAddress,
                   serverStartupSettingsProvider.GetSettings().Port)
         {
@@ -45,6 +49,7 @@ namespace Packet.Server
             _serverStartupSettingsProvider = serverStartupSettingsProvider;
             _crispRuntimeFactory = crispRuntimeFactory;
             _symbolicExpressionSerializer = symbolicExpressionSerializer;
+            _logger = logger;
         }
 
         /// <summary>
@@ -231,10 +236,11 @@ namespace Packet.Server
                                $"&errorMessage={errorMessage}\" {headers}";
                     result = runtime.Run(args);
                 }
-                catch
+                catch (Exception ex)
                 {
                     // If configured 500 error page throws an exception, use default.
                     ServeDefaultInternalServerErrorPage(processor);
+                    _logger.WriteError(ex);
                     return;
                 }
 
