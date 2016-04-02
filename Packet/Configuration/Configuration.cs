@@ -41,5 +41,10 @@ namespace Packet.Configuration
         /// Gets or sets a collection of regular expressions that match filepaths that should not be served to clients.
         /// </summary>
         public IEnumerable<string> DoNotServePatterns { get; set; }
+
+        /// <summary>
+        /// Gets or sets the IP address that this server is bound to.
+        /// </summary>
+        public string BindingIpAddress { get; set; }
     }
 }

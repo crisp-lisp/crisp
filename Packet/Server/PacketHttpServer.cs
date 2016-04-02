@@ -38,7 +38,8 @@ namespace Packet.Server
             IServerStartupSettingsProvider serverStartupSettingsProvider,
             ICrispRuntimeFactory crispRuntimeFactory,
             ISymbolicExpressionSerializer symbolicExpressionSerializer)
-            : base(serverStartupSettingsProvider.GetSettings().Port)
+            : base(configurationProvider.GetConfiguration().BindingIpAddress,
+                  serverStartupSettingsProvider.GetSettings().Port)
         {
             _configurationProvider = configurationProvider;
             _serverStartupSettingsProvider = serverStartupSettingsProvider;

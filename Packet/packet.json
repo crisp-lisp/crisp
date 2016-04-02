@@ -11,6 +11,7 @@
   "NotFoundErrorPage": "404/404.csp",
   "DirectoryIndices": [ "index.csp", "index.html" ],
   "DoNotServePatterns": [ ".*\\.template\\.html", ".*\\.db3" ],
+  "BindingIpAddress" : "127.0.0.1",
   "MimeTypeMappings": {
     ".au": "audio/basic",
     ".avi": "video/avi",
