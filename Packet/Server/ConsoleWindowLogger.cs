@@ -2,6 +2,9 @@
 
 namespace Packet.Server
 {
+    /// <summary>
+    /// An implementation of a logger that prints messages to the console window.
+    /// </summary>
     internal class ConsoleWindowLogger : ILogger
     {
         public void WriteLine(string msg)
@@ -16,11 +19,6 @@ namespace Packet.Server
 
         public void WriteError(Exception ex)
         {
-            Console.WriteLine("An error occurred:");
-            Console.WriteLine(ex.Message);
-            Console.WriteLine("Begin stack trace...");
-            Console.WriteLine(ex.StackTrace);
-            Console.WriteLine("Error string:");
             Console.WriteLine(ex.ToString());
         }
     }
