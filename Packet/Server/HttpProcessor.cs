@@ -181,32 +181,37 @@ namespace Packet.Server
             Server.HandleGetRequest(this);
         }
 
+        /// <summary>
+        /// Delegates handling of a post request to the coupled server.
+        /// </summary>
         private void HandlePostRequest()
         {
             var stream = new MemoryStream();
             if (Headers.ContainsKey("Content-Length"))
             {
-                var contentLen = Convert.ToInt32(Headers["Content-Length"]);
-                if (contentLen > MaxPostSize)
+                // Enforce post length cap.
+                var contentLength = Convert.ToInt32(Headers["Content-Length"]);
+                if (contentLength > MaxPostSize)
                 {
                     throw new HttpException($"Post length is larger than the maximum of {MaxPostSize} bytes.");
                 }
 
-                var buf = new byte[4096];
-                var toRead = contentLen;
-                while (toRead > 0)
+                // Read post data into memory buffer.
+                var buffer = new byte[4096];
+                var remainingLength = contentLength;
+                while (remainingLength > 0)
                 {
-                    var numRead = InputStream.Read(buf, 0, Math.Min(4096, toRead));
+                    var numRead = InputStream.Read(buffer, 0, Math.Min(4096, remainingLength));
                     if (numRead == 0)
                     {
-                        if (toRead == 0)
+                        if (remainingLength == 0)
                         {
                             break;
                         }
-                        throw new Exception("Client disconnect");
+                        throw new HttpException("Client disconnected during socket read.");
                     }
-                    toRead -= numRead;
-                    stream.Write(buf, 0, numRead);
+                    remainingLength -= numRead;
+                    stream.Write(buffer, 0, numRead);
                 }
                 stream.Seek(0, SeekOrigin.Begin);
             }
