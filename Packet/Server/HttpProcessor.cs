@@ -169,7 +169,7 @@ namespace Packet.Server
 
                 // Add to headers.
                 var split = line.Split(':');
-                Headers.Add(split[0], string.Join(":", split.Skip(1)));
+                Headers.Add(split[0], string.Join(":", split.Skip(1)).Trim());
             }
         }
 
