@@ -81,6 +81,7 @@
     <Compile Include="Server\HttpServerFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Server\ReasonPhrase.cs" />
     <Compile Include="Server\ServerStartupSettings.cs" />
     <Compile Include="Server\ServerStartupSettingsProvider.cs" />
     <Compile Include="SourceFilePathProvider.cs" />

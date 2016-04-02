@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
@@ -24,9 +23,15 @@ namespace Packet.Server
 
         private Stream _inputStream;
 
-        private string _httpMethod;
+        /// <summary>
+        /// Gets the HTTP method (verb) passed up by the client.
+        /// </summary>
+        public string HttpMethod { get; private set; }
 
-        private string _httpProtocolVersionString;
+        /// <summary>
+        /// Gets the HTTP protocol version string passed up by the client.
+        /// </summary>
+        public string HttpProtocolVersionString { get; private set; }
 
         /// <summary>
         /// Gets a collection of HTTP headers passed up by the client.
@@ -53,33 +58,6 @@ namespace Packet.Server
             _socket = socket;
             _server = server;
             Headers = new Dictionary<string, string>();
-        }
-
-        /// <summary>
-        /// Gets the reason phrase for a HTTP status code.
-        /// </summary>
-        /// <param name="statusCode">The HTTP status code.</param>
-        /// <returns></returns>
-        private static string GetReasonPhrase(int statusCode)
-        {
-            return new Dictionary<int, string>
-            {
-                {200, "OK"},
-                {201, "CREATED"},
-                {202, "ACCEPTED"},
-                {204, "No Content"},
-                {301, "Moved Permanently"},
-                {302, "Moved Temporarily"},
-                {304, "Not Modified"},
-                {400, "Bad Request"},
-                {401, "Unauthorized"},
-                {403, "Forbidden"},
-                {404, "Not Found"},
-                {500, "Internal Server Error"},
-                {501, "Not Implemented"},
-                {502, "Bad Gateway"},
-                {503, "Service Unavailable"}
-            }[statusCode];
         }
 
         private static string StreamReadLine(Stream inputStream)
@@ -114,7 +92,7 @@ namespace Packet.Server
             {
                 ParseRequest();
                 ReadHeaders();
-                switch (_httpMethod)
+                switch (HttpMethod)
                 {
                     case "GET":
                         HandleGetRequest();
@@ -143,9 +121,9 @@ namespace Packet.Server
             {
                 throw new Exception("HTTP request line was invalid.");
             }
-            _httpMethod = tokens[0].ToUpper();
+            HttpMethod = tokens[0].ToUpper();
             HttpUrl = tokens[1];
-            _httpProtocolVersionString = tokens[2];
+            HttpProtocolVersionString = tokens[2];
 
             Console.WriteLine($"Starting: {request}");
         }
@@ -230,7 +208,7 @@ namespace Packet.Server
         /// <param name="headers">Any additional headers to include in the response.</param>
         public void WriteResponse(int statusCode, string contentType, Dictionary<string, string> headers)
         {
-            OutputStream.WriteLine($"HTTP/1.0 {statusCode} {GetReasonPhrase(statusCode)}");
+            OutputStream.WriteLine($"HTTP/1.0 {statusCode} {ReasonPhrase.TryGet(statusCode, "Unknown")}");
             OutputStream.WriteLine("Content-Type: " + contentType);
             OutputStream.WriteLine("Connection: close");
             foreach (var entry in headers)

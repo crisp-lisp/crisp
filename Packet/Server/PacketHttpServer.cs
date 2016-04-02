@@ -69,15 +69,18 @@ namespace Packet.Server
             // Compute real path.
             var path = Path.Combine(_serverStartupSettingsProvider.GetSettings().WebRoot, trimmed);
 
-            if (Directory.Exists(path)) // If real path is a directory.
+            // If real path is a directory.
+            if (Directory.Exists(path)) 
             {
+                // Get any configured index pages.
                 var files = Directory.GetFiles(path)
                     .Select(Path.GetFileName)
                     .Where(f => _configurationProvider.GetConfiguration().DirectoryIndices.Contains(f))
-                    .ToArray(); // Get any configured index pages.
+                    .ToArray(); 
                 if (files.Any())
                 {
-                    path = Path.Combine(path, files.First()); // Pass back path to configured index page.
+                    // Pass back path to configured index page.
+                    path = Path.Combine(path, files.First()); 
                 }
             }
 
@@ -153,13 +156,19 @@ namespace Packet.Server
         /// <returns></returns>
         private static string TransformHeadersForCrisp(Dictionary<string, string> headers)
         {
-            return new LispSerializer().Serialize(
+            var serializer = new LispSerializer(); // We need to serialize to valid Crisp.
+            return serializer.Serialize(
                 headers.Select(header => new Pair(new StringAtom(header.Key), new StringAtom(header.Value)))
                     .Cast<SymbolicExpression>()
                     .ToArray()
                     .ToProperList());
         }
 
+        /// <summary>
+        /// Converts a name-value collection of HTTP headers passed back by a Crisp webpage 
+        /// </summary>
+        /// <param name="headers"></param>
+        /// <returns></returns>
         private static Dictionary<string, string> TransformHeadersForPacket(SymbolicExpression headers)
         {
             if (headers.Type == SymbolicExpressionType.Nil)
@@ -181,13 +190,32 @@ namespace Packet.Server
             processor.OutputStream.Write(Properties.Resources.DefaultInternalServerErrorPage);
         }
 
+        private static bool IsNameValueCollection(SymbolicExpression expression)
+        {
+            // Check we've got a pair.
+            var casted = expression as Pair;
+            if (casted == null)
+            {
+                return false;
+            }
+
+            // Check we only have name-value collection entries in list.
+            return casted.Expand().All(e =>
+            {
+                var entry = e as Pair;
+                return entry != null
+                       && entry.Head.Type == SymbolicExpressionType.String
+                       && entry.Tail.Type == SymbolicExpressionType.String;
+            });
+        }
+
         private static bool IsValidResult(IList<SymbolicExpression> expandedResult)
         {
             return expandedResult.Count == 4
                    && expandedResult[0].Type == SymbolicExpressionType.String
                    && expandedResult[1].Type == SymbolicExpressionType.Numeric
                    && expandedResult[2].Type == SymbolicExpressionType.String
-                   && (expandedResult[3].Type == SymbolicExpressionType.Pair
+                   && (IsNameValueCollection(expandedResult[3])
                        || expandedResult[3].Type == SymbolicExpressionType.Nil);
         }
 
