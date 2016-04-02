@@ -1,13 +1,22 @@
 ﻿;; Crisp example webpage.
 ;; Copyright © Saul Johnson 2015-2016
 
+#require "~/lib/core.cspl"
 #require "~/lib/web.cspl"
 #require "~/lib/templating.cspl"
 
 (lambda (url verb post headers)
-	(respond
-		(render-template-file "index.template.html" (
-			("title" . "Crisp/Packet Example - Basic Page") 
-			("url" . url) 
-			("verb" . verb)
-			("post" . (if (eq post nil) "No data." post)))) 200 "text/html" ()))
+	(letrec
+		(respond
+			(render-template-file "index.template.html" (
+				("title" . "Crisp/Packet Example - Basic Page") 
+				("url" . url) 
+				("verb" . verb)
+				("headers" . (header-to-string headers))
+				("post" . (if (eq post nil) "No data." post)))) 200 "text/html" ())
+		(header-to-string . (lambda (lst)
+			(let
+				(if (null lst) 
+					"" 
+					(concat-all ((car item) ":" (cdr item) (chr 13) (chr 10) (header-to-string (cdr lst)))))
+				(item . (car lst)))))))
