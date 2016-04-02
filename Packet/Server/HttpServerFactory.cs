@@ -25,7 +25,7 @@ namespace Packet.Server
             container.Register<ICrispRuntimeFactory, CrispRuntimeFactory>();
             container.Register<IServerStartupSettingsProvider>(() =>
                 new ServerStartupSettingsProvider(serverStartupSettings));
-            container.Register<ILogger, Logger>();
+            container.Register<ILogger, ConsoleWindowLogger>();
             container.Register<IHttpServer, PacketHttpServer>();
 
             return container.GetInstance<IHttpServer>();

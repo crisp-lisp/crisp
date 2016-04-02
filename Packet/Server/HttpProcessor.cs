@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading;
+using System.Web;
 
 namespace Packet.Server
 {
@@ -17,11 +18,20 @@ namespace Packet.Server
         /// </summary>
         private const int MaxPostSize = 10*1024*1024;
 
-        private readonly TcpClient _socket;
+        /// <summary>
+        /// Gets the socket open to the client.
+        /// </summary>
+        public TcpClient Socket { get; }
 
-        private readonly HttpServer _server;
+        /// <summary>
+        /// Gets the server coupled with this object for request handling.
+        /// </summary>
+        public HttpServer Server { get; }
 
-        private Stream _inputStream;
+        /// <summary>
+        /// Gets the input stream for reading data passed up by the client.
+        /// </summary>
+        public Stream InputStream { get; private set; }
 
         /// <summary>
         /// Gets the HTTP method (verb) passed up by the client.
@@ -39,7 +49,7 @@ namespace Packet.Server
         public Dictionary<string, string> Headers { get; }
 
         /// <summary>
-        /// Gets the <see cref="StreamWriter"/> used to write a response to the client.
+        /// Gets the output stream used to write a response to the client.
         /// </summary>
         public StreamWriter OutputStream { get; private set; }
 
@@ -55,38 +65,46 @@ namespace Packet.Server
         /// <param name="server">The server that spawned this processor.</param>
         public HttpProcessor(TcpClient socket, HttpServer server)
         {
-            _socket = socket;
-            _server = server;
+            Socket = socket;
+            Server = server;
             Headers = new Dictionary<string, string>();
         }
 
+        /// <summary>
+        /// Reads a line of text from a <see cref="Stream"/> instance.
+        /// </summary>
+        /// <param name="inputStream">The stream to read from.</param>
+        /// <returns></returns>
         private static string StreamReadLine(Stream inputStream)
         {
-            var data = new StringBuilder();
+            var line = new StringBuilder();
 
+            // Read until newline.
             int buffer;
             while ((buffer = inputStream.ReadByte()) != '\n')
             {
                 switch (buffer)
                 {
-                    case '\r':
-                        break;
+                    case '\r': // Leave out carriage return char.
                     case -1:
-                        Thread.Sleep(1);
                         break;
                     default:
-                        data.Append(Convert.ToChar(buffer));
+                        line.Append(Convert.ToChar(buffer));
                         break;
                 }
             }
 
-            return data.ToString();
+            return line.ToString();
         }
 
         public void Process()
         {
-            _inputStream = new BufferedStream(_socket.GetStream());
-            OutputStream = new StreamWriter(new BufferedStream(_socket.GetStream()));
+            /*
+             * Can't use a StreamReader here because we might need to read binary data passed up by the client in a
+             * POST request.
+             */
+            InputStream = new BufferedStream(Socket.GetStream());
+            OutputStream = new StreamWriter(new BufferedStream(Socket.GetStream()));
 
             try
             {
@@ -100,6 +118,8 @@ namespace Packet.Server
                     case "POST":
                         HandlePostRequest();
                         break;
+                    default:
+                        throw new HttpException($"The HTTP verb {HttpMethod} is not supported.");
                 }
             }
             catch
@@ -110,94 +130,87 @@ namespace Packet.Server
             }
 
             OutputStream.Flush();
-            _socket.Close();
+            Socket.Close();
         }
 
+        /// <summary>
+        /// Parses the request line passed up the client.
+        /// </summary>
         private void ParseRequest()
         {
-            var request = StreamReadLine(_inputStream);
+            var request = StreamReadLine(InputStream);
             var tokens = request.Split(' ');
             if (tokens.Length != 3)
             {
-                throw new Exception("HTTP request line was invalid.");
+                throw new HttpException("HTTP request line was invalid."); // Bad request line.
             }
             HttpMethod = tokens[0].ToUpper();
             HttpUrl = tokens[1];
             HttpProtocolVersionString = tokens[2];
-
-            Console.WriteLine($"Starting: {request}");
         }
 
+        /// <summary>
+        /// Parses all header lines passed up by the client.
+        /// </summary>
         private void ReadHeaders()
         {
-            Console.WriteLine("ReadHeaders()");
             string line;
-            while ((line = StreamReadLine(_inputStream)) != null)
+            while ((line = StreamReadLine(InputStream)) != null)
             {
-                if (line == "")
+                if (line == string.Empty)
                 {
-                    Console.WriteLine("Got headers.");
-                    return;
+                    break; // Blank line means end of headers.
                 }
 
-                int separator = line.IndexOf(":");
-                if (separator == -1)
+                if (!line.Contains(':')) 
                 {
-                    throw new Exception($"Invalid HTTP header line: {line}");
+                    throw new HttpException($"Invalid HTTP header line: {line}"); // Bad header line.
                 }
-                string name = line.Substring(0, separator);
-                int pos = separator + 1;
-                while ((pos < line.Length) && (line[pos] == ' '))
-                {
-                    pos++;
-                }
-                string value = line.Substring(pos, line.Length - pos);
-                Console.WriteLine("header: {0}:{1}", name, value);
-                Headers.Add(name, value);
+
+                // Add to headers.
+                var split = line.Split(':');
+                Headers.Add(split[0], string.Join(":", split.Skip(1)));
             }
         }
 
+        /// <summary>
+        /// Delegates handling of a get request to the coupled server.
+        /// </summary>
         private void HandleGetRequest()
         {
-            _server.HandleGetRequest(this);
+            Server.HandleGetRequest(this);
         }
 
         private void HandlePostRequest()
         {
-            Console.Write("Get post data start.");
-            int content_len = 0;
-            var ms = new MemoryStream();
+            var stream = new MemoryStream();
             if (Headers.ContainsKey("Content-Length"))
             {
-                content_len = Convert.ToInt32(Headers["Content-Length"]);
-                if (content_len > MaxPostSize)
+                var contentLen = Convert.ToInt32(Headers["Content-Length"]);
+                if (contentLen > MaxPostSize)
                 {
-                    throw new Exception("Post length too big!");
+                    throw new HttpException($"Post length is larger than the maximum of {MaxPostSize} bytes.");
                 }
-                byte[] buf = new byte[4096];
-                int to_read = content_len;
-                while (to_read > 0)
+
+                var buf = new byte[4096];
+                var toRead = contentLen;
+                while (toRead > 0)
                 {
-                    Console.Write("Starting read.");
-                    int numread = this._inputStream.Read(buf, 0, Math.Min(4096, to_read));
-                    if (numread == 0)
+                    var numRead = InputStream.Read(buf, 0, Math.Min(4096, toRead));
+                    if (numRead == 0)
                     {
-                        if (to_read == 0)
+                        if (toRead == 0)
                         {
                             break;
                         }
-                        else
-                        {
-                            throw new Exception("Client disconnect");
-                        }
+                        throw new Exception("Client disconnect");
                     }
-                    to_read -= numread;
-                    ms.Write(buf, 0, numread);
+                    toRead -= numRead;
+                    stream.Write(buf, 0, numRead);
                 }
-                ms.Seek(0, SeekOrigin.Begin);
+                stream.Seek(0, SeekOrigin.Begin);
             }
-            Console.WriteLine("Get post data end");
-            _server.HandlePostRequest(this, new StreamReader(ms));
+            Server.HandlePostRequest(this, new StreamReader(stream));
         }
 
         /// <summary>
@@ -211,10 +224,13 @@ namespace Packet.Server
             OutputStream.WriteLine($"HTTP/1.0 {statusCode} {ReasonPhrase.TryGet(statusCode, "Unknown")}");
             OutputStream.WriteLine("Content-Type: " + contentType);
             OutputStream.WriteLine("Connection: close");
-            foreach (var entry in headers)
+
+            // Any custom headers.
+            foreach (var entry in headers) 
             {
                 OutputStream.WriteLine(entry.Key + ": " + entry.Value);
             }
+
             OutputStream.WriteLine("");
         }
 
