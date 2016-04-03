@@ -264,11 +264,10 @@ namespace Packet.Server
                                $"&errorMessage={errorMessage}\" {headers}";
                     result = runtime.Run(args);
                 }
-                catch (Exception ex)
+                catch
                 {
                     // If configured 500 error page throws an exception, use default.
                     ServeDefaultInternalServerErrorPage(processor);
-                    _logger.WriteError(ex);
                     return;
                 }
 
@@ -277,6 +276,7 @@ namespace Packet.Server
                 {
                     // Resulting expression was not a list, error.
                     ServeDefaultInternalServerErrorPage(processor);
+                    return;
                 }
                 else
                 {
@@ -286,6 +286,7 @@ namespace Packet.Server
                     {
                         // Resulting expression was not a response, error.
                         ServeDefaultInternalServerErrorPage(processor);
+                        return;
                     }
 
                     // Pass response back to client.
@@ -352,6 +353,7 @@ namespace Packet.Server
                 {
                     // Resulting expression was not a list, serve default page.
                     ServeDefaultNotFoundPage(processor);
+                    return;
                 }
                 else
                 {
@@ -361,6 +363,7 @@ namespace Packet.Server
                     {
                         // Resulting expression was not a response, serve default page.
                         ServeDefaultNotFoundPage(processor);
+                        return;
                     }
 
                     // Pass response back to client.
@@ -434,7 +437,8 @@ namespace Packet.Server
                         processor, 
                         "The result of program evaluation was not of the correct type.",
                         path,
-                        result); 
+                        result);
+                    return;
                 }
                 else
                 {
@@ -447,7 +451,8 @@ namespace Packet.Server
                             processor,
                             "The result of program evaluation was not of the correct form.",
                             path,
-                            result); 
+                            result);
+                        return;
                     }
 
                     // Pass response back to client.
@@ -516,6 +521,7 @@ namespace Packet.Server
                         "The result of program evaluation was not of the correct type.",
                         path,
                         result);
+                    return;
                 }
                 else
                 {
@@ -529,6 +535,7 @@ namespace Packet.Server
                             "The result of program evaluation was not of the correct form.",
                             path,
                             result);
+                        return;
                     }
 
                     // Pass response back to client.
