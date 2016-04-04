@@ -18,6 +18,8 @@ namespace Packet.Server
         /// </summary>
         private const int MaxPostSize = 10*1024*1024;
 
+        private ILogger _logger;
+
         /// <summary>
         /// Gets the socket open to the client.
         /// </summary>
@@ -63,10 +65,12 @@ namespace Packet.Server
         /// </summary>
         /// <param name="socket">The socket to write to.</param>
         /// <param name="server">The server that spawned this processor.</param>
-        public HttpProcessor(TcpClient socket, HttpServer server)
+        /// <param name="logger">The logger that should be used to log processor events.</param>
+        public HttpProcessor(TcpClient socket, HttpServer server, ILogger logger)
         {
             Socket = socket;
             Server = server;
+            _logger = logger;
             Headers = new Dictionary<string, string>();
         }
 

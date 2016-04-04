@@ -25,9 +25,7 @@ namespace Packet.Server
         private readonly ICrispRuntimeFactory _crispRuntimeFactory;
 
         private readonly ISymbolicExpressionSerializer _symbolicExpressionSerializer;
-
-        private readonly ILogger _logger;
-
+        
         /// <summary>
         /// Initializes a new instance of a Packet HTTP/1.0 server.
         /// </summary>
@@ -43,13 +41,12 @@ namespace Packet.Server
             ISymbolicExpressionSerializer symbolicExpressionSerializer,
             ILogger logger)
             : base(configurationProvider.GetConfiguration().BindingIpAddress,
-                  serverStartupSettingsProvider.GetSettings().Port)
+                  serverStartupSettingsProvider.GetSettings().Port, logger)
         {
             _configurationProvider = configurationProvider;
             _serverStartupSettingsProvider = serverStartupSettingsProvider;
             _crispRuntimeFactory = crispRuntimeFactory;
             _symbolicExpressionSerializer = symbolicExpressionSerializer;
-            _logger = logger;
         }
 
         /// <summary>

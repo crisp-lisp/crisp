@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
@@ -11,7 +12,9 @@ namespace Packet.Server
     internal abstract class HttpServer : IHttpServer
     {
         private TcpListener _listener;
-        
+
+        protected ILogger _logger;
+
         /// <summary>
         /// Gets whether or not this server is currently actively listening for requests.
         /// </summary>
@@ -32,10 +35,12 @@ namespace Packet.Server
         /// </summary>
         /// <param name="ipAddress">The IP address that this server should be bound to.</param>
         /// <param name="port">The port that the server should listen for requests on.</param>
-        protected HttpServer(string ipAddress, int port)
+        /// <param name="logger">The logger that should be used to log server events.</param>
+        protected HttpServer(string ipAddress, int port, ILogger logger)
         {
             Port = port;
             IpAddress = ipAddress;
+            _logger = logger;
         }
         
         public void Listen()
@@ -49,11 +54,18 @@ namespace Packet.Server
             // While we're actively listening for connections.
             while (IsActive) // TODO: Weird way to listen for multiple requests.
             {
-                // Pass request to processor and process in a new thread.
-                var client = _listener.AcceptTcpClient();
-                var processor = new HttpProcessor(client, this);
-                var thread = new Thread(processor.Process);
-                thread.Start();
+                try
+                {
+                    // Pass request to processor and process in a new thread.
+                    var client = _listener.AcceptTcpClient();
+                    var processor = new HttpProcessor(client, this, _logger);
+                    var thread = new Thread(processor.Process);
+                    thread.Start();
+                }
+                catch (Exception ex)
+                {
+                    _logger.WriteError(ex);
+                }
             }
         }
 
