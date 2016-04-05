@@ -103,15 +103,15 @@ namespace Packet.Server
 
         public void Process()
         {
-            /*
-             * Can't use a StreamReader here because we might need to read binary data passed up by the client in a
-             * POST request.
-             */
-            InputStream = new BufferedStream(Socket.GetStream());
-            OutputStream = new StreamWriter(new BufferedStream(Socket.GetStream()));
-
             try
             {
+                /*
+                 * Can't use a StreamReader here because we might need to read binary data passed up by the client in a
+                 * POST request.
+                 */
+                InputStream = new BufferedStream(Socket.GetStream());
+                OutputStream = new StreamWriter(new BufferedStream(Socket.GetStream()));
+
                 ParseRequest();
                 ReadHeaders();
                 switch (HttpMethod)
@@ -125,16 +125,25 @@ namespace Packet.Server
                     default:
                         throw new HttpException($"The HTTP verb {HttpMethod} is not supported.");
                 }
-            }
-            catch
-            {
-                // We consider a failure here to be a bad request.
-                WriteResponse(400, "text/html");
-                OutputStream.Write(Properties.Resources.DefaultBadRequestPage);
-            }
 
-            OutputStream.Flush();
-            Socket.Close();
+                OutputStream.Flush();
+                Socket.Close();
+            }
+            catch 
+            {
+                try
+                {
+                    // We consider a failure here to be a bad request. Try to let the client know.
+                    WriteResponse(400, "text/html");
+                    OutputStream.Write(Properties.Resources.DefaultBadRequestPage);
+                    OutputStream.Flush();
+                    Socket.Close();
+                }
+                catch (Exception ex)
+                {
+                    _logger.WriteError(ex); // We couldn't inform the client. Log exception and move on.
+                }
+            }
         }
 
         /// <summary>

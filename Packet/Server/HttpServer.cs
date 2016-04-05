@@ -54,18 +54,11 @@ namespace Packet.Server
             // While we're actively listening for connections.
             while (IsActive) // TODO: Weird way to listen for multiple requests.
             {
-                try
-                {
-                    // Pass request to processor and process in a new thread.
-                    var client = _listener.AcceptTcpClient();
-                    var processor = new HttpProcessor(client, this, _logger);
-                    var thread = new Thread(processor.Process);
-                    thread.Start();
-                }
-                catch (Exception ex)
-                {
-                    _logger.WriteError(ex);
-                }
+                // Pass request to processor and process in a new thread.
+                var client = _listener.AcceptTcpClient();
+                var processor = new HttpProcessor(client, this, _logger);
+                var thread = new Thread(processor.Process);
+                thread.Start();
             }
         }
 
