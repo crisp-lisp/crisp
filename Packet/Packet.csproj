@@ -68,6 +68,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Server\CombinatorialServerSettingsProvider.cs" />
     <Compile Include="Server\HttpProcessor.cs" />
     <Compile Include="Server\HttpServer.cs" />
     <Compile Include="ICrispRuntimeFactory.cs" />
@@ -75,15 +76,17 @@
     <Compile Include="Server\IHttpServer.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Server\ILogger.cs" />
-    <Compile Include="Server\IServerStartupSettingsProvider.cs" />
+    <Compile Include="IOptionsProvider.cs" />
+    <Compile Include="OptionsProvider.cs" />
+    <Compile Include="Server\IServerSettingsProvider.cs" />
     <Compile Include="Server\ConsoleWindowLogger.cs" />
     <Compile Include="Server\PacketHttpServer.cs" />
     <Compile Include="Server\HttpServerFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\ReasonPhrase.cs" />
-    <Compile Include="Server\ServerStartupSettings.cs" />
-    <Compile Include="Server\ServerStartupSettingsProvider.cs" />
+    <Compile Include="Server\ServerSettings.cs" />
+    <Compile Include="Server\ServerSettingsProvider.cs" />
     <Compile Include="SourceFilePathProvider.cs" />
     <Compile Include="SpecialFormDirectoryPathProvider.cs" />
   </ItemGroup>
@@ -168,13 +171,16 @@
     <Content Include="public-www\shared\nickainley\stylesheet.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="References.txt" />
     <None Include="Resources\DefaultBadRequestPage.txt" />
     <None Include="Resources\DefaultForbiddenPage.txt" />
     <None Include="Resources\DefaultInternalServerErrorPage.txt" />
     <None Include="Resources\DefaultNotFoundErrorPage.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Crisp.Common\Crisp.Common.csproj">
+      <Project>{A7C42FA3-F032-45A6-AF63-83FC77016015}</Project>
+      <Name>Crisp.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Crisp.Core\Crisp.Core.csproj">
       <Project>{6ab9a6ec-742d-4b88-9a22-58e3c98da464}</Project>
       <Name>Crisp.Core</Name>

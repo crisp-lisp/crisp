@@ -10,6 +10,6 @@
         /// Gets the directory path of the interpreter.
         /// </summary>
         /// <returns></returns>
-        string GetPath();
+        string Get();
     }
 }

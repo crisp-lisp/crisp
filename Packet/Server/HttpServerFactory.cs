@@ -16,15 +16,15 @@ namespace Packet.Server
         /// Gets a <see cref="PacketHttpServer"/> instance.
         /// </summary>
         /// <returns></returns>
-        public static IHttpServer GetPacketHttpServer(ServerStartupSettings serverStartupSettings)
+        public static IHttpServer GetPacketHttpServer(Options options)
         {
             var container = new Container();
             container.Register<IInterpreterDirectoryPathProvider, InterpreterDirectoryPathProvider>();
             container.Register<ISymbolicExpressionSerializer, LispSerializer>();
             container.Register<IConfigurationProvider, ConfigurationProvider>();
+            container.Register<IOptionsProvider>(() => new OptionsProvider(options));
             container.Register<ICrispRuntimeFactory, CrispRuntimeFactory>();
-            container.Register<IServerStartupSettingsProvider>(() =>
-                new ServerStartupSettingsProvider(serverStartupSettings));
+            container.Register<IServerSettingsProvider, CombinatorialServerSettingsProvider>();
             container.Register<ILogger, ConsoleWindowLogger>();
             container.Register<IHttpServer, PacketHttpServer>();
 

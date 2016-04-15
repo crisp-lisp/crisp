@@ -10,6 +10,6 @@
         /// Gets the directory of the directory in which compiled special form binaries are stored.
         /// </summary>
         /// <returns></returns>
-        string GetPath();
+        string Get();
     }
 }

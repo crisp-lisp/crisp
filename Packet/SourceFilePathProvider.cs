@@ -1,26 +1,19 @@
-﻿using Crisp.Core.Preprocessing;
+﻿using Crisp.Common;
+using Crisp.Core.Preprocessing;
 
 namespace Packet
 {
     /// <summary>
-    /// An implementation of a service that returns the file path of the file to be interpreted.
+    /// An implementation of a service that returns the path of the source file.
     /// </summary>
-    internal class SourceFilePathProvider : ISourceFilePathProvider
+    internal class SourceFilePathProvider : Provider<string>, ISourceFilePathProvider
     {
-        private readonly string _path;
-        
-        public string GetPath()
-        {
-            return _path;
-        }
-
         /// <summary>
-        /// Initializes a new instance of a service that returns the file path of the file to be interpreted.
+        /// Initializes a new instance of a service that returns the path of the source file.
         /// </summary>
-        /// <param name="path">The file path this service should return.</param>
-        public SourceFilePathProvider(string path)
+        /// <param name="path">The path of the source file.</param>
+        public SourceFilePathProvider(string path) : base(path)
         {
-            _path = path;
         }
     }
 }

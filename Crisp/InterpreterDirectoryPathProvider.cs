@@ -11,7 +11,7 @@ namespace Crisp
     /// </summary>
     internal class InterpreterDirectoryPathProvider : IInterpreterDirectoryPathProvider
     {
-        public string GetPath()
+        public string Get()
         {
             return new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName;
         }

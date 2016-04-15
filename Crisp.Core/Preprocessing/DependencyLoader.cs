@@ -27,7 +27,7 @@ namespace Crisp.Core.Preprocessing
             var definitions = new Dictionary<SymbolAtom, SymbolicExpression>();
 
             // Find dependency files first.
-            var dependencies = _dependencyFinder.FindDependencyFilepaths(_sourceFilePathProvider.GetPath());
+            var dependencies = _dependencyFinder.FindDependencyFilepaths(_sourceFilePathProvider.Get());
 
             // Loop through each dependency file.
             foreach (var library in dependencies)

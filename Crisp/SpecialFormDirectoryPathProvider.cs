@@ -15,9 +15,9 @@ namespace Crisp
 
         private readonly IInterpreterDirectoryPathProvider _interpreterDirectoryPathProvider;
 
-        public string GetPath()
+        public string Get()
         {
-            return Path.Combine(_interpreterDirectoryPathProvider.GetPath(),
+            return Path.Combine(_interpreterDirectoryPathProvider.Get(),
                 _configurationProvider.GetConfiguration().SpecialFormDirectory);
         }
 

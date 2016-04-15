@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents a set of information passed to the server to initialize it.
     /// </summary>
-    internal class ServerStartupSettings
+    internal class ServerSettings
     {
         /// <summary>
         /// The port to listen on.

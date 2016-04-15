@@ -14,7 +14,7 @@ namespace Crisp.Core.Preprocessing
         {
             // The tilde means relative to the interpreter executable.
             var filename = path.StartsWith("~/")
-                ? _interpreterDirectoryPathProvider.GetPath() + path.TrimStart('~')
+                ? _interpreterDirectoryPathProvider.Get() + path.TrimStart('~')
                 : path;
             
             // Convert relative paths into absolute paths.

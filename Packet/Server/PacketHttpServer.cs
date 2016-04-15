@@ -20,7 +20,7 @@ namespace Packet.Server
     {
         private readonly IConfigurationProvider _configurationProvider;
 
-        private readonly IServerStartupSettingsProvider _serverStartupSettingsProvider;
+        private readonly IServerSettingsProvider _serverSettingsProvider;
 
         private readonly ICrispRuntimeFactory _crispRuntimeFactory;
 
@@ -30,21 +30,21 @@ namespace Packet.Server
         /// Initializes a new instance of a Packet HTTP/1.0 server.
         /// </summary>
         /// <param name="configurationProvider">The configuration provider for the application.</param>
-        /// <param name="serverStartupSettingsProvider">The startup settings provider for the server.</param>
+        /// <param name="serverSettingsProvider">The startup settings provider for the server.</param>
         /// <param name="crispRuntimeFactory">The factory to use to create Crisp runtime instances.</param>
         /// <param name="symbolicExpressionSerializer">The serializer to use to display debug output.</param>
         /// <param name="logger">The logger to use for logging server events.</param>
         public PacketHttpServer(
             IConfigurationProvider configurationProvider,
-            IServerStartupSettingsProvider serverStartupSettingsProvider,
+            IServerSettingsProvider serverSettingsProvider,
             ICrispRuntimeFactory crispRuntimeFactory,
             ISymbolicExpressionSerializer symbolicExpressionSerializer,
             ILogger logger)
-            : base(configurationProvider.GetConfiguration().BindingIpAddress,
-                  serverStartupSettingsProvider.GetSettings().Port, logger)
+            : base(configurationProvider.Get().BindingIpAddress,
+                  serverSettingsProvider.GetSettings().Port, logger)
         {
             _configurationProvider = configurationProvider;
-            _serverStartupSettingsProvider = serverStartupSettingsProvider;
+            _serverSettingsProvider = serverSettingsProvider;
             _crispRuntimeFactory = crispRuntimeFactory;
             _symbolicExpressionSerializer = symbolicExpressionSerializer;
         }
@@ -64,7 +64,7 @@ namespace Packet.Server
             }
 
             // Compute real path.
-            var path = Path.Combine(_serverStartupSettingsProvider.GetSettings().WebRoot, trimmed);
+            var path = Path.Combine(_serverSettingsProvider.GetSettings().WebRoot, trimmed);
 
             // If real path is a directory.
             if (Directory.Exists(path)) 
@@ -72,7 +72,7 @@ namespace Packet.Server
                 // Get any configured index pages.
                 var files = Directory.GetFiles(path)
                     .Select(Path.GetFileName)
-                    .Where(f => _configurationProvider.GetConfiguration().DirectoryIndices.Contains(f))
+                    .Where(f => _configurationProvider.Get().DirectoryIndices.Contains(f))
                     .ToArray(); 
                 if (files.Any())
                 {
@@ -92,7 +92,7 @@ namespace Packet.Server
         private string GetMimeTypeForExtension(string extension)
         {
             string value;
-            return _configurationProvider.GetConfiguration().MimeTypeMappings.TryGetValue(extension, out value) ?
+            return _configurationProvider.Get().MimeTypeMappings.TryGetValue(extension, out value) ?
                 value : "application/octet-stream"; // Default to this MIME type.
         }
 
@@ -103,7 +103,7 @@ namespace Packet.Server
         /// <returns></returns>
         private bool IsInterpretedFileExtension(string extension)
         {
-            return _configurationProvider.GetConfiguration().CrispFileExtensions.Contains(extension);
+            return _configurationProvider.Get().CrispFileExtensions.Contains(extension);
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace Packet.Server
         /// <returns></returns>
         private bool IsForbiddenPath(string path)
         {
-            return _configurationProvider.GetConfiguration().DoNotServePatterns.Any(p => Regex.IsMatch(path, p));
+            return _configurationProvider.Get().DoNotServePatterns.Any(p => Regex.IsMatch(path, p));
         }
 
         /// <summary>
@@ -230,7 +230,7 @@ namespace Packet.Server
             SymbolicExpression programResult)
         {
             // Get file path of 500 error page.
-            var path = GetUrlPath(_configurationProvider.GetConfiguration().InternalServerErrorPage);
+            var path = GetUrlPath(_configurationProvider.Get().InternalServerErrorPage);
             var extension = Path.GetExtension(path);
 
             // Serve default 500 error page if configured error page doesn't exist.
@@ -309,7 +309,7 @@ namespace Packet.Server
         private void HandleNotFoundError(HttpProcessor processor, string errorMessage, string filename)
         {
             // Get file path of 404 error page.
-            var path = GetUrlPath(_configurationProvider.GetConfiguration().NotFoundErrorPage);
+            var path = GetUrlPath(_configurationProvider.Get().NotFoundErrorPage);
             var extension = Path.GetExtension(path);
 
             // Serve default 404 error page if configured error page doesn't exist.

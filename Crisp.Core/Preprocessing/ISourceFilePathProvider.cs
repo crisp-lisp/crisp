@@ -9,6 +9,6 @@
         /// Gets the path of the source file to be interpreted.
         /// </summary>
         /// <returns></returns>
-        string GetPath();
+        string Get();
     }
 }

@@ -1,1 +1,0 @@
-﻿jeske (2014) Jeske/SimpleHttpServer. Available at: https://github.com/jeske/SimpleHttpServer (Accessed: 30 November 2015).

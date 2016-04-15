@@ -57,12 +57,12 @@ namespace Crisp.Core.Runtime
 
         public SymbolicExpression Run(string arguments)
         {
-            return EvaluateSourceFile(_sourceFilePathProvider.GetPath(), arguments);
+            return EvaluateSourceFile(_sourceFilePathProvider.Get(), arguments);
         }
 
         public SymbolicExpression Run(SymbolicExpression arguments)
         {
-            return EvaluateSourceFile(_sourceFilePathProvider.GetPath(), arguments);
+            return EvaluateSourceFile(_sourceFilePathProvider.Get(), arguments);
         }
 
         public CrispRuntime(

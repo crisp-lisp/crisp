@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
@@ -13,7 +12,7 @@ namespace Packet.Server
     {
         private TcpListener _listener;
 
-        protected ILogger _logger;
+        protected ILogger Logger;
 
         /// <summary>
         /// Gets whether or not this server is currently actively listening for requests.
@@ -40,9 +39,9 @@ namespace Packet.Server
         {
             Port = port;
             IpAddress = ipAddress;
-            _logger = logger;
+            Logger = logger;
         }
-        
+
         public void Listen()
         {
             // Start TCP listener.
@@ -51,14 +50,21 @@ namespace Packet.Server
             _listener.Start();
             IsActive = true;
 
+            Logger.WriteLine($"Bound to IP {ipAddress} and listening on port {Port}...");
+
             // While we're actively listening for connections.
             while (IsActive) // TODO: Weird way to listen for multiple requests.
             {
-                // Pass request to processor and process in a new thread.
+                Logger.WriteLine("Waiting for a request...");
+
+                // Wait for TCP client connect.
                 var client = _listener.AcceptTcpClient();
-                var processor = new HttpProcessor(client, this, _logger);
-                var thread = new Thread(processor.Process);
-                thread.Start();
+
+                Logger.WriteLine("Listener accepted TCP client...");
+
+                // Pass request to processor and process in a new thread.
+                var processor = new HttpProcessor(client, this, Logger);
+                ThreadPool.QueueUserWorkItem(processor.Process);
             }
         }
 

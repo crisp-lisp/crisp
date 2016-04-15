@@ -9,7 +9,7 @@ namespace Crisp
     {
         private readonly string _path;
         
-        public string GetPath()
+        public string Get()
         {
             return _path;
         }

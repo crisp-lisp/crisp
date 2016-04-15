@@ -33,7 +33,7 @@ namespace Crisp.Core.Evaluation
             IDependencyLoader dependencyLoader)
         {
             _bindings = new List<Binding>();
-            SourceFilePath = sourceFilePathProvider.GetPath();
+            SourceFilePath = sourceFilePathProvider.Get();
             SourceFolderPath = Path.GetDirectoryName(SourceFilePath);
             MutableBind(specialFormLoader.GetBindings());
             MutableBind(dependencyLoader.GetBindings());

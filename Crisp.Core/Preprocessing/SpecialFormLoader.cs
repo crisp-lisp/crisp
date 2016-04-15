@@ -35,7 +35,7 @@ namespace Crisp.Core.Preprocessing
             var definitions = new Dictionary<SymbolAtom, SymbolicExpression>();
 
             // Loop through each file in target directory.
-            foreach (var file in Directory.GetFiles(_specialFormDirectoryPathProvider.GetPath(), "*.dll"))
+            foreach (var file in Directory.GetFiles(_specialFormDirectoryPathProvider.Get(), "*.dll"))
             {
                 // Load assembly and find special form types.
                 var assembly = Assembly.LoadFrom(file);

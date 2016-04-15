@@ -1,19 +1,24 @@
 ﻿using System.IO;
 using System.Reflection;
 
+using Crisp.Common;
 using Crisp.Core.Preprocessing;
 
 namespace Packet
 {
     /// <summary>
-    /// An implementation of an interpreter directory path provider, capable of returning the directory that contains  
-    /// the currently executing interpreter.
+    /// An implementation of a service that returns the path of the directory that contains the currently executing 
+    /// interpreter.
     /// </summary>
-    internal class InterpreterDirectoryPathProvider : IInterpreterDirectoryPathProvider
+    internal class InterpreterDirectoryPathProvider : Provider<string>, IInterpreterDirectoryPathProvider
     {
-        public string GetPath()
+        /// <summary>
+        /// An implementation of a service that returns the path of the directory that contains the currently executing 
+        /// interpreter.
+        /// </summary>
+        public InterpreterDirectoryPathProvider()
         {
-            return new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName;
+            Obj = new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName;
         }
     }
 }

@@ -101,7 +101,7 @@ namespace Packet.Server
             return line.ToString();
         }
 
-        public void Process()
+        public void Process(object obj)
         {
             try
             {

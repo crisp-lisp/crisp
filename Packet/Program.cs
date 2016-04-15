@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Reflection;
 using System.Threading;
 
@@ -10,9 +11,9 @@ namespace Packet
     class Program
     {
         /// <summary>
-        /// Prints the ASCII art title for the application.
+        /// Prints the title card for the application.
         /// </summary>
-        private static void PrintAsciiArt()
+        private static void PrintTitleCard()
         {
             // Write ASCII art.
             var titleCard = new[]
@@ -27,18 +28,13 @@ namespace Packet
             {
                 Console.WriteLine(line);
             }
-        }
 
-        /// <summary>
-        /// Prints version and copyright information for the application.
-        /// </summary>
-        private static void PrintVersionAndCopyright()
-        {
-            var version = Assembly.GetEntryAssembly().GetName().Version;
-
-            // Automatically build help text based on options class.
+            // Print version and copyright.
+            var assembly = Assembly.GetEntryAssembly();
+            var version = assembly.GetName().Version;
+            var copyright = FileVersionInfo.GetVersionInfo(assembly.Location).LegalCopyright;
             Console.WriteLine($"Server v{version}");
-            Console.WriteLine("Copyright © Saul Johnson 2016");
+            Console.WriteLine(copyright);
         }
         
         /// <summary>
@@ -47,21 +43,16 @@ namespace Packet
         /// <param name="options">The command-line options passed to the program.</param>
         private static void PrintHelp(Options options)
         {
-            PrintAsciiArt(); // Print ASCII art.
-
-            var version = Assembly.GetEntryAssembly().GetName().Version;
-
             // Automatically build help text based on options class.
             var helpText = HelpText.AutoBuild(options);
-            helpText.AdditionalNewLineAfterOption = true;
-            helpText.Heading = $"Server v{version}";
-            helpText.Copyright = "Copyright © Saul Johnson 2016";
-
-            Console.Write(helpText);
+            Console.WriteLine(helpText);
         }
 
         static void Main(string[] args)
         {
+            // Print title card.
+            PrintTitleCard();
+
             // Parse command-line options.
             var options = new Options();
             if (!CommandLine.Parser.Default.ParseArguments(args, options))
@@ -70,17 +61,8 @@ namespace Packet
                 return;
             }
 
-            // Arguments were valid, show title card.
-            PrintAsciiArt();
-            PrintVersionAndCopyright();
-            Console.WriteLine();
-
             // Start server.
-            var server = HttpServerFactory.GetPacketHttpServer(new ServerStartupSettings
-            {
-                Port = options.Port,
-                WebRoot = options.WebRoot,
-            });
+            var server = HttpServerFactory.GetPacketHttpServer(options);
             var thread = new Thread(server.Listen);
             thread.Start();
         }
