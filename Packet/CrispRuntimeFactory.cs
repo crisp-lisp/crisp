@@ -11,7 +11,7 @@ using Packet.Configuration;
 namespace Packet
 {
     /// <summary>
-    /// An implementation of a factory for creating Crisp runtime instances.
+    /// An implementation of a factory for creating <see cref="ICrispRuntime"/> instances.
     /// </summary>
     internal class CrispRuntimeFactory : ICrispRuntimeFactory
     {

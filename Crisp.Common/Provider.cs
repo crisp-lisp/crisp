@@ -2,11 +2,11 @@
 {
     public abstract class Provider<T>
     {
-        protected T Obj;
+        protected T Value;
 
-        protected Provider(T obj)
+        protected Provider(T value)
         {
-            Obj = obj;
+            Value = value;
         }
 
         protected Provider()
@@ -16,7 +16,7 @@
 
         public T Get()
         {
-            return Obj;
+            return Value;
         }
     }
 }

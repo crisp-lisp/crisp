@@ -3,7 +3,7 @@
 namespace Packet
 {
     /// <summary>
-    /// Represents a factory for creating Crisp runtime instances.
+    /// Represents a factory for creating <see cref="ICrispRuntime"/> instances.
     /// </summary>
     internal interface ICrispRuntimeFactory
     {

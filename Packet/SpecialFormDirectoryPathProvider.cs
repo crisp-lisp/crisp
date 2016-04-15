@@ -24,7 +24,7 @@ namespace Packet
             IInterpreterDirectoryPathProvider interpreterDirectoryPathProvider)
         {
             // Path of special form directory is relative to the interpreter directory.
-            Obj = Path.Combine(interpreterDirectoryPathProvider.Get(),
+            Value = Path.Combine(interpreterDirectoryPathProvider.Get(),
                 configurationProvider.Get().SpecialFormDirectory);
         }
     }

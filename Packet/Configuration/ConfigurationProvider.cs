@@ -20,7 +20,7 @@ namespace Packet.Configuration
         {
             var path = Path.Combine(interpreterDirectoryPathProvider.Get(), "packet.json");
             var text = File.ReadAllText(path);
-            Obj = JsonConvert.DeserializeObject<Configuration>(text);
+            Value = JsonConvert.DeserializeObject<Configuration>(text);
         }
     }
 }

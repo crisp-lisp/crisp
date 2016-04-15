@@ -18,7 +18,7 @@ namespace Packet
         /// </summary>
         public InterpreterDirectoryPathProvider()
         {
-            Obj = new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName;
+            Value = new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName;
         }
     }
 }

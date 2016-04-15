@@ -19,8 +19,8 @@ namespace Packet.Server
         public static IHttpServer GetPacketHttpServer(Options options)
         {
             var container = new Container();
-            container.Register<IInterpreterDirectoryPathProvider, InterpreterDirectoryPathProvider>();
             container.Register<ISymbolicExpressionSerializer, LispSerializer>();
+            container.Register<IInterpreterDirectoryPathProvider, InterpreterDirectoryPathProvider>();
             container.Register<IConfigurationProvider, ConfigurationProvider>();
             container.Register<IOptionsProvider>(() => new OptionsProvider(options));
             container.Register<ICrispRuntimeFactory, CrispRuntimeFactory>();
