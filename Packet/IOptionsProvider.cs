@@ -5,6 +5,10 @@
     /// </summary>
     internal interface IOptionsProvider
     {
+        /// <summary>
+        /// Gets the options passed in via the command line.
+        /// </summary>
+        /// <returns></returns>
         Options Get();
     }
 }
