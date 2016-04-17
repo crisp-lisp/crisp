@@ -77,10 +77,6 @@
       <Project>{cf6dc28d-8a9f-468b-b3d3-1f04c7692975}</Project>
       <Name>Crisp.Basic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Crisp.Core\Crisp.Core.csproj">
-      <Project>{6ab9a6ec-742d-4b88-9a22-58e3c98da464}</Project>
-      <Name>Crisp.Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

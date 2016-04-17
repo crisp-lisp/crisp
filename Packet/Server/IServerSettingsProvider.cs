@@ -9,6 +9,6 @@
         /// Gets the set of initialization parameters necessary to start the server.
         /// </summary>
         /// <returns></returns>
-        ServerSettings GetSettings();
+        ServerSettings Get();
     }
 }

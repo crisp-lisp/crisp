@@ -6,7 +6,7 @@ namespace Crisp.Core
 {
     public static class SpecialFormExtensions
     {
-        public static void ThrowIfNotList(this SymbolicExpression expression, string functionName)
+        public static void ThrowIfNotList(this ISymbolicExpression expression, string functionName)
         {
             if (expression.Type != SymbolicExpressionType.Pair)
             {
@@ -14,7 +14,7 @@ namespace Crisp.Core
             }
         }
 
-        public static void ThrowIfWrongLength(this IList<SymbolicExpression> arguments, string functionName,
+        public static void ThrowIfWrongLength(this IList<ISymbolicExpression> arguments, string functionName,
             int numberOfArguments)
         {
             if (arguments.Count != numberOfArguments)
@@ -23,7 +23,7 @@ namespace Crisp.Core
             }
         }
 
-        public static void ThrowIfShorterThanLength(this IList<SymbolicExpression> arguments, string functionName,
+        public static void ThrowIfShorterThanLength(this IList<ISymbolicExpression> arguments, string functionName,
             int numberOfArguments)
         {
             if (arguments.Count < numberOfArguments)

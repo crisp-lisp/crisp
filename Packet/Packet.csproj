@@ -68,7 +68,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Server\CombinatorialServerSettingsProvider.cs" />
+    <Compile Include="Server\CommandLineOverrideServerSettingsProvider.cs" />
     <Compile Include="Server\HttpProcessor.cs" />
     <Compile Include="Server\HttpServer.cs" />
     <Compile Include="ICrispRuntimeFactory.cs" />
@@ -177,14 +177,6 @@
     <None Include="Resources\DefaultNotFoundErrorPage.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Crisp.Common\Crisp.Common.csproj">
-      <Project>{A7C42FA3-F032-45A6-AF63-83FC77016015}</Project>
-      <Name>Crisp.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Crisp.Core\Crisp.Core.csproj">
-      <Project>{6ab9a6ec-742d-4b88-9a22-58e3c98da464}</Project>
-      <Name>Crisp.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Crisp.Visualization\Crisp.Visualization.csproj">
       <Project>{EE206D73-5474-4B04-924E-B85DA171BBCD}</Project>
       <Name>Crisp.Visualization</Name>

@@ -1,11 +1,11 @@
 ﻿using SimpleInjector;
 
 using Crisp.Configuration;
-using Crisp.Core.Evaluation;
-using Crisp.Core.Parsing;
-using Crisp.Core.Preprocessing;
-using Crisp.Core.Runtime;
-using Crisp.Core.Tokenizing;
+using Crisp.Evaluation;
+using Crisp.Shared;
+using Crisp.Parsing;
+using Crisp.Runtime;
+using Crisp.Tokenization;
 
 namespace Crisp
 {
@@ -23,25 +23,15 @@ namespace Crisp
         {
             // Dependency injection.
             var container = new Container();
-            container.Register<IRequirePathExtractor, RequirePathExtractor>();
             container.Register<ISourceFilePathProvider>(() => new SourceFilePathProvider(inputFile));
-            container.Register(() => TokenizerFactory.GetCrispTokenizer());
-            container.Register<IParser, Parser>();
+            container.Register(TokenizerConfigurationProviderFactory.GetCrispTokenizerConfigurationProvider);
+            container.Register<ITokenListSource, Tokenizer>();
+            container.Register<IExpressionTreeSource, Parser>();
             container.Register<IInterpreterDirectoryPathProvider, InterpreterDirectoryPathProvider>();
             container.Register<IConfigurationProvider, ConfigurationProvider>();
             container.Register<ISpecialFormDirectoryPathProvider, SpecialFormDirectoryPathProvider>();
-            container.Register<IRequirePathTransformer, RequirePathTransformer>();
-            container.Register<IDependencyFinder, DependencyFinder>();
-            container.Register<IDependencyLoader, DependencyLoader>();
             container.Register<ISpecialFormLoader, SpecialFormLoader>();
-            container.Register<IEvaluator>(() =>
-            {
-                var evaluator = new Evaluator(
-                    container.GetInstance<ISourceFilePathProvider>(),
-                    container.GetInstance<ISpecialFormLoader>(), 
-                    container.GetInstance<IDependencyLoader>());
-                return evaluator;
-            });
+            container.Register<IEvaluatorFactory, EvaluatorFactory>();
             container.Register<ICrispRuntime, CrispRuntime>();
             container.Verify();
 

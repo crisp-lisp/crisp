@@ -125,9 +125,25 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Crisp.Core\Crisp.Core.csproj">
-      <Project>{6ab9a6ec-742d-4b88-9a22-58e3c98da464}</Project>
-      <Name>Crisp.Core</Name>
+    <ProjectReference Include="..\Crisp.Evaluation\Crisp.Evaluation.csproj">
+      <Project>{e5a749c9-b032-42f5-aed4-df5017ab62ac}</Project>
+      <Name>Crisp.Evaluation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Crisp.Parsing\Crisp.Parsing.csproj">
+      <Project>{68c3e451-5638-49e4-8f17-d2794074d3ae}</Project>
+      <Name>Crisp.Parsing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Crisp.Runtime\Crisp.Runtime.csproj">
+      <Project>{1a088b75-c83f-43ae-9a16-5527e6f34ef6}</Project>
+      <Name>Crisp.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Crisp.Shared\Crisp.Shared.csproj">
+      <Project>{037d2ac9-aca7-42ac-9566-35502f855e7d}</Project>
+      <Name>Crisp.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Crisp.Tokenization\Crisp.Tokenization.csproj">
+      <Project>{8bc749dd-d1e6-414b-aec9-40066e8b9954}</Project>
+      <Name>Crisp.Tokenization</Name>
     </ProjectReference>
     <ProjectReference Include="..\Crisp.Visualization\Crisp.Visualization.csproj">
       <Project>{ee206d73-5474-4b04-924e-b85da171bbcd}</Project>

@@ -73,10 +73,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Crisp.Core\Crisp.Core.csproj">
-      <Project>{6AB9A6EC-742D-4B88-9A22-58E3C98DA464}</Project>
-      <Name>Crisp.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Crisp.String\Crisp.String.csproj">
       <Project>{f494c7ec-8963-4746-88ca-b1eb1e18dee6}</Project>
       <Name>Crisp.String</Name>

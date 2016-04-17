@@ -24,7 +24,7 @@ namespace Packet.Server
             container.Register<IConfigurationProvider, ConfigurationProvider>();
             container.Register<IOptionsProvider>(() => new OptionsProvider(options));
             container.Register<ICrispRuntimeFactory, CrispRuntimeFactory>();
-            container.Register<IServerSettingsProvider, CombinatorialServerSettingsProvider>();
+            container.Register<IServerSettingsProvider, CommandLineOverrideServerSettingsProvider>();
             container.Register<ILogger, ConsoleWindowLogger>();
             container.Register<IHttpServer, PacketHttpServer>();
 

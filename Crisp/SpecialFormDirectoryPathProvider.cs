@@ -1,7 +1,7 @@
 ﻿using System.IO;
 
 using Crisp.Configuration;
-using Crisp.Core.Preprocessing;
+using Crisp.Shared;
 
 namespace Crisp
 {

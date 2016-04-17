@@ -41,7 +41,7 @@ namespace Packet.Server
             ISymbolicExpressionSerializer symbolicExpressionSerializer,
             ILogger logger)
             : base(configurationProvider.Get().BindingIpAddress,
-                  serverSettingsProvider.GetSettings().Port, logger)
+                  serverSettingsProvider.Get().Port, logger)
         {
             _configurationProvider = configurationProvider;
             _serverSettingsProvider = serverSettingsProvider;
@@ -64,7 +64,7 @@ namespace Packet.Server
             }
 
             // Compute real path.
-            var path = Path.Combine(_serverSettingsProvider.GetSettings().WebRoot, trimmed);
+            var path = Path.Combine(_serverSettingsProvider.Get().WebRoot, trimmed);
 
             // If real path is a directory.
             if (Directory.Exists(path)) 
