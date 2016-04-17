@@ -1,8 +1,7 @@
 ﻿using System.IO;
 
-using Crisp.Core;
-using Crisp.Core.Evaluation;
-using Crisp.Core.Types;
+using Crisp.Shared;
+using Crisp.Types;
 
 namespace Crisp.IO
 {
@@ -13,7 +12,7 @@ namespace Crisp.IO
     {
         public override string Name => "file-get-text";
 
-        public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
+        public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {
             expression.ThrowIfNotList(Name); // Takes a list of arguments.
 
@@ -24,13 +23,13 @@ namespace Crisp.IO
             var evaluated = evaluator.Evaluate(arguments[0]);
             if (evaluated.Type != SymbolicExpressionType.String)
             {
-                throw new RuntimeException(
+                throw new FunctionApplicationException(
                     $"The argument to the function '{Name}' must evaluate to the string type.");
             }
 
             // Compute filepath.
             var rawPath = evaluated.AsString().Value;
-            var path = Path.IsPathRooted(rawPath) ? rawPath : Path.Combine(evaluator.SourceFolderPath, rawPath);
+            var path = rawPath; //Path.IsPathRooted(rawPath) ? rawPath : Path.Combine(evaluator.SourceFolderPath, rawPath);
 
             // Check file exists
             if (!File.Exists(path))

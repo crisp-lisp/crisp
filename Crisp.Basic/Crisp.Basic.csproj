@@ -60,6 +60,16 @@
     <Compile Include="RemSpecialForm.cs" />
     <Compile Include="SubSpecialForm.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Crisp.Shared\Crisp.Shared.csproj">
+      <Project>{037d2ac9-aca7-42ac-9566-35502f855e7d}</Project>
+      <Name>Crisp.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Crisp.Types\Crisp.Types.csproj">
+      <Project>{9b480f6e-e40a-4255-a0a6-5fc016a9c673}</Project>
+      <Name>Crisp.Types</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)Crisp\bin\Debug\native\$(TargetFileName)" /y

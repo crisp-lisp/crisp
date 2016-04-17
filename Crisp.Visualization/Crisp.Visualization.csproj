@@ -45,6 +45,16 @@
     <Compile Include="MermaidSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Crisp.Shared\Crisp.Shared.csproj">
+      <Project>{037D2AC9-ACA7-42AC-9566-35502F855E7D}</Project>
+      <Name>Crisp.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Crisp.Types\Crisp.Types.csproj">
+      <Project>{9b480f6e-e40a-4255-a0a6-5fc016a9c673}</Project>
+      <Name>Crisp.Types</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

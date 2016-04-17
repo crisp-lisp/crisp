@@ -5,9 +5,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Ploeh.AutoFixture;
 
-using Crisp.Core;
-using Crisp.Core.Evaluation;
-using Crisp.Core.Types;
+using Crisp.Shared;
+using Crisp.Types;
 
 namespace Crisp.Basic.Tests
 {
@@ -25,8 +24,8 @@ namespace Crisp.Basic.Tests
 
             // Use a dummy evaluator that just returns what it's been given.
             var mockEvaluator = new Mock<IEvaluator>();
-            mockEvaluator.Setup(m => m.Evaluate(It.IsAny<SymbolicExpression>()))
-                .Returns((SymbolicExpression s) => s);
+            mockEvaluator.Setup(m => m.Evaluate(It.IsAny<ISymbolicExpression>()))
+                .Returns((ISymbolicExpression s) => s);
             _mockEvaluator = mockEvaluator.Object;
         }
 
@@ -42,8 +41,8 @@ namespace Crisp.Basic.Tests
             var function = new AtomSpecialForm();
             
             // Mock atomic and non-atomic args.
-            var atomic = new List<SymbolicExpression> {_fixture.Create<NumericAtom>()}.ToProperList();
-            var nonAtomic = new List<SymbolicExpression> {_fixture.Create<Pair>()}.ToProperList();
+            var atomic = new List<ISymbolicExpression> {_fixture.Create<NumericAtom>()}.ToProperList();
+            var nonAtomic = new List<ISymbolicExpression> {_fixture.Create<Pair>()}.ToProperList();
 
             // We should get a true boolean atom for atomic and a false boolean atom otherwise.
             Assert.AreEqual(function.Apply(atomic, _mockEvaluator), new BooleanAtom(true));
@@ -61,8 +60,8 @@ namespace Crisp.Basic.Tests
             var function = new AtomSpecialForm();
             
             var arg = _fixture.Create<NumericAtom>();
-            var correct = new List<SymbolicExpression> {arg}.ToProperList();
-            var incorrect = new List<SymbolicExpression> {arg, arg, arg}.ToProperList();
+            var correct = new List<ISymbolicExpression> {arg}.ToProperList();
+            var incorrect = new List<ISymbolicExpression> {arg, arg, arg}.ToProperList();
 
             function.Apply(correct, _mockEvaluator);
 
@@ -73,7 +72,7 @@ namespace Crisp.Basic.Tests
                 // We should have failed.
                 Assert.Fail("Exception should have been thrown for wrong number of arguments.");
             }
-            catch (RuntimeException) { }
+            catch (FunctionApplicationException) { }
         }
     }
 }

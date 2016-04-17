@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-using Crisp.Core;
-using Crisp.Core.Types;
+using Crisp.Shared;
 
 namespace Crisp.Visualization
 {
     public class MermaidSerializer : ISymbolicExpressionSerializer
     {
-        public string Serialize(SymbolicExpression expression)
+        public string Serialize(ISymbolicExpression expression)
         {
             throw new NotImplementedException();
         }

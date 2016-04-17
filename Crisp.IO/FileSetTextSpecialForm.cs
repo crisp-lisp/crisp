@@ -1,9 +1,8 @@
 ﻿using System.IO;
 using System.Linq;
 
-using Crisp.Core;
-using Crisp.Core.Evaluation;
-using Crisp.Core.Types;
+using Crisp.Shared;
+using Crisp.Types;
 
 namespace Crisp.IO
 {
@@ -15,7 +14,7 @@ namespace Crisp.IO
     {
         public override string Name => "file-set-text";
 
-        public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
+        public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {
             expression.ThrowIfNotList(Name); // Takes a list of arguments.
 
@@ -26,13 +25,13 @@ namespace Crisp.IO
             var evaluated = arguments.Select(evaluator.Evaluate).ToArray();
             if (evaluated.Any(e => e.Type != SymbolicExpressionType.String))
             {
-                throw new RuntimeException(
+                throw new FunctionApplicationException(
                     $"The arguments to the function '{Name}' must all evaluate to the string type.");
             }
 
             // Compute filepath.
             var rawPath = evaluated[0].AsString().Value;
-            var path = Path.IsPathRooted(rawPath) ? rawPath : Path.Combine(evaluator.SourceFolderPath, rawPath);
+            var path = rawPath; // Path.IsPathRooted(rawPath) ? rawPath : Path.Combine(evaluator.SourceFolderPath, rawPath);
             var text = evaluated[1].AsString().Value;
 
             // Try to Write file.

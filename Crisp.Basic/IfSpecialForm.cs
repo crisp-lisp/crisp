@@ -1,6 +1,5 @@
-﻿using Crisp.Core;
-using Crisp.Core.Evaluation;
-using Crisp.Core.Types;
+﻿using Crisp.Shared;
+using Crisp.Types;
 
 namespace Crisp.Basic
 {
@@ -12,7 +11,7 @@ namespace Crisp.Basic
     {
         public override string Name => "if";
 
-        public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
+        public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {
             expression.ThrowIfNotList(Name); // Takes a list of arguments.
 
@@ -26,7 +25,7 @@ namespace Crisp.Basic
             var predicate = evaluator.Evaluate(arguments[0]);
             if (predicate.Type != SymbolicExpressionType.Boolean)
             {
-                throw new RuntimeException($"The first argument to the function '{Name}' must evaluate to a boolean special atom.");
+                throw new FunctionApplicationException($"The first argument to the function '{Name}' must evaluate to a boolean special atom.");
             }
             
             return predicate.Equals(t) ? evaluator.Evaluate(arguments[1]) 

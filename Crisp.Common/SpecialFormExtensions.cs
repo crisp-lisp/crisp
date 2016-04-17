@@ -1,0 +1,35 @@
+﻿using System.Collections.Generic;
+
+using Crisp.Core.Types;
+
+namespace Crisp.Core
+{
+    public static class SpecialFormExtensions
+    {
+        public static void ThrowIfNotList(this ISymbolicExpression expression, string functionName)
+        {
+            if (expression.Type != SymbolicExpressionType.Pair)
+            {
+                throw new RuntimeException($"The function {functionName} takes a parameter list but one was not given.");
+            }
+        }
+
+        public static void ThrowIfWrongLength(this IList<ISymbolicExpression> arguments, string functionName,
+            int numberOfArguments)
+        {
+            if (arguments.Count != numberOfArguments)
+            {
+                throw new RuntimeException($"The function {functionName} takes exactly {numberOfArguments} argument(s).");
+            }
+        }
+
+        public static void ThrowIfShorterThanLength(this IList<ISymbolicExpression> arguments, string functionName,
+            int numberOfArguments)
+        {
+            if (arguments.Count < numberOfArguments)
+            {
+                throw new RuntimeException($"The function {functionName} must have at least {numberOfArguments} argument(s).");
+            }
+        }
+    }
+}

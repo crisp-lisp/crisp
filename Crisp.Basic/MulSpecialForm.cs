@@ -1,8 +1,7 @@
 ﻿using System.Linq;
 
-using Crisp.Core;
-using Crisp.Core.Evaluation;
-using Crisp.Core.Types;
+using Crisp.Shared;
+using Crisp.Types;
 
 namespace Crisp.Basic
 {
@@ -13,7 +12,7 @@ namespace Crisp.Basic
     {
         public override string Name => "mul";
 
-        public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
+        public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {
             expression.ThrowIfNotList(Name); // Takes a list of arguments.
 
@@ -24,7 +23,7 @@ namespace Crisp.Basic
             var evaluated = arguments.Select(evaluator.Evaluate).ToArray();
             if (evaluated.Any(e => e.Type != SymbolicExpressionType.Numeric))
             {
-                throw new RuntimeException(
+                throw new FunctionApplicationException(
                     $"The arguments to the function '{Name}' must all evaluate to the numeric type.");
             }
 

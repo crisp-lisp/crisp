@@ -1,6 +1,5 @@
-﻿using Crisp.Core;
-using Crisp.Core.Evaluation;
-using Crisp.Core.Types;
+﻿using Crisp.Shared;
+using Crisp.Types;
 
 namespace Crisp.Basic
 {
@@ -16,7 +15,7 @@ namespace Crisp.Basic
         /// </summary>
         /// <param name="expression">The expression to convert.</param>
         /// <returns></returns>
-        private static SymbolicExpression Quote(SymbolicExpression expression)
+        private static ISymbolicExpression Quote(ISymbolicExpression expression)
         {
             switch (expression.Type)
             {
@@ -30,7 +29,7 @@ namespace Crisp.Basic
             return expression;
         }
 
-        public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
+        public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {
             expression.ThrowIfNotList(Name); // Takes a list of arguments.
 

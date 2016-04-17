@@ -1,6 +1,5 @@
-﻿using Crisp.Core;
-using Crisp.Core.Evaluation;
-using Crisp.Core.Types;
+﻿using Crisp.Shared;
+using Crisp.Types;
 
 namespace Crisp.Basic
 {
@@ -11,7 +10,7 @@ namespace Crisp.Basic
     {
         public override string Name => "car";
 
-        public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
+        public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {
             expression.ThrowIfNotList(Name); // Takes a list of arguments.
 
@@ -22,7 +21,7 @@ namespace Crisp.Basic
             var evaluated = evaluator.Evaluate(arguments[0]);
             if (evaluated.Type != SymbolicExpressionType.Pair)
             {
-                throw new RuntimeException($"The argument to the function {Name} must be a pair.");
+                throw new FunctionApplicationException($"The argument to the function {Name} must be a pair.");
             }
 
             return evaluated.AsPair().Head;

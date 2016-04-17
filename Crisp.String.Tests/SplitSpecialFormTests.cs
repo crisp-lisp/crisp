@@ -6,9 +6,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Ploeh.AutoFixture;
 
-using Crisp.Core;
-using Crisp.Core.Evaluation;
-using Crisp.Core.Types;
+using Crisp.Shared;
+using Crisp.Types;
 
 namespace Crisp.String.Tests
 {
@@ -25,8 +24,8 @@ namespace Crisp.String.Tests
 
             // Use a dummy evaluator that just returns what it's been given.
             var mockEvaluator = new Mock<IEvaluator>();
-            mockEvaluator.Setup(m => m.Evaluate(It.IsAny<SymbolicExpression>()))
-                .Returns((SymbolicExpression s) => s);
+            mockEvaluator.Setup(m => m.Evaluate(It.IsAny<ISymbolicExpression>()))
+                .Returns((ISymbolicExpression s) => s);
             _mockEvaluator = mockEvaluator.Object;
         }
 
@@ -45,7 +44,7 @@ namespace Crisp.String.Tests
             // Compute answer.
             var subject = new StringAtom("test:splittable:string");
             var delimiter = new StringAtom(":");
-            var args = new List<SymbolicExpression> { subject, delimiter }.ToProperList();
+            var args = new List<ISymbolicExpression> { subject, delimiter }.ToProperList();
             var ans = function.Apply(args, _mockEvaluator);
 
             // We should have a pair (list) as a result.
@@ -72,8 +71,8 @@ namespace Crisp.String.Tests
             var function = new SplitSpecialForm();
 
             var arg = _fixture.Create<StringAtom>();
-            var correct = new List<SymbolicExpression> { arg, arg }.ToProperList();
-            var incorrect = new List<SymbolicExpression> { arg, arg, arg }.ToProperList();
+            var correct = new List<ISymbolicExpression> { arg, arg }.ToProperList();
+            var incorrect = new List<ISymbolicExpression> { arg, arg, arg }.ToProperList();
 
             function.Apply(correct, _mockEvaluator);
 
@@ -84,7 +83,7 @@ namespace Crisp.String.Tests
                 // We should have failed.
                 Assert.Fail("Exception should have been thrown for wrong number of arguments.");
             }
-            catch (RuntimeException) { }
+            catch (FunctionApplicationException) { }
         }
     }
 }

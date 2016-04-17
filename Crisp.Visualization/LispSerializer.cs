@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Globalization;
 
-using Crisp.Core;
-using Crisp.Core.Types;
+using Crisp.Shared;
+using Crisp.Types;
 
 namespace Crisp.Visualization
 {
     public class LispSerializer : ISymbolicExpressionSerializer
     {
-        public string Serialize(SymbolicExpression expression)
+        public string Serialize(ISymbolicExpression expression)
         {
             if (expression == null)
                 return "nil";

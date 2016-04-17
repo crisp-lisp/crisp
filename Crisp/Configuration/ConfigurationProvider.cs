@@ -2,7 +2,7 @@
 
 using Newtonsoft.Json;
 
-using Crisp.Core.Preprocessing;
+using Crisp.Shared;
 
 namespace Crisp.Configuration
 {

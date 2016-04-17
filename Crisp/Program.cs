@@ -63,7 +63,7 @@ namespace Crisp
 
             // Get runtime and run program.
             var runtime = CrispRuntimeFactory.GetCrispRuntime(options.InputFile);
-            var output = runtime.Run(options.Args);
+            var output = runtime.Run();
             
             // Write result to output.
             Console.Write(new LispSerializer().Serialize(output));

@@ -5,9 +5,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Ploeh.AutoFixture;
 
-using Crisp.Core;
-using Crisp.Core.Evaluation;
-using Crisp.Core.Types;
+using Crisp.Shared;
+using Crisp.Types;
 
 namespace Crisp.Basic.Tests
 {
@@ -44,7 +43,7 @@ namespace Crisp.Basic.Tests
             // Compute answer.
             var head = _fixture.Create<NumericAtom>();
             var tail = _fixture.Create<NumericAtom>();
-            var args = new List<SymbolicExpression> { new Pair(head, tail) }.ToProperList();
+            var args = new List<ISymbolicExpression> { new Pair(head, tail) }.ToProperList();
             var ans = function.Apply(args, _mockEvaluator);
             
             // We should have the tail of the pair as a result.
@@ -62,8 +61,8 @@ namespace Crisp.Basic.Tests
             var function = new CarSpecialForm();
             
             var arg = _fixture.Create<Pair>();
-            var correct = new List<SymbolicExpression> {arg}.ToProperList();
-            var incorrect = new List<SymbolicExpression> {arg, arg, arg}.ToProperList();
+            var correct = new List<ISymbolicExpression> {arg}.ToProperList();
+            var incorrect = new List<ISymbolicExpression> {arg, arg, arg}.ToProperList();
 
             function.Apply(correct, _mockEvaluator);
 
@@ -74,7 +73,7 @@ namespace Crisp.Basic.Tests
                 // We should have failed.
                 Assert.Fail("Exception should have been thrown for wrong number of arguments.");
             }
-            catch (RuntimeException) { }
+            catch (FunctionApplicationException) { }
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using System.Text.RegularExpressions;
-using Crisp.Core;
-using Crisp.Core.Evaluation;
-using Crisp.Core.Types;
+
+using Crisp.Shared;
+using Crisp.Types;
 
 namespace Crisp.String
 {
@@ -14,7 +14,7 @@ namespace Crisp.String
     {
         public override string Name => "regex-replace";
 
-        public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
+        public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {
             expression.ThrowIfNotList(Name); // Takes a list of arguments.
 
@@ -25,7 +25,7 @@ namespace Crisp.String
             var evaluated = arguments.Select(evaluator.Evaluate).ToArray();
             if (evaluated.Any(e => e.Type != SymbolicExpressionType.String))
             {
-                throw new RuntimeException(
+                throw new FunctionApplicationException(
                     $"The arguments to the function '{Name}' must all evaluate to the string type.");
             }
 

@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using Crisp.Core;
-using Crisp.Core.Evaluation;
-using Crisp.Core.Types;
+using Crisp.Shared;
+using Crisp.Types;
 
 namespace Crisp.Basic
 {
@@ -14,7 +13,7 @@ namespace Crisp.Basic
     {
         public override string Name => "lambda";
 
-        public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
+        public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {
             expression.ThrowIfNotList(Name); // Takes a list of arguments.
 
@@ -25,12 +24,12 @@ namespace Crisp.Basic
             var parameters = arguments[0];
 
             // Parameter list may be empty (nil) so account for that.
-            IList<SymbolicExpression> parameterList = new List<SymbolicExpression>();
+            IList<ISymbolicExpression> parameterList = new List<ISymbolicExpression>();
             if (parameters.Type != SymbolicExpressionType.Nil)
             {
                 if (parameters.Type != SymbolicExpressionType.Pair)
                 {
-                    throw new RuntimeException(
+                    throw new FunctionApplicationException(
                         $"Parameter list must be provided as argument 1 to the '{Name}' function.");
                 }
 
@@ -38,7 +37,7 @@ namespace Crisp.Basic
                 parameterList = parameters.AsPair().Expand();
                 if (parameterList.Any(p => p.Type != SymbolicExpressionType.Symbol))
                 {
-                    throw new RuntimeException(
+                    throw new FunctionApplicationException(
                         $"Parameter list provided to the '{Name}' function must be a list of symbols only.");
                 }
             }
