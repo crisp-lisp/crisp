@@ -4,6 +4,6 @@ namespace Crisp.Shared
 {
     public interface ICrispRuntime
     {
-        ISymbolicExpression Run();
+        ISymbolicExpression Run(IExpressionTreeSource argumentSource);
     }
 }

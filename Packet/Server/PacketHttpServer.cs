@@ -4,9 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
-
-using Crisp.Core;
-using Crisp.Core.Types;
+using Crisp.Shared;
+using Crisp.Types;
 using Crisp.Visualization;
 
 using Packet.Configuration;
@@ -22,8 +21,6 @@ namespace Packet.Server
 
         private readonly IServerSettingsProvider _serverSettingsProvider;
 
-        private readonly ICrispRuntimeFactory _crispRuntimeFactory;
-
         private readonly ISymbolicExpressionSerializer _symbolicExpressionSerializer;
         
         /// <summary>
@@ -31,13 +28,11 @@ namespace Packet.Server
         /// </summary>
         /// <param name="configurationProvider">The configuration provider for the application.</param>
         /// <param name="serverSettingsProvider">The startup settings provider for the server.</param>
-        /// <param name="crispRuntimeFactory">The factory to use to create Crisp runtime instances.</param>
         /// <param name="symbolicExpressionSerializer">The serializer to use to display debug output.</param>
         /// <param name="logger">The logger to use for logging server events.</param>
         public PacketHttpServer(
             IConfigurationProvider configurationProvider,
             IServerSettingsProvider serverSettingsProvider,
-            ICrispRuntimeFactory crispRuntimeFactory,
             ISymbolicExpressionSerializer symbolicExpressionSerializer,
             ILogger logger)
             : base(configurationProvider.Get().BindingIpAddress,
@@ -45,7 +40,6 @@ namespace Packet.Server
         {
             _configurationProvider = configurationProvider;
             _serverSettingsProvider = serverSettingsProvider;
-            _crispRuntimeFactory = crispRuntimeFactory;
             _symbolicExpressionSerializer = symbolicExpressionSerializer;
         }
 
@@ -156,7 +150,7 @@ namespace Packet.Server
             var serializer = new LispSerializer(); // We need to serialize to valid Crisp.
             return serializer.Serialize(
                 headers.Select(header => new Pair(new StringAtom(header.Key), new StringAtom(header.Value)))
-                    .Cast<SymbolicExpression>()
+                    .Cast<ISymbolicExpression>()
                     .ToArray()
                     .ToProperList());
         }
@@ -166,7 +160,7 @@ namespace Packet.Server
         /// </summary>
         /// <param name="headers"></param>
         /// <returns></returns>
-        private static Dictionary<string, string> TransformHeadersForPacket(SymbolicExpression headers)
+        private static Dictionary<string, string> TransformHeadersForPacket(ISymbolicExpression headers)
         {
             if (headers.Type == SymbolicExpressionType.Nil)
             {
@@ -187,7 +181,7 @@ namespace Packet.Server
             processor.OutputStream.Write(Properties.Resources.DefaultInternalServerErrorPage);
         }
 
-        private static bool IsNameValueCollection(SymbolicExpression expression)
+        private static bool IsNameValueCollection(ISymbolicExpression expression)
         {
             // Check we've got a pair.
             var casted = expression as Pair;
@@ -206,7 +200,7 @@ namespace Packet.Server
             });
         }
 
-        private static bool IsValidResult(IList<SymbolicExpression> expandedResult)
+        private static bool IsValidResult(IList<ISymbolicExpression> expandedResult)
         {
             return expandedResult.Count == 4
                    && expandedResult[0].Type == SymbolicExpressionType.String
@@ -227,7 +221,7 @@ namespace Packet.Server
             HttpProcessor processor, 
             string errorMessage, 
             string filename,
-            SymbolicExpression programResult)
+            ISymbolicExpression programResult)
         {
             // Get file path of 500 error page.
             var path = GetUrlPath(_configurationProvider.Get().InternalServerErrorPage);
@@ -251,15 +245,15 @@ namespace Packet.Server
             if (IsInterpretedFileExtension(extension))
             {
                 // Try to evaluate program.
-                SymbolicExpression result;
+                ISymbolicExpression result;
                 try
                 {
-                    var runtime = _crispRuntimeFactory.GetCrispRuntime(path);
+                    var runtime = CrispCodeHelper.GetCrispRuntime(path);
                     var serialized = HttpUtility.UrlEncode(_symbolicExpressionSerializer.Serialize(programResult));
                     var headers = TransformHeadersForCrisp(processor.Headers);
                     var args = $"\"{processor.HttpUrl}\" \"POST\" \"filename={filename}&programResult={serialized}" +
                                $"&errorMessage={errorMessage}\" {headers}";
-                    result = runtime.Run(args);
+                    result = runtime.Run(CrispCodeHelper.SourceToExpressionTree(args));
                 }
                 catch
                 {
@@ -330,13 +324,14 @@ namespace Packet.Server
             if (IsInterpretedFileExtension(extension))
             {
                 // Try to evaluate program.
-                SymbolicExpression result;
+                ISymbolicExpression result;
                 try
                 {
-                    var runtime = _crispRuntimeFactory.GetCrispRuntime(path);
+                    var runtime = CrispCodeHelper.GetCrispRuntime(path);
                     var headers = TransformHeadersForCrisp(processor.Headers);
-                    result = runtime.Run($"\"{processor.HttpUrl}\" \"POST\" \"filename={filename}" +
-                                         $"&errorMessage={errorMessage}\" {headers}");
+                    var args = $"\"{processor.HttpUrl}\" \"POST\" \"filename={filename}" +
+                               $"&errorMessage={errorMessage}\" {headers}";
+                    result = runtime.Run(CrispCodeHelper.SourceToExpressionTree(args));
                 }
                 catch
                 {
@@ -411,13 +406,13 @@ namespace Packet.Server
             if (IsInterpretedFileExtension(extension))
             {
                 // Try to evaluate program.
-                SymbolicExpression result;
+                ISymbolicExpression result;
                 try
                 {
-                    var runtime = _crispRuntimeFactory.GetCrispRuntime(path);
+                    var runtime = CrispCodeHelper.GetCrispRuntime(path);
                     var headers = TransformHeadersForCrisp(processor.Headers);
-                    result = runtime.Run(
-                        $"\"{processor.HttpUrl}\" \"GET\" nil {headers}");
+                    var args = $"\"{processor.HttpUrl}\" \"GET\" nil {headers}";
+                    result = runtime.Run(CrispCodeHelper.SourceToExpressionTree(args));
                 }
                 catch (Exception ex)
                 {
@@ -493,14 +488,14 @@ namespace Packet.Server
             if (IsInterpretedFileExtension(extension))
             {
                 // Try to evaluate program.
-                SymbolicExpression result;
+                ISymbolicExpression result;
                 try
                 {
-                    var runtime = _crispRuntimeFactory.GetCrispRuntime(path);
+                    var runtime = CrispCodeHelper.GetCrispRuntime(path);
                     var encoded = HttpUtility.UrlEncode(posted);
                     var headers = TransformHeadersForCrisp(processor.Headers);
-                    result = runtime.Run(
-                        $"\"{processor.HttpUrl}\" \"POST\" \"{encoded}\" {headers}");
+                    var args = $"\"{processor.HttpUrl}\" \"POST\" \"{encoded}\" {headers}";
+                    result = runtime.Run(CrispCodeHelper.SourceToExpressionTree(args));
                 }
                 catch (Exception ex)
                 {

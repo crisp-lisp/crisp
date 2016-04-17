@@ -1,4 +1,4 @@
-﻿using Crisp.Core.Preprocessing;
+﻿using Crisp.Shared;
 using Crisp.Visualization;
 
 using Packet.Configuration;
@@ -23,7 +23,6 @@ namespace Packet.Server
             container.Register<IInterpreterDirectoryPathProvider, InterpreterDirectoryPathProvider>();
             container.Register<IConfigurationProvider, ConfigurationProvider>();
             container.Register<IOptionsProvider>(() => new OptionsProvider(options));
-            container.Register<ICrispRuntimeFactory, CrispRuntimeFactory>();
             container.Register<IServerSettingsProvider, CommandLineOverrideServerSettingsProvider>();
             container.Register<ILogger, ConsoleWindowLogger>();
             container.Register<IHttpServer, PacketHttpServer>();

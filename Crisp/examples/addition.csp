@@ -1,0 +1,5 @@
+;; Crisp example program. Computes the factorial of a number.
+;; Copyright © Saul Johnson 2015-2016
+
+(lambda (x y)
+	(add x y))

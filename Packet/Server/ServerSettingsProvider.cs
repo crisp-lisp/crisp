@@ -1,4 +1,4 @@
-﻿using Crisp.Common;
+﻿using Crisp.Shared;
 
 namespace Packet.Server
 {

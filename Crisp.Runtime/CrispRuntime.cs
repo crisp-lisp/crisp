@@ -1,5 +1,6 @@
 ﻿using Crisp.Evaluation;
 using Crisp.Shared;
+using Crisp.Types;
 
 namespace Crisp.Runtime
 {
@@ -16,9 +17,10 @@ namespace Crisp.Runtime
             _evaluator = evaluatorFactory.Get();
         }
 
-        public ISymbolicExpression Run()
+        public ISymbolicExpression Run(IExpressionTreeSource argumentSource)
         {
-            return _evaluator.Evaluate(_expressionTreeSource.Get());
+            var func = _evaluator.Evaluate(_expressionTreeSource.Get()).AsFunction();
+            return func.Apply(argumentSource.Get(), null);
         }
     }
 }

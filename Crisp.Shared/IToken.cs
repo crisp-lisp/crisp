@@ -1,5 +1,8 @@
 ﻿namespace Crisp.Shared
 {
+    /// <summary>
+    /// Represents a token.
+    /// </summary>
     public interface IToken
     {
         /// <summary>

@@ -5,7 +5,7 @@ namespace Crisp.Types
     /// <summary>
     /// Represents a pair-type expression that contains a head and a tail.
     /// </summary>
-    public class Pair : SymbolicExpression
+    public sealed class Pair : SymbolicExpression
     {
         public override bool IsAtomic => false;
 

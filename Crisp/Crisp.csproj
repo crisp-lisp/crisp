@@ -76,7 +76,7 @@
     <Compile Include="Configuration\Configuration.cs" />
     <Compile Include="Configuration\ConfigurationProvider.cs" />
     <Compile Include="Configuration\IConfigurationProvider.cs" />
-    <Compile Include="CrispRuntimeFactory.cs" />
+    <Compile Include="CrispCodeHelper.cs" />
     <Compile Include="InterpreterDirectoryPathProvider.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Program.cs" />
@@ -99,6 +99,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="examples\data\data.db3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="examples\addition.csp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="examples\query.csp">

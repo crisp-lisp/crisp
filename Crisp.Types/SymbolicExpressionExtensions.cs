@@ -149,29 +149,49 @@ namespace Crisp.Types
             return ToProperList(members, 0);
         }
 
+        /// <summary>
+        /// Throws a <see cref="FunctionApplicationException"/> if the given expression is not a list.
+        /// </summary>
+        /// <param name="expression">The expression to test.</param>
+        /// <param name="functionName">The name of the calling function.</param>
         public static void ThrowIfNotList(this ISymbolicExpression expression, string functionName)
         {
             if (expression.Type != SymbolicExpressionType.Pair)
             {
-                throw new FunctionApplicationException($"The function {functionName} takes a parameter list but one was not given.");
+                throw new FunctionApplicationException($"The function {functionName} takes a parameter list but" +
+                                                       " one was not given.");
             }
         }
 
-        public static void ThrowIfWrongLength(this IList<ISymbolicExpression> arguments, string functionName,
+        /// <summary>
+        /// Throws a <see cref="FunctionApplicationException"/> if the given list is not of the specified length.
+        /// </summary>
+        /// <param name="expression">The expression to test.</param>
+        /// <param name="functionName">The name of the calling function.</param>
+        /// <param name="numberOfArguments"></param>
+        public static void ThrowIfWrongLength(this IList<ISymbolicExpression> expression, string functionName,
             int numberOfArguments)
         {
-            if (arguments.Count != numberOfArguments)
+            if (expression.Count != numberOfArguments)
             {
-                throw new FunctionApplicationException($"The function {functionName} takes exactly {numberOfArguments} argument(s).");
+                throw new FunctionApplicationException($"The function {functionName} takes exactly" +
+                                                       $" {numberOfArguments} argument(s).");
             }
         }
 
-        public static void ThrowIfShorterThanLength(this IList<ISymbolicExpression> arguments, string functionName,
+        /// <summary>
+        /// Throws a <see cref="FunctionApplicationException"/> if the given list is not of the specified length.
+        /// </summary>
+        /// <param name="expression">The expression to test.</param>
+        /// <param name="functionName">The name of the calling function.</param>
+        /// <param name="numberOfArguments"></param>
+        public static void ThrowIfShorterThanLength(this IList<ISymbolicExpression> expression, string functionName,
             int numberOfArguments)
         {
-            if (arguments.Count < numberOfArguments)
+            if (expression.Count < numberOfArguments)
             {
-                throw new FunctionApplicationException($"The function {functionName} must have at least {numberOfArguments} argument(s).");
+                throw new FunctionApplicationException($"The function {functionName} must have at least" +
+                                                       $" {numberOfArguments} argument(s).");
             }
         }
     }

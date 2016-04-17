@@ -12,7 +12,6 @@
         Numeric,
         String,
         Dot,
-        RequireStatement,
         Whitespace,
         Comment,
         BooleanTrue,

@@ -1,5 +1,4 @@
-﻿using Crisp.Common;
-using Crisp.Core.Preprocessing;
+﻿using Crisp.Shared;
 
 namespace Packet
 {

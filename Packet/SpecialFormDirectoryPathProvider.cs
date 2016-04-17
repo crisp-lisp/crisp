@@ -1,8 +1,6 @@
 ﻿using System.IO;
 
-using Crisp.Common;
-using Crisp.Core.Preprocessing;
-
+using Crisp.Shared;
 using Packet.Configuration;
 
 namespace Packet

@@ -18,7 +18,6 @@ namespace Crisp.Tokenization
             return new TokenizerConfigurationProvider(new Dictionary<string, TokenType>
             {
                 {"\"[^\"]*\"", TokenType.String},
-                {"^#require\\s+\".+?\"\r?$", TokenType.RequireStatement},
                 {";;.+?\r?$", TokenType.Comment},
                 {@"[\(]", TokenType.OpeningParenthesis},
                 {@"[\)]", TokenType.ClosingParenthesis},

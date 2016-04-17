@@ -30,7 +30,7 @@ namespace Crisp.Evaluation
             var newBindings = new List<Binding>(_bindings);
             newBindings.AddRange(bindings.Select(b => new Binding(b.Key, b.Value, this)));
             
-            return new Evaluator { _bindings = newBindings }; ; // Return an all-new evaluator.
+            return new Evaluator { _bindings = newBindings }; // Return an all-new evaluator.
         }
 
         public IEvaluator Derive(string name, ISymbolicExpression expression)
@@ -92,7 +92,9 @@ namespace Crisp.Evaluation
                         if (head.Type == SymbolicExpressionType.Function)
                         {
                             var function = head.AsFunction();
-                            var args = function.SkipArgumentEvaluation ? pair.Tail : Evaluate(pair.Tail); // Don't evaluate arguments to special forms.
+
+                            // Don't evaluate arguments to special forms.
+                            var args = function.SkipArgumentEvaluation ? pair.Tail : Evaluate(pair.Tail); 
                             return function.Apply(args, this);
                         }  
                     }

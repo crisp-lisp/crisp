@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -12,20 +11,19 @@ namespace Crisp.Tokenization
     /// </summary>
     public class Tokenizer : ITokenListSource
     {
-        private readonly ISourceFilePathProvider _sourceFilePathProvider;
-
+        private readonly ISourceCodeProvider _sourceCodeProvider;
         private readonly IList<TokenTemplate> _tokenTemplates;
 
         /// <summary>
         /// Initializes a new instance of a string tokenizer.
         /// </summary>
-        /// <param name="sourceFilePathProvider">The service to use to get the path of the source file.</param>
+        /// <param name="sourceCodeProvider">The service to use to get the path of the source file.</param>
         /// <param name="tokenizerConfigurationProvider">The service to use to configure the tokenizer.</param>
         public Tokenizer(
-            ISourceFilePathProvider sourceFilePathProvider,
+            ISourceCodeProvider sourceCodeProvider,
             ITokenizerConfigurationProvider tokenizerConfigurationProvider)
         {
-            _sourceFilePathProvider = sourceFilePathProvider;
+            _sourceCodeProvider = sourceCodeProvider;
 
             // Load token templates.
             _tokenTemplates = new List<TokenTemplate>();
@@ -134,8 +132,7 @@ namespace Crisp.Tokenization
 
         public IList<IToken> Get()
         {
-            var source = File.ReadAllText(_sourceFilePathProvider.Get());
-            return Tokenize(source);
+            return Tokenize(_sourceCodeProvider.Get());
         }
     }
 }

@@ -1,9 +1,8 @@
 ﻿using System.IO;
 
-using Crisp.Common;
-using Crisp.Core.Preprocessing;
-
 using Newtonsoft.Json;
+
+using Crisp.Shared;
 
 namespace Packet.Configuration
 {

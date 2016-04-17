@@ -3,28 +3,16 @@
 namespace Crisp.Tokenization
 {
     /// <summary>
-    /// Represents a token.
+    /// A token created by the <see cref="Tokenizer"/> class.
     /// </summary>
     internal class Token : IToken
     {
-        /// <summary>
-        /// Gets the token type.
-        /// </summary>
         public TokenType Type { get; }
-
-        /// <summary>
-        /// Gets the sequence of characters in the token.
-        /// </summary>
+        
         public string Sequence { get; }
-
-        /// <summary>
-        /// Gets the line position of the token in the source.
-        /// </summary>
+        
         public int Line { get; }
-
-        /// <summary>
-        /// Gets the column position of the token in the source.
-        /// </summary>
+        
         public int Column { get; }
 
         /// <summary>

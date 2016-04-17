@@ -13,13 +13,17 @@ namespace Crisp.Parsing
     {
         private readonly ITokenListSource _tokenListSource;
 
+        private readonly ITokenFilter _tokenFilter;
+
         /// <summary>
         /// Initializes a new instance of a parser.
         /// </summary>
         /// <param name="tokenListSource">The source of the tokens to parse.</param>
-        public Parser(ITokenListSource tokenListSource)
+        /// <param name="tokenFilter"></param>
+        public Parser(ITokenListSource tokenListSource, ITokenFilter tokenFilter)
         {
             _tokenListSource = tokenListSource;
+            _tokenFilter = tokenFilter;
         }
 
         /// <summary>
@@ -146,10 +150,6 @@ namespace Crisp.Parsing
                 case TokenType.Dot:
                     throw new ParsingException("Encountered unexpected dot notation at" +
                                                $" line {first.Line} column {first.Column}.", first);
-                case TokenType.RequireStatement:
-                case TokenType.Whitespace:
-                case TokenType.Comment:
-                    break;
                 default:
                     throw new ParsingException("Encountered unknown token type at" +
                                                $" line {first.Line} column {first.Column}.", first);
@@ -158,7 +158,7 @@ namespace Crisp.Parsing
 
         public ISymbolicExpression Get()
         {
-            return Parse(_tokenListSource.Get());
+            return Parse(_tokenFilter.Filter(_tokenListSource.Get()));
         }
     }
 }
