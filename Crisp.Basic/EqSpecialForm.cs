@@ -1,15 +1,16 @@
-﻿using Crisp.Shared;
+﻿using System.Collections.Generic;
+
+using Crisp.Shared;
 using Crisp.Types;
 
 namespace Crisp.Basic
 {
     /// <summary>
-    /// Returns a true boolean atom if the two given arguments are considered equal. Otherwise returns a false boolean
-    /// atom.
+    /// A function that given two expressions returns true if their values are equal; false if not.
     /// </summary>
     public class EqSpecialForm : SpecialForm
     {
-        public override string Name => "eq";
+        public override IEnumerable<string> Names => new List<string> { "eq" };
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

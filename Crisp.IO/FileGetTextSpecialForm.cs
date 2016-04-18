@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 
 using Crisp.Shared;
 using Crisp.Types;
@@ -10,7 +11,7 @@ namespace Crisp.IO
     /// </summary>
     public class FileGetTextSpecialForm : SpecialForm
     {
-        public override string Name => "file-get-text";
+        public override IEnumerable<string> Names => new List<string> { "file-get-text" };
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

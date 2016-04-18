@@ -1,14 +1,16 @@
-﻿using Crisp.Shared;
+﻿using System.Collections.Generic;
+
+using Crisp.Shared;
 using Crisp.Types;
 
 namespace Crisp.Basic
 {
     /// <summary>
-    /// Returns the head (first) of a cons cell (pair).
+    /// A special form that given an expression whose value is a pair, returns the pair's first value.
     /// </summary>
     public class CarSpecialForm : SpecialForm
     {
-        public override string Name => "car";
+        public override IEnumerable<string> Names => new List<string> { "car" };
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

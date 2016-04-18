@@ -1,15 +1,17 @@
-﻿using Crisp.Shared;
+﻿using System.Collections.Generic;
+
+using Crisp.Shared;
 using Crisp.Types;
 
 namespace Crisp.Basic
 {
     /// <summary>
-    /// A function that returns its second parameter if its first parameter evaluates to a true boolean atom. Otherwise 
-    /// returns its third parameter.
+    /// A function that given three expressions returns the value of the second if the value of the first is true, 
+    /// otherwise returns the value of the third.
     /// </summary>
     public class IfSpecialForm : SpecialForm
     {
-        public override string Name => "if";
+        public override IEnumerable<string> Names => new List<string> { "if" };
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

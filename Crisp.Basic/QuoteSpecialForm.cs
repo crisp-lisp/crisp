@@ -1,14 +1,16 @@
-﻿using Crisp.Shared;
+﻿using System.Collections.Generic;
+
+using Crisp.Shared;
 using Crisp.Types;
 
 namespace Crisp.Basic
 {
     /// <summary>
-    /// A function that will convert all symbols in an expression to constants.
+    /// A function that given an expression, returns that expression as a value.
     /// </summary>
     public class QuoteSpecialForm : SpecialForm
     {
-        public override string Name => "quote";
+        public override IEnumerable<string> Names => new List<string> { "quote" };
 
         /// <summary>
         /// Recursively converts all symbols in an expression to constants.

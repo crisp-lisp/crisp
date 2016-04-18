@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 using Community.CsharpSqlite.SQLiteClient;
@@ -15,7 +14,7 @@ namespace Crisp.Data
     /// </summary>
     public class DataQuerySpecialForm : SpecialForm
     {
-        public override string Name => "data-query";
+        public override IEnumerable<string> Names => new List<string> { "data-query" };
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

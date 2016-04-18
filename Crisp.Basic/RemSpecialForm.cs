@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 using Crisp.Shared;
 using Crisp.Types;
@@ -6,11 +7,12 @@ using Crisp.Types;
 namespace Crisp.Basic
 {
     /// <summary>
-    /// Divides a numeric atom by another and returns the remainder as a new numeric atom.
+    /// A function that given two expressions, returns the modulus (also known as the remainder) of their numeric 
+    /// values.
     /// </summary>
     public class RemSpecialForm : SpecialForm
     {
-        public override string Name => "rem";
+        public override IEnumerable<string> Names => new List<string> { "rem", "mod" };
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

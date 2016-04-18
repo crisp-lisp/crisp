@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 
 using Crisp.Shared;
@@ -15,7 +16,7 @@ namespace Crisp.String
     /// </summary>
     public class HtmlEncodeSpecialForm : SpecialForm // TODO: Implement in Crisp.
     {
-        public override string Name => "html-encode";
+        public override IEnumerable<string> Names => new List<string> { "html-encode" };
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

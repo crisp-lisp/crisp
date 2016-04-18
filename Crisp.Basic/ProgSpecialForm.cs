@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 using Crisp.Shared;
 using Crisp.Types;
@@ -11,7 +12,7 @@ namespace Crisp.Basic
     /// <remarks>Useful for programming with side-effects.</remarks>
     public class ProgSpecialForm : SpecialForm
     {
-        public override string Name => "prog";
+        public override IEnumerable<string> Names => new List<string> { "prog" };
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

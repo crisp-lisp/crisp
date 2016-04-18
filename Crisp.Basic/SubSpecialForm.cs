@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 using Crisp.Shared;
 using Crisp.Types;
@@ -6,11 +7,11 @@ using Crisp.Types;
 namespace Crisp.Basic
 {
     /// <summary>
-    /// Subtracts a numeric atom from another and returns the result as a new numeric atom.
+    /// A function that given two expressions, returns the difference of their numeric values.
     /// </summary>
     public class SubSpecialForm : SpecialForm
     {
-        public override string Name => "sub";
+        public override IEnumerable<string> Names => new List<string> { "sub" };
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

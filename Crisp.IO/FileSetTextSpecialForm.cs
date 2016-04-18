@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 using Crisp.Shared;
@@ -12,7 +13,7 @@ namespace Crisp.IO
     /// </summary>
     public class FileSetTextSpecialForm : SpecialForm
     {
-        public override string Name => "file-set-text";
+        public override IEnumerable<string> Names => new List<string> { "file-set-text" };
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

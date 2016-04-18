@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 
 using Crisp.Shared;
@@ -15,7 +16,7 @@ namespace Crisp.String
     /// </summary>
     public class UrlEncodeSpecialForm : SpecialForm // TODO: Implement in Crisp.
     {
-        public override string Name => "url-encode";
+        public override IEnumerable<string> Names => new List<string> { "url-encode" };
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

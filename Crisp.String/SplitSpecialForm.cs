@@ -11,7 +11,7 @@ namespace Crisp.String
     /// </summary>
     public class SplitSpecialForm : SpecialForm
     {
-        public override string Name => "split";
+        public override IEnumerable<string> Names => new List<string> { "split" };
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

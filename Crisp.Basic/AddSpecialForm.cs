@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 using Crisp.Shared;
 using Crisp.Types;
@@ -6,11 +7,11 @@ using Crisp.Types;
 namespace Crisp.Basic
 {
     /// <summary>
-    /// Adds two numeric atoms together and returns the result as a new numeric atom.
+    /// A special form that given two expressions returns the sum of their numeric values.
     /// </summary>
     public class AddSpecialForm : SpecialForm
     {
-        public override string Name => "add";
+        public override IEnumerable<string> Names => new List<string> {"add"};
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

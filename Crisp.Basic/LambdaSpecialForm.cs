@@ -7,11 +7,11 @@ using Crisp.Types;
 namespace Crisp.Basic
 {
     /// <summary>
-    /// Returns a callable function (closure) with the specified parameters and body.
+    /// A function that given an expression, returns that expression as an evaluable value.
     /// </summary>
     public class LambdaSpecialForm : SpecialForm
     {
-        public override string Name => "lambda";
+        public override IEnumerable<string> Names => new List<string> { "lambda" };
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

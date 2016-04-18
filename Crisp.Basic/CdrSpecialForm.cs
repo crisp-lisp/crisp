@@ -1,14 +1,16 @@
-﻿using Crisp.Shared;
+﻿using System.Collections.Generic;
+
+using Crisp.Shared;
 using Crisp.Types;
 
 namespace Crisp.Basic
 {
     /// <summary>
-    /// Returns the tail (rest) of a cons cell (pair).
+    /// A special form that given an expression whose value is a pair, returns the pair's second value.
     /// </summary>
     public class CdrSpecialForm : SpecialForm
     {
-        public override string Name => "cdr";
+        public override IEnumerable<string> Names => new List<string> { "cdr" };
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

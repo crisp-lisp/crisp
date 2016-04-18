@@ -1,15 +1,16 @@
-﻿using Crisp.Shared;
+﻿using System.Collections.Generic;
+
+using Crisp.Shared;
 using Crisp.Types;
 
 namespace Crisp.Basic
 {
     /// <summary>
-    /// Returns a true boolean atom if the given expression evaluates to an atom. Otherwise returns a false boolean
-    /// atom.
+    /// A special form that given an expression returns true if its value is atomic; false if not.
     /// </summary>
     public class AtomSpecialForm : SpecialForm
     {
-        public override string Name => "atom";
+        public override IEnumerable<string> Names => new List<string> { "atom" };
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

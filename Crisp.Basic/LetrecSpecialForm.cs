@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 using Crisp.Shared;
 using Crisp.Types;
@@ -6,11 +7,11 @@ using Crisp.Types;
 namespace Crisp.Basic
 {
     /// <summary>
-    /// A function that binds symbols to expressions, allowing for recursion.
+    /// A function that given a list of named expressions, returns that list as a single evaluable value.
     /// </summary>
     public class LetrecSpecialForm : SpecialForm
     {
-        public override string Name => "letrec";
+        public override IEnumerable<string> Names => new List<string> { "letrec" };
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

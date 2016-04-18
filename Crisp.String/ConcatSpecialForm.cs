@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 using Crisp.Shared;
 using Crisp.Types;
@@ -10,7 +11,7 @@ namespace Crisp.String
     /// </summary>
     public class ConcatSpecialForm : SpecialForm
     {
-        public override string Name => "concat";
+        public override IEnumerable<string> Names => new List<string> { "concat" };
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

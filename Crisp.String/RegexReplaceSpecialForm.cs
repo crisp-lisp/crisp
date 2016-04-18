@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 using Crisp.Shared;
@@ -12,7 +13,7 @@ namespace Crisp.String
     /// </summary>
     public class RegexReplaceSpecialForm : SpecialForm
     {
-        public override string Name => "regex-replace";
+        public override IEnumerable<string> Names => new List<string> { "regex-replace" };
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

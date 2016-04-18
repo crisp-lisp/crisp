@@ -1,14 +1,16 @@
-﻿using Crisp.Shared;
+﻿using System.Collections.Generic;
+
+using Crisp.Shared;
 using Crisp.Types;
 
 namespace Crisp.Basic
 {
     /// <summary>
-    /// Returns a cons cell (pair) containing as its head and tail the two expressions given.
+    /// A function that given two expressions returns a value pair consisting of their values.
     /// </summary>
     public class ConsSpecialForm : SpecialForm
     {
-        public override string Name => "cons";
+        public override IEnumerable<string> Names => new List<string> { "cons" };
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

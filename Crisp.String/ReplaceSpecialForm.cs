@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 using Crisp.Shared;
 using Crisp.Types;
@@ -11,7 +12,7 @@ namespace Crisp.String
     /// </summary>
     public class ReplaceSpecialForm : SpecialForm
     {
-        public override string Name => "replace";
+        public override IEnumerable<string> Names => new List<string> { "replace" };
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

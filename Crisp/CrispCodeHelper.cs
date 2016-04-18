@@ -41,9 +41,9 @@ namespace Crisp
         }
 
         /// <summary>
-        /// 
+        /// Creates a new <see cref="IExpressionTreeSource"/> instance from the given source code.
         /// </summary>
-        /// <param name="source"></param>
+        /// <param name="source">The source code to parse.</param>
         /// <returns></returns>
         internal static IExpressionTreeSource SourceToExpressionTree(string source)
         {
