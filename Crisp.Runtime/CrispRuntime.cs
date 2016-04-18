@@ -18,8 +18,11 @@ namespace Crisp.Runtime
 
         public ISymbolicExpression Run(IExpressionTreeSource argumentSource)
         {
-            var func = _evaluator.Evaluate(_expressionTreeSource.Get()).AsFunction();
-            return func.Apply(argumentSource.Get(), null);
+            // Evaluate tree to get program.
+            var program = _evaluator.Evaluate(_expressionTreeSource.Get()).AsFunction();
+
+            // Return result of applying program to arguments.
+            return program.Apply(argumentSource.Get(), null);
         }
     }
 }

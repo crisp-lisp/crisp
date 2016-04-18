@@ -46,7 +46,10 @@ namespace Crisp.Evaluation
                 foreach (var type in types)
                 {
                     var function = (SpecialForm)Activator.CreateInstance(assembly.GetType(type.ToString()));
-                    definitions.Add(function.Name, function);
+                    foreach (var name in function.Names)
+                    {
+                        definitions.Add(name, function);
+                    }
                 }
             }
 
