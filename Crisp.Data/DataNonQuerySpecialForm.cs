@@ -12,7 +12,7 @@ namespace Crisp.Data
     /// </summary>
     public class DataNonQuerySpecialForm : SpecialForm
     {
-        public override IEnumerable<string> Names => new List<string> { "data-non-query" };
+        public override IEnumerable<string> Names => new List<string> {"data-non-query"};
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

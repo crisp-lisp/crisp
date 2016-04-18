@@ -11,7 +11,7 @@ namespace Crisp.Basic
     /// </summary>
     public class LambdaSpecialForm : SpecialForm
     {
-        public override IEnumerable<string> Names => new List<string> { "lambda" };
+        public override IEnumerable<string> Names => new List<string> {"lambda"};
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

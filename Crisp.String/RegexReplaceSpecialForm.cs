@@ -13,7 +13,7 @@ namespace Crisp.String
     /// </summary>
     public class RegexReplaceSpecialForm : SpecialForm
     {
-        public override IEnumerable<string> Names => new List<string> { "regex-replace" };
+        public override IEnumerable<string> Names => new List<string> {"regex-replace"};
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

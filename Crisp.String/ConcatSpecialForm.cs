@@ -11,7 +11,7 @@ namespace Crisp.String
     /// </summary>
     public class ConcatSpecialForm : SpecialForm
     {
-        public override IEnumerable<string> Names => new List<string> { "concat" };
+        public override IEnumerable<string> Names => new List<string> {"concat"};
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

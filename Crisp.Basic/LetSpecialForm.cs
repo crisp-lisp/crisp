@@ -11,7 +11,7 @@ namespace Crisp.Basic
     /// </summary>
     public class LetSpecialForm : SpecialForm
     {
-        public override IEnumerable<string> Names => new List<string> { "let" };
+        public override IEnumerable<string> Names => new List<string> {"let"};
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

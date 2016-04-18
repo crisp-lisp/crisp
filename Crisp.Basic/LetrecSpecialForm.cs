@@ -11,7 +11,7 @@ namespace Crisp.Basic
     /// </summary>
     public class LetrecSpecialForm : SpecialForm
     {
-        public override IEnumerable<string> Names => new List<string> { "letrec" };
+        public override IEnumerable<string> Names => new List<string> {"letrec"};
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

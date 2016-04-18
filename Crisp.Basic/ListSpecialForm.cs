@@ -10,7 +10,7 @@ namespace Crisp.Basic
     /// </summary>
     public class ListSpecialForm : SpecialForm
     {
-        public override IEnumerable<string> Names => new List<string> { "list" };
+        public override IEnumerable<string> Names => new List<string> {"list"};
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

@@ -11,7 +11,7 @@ namespace Crisp.IO
     /// </summary>
     public class FileExistsSpecialForm : SpecialForm
     {
-        public override IEnumerable<string> Names => new List<string> { "file-exists" };
+        public override IEnumerable<string> Names => new List<string> {"file-exists"};
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

@@ -11,7 +11,7 @@ namespace Crisp.IO
     /// </summary>
     public class FileGetTextSpecialForm : SpecialForm
     {
-        public override IEnumerable<string> Names => new List<string> { "file-get-text" };
+        public override IEnumerable<string> Names => new List<string> {"file-get-text"};
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

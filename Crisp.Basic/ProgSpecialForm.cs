@@ -12,7 +12,7 @@ namespace Crisp.Basic
     /// <remarks>Useful for programming with side-effects.</remarks>
     public class ProgSpecialForm : SpecialForm
     {
-        public override IEnumerable<string> Names => new List<string> { "prog" };
+        public override IEnumerable<string> Names => new List<string> {"prog"};
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

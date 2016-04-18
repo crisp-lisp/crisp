@@ -16,7 +16,7 @@ namespace Crisp.String
     /// </summary>
     public class UrlEncodeSpecialForm : SpecialForm // TODO: Implement in Crisp.
     {
-        public override IEnumerable<string> Names => new List<string> { "url-encode" };
+        public override IEnumerable<string> Names => new List<string> {"url-encode"};
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

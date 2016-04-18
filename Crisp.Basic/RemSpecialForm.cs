@@ -12,7 +12,7 @@ namespace Crisp.Basic
     /// </summary>
     public class RemSpecialForm : SpecialForm
     {
-        public override IEnumerable<string> Names => new List<string> { "rem", "mod" };
+        public override IEnumerable<string> Names => new List<string> {"rem", "mod"};
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

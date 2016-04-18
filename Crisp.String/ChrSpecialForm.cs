@@ -12,7 +12,7 @@ namespace Crisp.String
     /// </summary>
     public class ChrSpecialForm : SpecialForm
     {
-        public override IEnumerable<string> Names => new List<string> { "chr" };
+        public override IEnumerable<string> Names => new List<string> {"chr"};
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

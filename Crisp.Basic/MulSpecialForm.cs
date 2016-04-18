@@ -11,7 +11,7 @@ namespace Crisp.Basic
     /// </summary>
     public class MulSpecialForm : SpecialForm
     {
-        public override IEnumerable<string> Names => new List<string> { "mul" };
+        public override IEnumerable<string> Names => new List<string> {"mul"};
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

@@ -13,7 +13,7 @@ namespace Crisp.IO
     /// </summary>
     public class FileSetTextSpecialForm : SpecialForm
     {
-        public override IEnumerable<string> Names => new List<string> { "file-set-text" };
+        public override IEnumerable<string> Names => new List<string> {"file-set-text"};
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

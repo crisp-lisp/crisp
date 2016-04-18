@@ -12,7 +12,7 @@ namespace Crisp.IO
     /// </summary>
     public class DirectoryExistsSpecialForm : SpecialForm
     {
-        public override IEnumerable<string> Names => new List<string> { "directory-exists" };
+        public override IEnumerable<string> Names => new List<string> {"directory-exists"};
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

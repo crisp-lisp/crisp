@@ -14,7 +14,7 @@ namespace Crisp.Data
     /// </summary>
     public class DataQuerySpecialForm : SpecialForm
     {
-        public override IEnumerable<string> Names => new List<string> { "data-query" };
+        public override IEnumerable<string> Names => new List<string> {"data-query"};
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

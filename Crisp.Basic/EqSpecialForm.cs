@@ -10,7 +10,7 @@ namespace Crisp.Basic
     /// </summary>
     public class EqSpecialForm : SpecialForm
     {
-        public override IEnumerable<string> Names => new List<string> { "eq" };
+        public override IEnumerable<string> Names => new List<string> {"eq"};
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

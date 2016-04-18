@@ -12,7 +12,7 @@ namespace Crisp.String
     /// </summary>
     public class ReplaceSpecialForm : SpecialForm
     {
-        public override IEnumerable<string> Names => new List<string> { "replace" };
+        public override IEnumerable<string> Names => new List<string> {"replace"};
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

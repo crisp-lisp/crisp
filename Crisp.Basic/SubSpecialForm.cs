@@ -11,7 +11,7 @@ namespace Crisp.Basic
     /// </summary>
     public class SubSpecialForm : SpecialForm
     {
-        public override IEnumerable<string> Names => new List<string> { "sub" };
+        public override IEnumerable<string> Names => new List<string> {"sub"};
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

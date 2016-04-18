@@ -16,7 +16,7 @@ namespace Crisp.String
     /// </summary>
     public class HtmlEncodeSpecialForm : SpecialForm // TODO: Implement in Crisp.
     {
-        public override IEnumerable<string> Names => new List<string> { "html-encode" };
+        public override IEnumerable<string> Names => new List<string> {"html-encode"};
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

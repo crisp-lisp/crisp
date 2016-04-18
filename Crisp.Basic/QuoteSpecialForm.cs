@@ -10,7 +10,7 @@ namespace Crisp.Basic
     /// </summary>
     public class QuoteSpecialForm : SpecialForm
     {
-        public override IEnumerable<string> Names => new List<string> { "quote" };
+        public override IEnumerable<string> Names => new List<string> {"quote"};
 
         /// <summary>
         /// Recursively converts all symbols in an expression to constants.
