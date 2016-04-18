@@ -1,4 +1,4 @@
-;; Crisp example program. Computes the factorial of a number.
+;; Crisp example program. Computes the sum of two numbers.
 ;; Copyright © Saul Johnson 2015-2016
 
 (lambda (x y)

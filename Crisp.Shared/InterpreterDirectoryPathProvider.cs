@@ -1,15 +1,13 @@
 ﻿using System.IO;
 using System.Reflection;
 
-using Crisp.Shared;
-
-namespace Crisp
+namespace Crisp.Shared
 {
     /// <summary>
     /// An implementation of an interpreter directory path provider, capable of returning the directory that contains  
     /// the currently executing interpreter.
     /// </summary>
-    internal class InterpreterDirectoryPathProvider : IInterpreterDirectoryPathProvider
+    public class InterpreterDirectoryPathProvider : IInterpreterDirectoryPathProvider
     {
         public string Get()
         {

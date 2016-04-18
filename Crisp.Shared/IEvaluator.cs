@@ -8,11 +8,23 @@ namespace Crisp.Shared
     public interface IEvaluator
     {
         /// <summary>
+        /// Gets the directory containing the interpreter on-disk.
+        /// </summary>
+        string InterpreterDirectory { get; set; }
+
+        /// <summary>
+        /// Gets the directory containing the source file on-disk.
+        /// </summary>
+        string SourceFileDirectory { get; set; }
+
+        /// <summary>
         /// Evaluates an expression.
         /// </summary>
         /// <param name="expression">The expression to evaluate.</param>
         /// <returns></returns>
         ISymbolicExpression Evaluate(ISymbolicExpression expression);
+
+        IEvaluator Derive();
 
         /// <summary>
         /// Returns a new evaluator with bindings added between names and expressions.

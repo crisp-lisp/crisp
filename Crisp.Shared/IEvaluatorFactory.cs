@@ -1,6 +1,4 @@
-﻿using Crisp.Shared;
-
-namespace Crisp.Evaluation
+﻿namespace Crisp.Shared
 {
     public interface IEvaluatorFactory
     {

@@ -4,4 +4,5 @@
 #require "~/lib/math.cspl"
 
 (lambda ()
-	pi)
+	(require "~/lib/math.cspl" 
+		pi))

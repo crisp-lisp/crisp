@@ -1,9 +1,11 @@
-﻿namespace Crisp.Configuration
+﻿using Crisp.Shared;
+
+namespace Crisp.Configuration
 {
     /// <summary>
     /// Represents a set of application configuration settings.
     /// </summary>
-    internal class Configuration
+    public class CrispConfiguration : ICrispConfiguration
     {
         /// <summary>
         /// Gets or sets the directory that special form libraries will be loaded from.

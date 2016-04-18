@@ -1,6 +1,4 @@
-﻿using Crisp.Shared;
-
-namespace Crisp.Shared
+﻿namespace Crisp.Shared
 {
     public interface ICrispRuntime
     {

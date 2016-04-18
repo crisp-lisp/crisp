@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>7617a86c-03e6-46db-9058-b5d07fb672f3</ProjectGuid>
+    <ProjectGuid>{E649520C-1798-4A3F-A0EE-20AC5873A14F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Crisp.IoC</RootNamespace>
@@ -30,24 +30,51 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System"/>
-    
-    <Reference Include="System.Core"/>
-    <Reference Include="System.Xml.Linq"/>
-    <Reference Include="System.Data.DataSetExtensions"/>
-    
-    
-    <Reference Include="Microsoft.CSharp"/>
-    
-    <Reference Include="System.Data"/>
-    
-    <Reference Include="System.Net.Http"/>
-    
-    <Reference Include="System.Xml"/>
+    <Reference Include="SimpleInjector, Version=3.1.3.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.3.1.3\lib\net45\SimpleInjector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="CrispCodeHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Crisp.Configuration\Crisp.Configuration.csproj">
+      <Project>{86e85b62-cef3-4c87-80e8-1846927a0bef}</Project>
+      <Name>Crisp.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Crisp.Evaluation\Crisp.Evaluation.csproj">
+      <Project>{e5a749c9-b032-42f5-aed4-df5017ab62ac}</Project>
+      <Name>Crisp.Evaluation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Crisp.Parsing\Crisp.Parsing.csproj">
+      <Project>{68c3e451-5638-49e4-8f17-d2794074d3ae}</Project>
+      <Name>Crisp.Parsing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Crisp.Runtime\Crisp.Runtime.csproj">
+      <Project>{1a088b75-c83f-43ae-9a16-5527e6f34ef6}</Project>
+      <Name>Crisp.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Crisp.Shared\Crisp.Shared.csproj">
+      <Project>{037d2ac9-aca7-42ac-9566-35502f855e7d}</Project>
+      <Name>Crisp.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Crisp.Tokenization\Crisp.Tokenization.csproj">
+      <Project>{8bc749dd-d1e6-414b-aec9-40066e8b9954}</Project>
+      <Name>Crisp.Tokenization</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -57,5 +84,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-
- </Project>
+</Project>

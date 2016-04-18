@@ -1,26 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using Crisp.Shared;
 
 namespace Crisp.Evaluation
 {
+    /// <summary>
+    /// A factory to produce <see cref="IEvaluator"/> instances.
+    /// </summary>
     public class EvaluatorFactory : IEvaluatorFactory
     {
+        private readonly ISourceFilePathProvider _sourceFilePathProvider;
+
+        private readonly IInterpreterDirectoryPathProvider _interpreterDirectoryPathProvider;
+
         private readonly ISpecialFormLoader _specialFormLoader;
 
-        public EvaluatorFactory(ISpecialFormLoader specialFormLoader)
+        /// <summary>
+        /// Initializes a new instance of a factory to produce <see cref="IEvaluator"/> instances.
+        /// </summary>
+        /// <param name="sourceFilePathProvider"></param>
+        /// <param name="interpreterDirectoryPathProvider">The service to use to retrieve the interpreter directory path.</param>
+        /// <param name="specialFormLoader">The service to use to load special forms.</param>
+        public EvaluatorFactory(
+            ISourceFilePathProvider sourceFilePathProvider,
+            IInterpreterDirectoryPathProvider interpreterDirectoryPathProvider, 
+            ISpecialFormLoader specialFormLoader)
         {
+            _sourceFilePathProvider = sourceFilePathProvider;
+            _interpreterDirectoryPathProvider = interpreterDirectoryPathProvider;
             _specialFormLoader = specialFormLoader;
         }
 
         public IEvaluator Get()
         {
-            var ev = new Evaluator();
-            ev.Mutate(_specialFormLoader.GetBindings());
-            return ev;
+            // Create evaluator, specifying working directory and loading special forms.
+            var evaluator = new Evaluator
+            {
+                SourceFileDirectory = Path.GetDirectoryName(_sourceFilePathProvider.Get()), // TODO: Separate out.
+                InterpreterDirectory = _interpreterDirectoryPathProvider.Get()
+            };
+            evaluator.Mutate(_specialFormLoader.GetBindings());
+
+            return evaluator;
         }
     }
 }

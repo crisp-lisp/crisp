@@ -4,6 +4,7 @@ using System.Reflection;
 
 using CommandLine.Text;
 
+using Crisp.IoC;
 using Crisp.Visualization;
 
 namespace Crisp

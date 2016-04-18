@@ -1,7 +1,6 @@
 ﻿;; Crisp example program. Returns the text in a file.
 ;; Copyright © Saul Johnson 2015-2016
 
-#require "~/lib/core.cspl"
-
 (lambda ()
-	(concat-all ((chr 34) "quoted" (chr 34))))
+	(require "~/lib/core.cspl"
+		(concat-all ((chr 34) "quoted" (chr 34)))))

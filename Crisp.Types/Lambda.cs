@@ -23,18 +23,21 @@ namespace Crisp.Types
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {
-            // Make sure we've got the right number of arguments.
-            var arguments = expression.AsPair().Expand();
-            if (arguments.Count != _parameters.Count
-                && !(arguments.Count == 1 && arguments[0].Equals(new Nil()))) // Account for parameterless lambdas.
+            // Account for parameterless lambdas.
+            if (expression.Type != SymbolicExpressionType.Nil)
             {
-                throw new FunctionApplicationException("Attempted to call lambda with wrong number of arguments.");
-            }
+                // Make sure we've got the right number of arguments.
+                var arguments = expression.AsPair().Expand();
+                if (arguments.Count != _parameters.Count) 
+                {
+                    throw new FunctionApplicationException("Attempted to call lambda with wrong number of arguments.");
+                }
 
-            // Bind arguments to parameters in context.
-            for (var i = 0; i < _parameters.Count; i++)
-            {
-                evaluator = evaluator.Derive(_parameters[i].Value, arguments[i]);
+                // Bind arguments to parameters in context.
+                for (var i = 0; i < _parameters.Count; i++)
+                {
+                    evaluator = evaluator.Derive(_parameters[i].Value, arguments[i]);
+                }
             }
 
             return evaluator.Evaluate(_body);

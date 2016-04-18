@@ -41,11 +41,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileSourceCodeProvider.cs" />
+    <Compile Include="IConfiguration.cs" />
+    <Compile Include="IConfigurationProvider.cs" />
     <Compile Include="ICrispRuntime.cs" />
     <Compile Include="IEvaluator.cs" />
     <Compile Include="IEvaluatorFactory.cs" />
     <Compile Include="IExpressionTreeSource.cs" />
     <Compile Include="IInterpreterDirectoryPathProvider.cs" />
+    <Compile Include="InterpreterDirectoryPathProvider.cs" />
     <Compile Include="ISourceCodeProvider.cs" />
     <Compile Include="ISourceFilePathProvider.cs" />
     <Compile Include="ISpecialFormDirectoryPathProvider.cs" />
@@ -59,6 +62,7 @@
     <Compile Include="Provider.cs" />
     <Compile Include="SourceCodeProvider.cs" />
     <Compile Include="SourceFilePathProvider.cs" />
+    <Compile Include="SpecialFormDirectoryPathProvider.cs" />
     <Compile Include="SymbolicExpressionType.cs" />
     <Compile Include="TokenType.cs" />
   </ItemGroup>

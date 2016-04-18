@@ -16,6 +16,10 @@ namespace Crisp.Evaluation
         /// </summary>
         private List<Binding> _bindings;
 
+        public string InterpreterDirectory { get; set; }
+
+        public string SourceFileDirectory { get; set; }
+
         /// <summary>
         /// Initializes a new instance of an expression evaluator.
         /// </summary>
@@ -24,13 +28,24 @@ namespace Crisp.Evaluation
             _bindings = new List<Binding>();
         }
 
+        public IEvaluator Derive()
+        {
+            return Derive(new Dictionary<string, ISymbolicExpression>());
+        }
+
         public IEvaluator Derive(Dictionary<string, ISymbolicExpression> bindings)
         {
             // We need an all-new list.
             var newBindings = new List<Binding>(_bindings);
             newBindings.AddRange(bindings.Select(b => new Binding(b.Key, b.Value, this)));
-            
-            return new Evaluator { _bindings = newBindings }; // Return an all-new evaluator.
+
+            // Return an all-new evaluator.
+            return new Evaluator
+            {
+                _bindings = newBindings,
+                InterpreterDirectory = InterpreterDirectory,
+                SourceFileDirectory = SourceFileDirectory
+            }; 
         }
 
         public IEvaluator Derive(string name, ISymbolicExpression expression)

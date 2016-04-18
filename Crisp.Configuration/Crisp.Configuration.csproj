@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CF6DC28D-8A9F-468B-B3D3-1F04C7692975}</ProjectGuid>
+    <ProjectGuid>{86E85B62-CEF3-4C87-80E8-1846927A0BEF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Crisp.Basic</RootNamespace>
-    <AssemblyName>Crisp.Basic</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <RootNamespace>Crisp.Configuration</RootNamespace>
+    <AssemblyName>Crisp.Configuration</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,46 +44,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddSpecialForm.cs" />
-    <Compile Include="AtomSpecialForm.cs" />
-    <Compile Include="CarSpecialForm.cs" />
-    <Compile Include="CdrSpecialForm.cs" />
-    <Compile Include="ConsSpecialForm.cs" />
-    <Compile Include="DivSpecialForm.cs" />
-    <Compile Include="EqSpecialForm.cs" />
-    <Compile Include="IfSpecialForm.cs" />
-    <Compile Include="RequireSpecialForm.cs" />
-    <Compile Include="LambdaSpecialForm.cs" />
-    <Compile Include="LeqSpecialForm.cs" />
-    <Compile Include="LetrecSpecialForm.cs" />
-    <Compile Include="LetSpecialForm.cs" />
-    <Compile Include="ListSpecialForm.cs" />
-    <Compile Include="MulSpecialForm.cs" />
-    <Compile Include="ProgSpecialForm.cs" />
+    <Compile Include="CrispConfiguration.cs" />
+    <Compile Include="CrispConfigurationProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QuoteSpecialForm.cs" />
-    <Compile Include="RemSpecialForm.cs" />
-    <Compile Include="SubSpecialForm.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Crisp.IoC\Crisp.IoC.csproj">
-      <Project>{e649520c-1798-4a3f-a0ee-20ac5873a14f}</Project>
-      <Name>Crisp.IoC</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Crisp.Shared\Crisp.Shared.csproj">
       <Project>{037d2ac9-aca7-42ac-9566-35502f855e7d}</Project>
       <Name>Crisp.Shared</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Crisp.Types\Crisp.Types.csproj">
-      <Project>{9b480f6e-e40a-4255-a0a6-5fc016a9c673}</Project>
-      <Name>Crisp.Types</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)Crisp\bin\Debug\native\$(TargetFileName)" /y
-copy "$(TargetPath)" "$(SolutionDir)Packet\bin\Debug\native\$(TargetFileName)" /y</PostBuildEvent>
-  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

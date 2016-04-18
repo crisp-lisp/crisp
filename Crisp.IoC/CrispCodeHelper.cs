@@ -7,19 +7,19 @@ using Crisp.Parsing;
 using Crisp.Runtime;
 using Crisp.Tokenization;
 
-namespace Crisp
+namespace Crisp.IoC
 {
     /// <summary>
     /// Provides a static factory for creating Crisp runtime instances.
     /// </summary>
-    internal static class CrispCodeHelper
+    public static class CrispCodeHelper
     {
         /// <summary>
         /// Creates a new <see cref="ICrispRuntime"/> instance to run the file at the specified path.
         /// </summary>
         /// <param name="filepath">The path of the input file to create the runtime for.</param>
         /// <returns></returns>
-        internal static ICrispRuntime GetCrispRuntime(string filepath)
+        public static ICrispRuntime GetCrispRuntime(string filepath)
         {
             // Dependency injection.
             var container = new Container();
@@ -30,7 +30,7 @@ namespace Crisp
             container.Register<ITokenListSource, Tokenizer>();
             container.Register<IExpressionTreeSource, Parser>();
             container.Register<IInterpreterDirectoryPathProvider, InterpreterDirectoryPathProvider>();
-            container.Register<IConfigurationProvider, ConfigurationProvider>();
+            container.Register<ICrispConfigurationProvider, CrispConfigurationProvider>();
             container.Register<ISpecialFormDirectoryPathProvider, SpecialFormDirectoryPathProvider>();
             container.Register<ISpecialFormLoader, SpecialFormLoader>();
             container.Register<IEvaluatorFactory, EvaluatorFactory>();
@@ -45,7 +45,7 @@ namespace Crisp
         /// </summary>
         /// <param name="source">The source code to parse.</param>
         /// <returns></returns>
-        internal static IExpressionTreeSource SourceToExpressionTree(string source)
+        public static IExpressionTreeSource SourceToExpressionTree(string source)
         {
             // Dependency injection.
             var container = new Container();
@@ -55,7 +55,7 @@ namespace Crisp
             container.Register<ITokenListSource, Tokenizer>();
             container.Register<IExpressionTreeSource, Parser>();
             container.Verify();
-            
+
             return container.GetInstance<IExpressionTreeSource>(); // Return parsed source.
         }
     }
