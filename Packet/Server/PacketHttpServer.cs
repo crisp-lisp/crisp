@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
+
+using Crisp.IoC;
 using Crisp.Shared;
 using Crisp.Types;
 using Crisp.Visualization;
@@ -251,13 +253,14 @@ namespace Packet.Server
                     var runtime = CrispCodeHelper.GetCrispRuntime(path);
                     var serialized = HttpUtility.UrlEncode(_symbolicExpressionSerializer.Serialize(programResult));
                     var headers = TransformHeadersForCrisp(processor.Headers);
-                    var args = $"\"{processor.HttpUrl}\" \"POST\" \"filename={filename}&programResult={serialized}" +
-                               $"&errorMessage={errorMessage}\" {headers}";
+                    var args = $"(\"{processor.HttpUrl}\" \"POST\" \"filename={filename}&programResult={serialized}" +
+                               $"&errorMessage={errorMessage}\" {headers})";
                     result = runtime.Run(CrispCodeHelper.SourceToExpressionTree(args));
                 }
-                catch
+                catch(Exception ex)
                 {
-                    // If configured 500 error page throws an exception, use default.
+                    // If configured 500 error page throws an exception, use default
+                    Logger.WriteError(ex);
                     ServeDefaultInternalServerErrorPage(processor);
                     return;
                 }
@@ -329,8 +332,8 @@ namespace Packet.Server
                 {
                     var runtime = CrispCodeHelper.GetCrispRuntime(path);
                     var headers = TransformHeadersForCrisp(processor.Headers);
-                    var args = $"\"{processor.HttpUrl}\" \"POST\" \"filename={filename}" +
-                               $"&errorMessage={errorMessage}\" {headers}";
+                    var args = $"(\"{processor.HttpUrl}\" \"POST\" \"filename={filename}" +
+                               $"&errorMessage={errorMessage}\" {headers})";
                     result = runtime.Run(CrispCodeHelper.SourceToExpressionTree(args));
                 }
                 catch
@@ -411,7 +414,7 @@ namespace Packet.Server
                 {
                     var runtime = CrispCodeHelper.GetCrispRuntime(path);
                     var headers = TransformHeadersForCrisp(processor.Headers);
-                    var args = $"\"{processor.HttpUrl}\" \"GET\" nil {headers}";
+                    var args = $"(\"{processor.HttpUrl}\" \"GET\" nil {headers})";
                     result = runtime.Run(CrispCodeHelper.SourceToExpressionTree(args));
                 }
                 catch (Exception ex)
@@ -494,7 +497,7 @@ namespace Packet.Server
                     var runtime = CrispCodeHelper.GetCrispRuntime(path);
                     var encoded = HttpUtility.UrlEncode(posted);
                     var headers = TransformHeadersForCrisp(processor.Headers);
-                    var args = $"\"{processor.HttpUrl}\" \"POST\" \"{encoded}\" {headers}";
+                    var args = $"(\"{processor.HttpUrl}\" \"POST\" \"{encoded}\" {headers})";
                     result = runtime.Run(CrispCodeHelper.SourceToExpressionTree(args));
                 }
                 catch (Exception ex)

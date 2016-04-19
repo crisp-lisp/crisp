@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Crisp.Configuration")]
-[assembly: AssemblyDescription("Crisp configuration assembly.")]
+[assembly: AssemblyTitle("Crisp.Configuration.Tests")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Saul Johnson")]
-[assembly: AssemblyProduct("Crisp.Configuration")]
-[assembly: AssemblyCopyright("Copyright © Saul Johnson 2016")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("Crisp.Configuration.Tests")]
+[assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("86e85b62-cef3-4c87-80e8-1846927a0bef")]
+[assembly: Guid("0c0ad17a-839b-43e5-9c02-87f6db060dbd")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.9.1.0")]
-[assembly: AssemblyFileVersion("0.9.1.0")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]

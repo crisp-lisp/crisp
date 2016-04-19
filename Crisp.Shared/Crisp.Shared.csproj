@@ -43,12 +43,14 @@
     <Compile Include="FileSourceCodeProvider.cs" />
     <Compile Include="IConfiguration.cs" />
     <Compile Include="IConfigurationProvider.cs" />
+    <Compile Include="ICrispConfigurationFileNameProvider.cs" />
     <Compile Include="ICrispRuntime.cs" />
     <Compile Include="IEvaluator.cs" />
     <Compile Include="IEvaluatorFactory.cs" />
     <Compile Include="IExpressionTreeSource.cs" />
     <Compile Include="IInterpreterDirectoryPathProvider.cs" />
     <Compile Include="InterpreterDirectoryPathProvider.cs" />
+    <Compile Include="IRawCrispConfigurationProvider.cs" />
     <Compile Include="ISourceCodeProvider.cs" />
     <Compile Include="ISourceFilePathProvider.cs" />
     <Compile Include="ISpecialFormDirectoryPathProvider.cs" />

@@ -9,6 +9,6 @@
         /// Gets the configuration object.
         /// </summary>
         /// <returns></returns>
-        ICrispConfiguration GetConfiguration();
+        ICrispConfiguration Get();
     }
 }

@@ -29,15 +29,23 @@ namespace Crisp.IO
                 throw new FunctionApplicationException(
                     $"The arguments to the function '{Name}' must all evaluate to the string type.");
             }
-
+            
             // Compute filepath.
             var rawPath = evaluated[0].AsString().Value;
-            var path = rawPath; // Path.IsPathRooted(rawPath) ? rawPath : Path.Combine(evaluator.SourceFolderPath, rawPath);
-            var text = evaluated[1].AsString().Value;
-
+            string path;
+            if (rawPath.StartsWith("~"))
+            {
+                path = rawPath.Replace("~", evaluator.InterpreterDirectory);
+            }
+            else
+            {
+                path = Path.IsPathRooted(rawPath) ? rawPath : Path.Combine(evaluator.SourceFileDirectory, rawPath);
+            }
+            
             // Try to Write file.
             try
             {
+                var text = evaluated[1].AsString().Value;
                 File.WriteAllText(path, text);
                 return new BooleanAtom(true); // Success.
             }

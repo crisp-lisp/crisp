@@ -58,6 +58,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crisp.IoC", "Crisp.IoC\Cris
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crisp.Configuration", "Crisp.Configuration\Crisp.Configuration.csproj", "{86E85B62-CEF3-4C87-80E8-1846927A0BEF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crisp.Configuration.Tests", "Crisp.Configuration.Tests\Crisp.Configuration.Tests.csproj", "{0C0AD17A-839B-43E5-9C02-87F6DB060DBD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -132,6 +134,10 @@ Global
 		{86E85B62-CEF3-4C87-80E8-1846927A0BEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86E85B62-CEF3-4C87-80E8-1846927A0BEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86E85B62-CEF3-4C87-80E8-1846927A0BEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C0AD17A-839B-43E5-9C02-87F6DB060DBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C0AD17A-839B-43E5-9C02-87F6DB060DBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C0AD17A-839B-43E5-9C02-87F6DB060DBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C0AD17A-839B-43E5-9C02-87F6DB060DBD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

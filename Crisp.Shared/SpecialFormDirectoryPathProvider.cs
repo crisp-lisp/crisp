@@ -15,7 +15,7 @@ namespace Crisp.Shared
         public string Get()
         {
             return Path.Combine(_interpreterDirectoryPathProvider.Get(),
-                _configurationProvider.GetConfiguration().SpecialFormDirectory);
+                _configurationProvider.Get().SpecialFormDirectory);
         }
 
         /// <summary>

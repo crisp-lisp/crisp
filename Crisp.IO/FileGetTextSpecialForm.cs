@@ -30,7 +30,15 @@ namespace Crisp.IO
 
             // Compute filepath.
             var rawPath = evaluated.AsString().Value;
-            var path = rawPath; //Path.IsPathRooted(rawPath) ? rawPath : Path.Combine(evaluator.SourceFolderPath, rawPath);
+            string path;
+            if (rawPath.StartsWith("~"))
+            {
+                path = rawPath.Replace("~", evaluator.InterpreterDirectory);
+            }
+            else
+            {
+                path = Path.IsPathRooted(rawPath) ? rawPath : Path.Combine(evaluator.SourceFileDirectory, rawPath);
+            }
 
             // Check file exists
             if (!File.Exists(path))
