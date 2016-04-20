@@ -1,8 +1,6 @@
 ﻿;; Crisp example program. Returns pi.
 ;; Copyright © Saul Johnson 2015-2016
 
-#require "~/lib/math.cspl"
-
 (lambda ()
 	(require "~/lib/math.cspl" 
 		pi))
