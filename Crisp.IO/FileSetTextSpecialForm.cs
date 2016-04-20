@@ -39,7 +39,7 @@ namespace Crisp.IO
             }
             else
             {
-                path = Path.IsPathRooted(rawPath) ? rawPath : Path.Combine(evaluator.SourceFileDirectory, rawPath);
+                path = Path.IsPathRooted(rawPath) ? rawPath : Path.Combine(evaluator.WorkingDirectory, rawPath);
             }
             
             // Try to Write file.

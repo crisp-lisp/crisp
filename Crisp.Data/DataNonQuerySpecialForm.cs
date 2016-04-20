@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 
 using Community.CsharpSqlite.SQLiteClient;
 
@@ -23,7 +24,7 @@ namespace Crisp.Data
 
             // Get arguments.
             var rawPath = evaluator.Evaluate(arguments[0]).AsString().Value;
-            var path = rawPath; //Path.IsPathRooted(rawPath) ? rawPath : Path.Combine(evaluator.SourceFolderPath, rawPath);
+            var path = Path.IsPathRooted(rawPath) ? rawPath : Path.Combine(evaluator.WorkingDirectory, rawPath);
             var query = evaluator.Evaluate(arguments[1]).AsString().Value;
 
             // Execute SQLite command.

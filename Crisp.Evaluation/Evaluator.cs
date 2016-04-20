@@ -20,6 +20,8 @@ namespace Crisp.Evaluation
 
         public string SourceFileDirectory { get; set; }
 
+        public string WorkingDirectory { get; set; }
+
         /// <summary>
         /// Initializes a new instance of an expression evaluator.
         /// </summary>
@@ -44,7 +46,8 @@ namespace Crisp.Evaluation
             {
                 _bindings = newBindings,
                 InterpreterDirectory = InterpreterDirectory,
-                SourceFileDirectory = SourceFileDirectory
+                SourceFileDirectory = SourceFileDirectory,
+                WorkingDirectory = WorkingDirectory
             }; 
         }
 

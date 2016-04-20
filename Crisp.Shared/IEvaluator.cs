@@ -17,6 +17,8 @@ namespace Crisp.Shared
         /// </summary>
         string SourceFileDirectory { get; set; }
 
+        string WorkingDirectory { get; set; }
+
         /// <summary>
         /// Evaluates an expression.
         /// </summary>

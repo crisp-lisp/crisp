@@ -33,10 +33,12 @@ namespace Crisp.Evaluation
         public IEvaluator Get()
         {
             // Create evaluator, specifying working directory and loading special forms.
+            var sourceFileDirectory = Path.GetDirectoryName(_sourceFilePathProvider.Get()); // TODO: Separate out.
             var evaluator = new Evaluator
             {
-                SourceFileDirectory = Path.GetDirectoryName(_sourceFilePathProvider.Get()), // TODO: Separate out.
-                InterpreterDirectory = _interpreterDirectoryPathProvider.Get()
+                SourceFileDirectory = sourceFileDirectory,
+                InterpreterDirectory = _interpreterDirectoryPathProvider.Get(),
+                WorkingDirectory = sourceFileDirectory
             };
             evaluator.Mutate(_specialFormLoader.GetBindings());
 

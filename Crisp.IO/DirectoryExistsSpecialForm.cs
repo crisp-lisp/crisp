@@ -31,7 +31,7 @@ namespace Crisp.IO
 
             // Compute filepath.
             var rawPath = evaluated.AsString().Value;
-            var path = rawPath; //Path.IsPathRooted(rawPath) ? rawPath : Path.Combine(evaluator.SourceFolderPath, rawPath);
+            var path = Path.IsPathRooted(rawPath) ? rawPath : Path.Combine(evaluator.WorkingDirectory, rawPath);
 
             // Return whether or not file exists.
             return new BooleanAtom(Directory.Exists(path));
