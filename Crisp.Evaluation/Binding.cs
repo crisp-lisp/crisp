@@ -3,7 +3,7 @@
 namespace Crisp.Evaluation
 {
     /// <summary>
-    /// Represents a binding between a name and an expression.
+    /// A binding between a name and an expression.
     /// </summary>
     public class Binding
     {

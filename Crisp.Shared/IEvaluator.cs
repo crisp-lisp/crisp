@@ -24,17 +24,21 @@ namespace Crisp.Shared
         /// <returns></returns>
         ISymbolicExpression Evaluate(ISymbolicExpression expression);
 
+        /// <summary>
+        /// Returns a new, identical evaluator.
+        /// </summary>
+        /// <returns></returns>
         IEvaluator Derive();
 
         /// <summary>
-        /// Returns a new evaluator with bindings added between names and expressions.
+        /// Returns a new, identical evaluator with bindings added between names and expressions.
         /// </summary>
         /// <param name="bindings">The bindings to add.</param>
         /// <returns></returns>
         IEvaluator Derive(Dictionary<string, ISymbolicExpression> bindings);
 
         /// <summary>
-        /// Returns a new evaluator with a binding added between a name and expression.
+        /// Returns a new, identical evaluator with a binding added between a name and expression.
         /// </summary>
         /// <param name="name">The name to bind to the expression.</param>
         /// <param name="expression">The expression to bind to the name.</param>
