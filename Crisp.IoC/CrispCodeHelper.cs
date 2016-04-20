@@ -30,6 +30,7 @@ namespace Crisp.IoC
             container.Register<ITokenListSource, Tokenizer>();
             container.Register<IExpressionTreeSource, Parser>();
             container.Register<IInterpreterDirectoryPathProvider, InterpreterDirectoryPathProvider>();
+            container.Register<ICrispConfigurationFileNameProvider>(() => new CrispConfigurationFileNameProvider("crisp.json"));
             container.Register<IRawCrispConfigurationProvider, RawCrispConfigurationProvider>();
             container.Register<ICrispConfigurationProvider, CrispConfigurationProvider>();
             container.Register<ISpecialFormDirectoryPathProvider, SpecialFormDirectoryPathProvider>();
