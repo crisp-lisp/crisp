@@ -3,27 +3,18 @@
 namespace Crisp.Evaluation
 {
     /// <summary>
-    /// A binding between a name and an expression.
+    /// Represents a binding between a name and an expression.
     /// </summary>
     public class Binding : IBinding
     {
         private readonly IEvaluator _evaluator;
         
         private readonly ISymbolicExpression _expression;
-
-        /// <summary>
-        /// Holds the expression once it has been lazily evaluated.
-        /// </summary>
+        
         private ISymbolicExpression _evaluated;
 
-        /// <summary>
-        /// Gets the name that is bound to the expression.
-        /// </summary>
         public string Name { get; }
-
-        /// <summary>
-        /// Gets the expression that is bound to the symbol.
-        /// </summary>
+        
         public ISymbolicExpression Value => _evaluated ?? (_evaluated = _evaluator.Evaluate(_expression));
 
         /// <summary>
