@@ -11,10 +11,7 @@ namespace Crisp.Evaluation
     /// </summary>
     public class Evaluator : IEvaluator
     {
-        /// <summary>
-        /// A list of bindings between symbols and expressions.
-        /// </summary>
-        private List<Binding> _bindings;
+        public IList<IBinding> Bindings { get; set; }
 
         public string InterpreterDirectory { get; set; }
 
@@ -27,7 +24,7 @@ namespace Crisp.Evaluation
         /// </summary>
         public Evaluator()
         {
-            _bindings = new List<Binding>();
+            Bindings = new List<IBinding>();
         }
 
         public IEvaluator Derive()
@@ -38,13 +35,13 @@ namespace Crisp.Evaluation
         public IEvaluator Derive(Dictionary<string, ISymbolicExpression> bindings)
         {
             // We need an all-new list.
-            var newBindings = new List<Binding>(_bindings);
+            var newBindings = new List<IBinding>(Bindings);
             newBindings.AddRange(bindings.Select(b => new Binding(b.Key, b.Value, this)));
 
             // Return an all-new evaluator.
             return new Evaluator
             {
-                _bindings = newBindings,
+                Bindings = newBindings,
                 InterpreterDirectory = InterpreterDirectory,
                 SourceFileDirectory = SourceFileDirectory,
                 WorkingDirectory = WorkingDirectory
@@ -61,12 +58,15 @@ namespace Crisp.Evaluation
 
         public void Mutate(Dictionary<string, ISymbolicExpression> bindings)
         {
-            _bindings.AddRange(bindings.Select(b => new Binding(b.Key, b.Value, this)));
+            foreach (var entry in bindings)
+            {
+                Bindings.Add(new Binding(entry.Key, entry.Value, this));
+            }
         }
 
         public void Mutate(string symbol, ISymbolicExpression expression)
         {
-            _bindings.Add(new Binding(symbol, expression, this));
+            Bindings.Add(new Binding(symbol, expression, this));
         }
 
         /// <summary>
@@ -74,13 +74,13 @@ namespace Crisp.Evaluation
         /// </summary>
         /// <param name="symbol">The symbol to return the binding for.</param>
         /// <returns></returns>
-        private Binding Lookup(SymbolAtom symbol)
+        private IBinding Lookup(SymbolAtom symbol)
         {
             if (!IsBound(symbol))
             {
                 throw new EvaluationException($"Use of name {symbol.Value} which is unbound or outside its scope.");
             }
-            return _bindings.Last(b => b.Name == symbol.Value);
+            return Bindings.Last(b => b.Name == symbol.Value);
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace Crisp.Evaluation
         /// <returns></returns>
         private bool IsBound(SymbolAtom symbol)
         {
-            return _bindings.Any(b => b.Name == symbol.Value);
+            return Bindings.Any(b => b.Name == symbol.Value);
         }
 
         public ISymbolicExpression Evaluate(ISymbolicExpression expression)

@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileSourceCodeProvider.cs" />
+    <Compile Include="IBinding.cs" />
     <Compile Include="IConfiguration.cs" />
     <Compile Include="IConfigurationProvider.cs" />
     <Compile Include="ICrispConfigurationFileNameProvider.cs" />

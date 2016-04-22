@@ -5,7 +5,7 @@ namespace Crisp.Evaluation
     /// <summary>
     /// A binding between a name and an expression.
     /// </summary>
-    public class Binding
+    public class Binding : IBinding
     {
         private readonly IEvaluator _evaluator;
         
