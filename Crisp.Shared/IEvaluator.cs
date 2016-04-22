@@ -8,9 +8,9 @@ namespace Crisp.Shared
     public interface IEvaluator
     {
         /// <summary>
-        /// A list of bindings between symbols and expressions.
+        /// Gets a list of bindings between names and expressions.
         /// </summary>
-        IList<IBinding> Bindings { get; set; }
+        IList<IBinding> Bindings { get; }
 
         /// <summary>
         /// Gets the directory containing the interpreter on-disk.

@@ -11,7 +11,7 @@ namespace Crisp.Evaluation
     /// </summary>
     public class Evaluator : IEvaluator
     {
-        public IList<IBinding> Bindings { get; set; }
+        public IList<IBinding> Bindings { get; private set; }
 
         public string InterpreterDirectory { get; set; }
 

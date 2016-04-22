@@ -19,7 +19,7 @@ namespace Crisp.Evaluation
         /// <summary>
         /// Gets the name that is bound to the expression.
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; }
 
         /// <summary>
         /// Gets the expression that is bound to the symbol.
