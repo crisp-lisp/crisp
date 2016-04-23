@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -25,10 +24,10 @@ namespace Crisp.Evaluation.Tests
         public void TestGet()
         {
             // Configure mock source file path provider.
-            const string mockSourceFilePath = "C:\\fakepath\\source.csp";
-            var mockSourceFilePathProvider = new Mock<ISourceFilePathProvider>();
+            const string mockSourceFileDirectoryPath = "C:\\fakepath\\source";
+            var mockSourceFilePathProvider = new Mock<ISourceFileDirectoryPathProvider>();
             mockSourceFilePathProvider.Setup(obj => obj.Get())
-                .Returns(mockSourceFilePath);
+                .Returns(mockSourceFileDirectoryPath);
 
             // Configure mock interpreter directory path provider.
             const string mockInterpreterDirectoryPath = "C:\\fakepath\\interpreter";
@@ -55,9 +54,8 @@ namespace Crisp.Evaluation.Tests
             var actual = subject.Get();
 
             // Test that evaluator was created correctly.
-            var mockSourceFileDirectory = Path.GetDirectoryName(mockSourceFilePath);
-            Assert.AreEqual(mockSourceFileDirectory, actual.SourceFileDirectory);
-            Assert.AreEqual(mockSourceFileDirectory, actual.WorkingDirectory);
+            Assert.AreEqual(mockSourceFileDirectoryPath, actual.SourceFileDirectory);
+            Assert.AreEqual(mockSourceFileDirectoryPath, actual.WorkingDirectory);
             Assert.AreEqual(mockInterpreterDirectoryPath, actual.InterpreterDirectory);
         }
     }
