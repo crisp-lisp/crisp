@@ -46,7 +46,7 @@ namespace Crisp.Evaluation.Tests
             // We should get the mock evaluator result back.
             Assert.AreEqual(mockEvaluatorResult, value);
 
-            // The evaluator should have been used.
+            // The evaluator should have been used for lazy evaluation.
             mockEvaluator.Verify(obj => obj.Evaluate(mockEvaluatorResult));
         }
     }

@@ -98,7 +98,7 @@ namespace Crisp.Evaluation
             switch (expression.Type)
             {
                 case SymbolicExpressionType.Symbol:
-                    return Lookup(expression.AsSymbol()).Value;
+                    return Lookup(expression.AsSymbol()).Value; // Look up bound value.
                 case SymbolicExpressionType.Pair:
                     var pair = expression.AsPair();
 

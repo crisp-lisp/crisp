@@ -1,5 +1,4 @@
-﻿using System.IO;
-using Crisp.Shared;
+﻿using Crisp.Shared;
 
 namespace Crisp.Evaluation
 {
@@ -8,7 +7,7 @@ namespace Crisp.Evaluation
     /// </summary>
     public class EvaluatorFactory : IEvaluatorFactory
     {
-        private readonly ISourceFilePathProvider _sourceFilePathProvider;
+        private readonly ISourceFileDirectoryPathProvider _sourceFileDirectoryPathProvider;
 
         private readonly IInterpreterDirectoryPathProvider _interpreterDirectoryPathProvider;
 
@@ -17,15 +16,15 @@ namespace Crisp.Evaluation
         /// <summary>
         /// Initializes a new instance of a factory to produce <see cref="IEvaluator"/> instances.
         /// </summary>
-        /// <param name="sourceFilePathProvider"></param>
-        /// <param name="interpreterDirectoryPathProvider">The service to use to retrieve the interpreter directory path.</param>
+        /// <param name="sourceFileDirectoryPathProvider">The source file diretory path provider service.</param>
+        /// <param name="interpreterDirectoryPathProvider">The interpreter directory path provider service.</param>
         /// <param name="specialFormLoader">The service to use to load special forms.</param>
         public EvaluatorFactory(
-            ISourceFilePathProvider sourceFilePathProvider,
+            ISourceFileDirectoryPathProvider sourceFileDirectoryPathProvider,
             IInterpreterDirectoryPathProvider interpreterDirectoryPathProvider, 
             ISpecialFormLoader specialFormLoader)
         {
-            _sourceFilePathProvider = sourceFilePathProvider;
+            _sourceFileDirectoryPathProvider = sourceFileDirectoryPathProvider;
             _interpreterDirectoryPathProvider = interpreterDirectoryPathProvider;
             _specialFormLoader = specialFormLoader;
         }
@@ -33,12 +32,11 @@ namespace Crisp.Evaluation
         public IEvaluator Get()
         {
             // Create evaluator, specifying working directory and loading special forms.
-            var sourceFileDirectory = Path.GetDirectoryName(_sourceFilePathProvider.Get()); // TODO: Separate out.
             var evaluator = new Evaluator
             {
-                SourceFileDirectory = sourceFileDirectory,
+                SourceFileDirectory = _sourceFileDirectoryPathProvider.Get(),
                 InterpreterDirectory = _interpreterDirectoryPathProvider.Get(),
-                WorkingDirectory = sourceFileDirectory
+                WorkingDirectory = _sourceFileDirectoryPathProvider.Get()
             };
             evaluator.Mutate(_specialFormLoader.GetBindings());
 

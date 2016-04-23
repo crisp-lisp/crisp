@@ -24,6 +24,7 @@ namespace Crisp.IoC
             // Dependency injection.
             var container = new Container();
             container.Register<ISourceFilePathProvider>(() => new SourceFilePathProvider(filepath));
+            container.Register<ISourceFileDirectoryPathProvider, SourceFileDirectoryPathProvider>();
             container.Register<ISourceCodeProvider, FileSourceCodeProvider>();
             container.Register(TokenizerConfigurationProviderFactory.GetCrispTokenizerConfigurationProvider);
             container.Register(TokenFilterFactory.GetCommentAndWhitespaceFilter);

@@ -53,6 +53,7 @@
     <Compile Include="InterpreterDirectoryPathProvider.cs" />
     <Compile Include="IRawCrispConfigurationProvider.cs" />
     <Compile Include="ISourceCodeProvider.cs" />
+    <Compile Include="ISourceFileDirectoryPathProvider.cs" />
     <Compile Include="ISourceFilePathProvider.cs" />
     <Compile Include="ISpecialFormDirectoryPathProvider.cs" />
     <Compile Include="ISpecialFormLoader.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider.cs" />
     <Compile Include="SourceCodeProvider.cs" />
+    <Compile Include="SourceFileDirectoryPathProvider.cs" />
     <Compile Include="SourceFilePathProvider.cs" />
     <Compile Include="SpecialFormDirectoryPathProvider.cs" />
     <Compile Include="SymbolicExpressionType.cs" />
