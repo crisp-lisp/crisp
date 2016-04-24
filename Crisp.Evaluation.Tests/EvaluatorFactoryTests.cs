@@ -23,7 +23,7 @@ namespace Crisp.Evaluation.Tests
         [TestMethod]
         public void TestGet()
         {
-            // Configure mock source file path provider.
+            // Configure mock source file directory path provider.
             const string mockSourceFileDirectoryPath = "C:\\fakepath\\source";
             var mockSourceFilePathProvider = new Mock<ISourceFileDirectoryPathProvider>();
             mockSourceFilePathProvider.Setup(obj => obj.Get())

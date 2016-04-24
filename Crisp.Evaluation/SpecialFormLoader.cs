@@ -10,8 +10,7 @@ using Crisp.Types;
 namespace Crisp.Evaluation
 {
     /// <summary>
-    /// An implementation of a special form loader, capable of loading compiled special forms from libraries and 
-    /// returning bindings associating them with their names.
+    /// A service to load compiled special forms from libraries and return bindings associating them with their names.
     /// </summary>
     public class SpecialFormLoader : ISpecialFormLoader
     {
