@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Crisp.Shared
+namespace Crisp.Interfaces
 {
     /// <summary>
     /// Represents a expression evaluator.

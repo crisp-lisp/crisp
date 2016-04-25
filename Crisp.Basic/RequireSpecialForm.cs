@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Crisp.Interfaces;
 using Crisp.IoC;
 using Crisp.Shared;
 using Crisp.Types;

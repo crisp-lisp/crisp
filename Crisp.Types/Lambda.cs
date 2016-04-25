@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-
+using Crisp.Interfaces;
 using Crisp.Shared;
 
 namespace Crisp.Types

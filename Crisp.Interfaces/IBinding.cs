@@ -1,4 +1,4 @@
-﻿namespace Crisp.Shared
+﻿namespace Crisp.Interfaces
 {
     /// <summary>
     /// Represents a binding between a name and an expression.

@@ -3,6 +3,7 @@
 using Crisp.Configuration;
 using Crisp.Evaluation;
 using Crisp.Interfaces;
+using Crisp.Interfaces.Configuration;
 using Crisp.Shared;
 using Crisp.Parsing;
 using Crisp.Runtime;

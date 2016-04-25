@@ -1,5 +1,5 @@
 ﻿using System;
-
+using Crisp.Interfaces;
 using Crisp.Shared;
 
 namespace Crisp.Visualization

@@ -1,4 +1,5 @@
 ﻿using Crisp.Interfaces;
+using Crisp.Interfaces.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using DeepEqual.Syntax;

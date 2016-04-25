@@ -44,6 +44,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Crisp.Interfaces\Crisp.Interfaces.csproj">
+      <Project>{12B92742-736F-4502-BD77-FCFB81E7B53C}</Project>
+      <Name>Crisp.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Crisp.Shared\Crisp.Shared.csproj">
       <Project>{037d2ac9-aca7-42ac-9566-35502f855e7d}</Project>
       <Name>Crisp.Shared</Name>

@@ -117,6 +117,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Crisp.Interfaces\Crisp.Interfaces.csproj">
+      <Project>{12b92742-736f-4502-bd77-fcfb81e7b53c}</Project>
+      <Name>Crisp.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Crisp.IoC\Crisp.IoC.csproj">
       <Project>{e649520c-1798-4a3f-a0ee-20ac5873a14f}</Project>
       <Name>Crisp.IoC</Name>

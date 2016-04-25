@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Moq;
 using Ploeh.AutoFixture;
 
+using Crisp.Interfaces;
 using Crisp.Shared;
 
 namespace Crisp.Evaluation.Tests

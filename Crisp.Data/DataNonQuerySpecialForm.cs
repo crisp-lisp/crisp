@@ -2,7 +2,7 @@
 using System.IO;
 
 using Community.CsharpSqlite.SQLiteClient;
-
+using Crisp.Interfaces;
 using Crisp.Shared;
 using Crisp.Types;
 

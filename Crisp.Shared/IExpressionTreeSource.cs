@@ -1,4 +1,6 @@
-﻿namespace Crisp.Shared
+﻿using Crisp.Interfaces;
+
+namespace Crisp.Shared
 {
     /// <summary>
     /// Represents an expression tree source.

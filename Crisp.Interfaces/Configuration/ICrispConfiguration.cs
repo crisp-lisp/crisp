@@ -1,4 +1,4 @@
-﻿namespace Crisp.Interfaces
+﻿namespace Crisp.Interfaces.Configuration
 {
     /// <summary>
     /// Represents a set of application configuration settings.

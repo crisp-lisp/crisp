@@ -1,4 +1,6 @@
-﻿namespace Crisp.Shared
+﻿using Crisp.Interfaces;
+
+namespace Crisp.Shared
 {
     public interface IEvaluatorFactory
     {

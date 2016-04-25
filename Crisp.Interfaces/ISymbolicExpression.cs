@@ -1,4 +1,4 @@
-﻿namespace Crisp.Shared
+﻿namespace Crisp.Interfaces
 {
     public interface ISymbolicExpression
     {

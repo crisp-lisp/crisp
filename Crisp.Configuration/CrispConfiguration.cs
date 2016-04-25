@@ -1,4 +1,4 @@
-﻿using Crisp.Interfaces;
+﻿using Crisp.Interfaces.Configuration;
 
 namespace Crisp.Configuration
 {

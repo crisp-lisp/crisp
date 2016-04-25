@@ -1,4 +1,4 @@
-﻿namespace Crisp.Interfaces
+﻿namespace Crisp.Interfaces.Configuration
 {
     /// <summary>
     /// Represents a Crisp configuration file name provider service.

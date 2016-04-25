@@ -48,6 +48,10 @@
     <Compile Include="SpecialFormLoader.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Crisp.Interfaces\Crisp.Interfaces.csproj">
+      <Project>{12b92742-736f-4502-bd77-fcfb81e7b53c}</Project>
+      <Name>Crisp.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Crisp.Shared\Crisp.Shared.csproj">
       <Project>{037d2ac9-aca7-42ac-9566-35502f855e7d}</Project>
       <Name>Crisp.Shared</Name>

@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-using Crisp.Shared;
+using Crisp.Interfaces;
 using Crisp.Types;
 
 namespace Crisp.Visualization

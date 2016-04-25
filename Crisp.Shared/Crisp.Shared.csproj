@@ -41,9 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileSourceCodeProvider.cs" />
-    <Compile Include="IBinding.cs" />
     <Compile Include="ICrispRuntime.cs" />
-    <Compile Include="IEvaluator.cs" />
     <Compile Include="IEvaluatorFactory.cs" />
     <Compile Include="IExpressionTreeSource.cs" />
     <Compile Include="IInterpreterDirectoryPathProvider.cs" />
@@ -53,7 +51,6 @@
     <Compile Include="ISourceFilePathProvider.cs" />
     <Compile Include="ISpecialFormDirectoryPathProvider.cs" />
     <Compile Include="ISpecialFormLoader.cs" />
-    <Compile Include="ISymbolicExpression.cs" />
     <Compile Include="IToken.cs" />
     <Compile Include="ITokenFilter.cs" />
     <Compile Include="ITokenizerConfigurationProvider.cs" />
@@ -64,7 +61,6 @@
     <Compile Include="SourceFileDirectoryPathProvider.cs" />
     <Compile Include="SourceFilePathProvider.cs" />
     <Compile Include="SpecialFormDirectoryPathProvider.cs" />
-    <Compile Include="SymbolicExpressionType.cs" />
     <Compile Include="TokenType.cs" />
   </ItemGroup>
   <ItemGroup>
