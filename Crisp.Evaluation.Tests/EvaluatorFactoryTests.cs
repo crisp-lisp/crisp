@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Moq;
@@ -46,17 +46,21 @@ namespace Crisp.Evaluation.Tests
             mockSpecialFormLoader.Setup(obj => obj.GetBindings())
                 .Returns(mockSpecialForms);
 
-            // Create evaluator factory.
+            // Use factory to create evaluator.
             var subject = new EvaluatorFactory(mockSourceFilePathProvider.Object,
                 mockInterpreterDirectoryPathProvider.Object, mockSpecialFormLoader.Object);
-
-            // Use factory to create evaluator.
             var actual = subject.Get();
 
             // Test that evaluator was created correctly.
             Assert.AreEqual(mockSourceFileDirectoryPath, actual.SourceFileDirectory);
             Assert.AreEqual(mockSourceFileDirectoryPath, actual.WorkingDirectory);
             Assert.AreEqual(mockInterpreterDirectoryPath, actual.InterpreterDirectory);
+
+            // Check that bindings were passed in properly.
+            var binding = actual.Bindings.FirstOrDefault();
+            Assert.IsNotNull(binding);
+            Assert.AreEqual(mockName, binding.Name);
+            Assert.AreEqual(mockSpecialForm, binding.Expression);
         }
     }
 }

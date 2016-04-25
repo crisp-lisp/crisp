@@ -7,15 +7,15 @@ namespace Crisp.Evaluation
     /// </summary>
     public class Binding : IBinding
     {
-        private readonly ISymbolicExpression _expression;
-        
         private ISymbolicExpression _evaluated;
 
         public IEvaluator Evaluator { get; }
 
         public string Name { get; }
+
+        public ISymbolicExpression Expression { get; }
         
-        public ISymbolicExpression Value => _evaluated ?? (_evaluated = Evaluator.Evaluate(_expression));
+        public ISymbolicExpression Value => _evaluated ?? (_evaluated = Evaluator.Evaluate(Expression));
 
         /// <summary>
         /// Initializes a new instance of a binding between a name and an expression.
@@ -26,7 +26,7 @@ namespace Crisp.Evaluation
         public Binding(string name, ISymbolicExpression expression, IEvaluator evaluator)
         {
             Name = name;
-            _expression = expression;
+            Expression = expression;
             Evaluator = evaluator;
         }
     }

@@ -16,7 +16,12 @@
         string Name { get; }
 
         /// <summary>
-        /// Gets the expression that is bound to the symbol.
+        /// Gets the unevaluated expression that is bound to the symbol.
+        /// </summary>
+        ISymbolicExpression Expression { get; }
+
+        /// <summary>
+        /// Gets the evaluated expression that is bound to the symbol.
         /// </summary>
         ISymbolicExpression Value { get; }
     }
