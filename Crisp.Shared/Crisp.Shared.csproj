@@ -42,16 +42,12 @@
   <ItemGroup>
     <Compile Include="FileSourceCodeProvider.cs" />
     <Compile Include="IBinding.cs" />
-    <Compile Include="IConfiguration.cs" />
-    <Compile Include="IConfigurationProvider.cs" />
-    <Compile Include="ICrispConfigurationFileNameProvider.cs" />
     <Compile Include="ICrispRuntime.cs" />
     <Compile Include="IEvaluator.cs" />
     <Compile Include="IEvaluatorFactory.cs" />
     <Compile Include="IExpressionTreeSource.cs" />
     <Compile Include="IInterpreterDirectoryPathProvider.cs" />
     <Compile Include="InterpreterDirectoryPathProvider.cs" />
-    <Compile Include="IRawCrispConfigurationProvider.cs" />
     <Compile Include="ISourceCodeProvider.cs" />
     <Compile Include="ISourceFileDirectoryPathProvider.cs" />
     <Compile Include="ISourceFilePathProvider.cs" />
@@ -70,6 +66,12 @@
     <Compile Include="SpecialFormDirectoryPathProvider.cs" />
     <Compile Include="SymbolicExpressionType.cs" />
     <Compile Include="TokenType.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Crisp.Interfaces\Crisp.Interfaces.csproj">
+      <Project>{12b92742-736f-4502-bd77-fcfb81e7b53c}</Project>
+      <Name>Crisp.Interfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

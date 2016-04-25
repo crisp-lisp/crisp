@@ -1,12 +1,12 @@
-﻿namespace Crisp.Shared
+﻿namespace Crisp.Interfaces
 {
     /// <summary>
-    /// Represents an application configuration settings provider.
+    /// Represents an application configuration settings provider service.
     /// </summary>
     public interface ICrispConfigurationProvider
     {
         /// <summary>
-        /// Gets the configuration object.
+        /// Gets the application configuration settings.
         /// </summary>
         /// <returns></returns>
         ICrispConfiguration Get();

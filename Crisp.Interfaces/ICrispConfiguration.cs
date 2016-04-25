@@ -1,5 +1,8 @@
-﻿namespace Crisp.Shared
+﻿namespace Crisp.Interfaces
 {
+    /// <summary>
+    /// Represents a set of application configuration settings.
+    /// </summary>
     public interface ICrispConfiguration
     {
         /// <summary>

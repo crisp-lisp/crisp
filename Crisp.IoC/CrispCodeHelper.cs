@@ -2,6 +2,7 @@
 
 using Crisp.Configuration;
 using Crisp.Evaluation;
+using Crisp.Interfaces;
 using Crisp.Shared;
 using Crisp.Parsing;
 using Crisp.Runtime;

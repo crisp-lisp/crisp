@@ -1,12 +1,10 @@
 ﻿using System.IO;
 
+using Crisp.Interfaces;
 using Crisp.Shared;
 
 namespace Crisp.Configuration
 {
-    /// <summary>
-    /// An implementation of a service to load the raw text of a Crisp configuration file.
-    /// </summary>
     public class RawCrispConfigurationProvider : Provider<string>, IRawCrispConfigurationProvider
     {
         /// <summary>
@@ -23,7 +21,7 @@ namespace Crisp.Configuration
                 crispConfigurationFileNameProvider.Get());
             if (!File.Exists(path))
             {
-                throw new FileLoadException($"Could not load Crisp configuration file at '{path}'.");
+                throw new FileNotFoundException($"Crisp configuration file at '{path}' not found.");
             }
 
             // Return file text.

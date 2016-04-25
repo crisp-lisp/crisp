@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Crisp.Interfaces;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using DeepEqual.Syntax;
 using Moq;

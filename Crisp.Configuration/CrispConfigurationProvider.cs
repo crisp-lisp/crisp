@@ -1,12 +1,10 @@
 ﻿using Newtonsoft.Json;
 
+using Crisp.Interfaces;
 using Crisp.Shared;
 
 namespace Crisp.Configuration
 {
-    /// <summary>
-    /// An implementation of an application configuration settings provider service.
-    /// </summary>
     public class CrispConfigurationProvider : Provider<ICrispConfiguration>, ICrispConfigurationProvider
     {
         /// <summary>
@@ -16,7 +14,7 @@ namespace Crisp.Configuration
         public CrispConfigurationProvider(IRawCrispConfigurationProvider rawCrispConfigurationProvider)
         {
             var rawConfigurationFileText = rawCrispConfigurationProvider.Get();
-            Value = JsonConvert.DeserializeObject<CrispConfiguration>(rawConfigurationFileText);
+            Value = JsonConvert.DeserializeObject<CrispConfiguration>(rawConfigurationFileText); // Use JSON.
         }
     }
 }
