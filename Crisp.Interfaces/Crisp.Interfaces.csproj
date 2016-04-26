@@ -40,12 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IBinding.cs" />
+    <Compile Include="Evaluation\IBinding.cs" />
     <Compile Include="Configuration\ICrispConfiguration.cs" />
     <Compile Include="Configuration\ICrispConfigurationProvider.cs" />
     <Compile Include="Configuration\ICrispConfigurationFileNameProvider.cs" />
-    <Compile Include="IEvaluator.cs" />
+    <Compile Include="Evaluation\IEvaluator.cs" />
     <Compile Include="Configuration\IRawCrispConfigurationProvider.cs" />
+    <Compile Include="Evaluation\IEvaluatorFactory.cs" />
+    <Compile Include="Evaluation\ISpecialFormLoader.cs" />
     <Compile Include="ISymbolicExpression.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SymbolicExpressionType.cs" />

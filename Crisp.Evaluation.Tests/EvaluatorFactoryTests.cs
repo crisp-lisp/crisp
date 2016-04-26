@@ -7,6 +7,7 @@ using Moq;
 using Ploeh.AutoFixture;
 
 using Crisp.Interfaces;
+using Crisp.Interfaces.Evaluation;
 using Crisp.Shared;
 
 namespace Crisp.Evaluation.Tests

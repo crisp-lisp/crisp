@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Binding.cs" />
+    <Compile Include="CachingSpecialFormLoader.cs" />
     <Compile Include="Evaluator.cs" />
     <Compile Include="EvaluatorFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

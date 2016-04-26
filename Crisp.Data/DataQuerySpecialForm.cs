@@ -4,6 +4,7 @@ using System.Linq;
 
 using Community.CsharpSqlite.SQLiteClient;
 using Crisp.Interfaces;
+using Crisp.Interfaces.Evaluation;
 using Crisp.Shared;
 using Crisp.Types;
 

@@ -1,11 +1,8 @@
-﻿using Crisp.Interfaces;
+﻿using Crisp.Interfaces.Evaluation;
 using Crisp.Shared;
 
 namespace Crisp.Evaluation
 {
-    /// <summary>
-    /// A factory to produce <see cref="IEvaluator"/> instances.
-    /// </summary>
     public class EvaluatorFactory : IEvaluatorFactory
     {
         private readonly ISourceFileDirectoryPathProvider _sourceFileDirectoryPathProvider;
@@ -15,7 +12,7 @@ namespace Crisp.Evaluation
         private readonly ISpecialFormLoader _specialFormLoader;
 
         /// <summary>
-        /// Initializes a new instance of a factory to produce <see cref="IEvaluator"/> instances.
+        /// Initializes a new instance of a factory for producing <see cref="IEvaluator"/> instances.
         /// </summary>
         /// <param name="sourceFileDirectoryPathProvider">The source file diretory path provider service.</param>
         /// <param name="interpreterDirectoryPathProvider">The interpreter directory path provider service.</param>

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using Crisp.Interfaces;
+using Crisp.Interfaces.Evaluation;
 using Crisp.Shared;
 using Crisp.Types;
 

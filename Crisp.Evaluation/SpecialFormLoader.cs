@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+
 using Crisp.Interfaces;
+using Crisp.Interfaces.Evaluation;
 using Crisp.Shared;
 using Crisp.Types;
 
 namespace Crisp.Evaluation
 {
-    /// <summary>
-    /// A service to load compiled special forms from libraries and return bindings associating them with their names.
-    /// </summary>
     public class SpecialFormLoader : ISpecialFormLoader
     {
         private readonly ISpecialFormDirectoryPathProvider _specialFormDirectoryPathProvider;
@@ -29,7 +28,7 @@ namespace Crisp.Evaluation
                 && type.BaseType == typeof(SpecialForm);
         }
 
-        public Dictionary<string, ISymbolicExpression> GetBindings()
+        public virtual Dictionary<string, ISymbolicExpression> GetBindings()
         {
             // Prepare list of definitions to pass back.
             var definitions = new Dictionary<string, ISymbolicExpression>();
@@ -56,9 +55,9 @@ namespace Crisp.Evaluation
         }
 
         /// <summary>
-        /// Initializes a new instance of a special form loader.
+        /// Initializes a new instance of a special form loading service.
         /// </summary>
-        /// <param name="specialFormDirectoryPathProvider">A service capable of returning the special form directory path.</param>
+        /// <param name="specialFormDirectoryPathProvider">The special form directory path provider service.</param>
         public SpecialFormLoader(ISpecialFormDirectoryPathProvider specialFormDirectoryPathProvider)
         {
             _specialFormDirectoryPathProvider = specialFormDirectoryPathProvider;

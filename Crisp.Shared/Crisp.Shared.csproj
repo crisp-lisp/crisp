@@ -42,7 +42,6 @@
   <ItemGroup>
     <Compile Include="FileSourceCodeProvider.cs" />
     <Compile Include="ICrispRuntime.cs" />
-    <Compile Include="IEvaluatorFactory.cs" />
     <Compile Include="IExpressionTreeSource.cs" />
     <Compile Include="IInterpreterDirectoryPathProvider.cs" />
     <Compile Include="InterpreterDirectoryPathProvider.cs" />
@@ -50,7 +49,6 @@
     <Compile Include="ISourceFileDirectoryPathProvider.cs" />
     <Compile Include="ISourceFilePathProvider.cs" />
     <Compile Include="ISpecialFormDirectoryPathProvider.cs" />
-    <Compile Include="ISpecialFormLoader.cs" />
     <Compile Include="IToken.cs" />
     <Compile Include="ITokenFilter.cs" />
     <Compile Include="ITokenizerConfigurationProvider.cs" />

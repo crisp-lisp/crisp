@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Crisp.Interfaces
+namespace Crisp.Interfaces.Evaluation
 {
     /// <summary>
     /// Represents a expression evaluator.
@@ -13,15 +13,18 @@ namespace Crisp.Interfaces
         IList<IBinding> Bindings { get; }
 
         /// <summary>
-        /// Gets the directory containing the interpreter on-disk.
+        /// Gets the path of the directory containing the interpreter executable.
         /// </summary>
         string InterpreterDirectory { get; set; }
 
         /// <summary>
-        /// Gets the directory containing the source file on-disk.
+        /// Gets the path of the directory containing the source file.
         /// </summary>
         string SourceFileDirectory { get; set; }
-
+        
+        /// <summary>
+        /// Gets the path of the directory that relative paths should begin at.
+        /// </summary>
         string WorkingDirectory { get; set; }
 
         /// <summary>
@@ -38,6 +41,13 @@ namespace Crisp.Interfaces
         IEvaluator Derive();
 
         /// <summary>
+        /// Returns a new, identical evaluator containing a new set of bindings.
+        /// </summary>
+        /// <param name="bindings">The bindings to add.</param>
+        /// <returns></returns>
+        IEvaluator Derive(IList<IBinding> bindings);
+
+        /// <summary>
         /// Returns a new, identical evaluator with bindings added between names and expressions.
         /// </summary>
         /// <param name="bindings">The bindings to add.</param>
@@ -51,6 +61,12 @@ namespace Crisp.Interfaces
         /// <param name="expression">The expression to bind to the name.</param>
         /// <returns></returns>
         IEvaluator Derive(string name, ISymbolicExpression expression);
+
+        /// <summary>
+        /// Adds a new set of bindings to this evaluator.
+        /// </summary>
+        /// <param name="bindings">The bindings to add.</param>
+        void Mutate(IList<IBinding> bindings);
 
         /// <summary>
         /// Binds names to expressions in this evaluator.

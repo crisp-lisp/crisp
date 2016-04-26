@@ -1,4 +1,5 @@
 ﻿using Crisp.Interfaces;
+using Crisp.Interfaces.Evaluation;
 using Crisp.Shared;
 
 namespace Crisp.Types

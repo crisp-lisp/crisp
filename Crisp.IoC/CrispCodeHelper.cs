@@ -2,8 +2,8 @@
 
 using Crisp.Configuration;
 using Crisp.Evaluation;
-using Crisp.Interfaces;
 using Crisp.Interfaces.Configuration;
+using Crisp.Interfaces.Evaluation;
 using Crisp.Shared;
 using Crisp.Parsing;
 using Crisp.Runtime;
@@ -37,7 +37,7 @@ namespace Crisp.IoC
             container.Register<IRawCrispConfigurationProvider, RawCrispConfigurationProvider>();
             container.Register<ICrispConfigurationProvider, CrispConfigurationProvider>();
             container.Register<ISpecialFormDirectoryPathProvider, SpecialFormDirectoryPathProvider>();
-            container.Register<ISpecialFormLoader, SpecialFormLoader>();
+            container.Register<ISpecialFormLoader, CachingSpecialFormLoader>();
             container.Register<IEvaluatorFactory, EvaluatorFactory>();
             container.Register<ICrispRuntime, CrispRuntime>();
             container.Verify();

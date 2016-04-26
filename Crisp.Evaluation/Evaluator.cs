@@ -2,14 +2,11 @@
 using System.Linq;
 
 using Crisp.Interfaces;
-using Crisp.Shared;
+using Crisp.Interfaces.Evaluation;
 using Crisp.Types;
 
 namespace Crisp.Evaluation
 {
-    /// <summary>
-    /// An implementation of an expression evaluator.
-    /// </summary>
     public class Evaluator : IEvaluator
     {
         public IList<IBinding> Bindings { get; private set; }
@@ -28,16 +25,10 @@ namespace Crisp.Evaluation
             Bindings = new List<IBinding>();
         }
 
-        public IEvaluator Derive()
-        {
-            return Derive(new Dictionary<string, ISymbolicExpression>());
-        }
-
-        public IEvaluator Derive(Dictionary<string, ISymbolicExpression> bindings)
+        public IEvaluator Derive(IList<IBinding> bindings)
         {
             // We need an all-new list.
-            var newBindings = new List<IBinding>(Bindings);
-            newBindings.AddRange(bindings.Select(b => new Binding(b.Key, b.Value, this)));
+            var newBindings = Bindings.Concat(bindings).ToList();
 
             // Return an all-new evaluator.
             return new Evaluator
@@ -46,28 +37,37 @@ namespace Crisp.Evaluation
                 InterpreterDirectory = InterpreterDirectory,
                 SourceFileDirectory = SourceFileDirectory,
                 WorkingDirectory = WorkingDirectory
-            }; 
+            };
+        }
+
+        public IEvaluator Derive()
+        {
+            return Derive(new List<IBinding>());
+        }
+
+        public IEvaluator Derive(Dictionary<string, ISymbolicExpression> bindings)
+        {
+            return Derive(bindings.Select(b => new Binding(b.Key, b.Value, this) as IBinding).ToList());
         }
 
         public IEvaluator Derive(string name, ISymbolicExpression expression)
         {
-            return Derive(new Dictionary<string, ISymbolicExpression>
-            {
-                {name, expression}
-            });
+            return Derive(new IBinding[] {new Binding(name, expression, this)});
+        }
+
+        public void Mutate(IList<IBinding> bindings)
+        {
+            Bindings = Bindings.Concat(bindings).ToList();
         }
 
         public void Mutate(Dictionary<string, ISymbolicExpression> bindings)
         {
-            foreach (var entry in bindings)
-            {
-                Bindings.Add(new Binding(entry.Key, entry.Value, this));
-            }
+            Mutate(bindings.Select(b => new Binding(b.Key, b.Value, this) as IBinding).ToList());
         }
 
-        public void Mutate(string symbol, ISymbolicExpression expression)
+        public void Mutate(string name, ISymbolicExpression expression)
         {
-            Bindings.Add(new Binding(symbol, expression, this));
+            Mutate(new IBinding[] { new Binding(name, expression, this) });
         }
 
         /// <summary>
@@ -117,7 +117,9 @@ namespace Crisp.Evaluation
                             return function.Apply(args, this);
                         }  
                     }
-                    return new Pair(Evaluate(pair.Head), Evaluate(pair.Tail)); // Evaluate pair.
+
+                    // Evaluate pair.
+                    return new Pair(Evaluate(pair.Head), Evaluate(pair.Tail)); 
                 default:
                     return expression; // Non-symbol atoms evaluate to themselves.
             }

@@ -1,20 +1,17 @@
 ﻿using Crisp.Interfaces;
-using Crisp.Shared;
+using Crisp.Interfaces.Evaluation;
 
 namespace Crisp.Evaluation
 {
-    /// <summary>
-    /// Represents a binding between a name and an expression.
-    /// </summary>
     public class Binding : IBinding
     {
         private ISymbolicExpression _evaluated;
 
-        public IEvaluator Evaluator { get; }
-
         public string Name { get; }
 
         public ISymbolicExpression Expression { get; }
+
+        public IEvaluator Evaluator { get; }
         
         public ISymbolicExpression Value => _evaluated ?? (_evaluated = Evaluator.Evaluate(Expression));
 

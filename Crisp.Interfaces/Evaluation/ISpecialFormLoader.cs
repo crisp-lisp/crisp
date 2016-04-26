@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
-using Crisp.Interfaces;
 
-namespace Crisp.Shared
+namespace Crisp.Interfaces.Evaluation
 {
     /// <summary>
-    /// Represents a special form loader, capable of loading compiled special forms from libraries and returning 
-    /// bindings associating them with their names.
+    /// Represents a special form loading service.
     /// </summary>
     public interface ISpecialFormLoader
     {
