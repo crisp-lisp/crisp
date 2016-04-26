@@ -8,8 +8,7 @@ namespace Crisp.Interfaces.Evaluation
     public interface ISpecialFormLoader
     {
         /// <summary>
-        /// Gets bindings associating all compiled special forms residing in files within the configured directory with
-        /// their names.
+        /// Gets a dictionary of loaded special form names against their bound expressions.
         /// </summary>
         /// <returns></returns>
         Dictionary<string, ISymbolicExpression> GetBindings();

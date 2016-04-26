@@ -59,7 +59,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="MockTokenFilterFactory.cs" />
-    <Compile Include="MockTokenSourceFactory.cs" />
+    <Compile Include="MockTokenListSourceFactory.cs" />
     <Compile Include="ParserTests.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

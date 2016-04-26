@@ -16,7 +16,7 @@ namespace Crisp.Parsing.Tests
              */
             
             // Parse and serialize expression tree.
-            var subject = new Parser(MockTokenSourceFactory.GetProperListTokenSource(), 
+            var subject = new Parser(MockTokenListSourceFactory.GetProperListTokenListSource(), 
                 MockTokenFilterFactory.GetMockTokenFilter());
             var actual = JsonConvert.SerializeObject(subject.Get());
             
@@ -33,7 +33,7 @@ namespace Crisp.Parsing.Tests
              */
 
             // Parse and serialize expression tree.
-            var subject = new Parser(MockTokenSourceFactory.GetImproperListTokenSource(),
+            var subject = new Parser(MockTokenListSourceFactory.GetImproperListTokenListSource(),
                 MockTokenFilterFactory.GetMockTokenFilter());
             var actual = JsonConvert.SerializeObject(subject.Get());
 
@@ -49,7 +49,7 @@ namespace Crisp.Parsing.Tests
              * that a failure takes place as expected.
              */
 
-            var subject = new Parser(MockTokenSourceFactory.GetMismatchedBracketsTokenSource(),
+            var subject = new Parser(MockTokenListSourceFactory.GetMismatchedBracketsTokenListSource(),
                 MockTokenFilterFactory.GetMockTokenFilter());
             try
             {
@@ -75,7 +75,7 @@ namespace Crisp.Parsing.Tests
              */
 
             // Parse and serialize expression tree.
-            var subject = new Parser(MockTokenSourceFactory.GetNilBracketsTokenSource(),
+            var subject = new Parser(MockTokenListSourceFactory.GetNilBracketsTokenListSource(),
                 MockTokenFilterFactory.GetMockTokenFilter());
             var actual = JsonConvert.SerializeObject(subject.Get());
 
@@ -91,7 +91,7 @@ namespace Crisp.Parsing.Tests
              * that failure.
              */
 
-            var subject = new Parser(MockTokenSourceFactory.GetHeadlessPairTokenSource(),
+            var subject = new Parser(MockTokenListSourceFactory.GetHeadlessPairTokenListSource(),
                 MockTokenFilterFactory.GetMockTokenFilter());
             try
             {
@@ -116,7 +116,7 @@ namespace Crisp.Parsing.Tests
              * test checks for that failure.
              */
 
-            var subject = new Parser(MockTokenSourceFactory.GetDottedTripletTokenSource(),
+            var subject = new Parser(MockTokenListSourceFactory.GetDottedTripletTokenListSource(),
                 MockTokenFilterFactory.GetMockTokenFilter());
             try
             {
@@ -141,7 +141,7 @@ namespace Crisp.Parsing.Tests
              * this can't be evaluated and parsing should fail. This test checks for that failure.
              */
 
-            var subject = new Parser(MockTokenSourceFactory.GetFreestandingExpressionsTokenSource(),
+            var subject = new Parser(MockTokenListSourceFactory.GetFreestandingExpressionsTokenListSource(),
                 MockTokenFilterFactory.GetMockTokenFilter());
             try
             {
@@ -167,7 +167,7 @@ namespace Crisp.Parsing.Tests
              */
 
             // Parse and serialize expression tree.
-            var subject = new Parser(MockTokenSourceFactory.GetImplicitDottedPairTokenSource(),
+            var subject = new Parser(MockTokenListSourceFactory.GetImplicitDottedPairTokenListSource(),
                 MockTokenFilterFactory.GetMockTokenFilter());
             var actual = JsonConvert.SerializeObject(subject.Get());
 
