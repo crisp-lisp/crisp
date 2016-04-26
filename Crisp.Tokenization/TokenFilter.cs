@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-
+using Crisp.Enums;
+using Crisp.Interfaces.Tokenization;
 using Crisp.Shared;
 
 namespace Crisp.Tokenization

@@ -1,6 +1,4 @@
-﻿using Crisp.Interfaces;
-
-namespace Crisp.Shared
+﻿namespace Crisp.Interfaces.Parsing
 {
     /// <summary>
     /// Represents an expression tree source.

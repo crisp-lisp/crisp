@@ -1,4 +1,6 @@
-﻿using Crisp.Shared;
+﻿using Crisp.Enums;
+using Crisp.Interfaces.Tokenization;
+using Crisp.Shared;
 
 namespace Crisp.Parsing
 {

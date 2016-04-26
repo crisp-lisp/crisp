@@ -42,24 +42,18 @@
   <ItemGroup>
     <Compile Include="FileSourceCodeProvider.cs" />
     <Compile Include="ICrispRuntime.cs" />
-    <Compile Include="IExpressionTreeSource.cs" />
     <Compile Include="IInterpreterDirectoryPathProvider.cs" />
     <Compile Include="InterpreterDirectoryPathProvider.cs" />
     <Compile Include="ISourceCodeProvider.cs" />
     <Compile Include="ISourceFileDirectoryPathProvider.cs" />
     <Compile Include="ISourceFilePathProvider.cs" />
     <Compile Include="ISpecialFormDirectoryPathProvider.cs" />
-    <Compile Include="IToken.cs" />
-    <Compile Include="ITokenFilter.cs" />
-    <Compile Include="ITokenizerConfigurationProvider.cs" />
-    <Compile Include="ITokenListSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider.cs" />
     <Compile Include="SourceCodeProvider.cs" />
     <Compile Include="SourceFileDirectoryPathProvider.cs" />
     <Compile Include="SourceFilePathProvider.cs" />
     <Compile Include="SpecialFormDirectoryPathProvider.cs" />
-    <Compile Include="TokenType.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Crisp.Interfaces\Crisp.Interfaces.csproj">

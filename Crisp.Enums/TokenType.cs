@@ -1,4 +1,4 @@
-﻿namespace Crisp.Shared
+﻿namespace Crisp.Enums
 {
     /// <summary>
     /// An enumeration of token types.

@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Crisp.Shared
+using Crisp.Enums;
+
+namespace Crisp.Interfaces.Tokenization
 {
     public interface ITokenizerConfigurationProvider
     {

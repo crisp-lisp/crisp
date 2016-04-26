@@ -1,4 +1,6 @@
-﻿namespace Crisp.Shared
+﻿using Crisp.Enums;
+
+namespace Crisp.Interfaces.Tokenization
 {
     /// <summary>
     /// Represents a token.

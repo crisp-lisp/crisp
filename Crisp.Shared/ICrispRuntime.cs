@@ -1,4 +1,5 @@
 ﻿using Crisp.Interfaces;
+using Crisp.Interfaces.Parsing;
 
 namespace Crisp.Shared
 {

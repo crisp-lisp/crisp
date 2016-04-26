@@ -1,5 +1,5 @@
 ﻿using System.Text.RegularExpressions;
-
+using Crisp.Enums;
 using Crisp.Shared;
 
 namespace Crisp.Tokenization

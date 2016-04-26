@@ -1,14 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-
+using Crisp.Enums;
 using Crisp.Interfaces;
+using Crisp.Interfaces.Parsing;
+using Crisp.Interfaces.Tokenization;
 using Crisp.Shared;
 using Crisp.Types;
 
 namespace Crisp.Parsing
 {
     /// <summary>
-    /// An implementation of a parser.
+    /// Represents a parser.
     /// </summary>
     public class Parser : IExpressionTreeSource
     {
@@ -20,7 +22,7 @@ namespace Crisp.Parsing
         /// Initializes a new instance of a parser.
         /// </summary>
         /// <param name="tokenListSource">The source of the tokens to parse.</param>
-        /// <param name="tokenFilter"></param>
+        /// <param name="tokenFilter">The filter to use to remove non-parsable tokens.</param>
         public Parser(ITokenListSource tokenListSource, ITokenFilter tokenFilter)
         {
             _tokenListSource = tokenListSource;
@@ -28,7 +30,7 @@ namespace Crisp.Parsing
         }
 
         /// <summary>
-        /// Returns true if the given token list represents a list expression, otherwise return false.
+        /// Returns true if the given token list represents a list expression, otherwise returns false.
         /// </summary>
         /// <param name="tokens">The token list to check.</param>
         /// <returns></returns>
@@ -58,13 +60,13 @@ namespace Crisp.Parsing
         }
 
         /// <summary>
-        /// Encloses a list of tokens in brackets.
+        /// Encloses a list of tokens in implicit parentheses.
         /// </summary>
         /// <param name="tokens">The token list to enclose.</param>
         /// <returns></returns>
         private static IList<IToken> AddBrackets(IEnumerable<IToken> tokens)
         {
-            var brackets = new List<IToken>()
+            var brackets = new List<IToken>
             {
                 new ImplicitOpeningParenthesis(),
                 new ImplicitClosingParenthesis()
@@ -74,7 +76,7 @@ namespace Crisp.Parsing
         }
 
         /// <summary>
-        /// Parses a list of tokens into an expression.
+        /// Parses a list of tokens and returns the resulting expression.
         /// </summary>
         /// <param name="tokens">The token list to parse.</param>
         /// <returns></returns>
@@ -84,8 +86,8 @@ namespace Crisp.Parsing
             if (IsSingleList(tokens))
             {
                 /* 
-                 * If brackets were in the source code, this might be a function application. Otherwise
-                 * they're implicit brackets added by the parser and shouldn't be interpreted this way. 
+                 * If brackets were in the source code, this might be a function application. Otherwise they're 
+                 * implicit brackets added by the parser and shouldn't be interpreted this way. 
                  */
                 var isExplicitlyBracketed = tokens.First().GetType() != typeof (ImplicitOpeningParenthesis); 
 
@@ -113,8 +115,8 @@ namespace Crisp.Parsing
                     if (excess.Count != 0)
                     {
                         var prob = excess.First();
-                        throw new ParsingException("Dotted pair contains too many elements at" +
-                                                   $" line {prob.Line} column {prob.Column}.", excess.First());
+                        throw new ParsingException($"Dotted pair contains too many elements at line {prob.Line} " +
+                                                   $"column {prob.Column}.", excess.First());
                     }
 
                     // Return cons cell.
@@ -129,8 +131,8 @@ namespace Crisp.Parsing
             var first = tokens.First();
             if (tokens.Count > 1)
             {
-                throw new ParsingException("Freestanding expressions must be inside a list at" +
-                                           $" line {first.Line} column {first.Column}.", first);
+                throw new ParsingException($"Freestanding expressions must be inside a list at line {first.Line} " +
+                                           $"column {first.Column}.", first);
             }
             
             // Turn token into atom.
@@ -149,11 +151,11 @@ namespace Crisp.Parsing
                 case TokenType.Nil:
                     return new Nil();
                 case TokenType.Dot:
-                    throw new ParsingException("Encountered unexpected dot notation at" +
-                                               $" line {first.Line} column {first.Column}.", first);
+                    throw new ParsingException($"Encountered unexpected dot notation at line {first.Line} column" +
+                                               $"{first.Column}.", first);
                 default:
-                    throw new ParsingException("Encountered unknown token type at" +
-                                               $" line {first.Line} column {first.Column}.", first);
+                    throw new ParsingException($"Encountered unknown token type at line {first.Line} column " +
+                                               $"{first.Column}.", first);
             }
         }
 
