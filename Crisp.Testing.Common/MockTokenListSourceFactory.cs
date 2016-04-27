@@ -5,7 +5,7 @@ using Moq;
 using Crisp.Enums;
 using Crisp.Interfaces.Tokenization;
 
-namespace Crisp.Parsing.Tests
+namespace Crisp.Testing.Common
 {
     /// <summary>
     /// A helper class for producing mock <see cref="ITokenListSource"/> instances.

@@ -2,6 +2,8 @@
 
 using Newtonsoft.Json;
 
+using Crisp.Testing.Common;
+
 namespace Crisp.Parsing.Tests
 {
     [TestClass]

@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8E3A8511-EBA8-4DA0-A6DE-7EDDE2112511}</ProjectGuid>
+    <ProjectGuid>{0A40C3EA-EA1F-4F83-874F-46A17AEA7C82}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Crisp.Parsing.Tests</RootNamespace>
-    <AssemblyName>Crisp.Parsing.Tests</AssemblyName>
+    <RootNamespace>Crisp.Tokenization.Tests</RootNamespace>
+    <AssemblyName>Crisp.Tokenization.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -35,10 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -49,19 +45,16 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+          <Private>False</Private>
+        </Reference>
       </ItemGroup>
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ParserTests.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
+    <Compile Include="TokenFilterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TokenStreamTests.cs" />
+    <Compile Include="UnitTest2.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Crisp.Enums\Crisp.Enums.csproj">
@@ -72,35 +65,14 @@
       <Project>{12b92742-736f-4502-bd77-fcfb81e7b53c}</Project>
       <Name>Crisp.Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Crisp.Parsing\Crisp.Parsing.csproj">
-      <Project>{68c3e451-5638-49e4-8f17-d2794074d3ae}</Project>
-      <Name>Crisp.Parsing</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Crisp.Testing.Common\Crisp.Testing.Common.csproj">
       <Project>{858f214f-bff4-436d-aaa6-5c664936a670}</Project>
       <Name>Crisp.Testing.Common</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ParserBuildsProperLists_Expected.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ParserShouldUseDotNotation_Expected.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ParserShouldTurnEmptyBracketsIntoNil_Expected.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ParserShouldNotFailOnImplicitDottedPair_Expected.txt" />
+    <ProjectReference Include="..\Crisp.Tokenization\Crisp.Tokenization.csproj">
+      <Project>{8bc749dd-d1e6-414b-aec9-40066e8b9954}</Project>
+      <Name>Crisp.Tokenization</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

@@ -68,6 +68,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crisp.Parsing.Tests", "Cris
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crisp.Enums", "Crisp.Enums\Crisp.Enums.csproj", "{D935E594-C506-4B9E-BF71-684E7F1A1560}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crisp.Tokenization.Tests", "Crisp.Tokenization.Tests\Crisp.Tokenization.Tests.csproj", "{0A40C3EA-EA1F-4F83-874F-46A17AEA7C82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crisp.Testing.Common", "Crisp.Testing.Common\Crisp.Testing.Common.csproj", "{858F214F-BFF4-436D-AAA6-5C664936A670}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -162,6 +166,14 @@ Global
 		{D935E594-C506-4B9E-BF71-684E7F1A1560}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D935E594-C506-4B9E-BF71-684E7F1A1560}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D935E594-C506-4B9E-BF71-684E7F1A1560}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A40C3EA-EA1F-4F83-874F-46A17AEA7C82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A40C3EA-EA1F-4F83-874F-46A17AEA7C82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A40C3EA-EA1F-4F83-874F-46A17AEA7C82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A40C3EA-EA1F-4F83-874F-46A17AEA7C82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{858F214F-BFF4-436D-AAA6-5C664936A670}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{858F214F-BFF4-436D-AAA6-5C664936A670}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{858F214F-BFF4-436D-AAA6-5C664936A670}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{858F214F-BFF4-436D-AAA6-5C664936A670}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

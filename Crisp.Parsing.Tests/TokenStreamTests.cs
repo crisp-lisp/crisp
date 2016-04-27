@@ -1,5 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+using Crisp.Testing.Common;
+
 namespace Crisp.Parsing.Tests
 {
     [TestClass]
