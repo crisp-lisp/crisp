@@ -77,6 +77,10 @@
       <Project>{cf6dc28d-8a9f-468b-b3d3-1f04c7692975}</Project>
       <Name>Crisp.Basic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Crisp.Enums\Crisp.Enums.csproj">
+      <Project>{d935e594-c506-4b9e-bf71-684e7f1a1560}</Project>
+      <Name>Crisp.Enums</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Crisp.Interfaces\Crisp.Interfaces.csproj">
       <Project>{12b92742-736f-4502-bd77-fcfb81e7b53c}</Project>
       <Name>Crisp.Interfaces</Name>

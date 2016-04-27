@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using Crisp.Enums;
 using Crisp.Interfaces;
 using Crisp.Interfaces.Evaluation;
 using Crisp.Shared;

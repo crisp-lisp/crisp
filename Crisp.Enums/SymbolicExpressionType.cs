@@ -1,4 +1,4 @@
-﻿namespace Crisp.Interfaces
+﻿namespace Crisp.Enums
 {
     /// <summary>
     /// An enumeration of different expression data types.

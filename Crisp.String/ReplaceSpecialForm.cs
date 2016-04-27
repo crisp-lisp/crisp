@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+
+using Crisp.Enums;
 using Crisp.Interfaces;
 using Crisp.Interfaces.Evaluation;
-using Crisp.Shared;
 using Crisp.Types;
 
 namespace Crisp.String

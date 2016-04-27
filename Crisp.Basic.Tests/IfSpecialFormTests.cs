@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Crisp.Enums;
 using Crisp.Interfaces;
 using Crisp.Interfaces.Evaluation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

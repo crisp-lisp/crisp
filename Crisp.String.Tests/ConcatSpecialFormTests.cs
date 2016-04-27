@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-
+using Crisp.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Moq;

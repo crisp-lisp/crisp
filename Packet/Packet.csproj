@@ -179,6 +179,10 @@
     <None Include="Resources\DefaultNotFoundErrorPage.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Crisp.Enums\Crisp.Enums.csproj">
+      <Project>{d935e594-c506-4b9e-bf71-684e7f1a1560}</Project>
+      <Name>Crisp.Enums</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Crisp.Evaluation\Crisp.Evaluation.csproj">
       <Project>{e5a749c9-b032-42f5-aed4-df5017ab62ac}</Project>
       <Name>Crisp.Evaluation</Name>
