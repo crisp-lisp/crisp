@@ -56,10 +56,6 @@
       <Project>{12b92742-736f-4502-bd77-fcfb81e7b53c}</Project>
       <Name>Crisp.Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Crisp.Shared\Crisp.Shared.csproj">
-      <Project>{037d2ac9-aca7-42ac-9566-35502f855e7d}</Project>
-      <Name>Crisp.Shared</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Crisp.Types\Crisp.Types.csproj">
       <Project>{9b480f6e-e40a-4255-a0a6-5fc016a9c673}</Project>
       <Name>Crisp.Types</Name>

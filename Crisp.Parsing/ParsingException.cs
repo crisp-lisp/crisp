@@ -1,6 +1,6 @@
 ﻿using System;
+
 using Crisp.Interfaces.Tokenization;
-using Crisp.Shared;
 
 namespace Crisp.Parsing
 {
@@ -40,7 +40,6 @@ namespace Crisp.Parsing
         public ParsingException(string message, IToken token)
             : this(message, token.Line, token.Column)
         {
-
         }
     }
 }
