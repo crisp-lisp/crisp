@@ -1,11 +1,10 @@
 ﻿using Crisp.Enums;
 using Crisp.Interfaces.Tokenization;
-using Crisp.Shared;
 
 namespace Crisp.Tokenization
 {
     /// <summary>
-    /// Provides a static factory for different types of token filter.
+    /// Represents a factory for producing <see cref="ITokenFilter"/> instances.
     /// </summary>
     public static class TokenFilterFactory
     {
@@ -18,7 +17,7 @@ namespace Crisp.Tokenization
             return new TokenFilter(new[]
             {
                 TokenType.Whitespace, 
-                TokenType.Comment, 
+                TokenType.Comment
             });
         }
     }

@@ -1,6 +1,5 @@
 ﻿using Crisp.Enums;
 using Crisp.Interfaces.Tokenization;
-using Crisp.Shared;
 
 namespace Crisp.Tokenization
 {
