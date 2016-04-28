@@ -1,4 +1,5 @@
 ﻿using Crisp.Interfaces;
+using Crisp.Interfaces.Types;
 using Crisp.Shared;
 
 namespace Crisp.Visualization

@@ -7,6 +7,7 @@ using System.Reflection;
 using Crisp.Interfaces;
 using Crisp.Interfaces.Evaluation;
 using Crisp.Interfaces.Shared;
+using Crisp.Interfaces.Types;
 using Crisp.Shared;
 using Crisp.Types;
 

@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using Crisp.Enums;
 using Crisp.Interfaces;
+using Crisp.Interfaces.Types;
 using Crisp.IoC;
 using Crisp.Shared;
 using Crisp.Types;

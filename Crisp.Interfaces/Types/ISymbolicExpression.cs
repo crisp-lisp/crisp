@@ -1,6 +1,6 @@
 ﻿using Crisp.Enums;
 
-namespace Crisp.Interfaces
+namespace Crisp.Interfaces.Types
 {
     public interface ISymbolicExpression
     {

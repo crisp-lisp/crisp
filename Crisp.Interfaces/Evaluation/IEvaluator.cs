@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Crisp.Interfaces.Types;
 
 namespace Crisp.Interfaces.Evaluation
 {

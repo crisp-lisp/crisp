@@ -1,4 +1,6 @@
-﻿namespace Crisp.Interfaces.Evaluation
+﻿using Crisp.Interfaces.Types;
+
+namespace Crisp.Interfaces.Evaluation
 {
     /// <summary>
     /// Represents a binding between a name and an expression.

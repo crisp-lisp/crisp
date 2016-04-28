@@ -2,6 +2,7 @@
 
 using Crisp.Interfaces;
 using Crisp.Interfaces.Shared;
+using Crisp.Interfaces.Types;
 using Crisp.Shared;
 
 namespace Crisp.Evaluation
