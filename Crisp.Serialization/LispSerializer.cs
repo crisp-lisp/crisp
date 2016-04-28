@@ -7,13 +7,13 @@ using Crisp.Types;
 
 namespace Crisp.Serialization
 {
+    /// <summary>
+    /// Represents a symbolic expression serializer working to standard Lisp-like notation.
+    /// </summary>
     public class LispSerializer : ISymbolicExpressionSerializer
     {
         public string Serialize(ISymbolicExpression expression)
         {
-            if (expression == null)
-                return "nil";
-
             // Base case with atoms.
             if (expression.IsAtomic)
                 switch (expression.Type)
