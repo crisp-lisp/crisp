@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Crisp.Enums;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Moq;
 using Ploeh.AutoFixture;
 
-using Crisp.Interfaces;
+using Crisp.Enums;
 using Crisp.Interfaces.Evaluation;
 using Crisp.Interfaces.Types;
 using Crisp.Types;

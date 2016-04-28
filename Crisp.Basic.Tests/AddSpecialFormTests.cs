@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
-using Crisp.Enums;
-using Crisp.Interfaces;
-using Crisp.Interfaces.Evaluation;
-using Crisp.Interfaces.Types;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Moq;
 using Ploeh.AutoFixture;
 
-using Crisp.Shared;
+using Crisp.Enums;
+using Crisp.Interfaces.Evaluation;
+using Crisp.Interfaces.Types;
 using Crisp.Types;
 
 namespace Crisp.Basic.Tests

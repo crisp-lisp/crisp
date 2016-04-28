@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
-using Crisp.Interfaces;
-using Crisp.Interfaces.Evaluation;
-using Crisp.Interfaces.Types;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Moq;
 using Ploeh.AutoFixture;
 
-using Crisp.Shared;
+using Crisp.Interfaces.Evaluation;
+using Crisp.Interfaces.Types;
 using Crisp.Types;
 
 namespace Crisp.Basic.Tests

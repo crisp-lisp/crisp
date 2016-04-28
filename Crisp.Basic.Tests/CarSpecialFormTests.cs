@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
-using Crisp.Interfaces;
-using Crisp.Interfaces.Evaluation;
-using Crisp.Interfaces.Types;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Moq;
 using Ploeh.AutoFixture;
 
-using Crisp.Shared;
+using Crisp.Interfaces.Evaluation;
+using Crisp.Interfaces.Types;
 using Crisp.Types;
 
 namespace Crisp.Basic.Tests
@@ -22,12 +21,12 @@ namespace Crisp.Basic.Tests
         public static void Initialize(TestContext context)
         {
             _fixture = new Fixture();
-            _fixture.Register<SymbolicExpression>(() => _fixture.Create<NumericAtom>());
+            _fixture.Register<ISymbolicExpression>(() => _fixture.Create<NumericAtom>());
 
             // Use a dummy evaluator that just returns what it's been given.
             var mockEvaluator = new Mock<IEvaluator>();
-            mockEvaluator.Setup(m => m.Evaluate(It.IsAny<SymbolicExpression>()))
-                .Returns((SymbolicExpression s) => s);
+            mockEvaluator.Setup(m => m.Evaluate(It.IsAny<ISymbolicExpression>()))
+                .Returns((ISymbolicExpression s) => s);
             _mockEvaluator = mockEvaluator.Object;
         }
 
