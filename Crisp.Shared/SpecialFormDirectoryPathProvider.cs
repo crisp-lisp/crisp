@@ -22,7 +22,8 @@ namespace Crisp.Shared
         /// </summary>
         /// <param name="configurationProvider">The configuration provider service.</param>
         /// <param name="interpreterDirectoryPathProvider">The interpreter directory path provider service.</param>
-        public SpecialFormDirectoryPathProvider(ICrispConfigurationProvider configurationProvider,
+        public SpecialFormDirectoryPathProvider(
+            ICrispConfigurationProvider configurationProvider,
             IInterpreterDirectoryPathProvider interpreterDirectoryPathProvider)
         {
             _configurationProvider = configurationProvider;
