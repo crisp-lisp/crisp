@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
+
 using Crisp.Enums;
-using Crisp.Interfaces;
 using Crisp.Interfaces.Evaluation;
 using Crisp.Interfaces.Types;
-using Crisp.Shared;
 using Crisp.Types;
 
 namespace Crisp.Basic
 {
     /// <summary>
-    /// A function that given three expressions returns the value of the second if the value of the first is true, 
+    /// A special form that given three expressions returns the value of the second if the value of the first is true, 
     /// otherwise returns the value of the third.
     /// </summary>
     public class IfSpecialForm : SpecialForm

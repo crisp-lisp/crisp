@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
-using Crisp.Interfaces;
+
 using Crisp.Interfaces.Evaluation;
 using Crisp.Interfaces.Types;
-using Crisp.Shared;
 using Crisp.Types;
 
 namespace Crisp.Basic
 {
     /// <summary>
-    /// A function that given two expressions returns true if their values are equal; false if not.
+    /// A special form that given two expressions returns true if their values are equal; false if not.
     /// </summary>
     public class EqSpecialForm : SpecialForm
     {

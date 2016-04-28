@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 
-using Crisp.Interfaces;
 using Crisp.Interfaces.Evaluation;
 using Crisp.Interfaces.Types;
 using Crisp.Types;
@@ -21,10 +20,9 @@ namespace Crisp.Basic
             var arguments = expression.AsPair().Expand();
             arguments.ThrowIfWrongLength(Name, 1); // Must have one argument.
 
-            var evaluated = evaluator.Evaluate(arguments[0]);
+            var evaluated = evaluator.Evaluate(arguments[0]); // Evaluate argument.
 
-            return evaluated.IsAtomic ? new BooleanAtom(true)
-                : new BooleanAtom(false);
+            return evaluated.IsAtomic ? new BooleanAtom(true) : new BooleanAtom(false);
         }
     }
 }

@@ -1,16 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+
 using Crisp.Enums;
-using Crisp.Interfaces;
 using Crisp.Interfaces.Evaluation;
 using Crisp.Interfaces.Types;
-using Crisp.Shared;
 using Crisp.Types;
 
 namespace Crisp.Basic
 {
     /// <summary>
-    /// A function that given a list of named expressions, returns that list as a single evaluable value.
+    /// A special form that given a list of named expressions, returns that list as a single evaluable value.
     /// </summary>
     public class LetrecSpecialForm : SpecialForm
     {

@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
+
 using Crisp.Enums;
-using Crisp.Interfaces;
 using Crisp.Interfaces.Evaluation;
 using Crisp.Interfaces.Types;
-using Crisp.Shared;
 using Crisp.Types;
 
 namespace Crisp.Basic
 {
     /// <summary>
-    /// A function that given an expression, returns that expression as a value.
+    /// A special form that given an expression, returns that expression as a value.
     /// </summary>
     public class QuoteSpecialForm : SpecialForm
     {

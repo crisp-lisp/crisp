@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
-using Crisp.Interfaces;
+
 using Crisp.Interfaces.Evaluation;
 using Crisp.Interfaces.Types;
-using Crisp.Shared;
 using Crisp.Types;
 
 namespace Crisp.Basic
 {
     /// <summary>
-    /// A function that returns its arguments as a proper list.
+    /// A special form that returns its arguments as a proper list.
     /// </summary>
     public class ListSpecialForm : SpecialForm
     {

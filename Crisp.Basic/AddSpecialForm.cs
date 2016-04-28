@@ -2,7 +2,6 @@
 using System.Linq;
 
 using Crisp.Enums;
-using Crisp.Interfaces;
 using Crisp.Interfaces.Evaluation;
 using Crisp.Interfaces.Types;
 using Crisp.Types;
@@ -14,7 +13,7 @@ namespace Crisp.Basic
     /// </summary>
     public class AddSpecialForm : SpecialForm
     {
-        public override IEnumerable<string> Names => new List<string> {"add"};
+        public override IEnumerable<string> Names => new List<string> {"add", "sum"};
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {

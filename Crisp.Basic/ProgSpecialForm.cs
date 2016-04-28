@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Crisp.Interfaces;
+
 using Crisp.Interfaces.Evaluation;
 using Crisp.Interfaces.Types;
-using Crisp.Shared;
 using Crisp.Types;
 
 namespace Crisp.Basic
 {
     /// <summary>
-    /// A function that sequentially evaluates its arguments, returning the result of evaluation of its last argument.
+    /// A special form that sequentially evaluates its arguments, returning the result of evaluation of its last
+    /// argument.
     /// </summary>
     /// <remarks>Useful for programming with side-effects.</remarks>
     public class ProgSpecialForm : SpecialForm

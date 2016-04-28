@@ -1,16 +1,15 @@
 ﻿using System.Collections.Generic;
+
 using Crisp.Enums;
-using Crisp.Interfaces;
 using Crisp.Interfaces.Evaluation;
 using Crisp.Interfaces.Types;
-using Crisp.Shared;
 using Crisp.Types;
 
 namespace Crisp.Basic
 {
     /// <summary>
-    /// A function that given two expressions, returns true if the value of the first is numerically less than or equal 
-    /// to the value of the second; false if not.
+    /// A special form that given two expressions, returns true if the value of the first is numerically less than or  
+    /// equal to the value of the second; false if not.
     /// </summary>
     public class LeqSpecialForm : SpecialForm
     {

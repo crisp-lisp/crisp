@@ -1,16 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+
 using Crisp.Enums;
-using Crisp.Interfaces;
 using Crisp.Interfaces.Evaluation;
 using Crisp.Interfaces.Types;
-using Crisp.Shared;
 using Crisp.Types;
 
 namespace Crisp.Basic
 {
     /// <summary>
-    /// A function that given two expressions, returns the difference of their numeric values.
+    /// A special form that given two expressions, returns the difference of their numeric values.
     /// </summary>
     public class SubSpecialForm : SpecialForm
     {
