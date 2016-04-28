@@ -108,8 +108,8 @@ namespace Crisp.Tokenization
                     if (match.Success && match.Index == 0)
                     {
                         // Add token of matching type.
-                        tokens.Add(new Token(tokenTemplate.Type, match.Value, 
-                            GetLinePosition(source, remaining), GetColumnPosition(source, remaining)));
+                        tokens.Add(new Token(tokenTemplate.Type, match.Value,
+                            GetColumnPosition(source, remaining), GetLinePosition(source, remaining)));
 
                         // Trim string from beginning of source.
                         remaining = tokenTemplate.Pattern.Replace(remaining, string.Empty, 1);
