@@ -2,6 +2,9 @@
 
 namespace Crisp.Interfaces.Types
 {
+    /// <summary>
+    /// Represents a symbolic expression.
+    /// </summary>
     public interface ISymbolicExpression
     {
         /// <summary>

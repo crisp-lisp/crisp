@@ -6,11 +6,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Ploeh.AutoFixture;
 
-using Crisp.Interfaces;
 using Crisp.Interfaces.Evaluation;
 using Crisp.Interfaces.Shared;
 using Crisp.Interfaces.Types;
-using Crisp.Shared;
 
 namespace Crisp.Evaluation.Tests
 {

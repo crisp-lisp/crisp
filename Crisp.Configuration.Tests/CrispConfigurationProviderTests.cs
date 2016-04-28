@@ -1,12 +1,10 @@
-﻿using Crisp.Interfaces;
-using Crisp.Interfaces.Configuration;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using DeepEqual.Syntax;
 using Moq;
 using Newtonsoft.Json;
 
-using Crisp.Shared;
+using Crisp.Interfaces.Configuration;
 
 namespace Crisp.Configuration.Tests
 {

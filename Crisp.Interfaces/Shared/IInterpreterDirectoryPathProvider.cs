@@ -1,8 +1,7 @@
-﻿namespace Crisp.Shared
+﻿namespace Crisp.Interfaces.Shared
 {
     /// <summary>
-    /// Represents an interpreter directory path provider, capable of returning the directory that contains the 
-    /// currently executing interpreter.
+    /// Represents an interpreter directory path provider service.
     /// </summary>
     public interface IInterpreterDirectoryPathProvider
     {

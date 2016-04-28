@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using System.Reflection;
-
+using Crisp.Interfaces.Shared;
 using Crisp.Shared;
 
 namespace Packet

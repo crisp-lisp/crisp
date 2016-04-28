@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Reflection;
+using Crisp.Interfaces.Shared;
 
 namespace Crisp.Shared
 {

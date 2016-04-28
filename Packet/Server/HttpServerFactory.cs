@@ -1,4 +1,5 @@
-﻿using Crisp.Shared;
+﻿using Crisp.Interfaces.Shared;
+using Crisp.Shared;
 using Crisp.Visualization;
 
 using Packet.Configuration;
