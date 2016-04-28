@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
+
 using Crisp.Enums;
-using Crisp.Interfaces;
 using Crisp.Interfaces.Types;
-using Crisp.Shared;
 
 namespace Crisp.Types
 {
@@ -170,7 +169,7 @@ namespace Crisp.Types
         /// </summary>
         /// <param name="expression">The expression to test.</param>
         /// <param name="functionName">The name of the calling function.</param>
-        /// <param name="numberOfArguments"></param>
+        /// <param name="numberOfArguments">The allowed length of the argument list.</param>
         public static void ThrowIfWrongLength(this IList<ISymbolicExpression> expression, string functionName,
             int numberOfArguments)
         {
@@ -182,11 +181,11 @@ namespace Crisp.Types
         }
 
         /// <summary>
-        /// Throws a <see cref="FunctionApplicationException"/> if the given list is not of the specified length.
+        /// Throws a <see cref="FunctionApplicationException"/> if the given list is shorter than the specified length.
         /// </summary>
         /// <param name="expression">The expression to test.</param>
         /// <param name="functionName">The name of the calling function.</param>
-        /// <param name="numberOfArguments"></param>
+        /// <param name="numberOfArguments">The allowed length of the argument list.</param>
         public static void ThrowIfShorterThanLength(this IList<ISymbolicExpression> expression, string functionName,
             int numberOfArguments)
         {
