@@ -1,8 +1,6 @@
-﻿using Crisp.Interfaces;
-using Crisp.Interfaces.Types;
-using Crisp.Shared;
+﻿using Crisp.Interfaces.Types;
 
-namespace Crisp.Visualization
+namespace Crisp.Interfaces.Serialization
 {
     public interface ISymbolicExpressionSerializer
     {

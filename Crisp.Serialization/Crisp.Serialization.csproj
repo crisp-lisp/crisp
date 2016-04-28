@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EE206D73-5474-4B04-924E-B85DA171BBCD}</ProjectGuid>
+    <ProjectGuid>{F5738286-9E8D-4398-9D53-B08A4F239DFA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Crisp.Visualization</RootNamespace>
-    <AssemblyName>Crisp.Visualization</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <RootNamespace>Crisp.Serialization</RootNamespace>
+    <AssemblyName>Crisp.Serialization</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -41,7 +41,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LispSerializer.cs" />
-    <Compile Include="MermaidSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -52,10 +51,6 @@
     <ProjectReference Include="..\Crisp.Interfaces\Crisp.Interfaces.csproj">
       <Project>{12b92742-736f-4502-bd77-fcfb81e7b53c}</Project>
       <Name>Crisp.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Crisp.Shared\Crisp.Shared.csproj">
-      <Project>{037D2AC9-ACA7-42AC-9566-35502F855E7D}</Project>
-      <Name>Crisp.Shared</Name>
     </ProjectReference>
     <ProjectReference Include="..\Crisp.Types\Crisp.Types.csproj">
       <Project>{9b480f6e-e40a-4255-a0a6-5fc016a9c673}</Project>

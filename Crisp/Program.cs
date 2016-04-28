@@ -5,7 +5,7 @@ using System.Reflection;
 using CommandLine.Text;
 
 using Crisp.IoC;
-using Crisp.Visualization;
+using Crisp.Serialization;
 
 namespace Crisp
 {

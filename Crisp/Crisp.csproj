@@ -125,13 +125,13 @@
       <Project>{e649520c-1798-4a3f-a0ee-20ac5873a14f}</Project>
       <Name>Crisp.IoC</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Crisp.Serialization\Crisp.Serialization.csproj">
+      <Project>{f5738286-9e8d-4398-9d53-b08a4f239dfa}</Project>
+      <Name>Crisp.Serialization</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Crisp.Shared\Crisp.Shared.csproj">
       <Project>{037d2ac9-aca7-42ac-9566-35502f855e7d}</Project>
       <Name>Crisp.Shared</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Crisp.Visualization\Crisp.Visualization.csproj">
-      <Project>{ee206d73-5474-4b04-924e-b85da171bbcd}</Project>
-      <Name>Crisp.Visualization</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

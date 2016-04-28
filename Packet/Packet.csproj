@@ -203,6 +203,10 @@
       <Project>{1a088b75-c83f-43ae-9a16-5527e6f34ef6}</Project>
       <Name>Crisp.Runtime</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Crisp.Serialization\Crisp.Serialization.csproj">
+      <Project>{f5738286-9e8d-4398-9d53-b08a4f239dfa}</Project>
+      <Name>Crisp.Serialization</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Crisp.Shared\Crisp.Shared.csproj">
       <Project>{037d2ac9-aca7-42ac-9566-35502f855e7d}</Project>
       <Name>Crisp.Shared</Name>
@@ -214,10 +218,6 @@
     <ProjectReference Include="..\Crisp.Types\Crisp.Types.csproj">
       <Project>{9b480f6e-e40a-4255-a0a6-5fc016a9c673}</Project>
       <Name>Crisp.Types</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Crisp.Visualization\Crisp.Visualization.csproj">
-      <Project>{EE206D73-5474-4B04-924E-B85DA171BBCD}</Project>
-      <Name>Crisp.Visualization</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

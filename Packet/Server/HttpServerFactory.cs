@@ -1,6 +1,7 @@
-﻿using Crisp.Interfaces.Shared;
+﻿using Crisp.Interfaces.Serialization;
+using Crisp.Interfaces.Shared;
+using Crisp.Serialization;
 using Crisp.Shared;
-using Crisp.Visualization;
 
 using Packet.Configuration;
 
