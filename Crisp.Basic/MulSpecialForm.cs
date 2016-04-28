@@ -9,7 +9,7 @@ using Crisp.Types;
 namespace Crisp.Basic
 {
     /// <summary>
-    /// A special form that given two expressions, returns the product of their numeric values.
+    /// A special form that given two expressions  returns the product of their numeric values.
     /// </summary>
     public class MulSpecialForm : SpecialForm
     {
