@@ -5,6 +5,7 @@ using Crisp.Evaluation;
 using Crisp.Interfaces.Configuration;
 using Crisp.Interfaces.Evaluation;
 using Crisp.Interfaces.Parsing;
+using Crisp.Interfaces.Shared;
 using Crisp.Interfaces.Tokenization;
 using Crisp.Shared;
 using Crisp.Parsing;

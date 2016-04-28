@@ -1,4 +1,4 @@
-﻿namespace Crisp.Shared
+﻿namespace Crisp.Interfaces.Shared
 {
     /// <summary>
     /// Represents a service that returns the fully-qualified directory path of the directory in which compiled special

@@ -1,4 +1,5 @@
 ﻿using Crisp.Interfaces.Evaluation;
+using Crisp.Interfaces.Shared;
 using Crisp.Shared;
 
 namespace Crisp.Evaluation

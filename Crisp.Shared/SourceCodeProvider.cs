@@ -1,4 +1,6 @@
-﻿namespace Crisp.Shared
+﻿using Crisp.Interfaces.Shared;
+
+namespace Crisp.Shared
 {
     public class SourceCodeProvider : Provider<string>, ISourceCodeProvider
     {

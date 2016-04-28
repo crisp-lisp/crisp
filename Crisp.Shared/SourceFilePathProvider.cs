@@ -1,4 +1,6 @@
-﻿namespace Crisp.Shared
+﻿using Crisp.Interfaces.Shared;
+
+namespace Crisp.Shared
 {
     /// <summary>
     /// An implementation of a service that returns the path of the source file.

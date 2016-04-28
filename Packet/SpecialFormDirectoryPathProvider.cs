@@ -1,5 +1,5 @@
 ﻿using System.IO;
-
+using Crisp.Interfaces.Shared;
 using Crisp.Shared;
 using Packet.Configuration;
 

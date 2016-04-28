@@ -44,10 +44,6 @@
     <Compile Include="ICrispRuntime.cs" />
     <Compile Include="IInterpreterDirectoryPathProvider.cs" />
     <Compile Include="InterpreterDirectoryPathProvider.cs" />
-    <Compile Include="ISourceCodeProvider.cs" />
-    <Compile Include="ISourceFileDirectoryPathProvider.cs" />
-    <Compile Include="ISourceFilePathProvider.cs" />
-    <Compile Include="ISpecialFormDirectoryPathProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider.cs" />
     <Compile Include="SourceCodeProvider.cs" />

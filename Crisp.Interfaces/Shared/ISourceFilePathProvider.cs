@@ -1,4 +1,4 @@
-﻿namespace Crisp.Shared
+﻿namespace Crisp.Interfaces.Shared
 {
     /// <summary>
     /// Represents a source file path provider that returns the path of the source file to be interpreted.

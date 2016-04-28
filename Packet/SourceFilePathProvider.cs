@@ -1,4 +1,5 @@
-﻿using Crisp.Shared;
+﻿using Crisp.Interfaces.Shared;
+using Crisp.Shared;
 
 namespace Packet
 {

@@ -5,7 +5,7 @@ namespace Crisp.Tokenization
     /// <summary>
     /// Represents an error encountered during source tokenization.
     /// </summary>
-    internal class TokenizationException : Exception
+    public class TokenizationException : Exception
     {
         /// <summary>
         /// Gets the line position in the source at which the tokenizer encountered an error.
