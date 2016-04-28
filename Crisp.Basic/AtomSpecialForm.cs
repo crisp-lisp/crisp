@@ -11,7 +11,7 @@ namespace Crisp.Basic
     /// </summary>
     public class AtomSpecialForm : SpecialForm
     {
-        public override IEnumerable<string> Names => new List<string> {"atom"};
+        public override IEnumerable<string> Names => new List<string> {"atom", "atomp"};
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {
