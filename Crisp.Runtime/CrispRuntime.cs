@@ -1,5 +1,4 @@
-﻿using Crisp.Interfaces;
-using Crisp.Interfaces.Evaluation;
+﻿using Crisp.Interfaces.Evaluation;
 using Crisp.Interfaces.Parsing;
 using Crisp.Interfaces.Types;
 using Crisp.Shared;
