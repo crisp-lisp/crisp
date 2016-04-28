@@ -1,14 +1,10 @@
 ﻿using System.IO;
-using Crisp.Interfaces;
+
 using Crisp.Interfaces.Configuration;
 using Crisp.Interfaces.Shared;
 
 namespace Crisp.Shared
 {
-    /// <summary>
-    /// An implementation of a service that returns the fully-qualified directory path of the directory in which 
-    /// compiled special form binaries are stored.
-    /// </summary>
     public class SpecialFormDirectoryPathProvider : ISpecialFormDirectoryPathProvider
     {
         private readonly ICrispConfigurationProvider _configurationProvider;
@@ -22,10 +18,10 @@ namespace Crisp.Shared
         }
 
         /// <summary>
-        /// Initializes a new instance of a special form directory provider.
+        /// Initializes a new instance of a special form directory path provider service.
         /// </summary>
-        /// <param name="configurationProvider">The service to use to get the application configuration.</param>
-        /// <param name="interpreterDirectoryPathProvider">The service to use to get the interpreter path.</param>
+        /// <param name="configurationProvider">The configuration provider service.</param>
+        /// <param name="interpreterDirectoryPathProvider">The interpreter directory path provider service.</param>
         public SpecialFormDirectoryPathProvider(ICrispConfigurationProvider configurationProvider,
             IInterpreterDirectoryPathProvider interpreterDirectoryPathProvider)
         {

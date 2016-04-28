@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="FileSourceCodeProvider.cs" />
     <Compile Include="InterpreterDirectoryPathProvider.cs" />
+    <Compile Include="InterpreterFilePathProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider.cs" />
     <Compile Include="SourceCodeProvider.cs" />

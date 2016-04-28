@@ -1,18 +1,18 @@
 ﻿using System.IO;
-using System.Reflection;
+
 using Crisp.Interfaces.Shared;
 
 namespace Crisp.Shared
 {
-    /// <summary>
-    /// An implementation of an interpreter directory path provider, capable of returning the directory that contains  
-    /// the currently executing interpreter.
-    /// </summary>
-    public class InterpreterDirectoryPathProvider : IInterpreterDirectoryPathProvider
+    public class InterpreterDirectoryPathProvider : Provider<string>, IInterpreterDirectoryPathProvider
     {
-        public string Get()
+        /// <summary>
+        /// Initializes a new instance of a service that returns the directory path of the interpreter executable.
+        /// </summary>
+        /// <param name="interpreterFilePathProvider">The interpreter file path provider service.</param>
+        public InterpreterDirectoryPathProvider(IInterpreterFilePathProvider interpreterFilePathProvider) 
+            : base(Path.GetDirectoryName(interpreterFilePathProvider.Get()))
         {
-            return new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName;
         }
     }
 }

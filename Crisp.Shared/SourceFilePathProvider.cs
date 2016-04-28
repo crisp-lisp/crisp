@@ -2,9 +2,6 @@
 
 namespace Crisp.Shared
 {
-    /// <summary>
-    /// An implementation of a service that returns the path of the source file.
-    /// </summary>
     public class SourceFilePathProvider : Provider<string>, ISourceFilePathProvider
     {
         /// <summary>

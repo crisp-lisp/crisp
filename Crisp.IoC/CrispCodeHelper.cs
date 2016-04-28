@@ -36,6 +36,7 @@ namespace Crisp.IoC
             container.Register(TokenFilterFactory.GetCommentAndWhitespaceFilter);
             container.Register<ITokenListSource, Tokenizer>();
             container.Register<IExpressionTreeSource, Parser>();
+            container.Register<IInterpreterFilePathProvider, InterpreterFilePathProvider>();
             container.Register<IInterpreterDirectoryPathProvider, InterpreterDirectoryPathProvider>();
             container.Register<ICrispConfigurationFileNameProvider>(() => new CrispConfigurationFileNameProvider("crisp.json"));
             container.Register<IRawCrispConfigurationProvider, RawCrispConfigurationProvider>();

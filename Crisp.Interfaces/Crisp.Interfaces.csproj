@@ -50,6 +50,7 @@
     <Compile Include="Evaluation\ISpecialFormLoader.cs" />
     <Compile Include="Runtime\ICrispRuntime.cs" />
     <Compile Include="Shared\IInterpreterDirectoryPathProvider.cs" />
+    <Compile Include="Shared\IInterpreterFilePathProvider.cs" />
     <Compile Include="Types\ISymbolicExpression.cs" />
     <Compile Include="Parsing\IExpressionTreeSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
