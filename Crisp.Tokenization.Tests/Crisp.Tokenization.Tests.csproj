@@ -61,6 +61,7 @@
     <Compile Include="TokenFilterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TokenizerTests.cs" />
+    <Compile Include="TokenFilterFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Crisp.Enums\Crisp.Enums.csproj">
