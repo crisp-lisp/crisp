@@ -2,7 +2,6 @@
 using System.Linq;
 
 using Crisp.Enums;
-using Crisp.Interfaces;
 using Crisp.Interfaces.Parsing;
 using Crisp.Interfaces.Tokenization;
 using Crisp.Interfaces.Types;
