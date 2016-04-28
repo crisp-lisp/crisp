@@ -12,7 +12,7 @@ namespace Crisp.Basic
     /// </summary>
     public class CarSpecialForm : SpecialForm
     {
-        public override IEnumerable<string> Names => new List<string> {"car"};
+        public override IEnumerable<string> Names => new List<string> {"car", "head"};
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {
