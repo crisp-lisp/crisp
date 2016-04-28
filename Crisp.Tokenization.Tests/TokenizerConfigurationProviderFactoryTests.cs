@@ -1,10 +1,10 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Crisp.Evaluation.Tests
+namespace Crisp.Tokenization.Tests
 {
     [TestClass]
-    public class EvaluatorTests
+    public class TokenizerConfigurationProviderFactoryTests
     {
         [TestMethod]
         public void TestMethod1()
