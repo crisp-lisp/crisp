@@ -78,6 +78,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Packet.Configuration", "Pac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Packet.Interfaces", "Packet.Interfaces\Packet.Interfaces.csproj", "{71C6A9C3-8606-4B4C-A6DA-10C742174199}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Packet.Logging", "Packet.Logging\Packet.Logging.csproj", "{09819C42-4BA0-470E-A072-B2B07D64A50E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -192,6 +194,10 @@ Global
 		{71C6A9C3-8606-4B4C-A6DA-10C742174199}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71C6A9C3-8606-4B4C-A6DA-10C742174199}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71C6A9C3-8606-4B4C-A6DA-10C742174199}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09819C42-4BA0-470E-A072-B2B07D64A50E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09819C42-4BA0-470E-A072-B2B07D64A50E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09819C42-4BA0-470E-A072-B2B07D64A50E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09819C42-4BA0-470E-A072-B2B07D64A50E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

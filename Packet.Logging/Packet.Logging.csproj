@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{71C6A9C3-8606-4B4C-A6DA-10C742174199}</ProjectGuid>
+    <ProjectGuid>{09819C42-4BA0-470E-A072-B2B07D64A50E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Packet.Interfaces</RootNamespace>
-    <AssemblyName>Packet.Interfaces</AssemblyName>
+    <RootNamespace>Packet.Logging</RootNamespace>
+    <AssemblyName>Packet.Logging</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,12 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\IPacketConfigurationFileNameProvider.cs" />
-    <Compile Include="Configuration\IPacketConfigurationProvider.cs" />
-    <Compile Include="Configuration\IPacketConfiguration.cs" />
-    <Compile Include="Configuration\IRawPacketConfigurationProvider.cs" />
-    <Compile Include="Logging\ILogger.cs" />
+    <Compile Include="ConsoleWindowLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Packet.Interfaces\Packet.Interfaces.csproj">
+      <Project>{71c6a9c3-8606-4b4c-a6da-10c742174199}</Project>
+      <Name>Packet.Interfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
