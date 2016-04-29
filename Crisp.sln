@@ -74,6 +74,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crisp.Serialization", "Cris
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crisp.Types.Tests", "Crisp.Types.Tests\Crisp.Types.Tests.csproj", "{2A66BBC7-EED4-4FB0-9BA6-4C7930DD27B3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Packet.Configuration", "Packet.Configuration\Packet.Configuration.csproj", "{9A4836A8-0B2A-4F60-9F15-B59AA6764821}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Packet.Interfaces", "Packet.Interfaces\Packet.Interfaces.csproj", "{71C6A9C3-8606-4B4C-A6DA-10C742174199}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -180,6 +184,14 @@ Global
 		{2A66BBC7-EED4-4FB0-9BA6-4C7930DD27B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A66BBC7-EED4-4FB0-9BA6-4C7930DD27B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A66BBC7-EED4-4FB0-9BA6-4C7930DD27B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A4836A8-0B2A-4F60-9F15-B59AA6764821}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A4836A8-0B2A-4F60-9F15-B59AA6764821}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A4836A8-0B2A-4F60-9F15-B59AA6764821}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A4836A8-0B2A-4F60-9F15-B59AA6764821}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71C6A9C3-8606-4B4C-A6DA-10C742174199}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71C6A9C3-8606-4B4C-A6DA-10C742174199}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71C6A9C3-8606-4B4C-A6DA-10C742174199}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71C6A9C3-8606-4B4C-A6DA-10C742174199}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
