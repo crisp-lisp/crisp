@@ -63,8 +63,8 @@ namespace Crisp
             }
 
             // Get runtime and run program.
-            var runtime = CrispCodeHelper.GetCrispRuntime(options.InputFile);
-            var output = runtime.Run(CrispCodeHelper.SourceToExpressionTree(options.Args));
+            var runtime = CrispRunner.GetCrispRuntime(options.InputFile);
+            var output = runtime.Run(CrispRunner.SourceToExpressionTree(options.Args));
             
             // Write result to output.
             Console.Write(new LispSerializer().Serialize(output));

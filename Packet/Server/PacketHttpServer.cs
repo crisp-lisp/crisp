@@ -253,12 +253,12 @@ namespace Packet.Server
                 ISymbolicExpression result;
                 try
                 {
-                    var runtime = CrispCodeHelper.GetCrispRuntime(path);
+                    var runtime = CrispRunner.GetCrispRuntime(path);
                     var serialized = HttpUtility.UrlEncode(_symbolicExpressionSerializer.Serialize(programResult));
                     var headers = TransformHeadersForCrisp(processor.Headers);
                     var args = $"(\"{processor.HttpUrl}\" \"POST\" \"filename={filename}&programResult={serialized}" +
                                $"&errorMessage={errorMessage}\" {headers})";
-                    result = runtime.Run(CrispCodeHelper.SourceToExpressionTree(args));
+                    result = runtime.Run(CrispRunner.SourceToExpressionTree(args));
                 }
                 catch(Exception ex)
                 {
@@ -333,11 +333,11 @@ namespace Packet.Server
                 ISymbolicExpression result;
                 try
                 {
-                    var runtime = CrispCodeHelper.GetCrispRuntime(path);
+                    var runtime = CrispRunner.GetCrispRuntime(path);
                     var headers = TransformHeadersForCrisp(processor.Headers);
                     var args = $"(\"{processor.HttpUrl}\" \"POST\" \"filename={filename}" +
                                $"&errorMessage={errorMessage}\" {headers})";
-                    result = runtime.Run(CrispCodeHelper.SourceToExpressionTree(args));
+                    result = runtime.Run(CrispRunner.SourceToExpressionTree(args));
                 }
                 catch
                 {
@@ -415,10 +415,10 @@ namespace Packet.Server
                 ISymbolicExpression result;
                 try
                 {
-                    var runtime = CrispCodeHelper.GetCrispRuntime(path);
+                    var runtime = CrispRunner.GetCrispRuntime(path);
                     var headers = TransformHeadersForCrisp(processor.Headers);
                     var args = $"(\"{processor.HttpUrl}\" \"GET\" nil {headers})";
-                    result = runtime.Run(CrispCodeHelper.SourceToExpressionTree(args));
+                    result = runtime.Run(CrispRunner.SourceToExpressionTree(args));
                 }
                 catch (Exception ex)
                 {
@@ -497,11 +497,11 @@ namespace Packet.Server
                 ISymbolicExpression result;
                 try
                 {
-                    var runtime = CrispCodeHelper.GetCrispRuntime(path);
+                    var runtime = CrispRunner.GetCrispRuntime(path);
                     var encoded = HttpUtility.UrlEncode(posted);
                     var headers = TransformHeadersForCrisp(processor.Headers);
                     var args = $"(\"{processor.HttpUrl}\" \"POST\" \"{encoded}\" {headers})";
-                    result = runtime.Run(CrispCodeHelper.SourceToExpressionTree(args));
+                    result = runtime.Run(CrispRunner.SourceToExpressionTree(args));
                 }
                 catch (Exception ex)
                 {

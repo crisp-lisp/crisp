@@ -16,9 +16,9 @@ using Crisp.Tokenization;
 namespace Crisp.IoC
 {
     /// <summary>
-    /// Provides a static factory for creating Crisp runtime instances.
+    /// Provides convenience methods for parsing and running Crisp code.
     /// </summary>
-    public static class CrispCodeHelper
+    public static class CrispRunner
     {
         /// <summary>
         /// Creates a new <see cref="ICrispRuntime"/> instance to run the file at the specified path.
