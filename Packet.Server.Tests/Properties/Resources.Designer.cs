@@ -64,19 +64,64 @@ namespace Packet.Server.Tests.Properties {
         ///   Looks up a localized string similar to GET /index.html
         ///.
         /// </summary>
-        internal static string SampleSimpleHttpRequest_1 {
+        internal static string SampleHttpRequest_0_9_1 {
             get {
-                return ResourceManager.GetString("SampleSimpleHttpRequest_1", resourceCulture);
+                return ResourceManager.GetString("SampleHttpRequest_0_9_1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GET /index.html
+        ///   Looks up a localized string similar to GET /index.html extra data
         ///.
         /// </summary>
-        internal static string SampleSimpleHttpRequest_2 {
+        internal static string SampleHttpRequest_0_9_2 {
             get {
-                return ResourceManager.GetString("SampleSimpleHttpRequest_2", resourceCulture);
+                return ResourceManager.GetString("SampleHttpRequest_0_9_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GET /index.html extra data
+        ///extra
+        ///data
+        ///on
+        ///multiple
+        ///lines
+        ///.
+        /// </summary>
+        internal static string SampleHttpRequest_0_9_3 {
+            get {
+                return ResourceManager.GetString("SampleHttpRequest_0_9_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GET /4848 HTTP/1.0
+        ///Connection: Keep-Alive
+        ///User-Agent: Mozilla/3.01 (X11; I; SunOS 5.4 sun4m)
+        ///Pragma: no-cache
+        ///Host: tecfa.unige.ch:7778
+        ///Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, */*
+        ///.
+        /// </summary>
+        internal static string SampleHttpRequest_1_0_1 {
+            get {
+                return ResourceManager.GetString("SampleHttpRequest_1_0_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HEAD /4848 HTTP/1.0
+        ///Connection: Keep-Alive
+        ///User-Agent: Mozilla/3.01 (X11; I; SunOS 5.4 sun4m)
+        ///Pragma: no-cache
+        ///Host: tecfa.unige.ch:7778
+        ///Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, */*
+        ///.
+        /// </summary>
+        internal static string SampleHttpRequest_1_0_2 {
+            get {
+                return ResourceManager.GetString("SampleHttpRequest_1_0_2", resourceCulture);
             }
         }
     }

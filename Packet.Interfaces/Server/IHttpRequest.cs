@@ -18,6 +18,11 @@ namespace Packet.Interfaces.Server
         HttpMethod Method { get; }
 
         /// <summary>
+        /// Gets the HTTP version of the request.
+        /// </summary>
+        HttpVersion Version { get; }
+
+        /// <summary>
         /// Gets the URL of the resource requested.
         /// </summary>
         string Url { get; }

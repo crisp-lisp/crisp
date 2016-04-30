@@ -1,20 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace Packet.Server.Tests
 {
+    /// <summary>
+    /// A static helper class to retrieve sample byte arrays corresponding to raw HTTP request data.
+    /// </summary>
     public static class SampleRawHttpRequestFactory
     {
-        public static byte[] GetSimpleHttpRequest()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static byte[] GetHttpRequest_0_9()
         {
-            return new ASCIIEncoding().GetBytes(Properties.Resources.SampleSimpleHttpRequest_1);
+            return new ASCIIEncoding().GetBytes(Properties.Resources.SampleHttpRequest_0_9_1);
         }
-        public static byte[] GetSimpleHttpRequestWithExtraData()
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static byte[] GetHttpRequestWithExtraData_0_9()
         {
-            return new ASCIIEncoding().GetBytes(Properties.Resources.SampleSimpleHttpRequest_2);
+            return new ASCIIEncoding().GetBytes(Properties.Resources.SampleHttpRequest_0_9_2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static byte[] GetMultilineHttpRequestWithExtraData_0_9()
+        {
+            return new ASCIIEncoding().GetBytes(Properties.Resources.SampleHttpRequest_0_9_3);
         }
     }
 }

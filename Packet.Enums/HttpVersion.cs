@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Packet.Enums
 {
-    public enum RequestType
+    public enum HttpVersion
     {
-        None = 0,
-        ZeroPointNine = 1,
-        OnePointZero = 2
+        ZeroPointNine = 0,
+        OnePointZero = 1,
+        OnePointOne = 2
     }
 }
