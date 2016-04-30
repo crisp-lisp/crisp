@@ -5,13 +5,12 @@ namespace Packet.Server
     /// <summary>
     /// Represents a HTTP/0.9 simple-format request.
     /// </summary>
-    public class HttpZeroPointNineRequest : HttpRequest
+    public class SimpleHttpRequest : HttpRequest
     {
-        public HttpZeroPointNineRequest()
+        public SimpleHttpRequest()
         {
-            RequestType = RequestType.ZeroPointNine;
             Method = HttpMethod.Get; // HTTP/0.9 has this method only.
-            Version = HttpVersion.ZeroPointNine; // Only HTTP/0.9 has simple requests.
+            Version = HttpVersion.Http09; // Only HTTP/0.9 has simple requests.
         }
     }
 }

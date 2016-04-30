@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Packet.Enums
+﻿namespace Packet.Enums
 {
     public enum HttpVersion
     {
-        ZeroPointNine = 0,
-        OnePointZero = 1,
-        OnePointOne = 2
+        Http09 = 0,
+        Http10 = 1,
+        Http11 = 2
     }
 }

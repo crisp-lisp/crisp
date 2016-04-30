@@ -42,7 +42,6 @@
   <ItemGroup>
     <Compile Include="HttpMethod.cs" />
     <Compile Include="HttpVersion.cs" />
-    <Compile Include="RequestType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

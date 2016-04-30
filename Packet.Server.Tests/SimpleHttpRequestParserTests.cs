@@ -5,7 +5,7 @@ using Packet.Enums;
 namespace Packet.Server.Tests
 {
     [TestClass]
-    public class HttpZeroPointNineRequestParserTests
+    public class SimpleHttpRequestParserTests
     {
         [TestMethod]
         public void TestParseRequest()
@@ -15,14 +15,13 @@ namespace Packet.Server.Tests
              * is the case.
              */
 
-            var subject = new HttpZeroPointNineRequestParser(null);
+            var subject = new SimpleRequestParser(null);
             var request = subject.Parse(SampleRawHttpRequestFactory.GetHttpRequest_0_9());
 
             // Check that parsing was successful.
             Assert.IsNotNull(request, "Failed to parse request.");
 
             // Request fields should be correct.
-            Assert.AreEqual(RequestType.ZeroPointNine, request.RequestType);
             Assert.AreEqual(HttpMethod.Get, request.Method);
             Assert.AreEqual("/index.html", request.Url);
         }
@@ -35,12 +34,11 @@ namespace Packet.Server.Tests
              * that this is the case.
              */
 
-            var subject = new HttpZeroPointNineRequestParser(null);
+            var subject = new SimpleRequestParser(null);
             var request = subject.Parse(SampleRawHttpRequestFactory.GetHttpRequestWithExtraData_0_9());
 
             Assert.IsNotNull(request, "Failed to parse request.");
-
-            Assert.AreEqual(RequestType.ZeroPointNine, request.RequestType);
+            
             Assert.AreEqual(HttpMethod.Get, request.Method);
             Assert.AreEqual("/index.html", request.Url);
         }
@@ -53,12 +51,11 @@ namespace Packet.Server.Tests
              * checks that this is the case.
              */
 
-            var subject = new HttpZeroPointNineRequestParser(null);
+            var subject = new SimpleRequestParser(null);
             var request = subject.Parse(SampleRawHttpRequestFactory.GetMultilineHttpRequestWithExtraData_0_9());
 
             Assert.IsNotNull(request, "Failed to parse request.");
-
-            Assert.AreEqual(RequestType.ZeroPointNine, request.RequestType);
+            
             Assert.AreEqual(HttpMethod.Get, request.Method);
             Assert.AreEqual("/index.html", request.Url);
         }

@@ -8,18 +8,18 @@ namespace Packet.Server
     /// <summary>
     /// Represents a HTTP request parser that will parse HTTP/0.9 simple-format requests. 
     /// </summary>
-    public class HttpZeroPointNineRequestParser : HttpRequestParser
+    public class SimpleRequestParser : HttpRequestParser
     {
-        private static Regex _validationRegex;
+        private static Regex _requestLineRegex;
 
         /// <summary>
         /// Initializes a new instance of a HTTP request parser that will parse HTTP/0.9 simple-format requests. 
         /// </summary>
         /// <param name="successor">The fallback parser to use if parsing is not successful.</param>
-        public HttpZeroPointNineRequestParser(IHttpRequestParser successor) : base(successor)
+        public SimpleRequestParser(IHttpRequestParser successor) : base(successor)
         {
             // Initialize validation regex.
-            _validationRegex = _validationRegex ?? new Regex("^(?i)GET (\\S*)(?:.*?)\\r?\\n");
+            _requestLineRegex = _requestLineRegex ?? new Regex("^(?i)GET (\\S*)(?:.*?)\\r?\\n");
         }
 
         protected override IHttpRequest AttemptParse(byte[] request)
@@ -29,7 +29,7 @@ namespace Packet.Server
                 using (var streamReader = new StreamReader(memoryStream))
                 {
                     // Validate request line format.
-                    var match = _validationRegex.Match(streamReader.ReadToEnd());
+                    var match = _requestLineRegex.Match(streamReader.ReadToEnd());
                     if (!match.Success)
                     {
                         return null; 
@@ -45,7 +45,7 @@ namespace Packet.Server
                     }
 
                     // Parsing successful.
-                    return new HttpZeroPointNineRequest
+                    return new SimpleHttpRequest
                     {
                         Url = url
                     };

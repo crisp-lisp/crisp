@@ -6,7 +6,7 @@ namespace Packet.Server
     {
         public static IHttpRequestParser CreateHttpRequestParser()
         {
-            return new HttpOnePointZeroRequestParser(new HttpZeroPointNineRequestParser(null));
+            return new FullHttpRequestParser(new SimpleRequestParser(null));
         }
     }
 }

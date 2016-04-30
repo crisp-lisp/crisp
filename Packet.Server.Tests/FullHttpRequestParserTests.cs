@@ -6,7 +6,7 @@ using Packet.Enums;
 namespace Packet.Server.Tests
 {
     [TestClass]
-    public class HttpOnePointZeroRequestParserTests
+    public class FullHttpRequestParserTests
     {
         [TestMethod]
         public void TestParseGetRequest()
@@ -16,14 +16,13 @@ namespace Packet.Server.Tests
              * is the case.
              */
 
-            var subject = new HttpOnePointZeroRequestParser(null);
+            var subject = new FullHttpRequestParser(null);
             var request = subject.Parse(new ASCIIEncoding().GetBytes(Properties.Resources.SampleHttpRequest_1_0_1));
 
             // Check that parsing was successful.
             Assert.IsNotNull(request, "Failed to parse request.");
 
             // Request fields should be correct.
-            Assert.AreEqual(RequestType.OnePointZero, request.RequestType);
             Assert.AreEqual(HttpMethod.Get, request.Method);
             Assert.AreEqual("/4848", request.Url);
         }

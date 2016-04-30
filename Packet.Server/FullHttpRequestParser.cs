@@ -10,13 +10,13 @@ namespace Packet.Server
     /// <summary>
     /// Represents a HTTP request parser that will parse HTTP/1.0 full-format requests. 
     /// </summary>
-    public class HttpOnePointZeroRequestParser : HttpRequestParser
+    public class FullHttpRequestParser : HttpRequestParser
     {
         private static Regex _requestLineRegex;
 
         private static Regex _headerLineRegex;
 
-        public HttpOnePointZeroRequestParser(IHttpRequestParser successor) : base(successor)
+        public FullHttpRequestParser(IHttpRequestParser successor) : base(successor)
         {
             _requestLineRegex = new Regex("(?i)(\\S+?) (\\S+?) HTTP\\/1\\.0");
             _headerLineRegex = new Regex("^(.+?): (.+?)$");
@@ -58,24 +58,37 @@ namespace Packet.Server
                         return null;
                     }
 
-                    var headerBuffer = new Dictionary<string, string>();
-                    string buffer;
-                    while (!string.IsNullOrWhiteSpace(buffer = streamReader.ReadLine()))
+                    // Read in headers.
+                    var headers = new Dictionary<string, string>();
+                    string headerBuffer;
+                    while (!string.IsNullOrWhiteSpace(headerBuffer = streamReader.ReadLine()))
                     {
-                        var headerMatch = _headerLineRegex.Match(buffer);
+                        var headerMatch = _headerLineRegex.Match(headerBuffer);
                         if (!headerMatch.Success)
                         {
                             return null;
                         }
-                        headerBuffer.Add(headerMatch.Groups[1].Value, headerMatch.Groups[2].Value);
+                        headers.Add(headerMatch.Groups[1].Value, headerMatch.Groups[2].Value);
                     }
 
-                    return new HttpOnePointZeroRequest
+                    using (var bodyStream = new MemoryStream())
                     {
-                        Headers = headerBuffer,
-                        Method = method,
-                        Url = url,
-                    };
+                        // Read in rest of body.
+                        int bodyBuffer;
+                        while ((bodyBuffer = memoryStream.ReadByte()) != -1)
+                        {
+                            bodyStream.WriteByte((byte) bodyBuffer);
+                        }
+
+                        // Parsing successful.
+                        return new FullHttpRequest
+                        {
+                            Headers = headers,
+                            Method = method,
+                            Url = url,
+                            RequestBody = bodyStream.ToArray()
+                        };
+                    }
                 }
             }
         }

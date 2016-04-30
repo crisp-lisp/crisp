@@ -8,11 +8,6 @@ namespace Packet.Interfaces.Server
     public interface IHttpRequest
     {
         /// <summary>
-        /// The type of the request.
-        /// </summary>
-        RequestType RequestType { get; }
-
-        /// <summary>
         /// Gets the HTTP method (verb) contained in the request.
         /// </summary>
         HttpMethod Method { get; }
