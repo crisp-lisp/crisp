@@ -23,6 +23,7 @@ namespace Packet.Server.Tests
             Assert.IsNotNull(request, "Failed to parse request.");
 
             // Request fields should be correct.
+            Assert.AreEqual("HTTP/1.0", request.Version.ToString());
             Assert.AreEqual(HttpMethod.Get, request.Method);
             Assert.AreEqual("/4848", request.Url);
         }

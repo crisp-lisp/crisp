@@ -6,10 +6,16 @@ namespace Packet.Server
 {
     public abstract class HttpRequest : IHttpRequest
     {
-        public HttpMethod Method { get; set; }
+        public HttpMethod Method { get; }
 
-        public HttpVersion Version { get; set; }
+        public IHttpVersion Version { get; }
 
         public string Url { get; set; }
+
+        protected HttpRequest(HttpMethod method, IHttpVersion version)
+        {
+            Method = method;
+            Version = version;
+        }
     }
 }

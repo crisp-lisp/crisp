@@ -8,9 +8,8 @@ namespace Packet.Server
     public class SimpleHttpRequest : HttpRequest
     {
         public SimpleHttpRequest()
+            : base(HttpMethod.Get, new HttpVersion(0, 9))
         {
-            Method = HttpMethod.Get; // HTTP/0.9 has this method only.
-            Version = HttpVersion.Http09; // Only HTTP/0.9 has simple requests.
         }
     }
 }

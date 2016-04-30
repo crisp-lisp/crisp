@@ -15,7 +15,7 @@ namespace Packet.Interfaces.Server
         /// <summary>
         /// Gets the HTTP version of the request.
         /// </summary>
-        HttpVersion Version { get; }
+        IHttpVersion Version { get; }
 
         /// <summary>
         /// Gets the URL of the resource requested.

@@ -46,6 +46,7 @@
     <Compile Include="HttpRequestParserFactory.cs" />
     <Compile Include="HttpRequest.cs" />
     <Compile Include="HttpRequestParser.cs" />
+    <Compile Include="HttpVersion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleHttpRequest.cs" />
     <Compile Include="SimpleRequestParser.cs" />

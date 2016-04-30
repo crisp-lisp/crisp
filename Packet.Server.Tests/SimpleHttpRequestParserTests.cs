@@ -22,6 +22,7 @@ namespace Packet.Server.Tests
             Assert.IsNotNull(request, "Failed to parse request.");
 
             // Request fields should be correct.
+            Assert.AreEqual("HTTP/0.9", request.Version.ToString());
             Assert.AreEqual(HttpMethod.Get, request.Method);
             Assert.AreEqual("/index.html", request.Url);
         }
@@ -39,6 +40,7 @@ namespace Packet.Server.Tests
 
             Assert.IsNotNull(request, "Failed to parse request.");
             
+            Assert.AreEqual("HTTP/0.9", request.Version.ToString());
             Assert.AreEqual(HttpMethod.Get, request.Method);
             Assert.AreEqual("/index.html", request.Url);
         }
@@ -55,7 +57,8 @@ namespace Packet.Server.Tests
             var request = subject.Parse(SampleRawHttpRequestFactory.GetMultilineHttpRequestWithExtraData_0_9());
 
             Assert.IsNotNull(request, "Failed to parse request.");
-            
+
+            Assert.AreEqual("HTTP/0.9", request.Version.ToString());
             Assert.AreEqual(HttpMethod.Get, request.Method);
             Assert.AreEqual("/index.html", request.Url);
         }

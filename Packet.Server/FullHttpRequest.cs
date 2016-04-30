@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 
 using Packet.Enums;
+using Packet.Interfaces.Server;
 
 namespace Packet.Server
 {
@@ -16,9 +17,9 @@ namespace Packet.Server
 
         public byte[] RequestBody { get; set; }
 
-        public FullHttpRequest()
+        public FullHttpRequest(HttpMethod method, IHttpVersion version) 
+            : base(method, version)
         {
-            Version = HttpVersion.Http10;
         }
     }
 }

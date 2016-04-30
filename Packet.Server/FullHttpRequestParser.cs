@@ -18,7 +18,7 @@ namespace Packet.Server
 
         public FullHttpRequestParser(IHttpRequestParser successor) : base(successor)
         {
-            _requestLineRegex = new Regex("(?i)(\\S+?) (\\S+?) HTTP\\/1\\.0");
+            _requestLineRegex = new Regex("(?i)(\\S+?) (\\S+?) HTTP\\/([0-9]+)\\.([0-9]+)");
             _headerLineRegex = new Regex("^(.+?): (.+?)$");
         }
 
@@ -81,10 +81,11 @@ namespace Packet.Server
                         }
 
                         // Parsing successful.
-                        return new FullHttpRequest
+                        var version = new HttpVersion(int.Parse(match.Groups[3].Value),
+                            int.Parse(match.Groups[4].Value));
+                        return new FullHttpRequest(method, version)
                         {
                             Headers = headers,
-                            Method = method,
                             Url = url,
                             RequestBody = bodyStream.ToArray()
                         };
