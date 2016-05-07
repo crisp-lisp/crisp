@@ -1,0 +1,16 @@
+{
+	"Headers" : {
+		"Connection" : "Keep-Alive",
+		"User-Agent" : "Mozilla/3.01 (X11; I; SunOS 5.4 sun4m)",
+		"Pragma" : "no-cache",
+		"Host" : "tecfa.unige.ch:7778"
+	},
+	"RequestBody" : "",
+	"Method" : 1,
+	"Version" : {
+		"$type" : "Packet.Server.HttpVersion, Packet.Server",
+		"Major" : 1,
+		"Minor" : 0
+	},
+	"Url" : "/4848"
+}

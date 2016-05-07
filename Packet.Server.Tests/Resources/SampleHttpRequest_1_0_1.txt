@@ -3,4 +3,3 @@ Connection: Keep-Alive
 User-Agent: Mozilla/3.01 (X11; I; SunOS 5.4 sun4m)
 Pragma: no-cache
 Host: tecfa.unige.ch:7778
-Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, */*

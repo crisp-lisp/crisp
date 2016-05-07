@@ -33,5 +33,23 @@ namespace Packet.Server.Tests
         {
             return new ASCIIEncoding().GetBytes(Properties.Resources.SampleHttpRequest_0_9_3);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static byte[] GetGetHttpRequest_1_0()
+        {
+            return new ASCIIEncoding().GetBytes(Properties.Resources.SampleHttpRequest_1_0_1);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static byte[] GetHeadHttpRequest_1_0()
+        {
+            return new ASCIIEncoding().GetBytes(Properties.Resources.SampleHttpRequest_1_0_2);
+        }
     }
 }

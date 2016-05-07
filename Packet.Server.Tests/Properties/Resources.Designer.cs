@@ -61,6 +61,54 @@ namespace Packet.Server.Tests.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {
+        ///	&quot;Headers&quot; : {
+        ///		&quot;Connection&quot; : &quot;Keep-Alive&quot;,
+        ///		&quot;User-Agent&quot; : &quot;Mozilla/3.01 (X11; I; SunOS 5.4 sun4m)&quot;,
+        ///		&quot;Pragma&quot; : &quot;no-cache&quot;,
+        ///		&quot;Host&quot; : &quot;tecfa.unige.ch:7778&quot;
+        ///	},
+        ///	&quot;RequestBody&quot; : &quot;&quot;,
+        ///	&quot;Method&quot; : 1,
+        ///	&quot;Version&quot; : {
+        ///		&quot;Major&quot; : 1,
+        ///		&quot;Minor&quot; : 0
+        ///	},
+        ///	&quot;Url&quot; : &quot;/4848&quot;
+        ///}
+        ///.
+        /// </summary>
+        internal static string ParsedHttpRequest_1_0_1 {
+            get {
+                return ResourceManager.GetString("ParsedHttpRequest_1_0_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {
+        ///	&quot;Headers&quot; : {
+        ///		&quot;Connection&quot; : &quot;Keep-Alive&quot;,
+        ///		&quot;User-Agent&quot; : &quot;Mozilla/3.01 (X11; I; SunOS 5.4 sun4m)&quot;,
+        ///		&quot;Pragma&quot; : &quot;no-cache&quot;,
+        ///		&quot;Host&quot; : &quot;tecfa.unige.ch:7778&quot;
+        ///	},
+        ///	&quot;RequestBody&quot; : &quot;&quot;,
+        ///	&quot;Method&quot; : 2,
+        ///	&quot;Version&quot; : {
+        ///		&quot;Major&quot; : 1,
+        ///		&quot;Minor&quot; : 0
+        ///	},
+        ///	&quot;Url&quot; : &quot;/4848&quot;
+        ///}
+        ///.
+        /// </summary>
+        internal static string ParsedHttpRequest_1_0_2 {
+            get {
+                return ResourceManager.GetString("ParsedHttpRequest_1_0_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to GET /index.html
         ///.
         /// </summary>
@@ -101,7 +149,6 @@ namespace Packet.Server.Tests.Properties {
         ///User-Agent: Mozilla/3.01 (X11; I; SunOS 5.4 sun4m)
         ///Pragma: no-cache
         ///Host: tecfa.unige.ch:7778
-        ///Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, */*
         ///.
         /// </summary>
         internal static string SampleHttpRequest_1_0_1 {
@@ -116,7 +163,6 @@ namespace Packet.Server.Tests.Properties {
         ///User-Agent: Mozilla/3.01 (X11; I; SunOS 5.4 sun4m)
         ///Pragma: no-cache
         ///Host: tecfa.unige.ch:7778
-        ///Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, */*
         ///.
         /// </summary>
         internal static string SampleHttpRequest_1_0_2 {

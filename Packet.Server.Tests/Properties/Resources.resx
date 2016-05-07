@@ -118,6 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="ParsedHttpRequest_1_0_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ParsedHttpRequest_1_0_1.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="ParsedHttpRequest_1_0_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ParsedHttpRequest_1_0_2.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
   <data name="SampleHttpRequest_0_9_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SampleHttpRequest_0_9_1.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
