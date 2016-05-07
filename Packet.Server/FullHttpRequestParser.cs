@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 
@@ -88,7 +87,10 @@ namespace Packet.Server
 
         protected override IHttpVersion AttemptGetVersion(string requestLine)
         {
+            // Attempt to match request line.
             var match = _requestLineRegex.Match(requestLine);
+
+            // Return version or null if parsing failed.
             return !match.Success ? null 
                 : new HttpVersion(int.Parse(match.Groups[3].Value), int.Parse(match.Groups[4].Value));
         }
