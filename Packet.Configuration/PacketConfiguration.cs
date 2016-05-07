@@ -22,6 +22,6 @@ namespace Packet.Configuration
 
         public int Port { get; set; }
 
-        public int MaxPostSize { get; set; }
+        public long MaxPostSize { get; set; }
     }
 }
