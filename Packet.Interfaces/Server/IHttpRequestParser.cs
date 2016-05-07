@@ -6,7 +6,7 @@
     public interface IHttpRequestParser
     {
         /// <summary>
-        /// Parses the raw HTTP request given, as read from a network socket.
+        /// Parses the raw HTTP request given.
         /// </summary>
         /// <param name="request">The raw bytes of the request.</param>
         /// <returns></returns>
