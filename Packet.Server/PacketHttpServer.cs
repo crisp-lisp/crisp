@@ -1,8 +1,7 @@
-﻿using System.CodeDom;
-using System.IO;
-using System.Net;
+﻿using System.Net;
 using System.Net.Sockets;
-using System.Text;
+using System.Web;
+
 using Packet.Interfaces.Configuration;
 using Packet.Interfaces.Logging;
 using Packet.Interfaces.Server;
@@ -65,12 +64,21 @@ namespace Packet.Server
 
                 _logger.WriteLine("Listener accepted TCP client...");
 
-                var stream = client.GetStream();
-                var data = _httpRequestReader.GetData(stream);
-                var request = _httpRequestParser.Parse(data);
+                using (var stream = client.GetStream())
+                {
+                    try
+                    {
+                        var data = _httpRequestReader.GetData(stream);
+                        var request = _httpRequestParser.Parse(data);
 
-                _logger.WriteLine($"Read {data.Length} bytes from client.");
-                _logger.WriteLine($"Request uses {request.Version}...");
+                        _logger.WriteLine($"Read {data.Length} bytes from client.");
+                        _logger.WriteLine($"Request uses {request.Version}.");
+                    }
+                    catch (HttpException ex)
+                    {
+                        // TODO: Bad request.
+                    }
+                }
 
                 // Pass request to processor and process in a new thread.
                 //                var processor = new HttpProcessor(client, this, Logger);

@@ -40,8 +40,8 @@ namespace Packet.Server
 
         public byte[] GetData(Stream stream)
         {
-            using (var dataStream = new MemoryStream())
-            using (var dataWriter = new StreamWriter(dataStream) {AutoFlush = true})
+            using (var outputStream = new MemoryStream())
+            using (var outputWriter = new StreamWriter(outputStream) {AutoFlush = true})
             using (var inputStream = new BufferedStream(stream))
             {
                 // Get version from request line.
@@ -50,14 +50,18 @@ namespace Packet.Server
                 
                 // Bad header line.
                 if (version == null)
+                {
                     throw new HttpException("The HTTP header line was invalid.");
+                }
 
                 // Emit request line.
-                dataWriter.Write(requestLine);
+                outputWriter.Write(requestLine);
 
                 // For HTTP/0.9 requests, this is the only line.
                 if (version.Major == 0 && version.Minor == 9)
-                    return dataStream.ToArray();
+                { 
+                    return outputStream.ToArray();
+                }
 
                 // Read in headers.
                 var headers = new Dictionary<string, string>();
@@ -75,10 +79,12 @@ namespace Packet.Server
                 
                 // Emit headers.
                 foreach (var header in headers)
-                    dataWriter.WriteLine($"{header.Key}: {header.Value}");
+                {
+                    outputWriter.WriteLine($"{header.Key}: {header.Value}");
+                }
 
                 // Emit blank line to separate headers from body.
-                dataWriter.WriteLine();
+                outputWriter.WriteLine();
 
                 // Enforce post length cap.
                 var contentLength = GetContentLength(headers);
@@ -97,15 +103,17 @@ namespace Packet.Server
                     if (numRead == 0)
                     {
                         if (remainingLength == 0)
+                        {
                             break;
+                        }
 
                         throw new HttpException("Client disconnected during socket read.");
                     }
                     remainingLength -= numRead;
-                    dataStream.Write(buffer, 0, numRead);
+                    outputStream.Write(buffer, 0, numRead);
                 }
 
-                return dataStream.ToArray();
+                return outputStream.ToArray();
             }
         }
     }

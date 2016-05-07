@@ -5,7 +5,7 @@ using System.Text;
 namespace Packet.Server
 {
     /// <summary>
-    /// Contains helper methods for working with <see cref="Stream"/> instances.
+    /// Contains extension methods for working with <see cref="Stream"/> instances.
     /// </summary>
     internal static class StreamExtensions
     {

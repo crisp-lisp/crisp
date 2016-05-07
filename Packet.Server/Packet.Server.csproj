@@ -45,6 +45,7 @@
     <Compile Include="FullHttpRequest.cs" />
     <Compile Include="FullHttpRequestParser.cs" />
     <Compile Include="HttpRequest.cs" />
+    <Compile Include="HttpRequestHandler.cs" />
     <Compile Include="HttpRequestParser.cs" />
     <Compile Include="HttpRequestReader.cs" />
     <Compile Include="HttpVersion.cs" />
