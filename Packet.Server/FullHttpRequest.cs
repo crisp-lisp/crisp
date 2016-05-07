@@ -6,7 +6,7 @@ using Packet.Interfaces.Server;
 namespace Packet.Server
 {
     /// <summary>
-    /// Represents a HTTP request for HTTP/1.0 and newer.
+    /// Represents a request conforming to HTTP/1.0 or newer.
     /// </summary>
     public class FullHttpRequest : HttpRequest
     {
@@ -21,9 +21,9 @@ namespace Packet.Server
         public byte[] RequestBody { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of a HTTP request for HTTP/1.0 and newer.
+        /// Initializes a new instance of a request conforming to HTTP/1.0 or newer.
         /// </summary>
-        /// <param name="method">The request method.</param>
+        /// <param name="method">The HTTP method (verb) contained in the request.</param>
         /// <param name="version">The HTTP version of the request.</param>
         public FullHttpRequest(HttpMethod method, IHttpVersion version) 
             : base(method, version)

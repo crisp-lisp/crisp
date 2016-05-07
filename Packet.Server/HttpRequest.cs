@@ -12,7 +12,7 @@ namespace Packet.Server
         public string Url { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of a HTTP request made to the server.
+        /// Initializes a new instance of a HTTP request.
         /// </summary>
         /// <param name="method">The HTTP method (verb) contained in the request.</param>
         /// <param name="version">The HTTP version of the request.</param>

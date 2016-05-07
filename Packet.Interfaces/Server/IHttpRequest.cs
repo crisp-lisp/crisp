@@ -3,7 +3,7 @@ using Packet.Enums;
 namespace Packet.Interfaces.Server
 {
     /// <summary>
-    /// Represents a HTTP request made to the server.
+    /// Represents a HTTP request.
     /// </summary>
     public interface IHttpRequest
     {
