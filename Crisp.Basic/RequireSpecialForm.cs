@@ -51,7 +51,7 @@ namespace Crisp.Basic
 
             // Read file.
             var fileText = $"({File.ReadAllText(path)})";
-            var libraryExpressionTree = CrispRunner.SourceToExpressionTree(fileText);
+            var libraryExpressionTree = CrispRuntimeFactory.SourceToExpressionTree(fileText);
             var bindingPairs = libraryExpressionTree.Get().AsPair().Expand();
             var bindings = new Dictionary<string, ISymbolicExpression>();
             foreach (var binding in bindingPairs)

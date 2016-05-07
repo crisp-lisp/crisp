@@ -18,7 +18,7 @@ namespace Crisp.IoC
     /// <summary>
     /// Provides convenience methods for parsing and running Crisp code.
     /// </summary>
-    public static class CrispRunner
+    public static class CrispRuntimeFactory
     {
         /// <summary>
         /// Creates a new <see cref="ICrispRuntime"/> instance to run the file at the specified path.
