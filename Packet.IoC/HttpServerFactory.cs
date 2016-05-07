@@ -29,6 +29,7 @@ namespace Packet.IoC
             container.Register<IPacketConfigurationProvider, PacketConfigurationProvider>();
             container.Register<IHttpRequestParser>(() => new FullHttpRequestParser(new SimpleRequestParser(null)));
             container.Register<ILogger, ConsoleWindowLogger>();
+            container.Register<IHttpRequestReader, HttpRequestReader>();
             container.Register<IHttpServer, PacketHttpServer>();
             container.Verify();
 

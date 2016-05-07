@@ -21,5 +21,7 @@ namespace Packet.Configuration
         public string BindingIpAddress { get; set; }
 
         public int Port { get; set; }
+
+        public int MaxPostSize { get; set; }
     }
 }

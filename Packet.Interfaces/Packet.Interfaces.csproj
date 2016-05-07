@@ -48,6 +48,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\IHttpRequest.cs" />
     <Compile Include="Server\IHttpRequestParser.cs" />
+    <Compile Include="Server\IHttpRequestReader.cs" />
     <Compile Include="Server\IHttpServer.cs" />
     <Compile Include="Server\IHttpVersion.cs" />
   </ItemGroup>

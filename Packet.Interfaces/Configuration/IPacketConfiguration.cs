@@ -46,5 +46,10 @@ namespace Packet.Interfaces.Configuration
         /// Gets or sets the port number that this server should listen on.
         /// </summary>
         int Port { get; set; }
+
+        /// <summary>
+        /// Gets or sets the maximum allowed post size, in bytes.
+        /// </summary>
+        int MaxPostSize { get; set; }
     }
 }

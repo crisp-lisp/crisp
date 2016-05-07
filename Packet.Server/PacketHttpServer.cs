@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.CodeDom;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -18,6 +19,8 @@ namespace Packet.Server
 
         private readonly IHttpRequestParser _httpRequestParser;
 
+        private readonly IHttpRequestReader _httpRequestReader;
+
         /// <summary>
         /// Gets whether or not this server is currently actively listening for requests.
         /// </summary>
@@ -28,11 +31,16 @@ namespace Packet.Server
         /// </summary>
         /// <param name="packetConfigurationProvider"></param>
         /// <param name="logger">The logger that should be used to log server events.</param>
-        public PacketHttpServer(IPacketConfigurationProvider packetConfigurationProvider, ILogger logger, IHttpRequestParser httpRequestParser)
+        public PacketHttpServer(
+            IPacketConfigurationProvider packetConfigurationProvider, 
+            ILogger logger, 
+            IHttpRequestParser httpRequestParser, 
+            IHttpRequestReader httpRequestReader)
         {
             _packetConfiguration = packetConfigurationProvider.Get();
             _logger = logger;
             _httpRequestParser = httpRequestParser;
+            _httpRequestReader = httpRequestReader;
         }
 
         public void Listen()
@@ -55,16 +63,14 @@ namespace Packet.Server
 
                 _logger.WriteLine("Listener accepted TCP client...");
 
-                using (var s = new StreamReader(client.GetStream()))
-                {
-                    var str = new UTF8Encoding().GetBytes(s.ReadToEnd());
-                    var prs = _httpRequestParser.Parse(str);
-                    _logger.Write(prs.Url);
-                }
+                var g = client.GetStream();
+                var r = _httpRequestReader.GetData(g);
+
+                _logger.WriteLine($"Read {r.Length} bytes from client.");
 
                 // Pass request to processor and process in a new thread.
-//                var processor = new HttpProcessor(client, this, Logger);
-//                ThreadPool.QueueUserWorkItem(processor.Process);
+                //                var processor = new HttpProcessor(client, this, Logger);
+                //                ThreadPool.QueueUserWorkItem(processor.Process);
             }
         }
     }
