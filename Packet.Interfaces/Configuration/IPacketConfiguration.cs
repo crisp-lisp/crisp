@@ -41,5 +41,10 @@ namespace Packet.Interfaces.Configuration
         /// Gets or sets the IP address that this server is bound to.
         /// </summary>
         string BindingIpAddress { get; set; }
+
+        /// <summary>
+        /// Gets or sets the port number that this server should listen on.
+        /// </summary>
+        int Port { get; set; }
     }
 }

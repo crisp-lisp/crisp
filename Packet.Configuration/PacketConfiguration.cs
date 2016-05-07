@@ -19,5 +19,7 @@ namespace Packet.Configuration
         public IEnumerable<string> DoNotServePatterns { get; set; }
         
         public string BindingIpAddress { get; set; }
+
+        public int Port { get; set; }
     }
 }

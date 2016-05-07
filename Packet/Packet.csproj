@@ -44,8 +44,8 @@
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SimpleInjector, Version=3.1.3.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
-      <HintPath>..\packages\SimpleInjector.3.1.3\lib\net45\SimpleInjector.dll</HintPath>
+    <Reference Include="SimpleInjector, Version=3.1.4.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.3.1.4\lib\net45\SimpleInjector.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -218,6 +218,14 @@
     <ProjectReference Include="..\Crisp.Types\Crisp.Types.csproj">
       <Project>{9b480f6e-e40a-4255-a0a6-5fc016a9c673}</Project>
       <Name>Crisp.Types</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Packet.Interfaces\Packet.Interfaces.csproj">
+      <Project>{71c6a9c3-8606-4b4c-a6da-10c742174199}</Project>
+      <Name>Packet.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Packet.IoC\Packet.IoC.csproj">
+      <Project>{138d4bd7-f38d-45c9-b956-3abec31bcc67}</Project>
+      <Name>Packet.IoC</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

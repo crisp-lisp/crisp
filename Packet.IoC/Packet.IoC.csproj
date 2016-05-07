@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E649520C-1798-4A3F-A0EE-20AC5873A14F}</ProjectGuid>
+    <ProjectGuid>{138D4BD7-F38D-45C9-B956-3ABEC31BCC67}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Crisp.IoC</RootNamespace>
-    <AssemblyName>Crisp.IoC</AssemblyName>
+    <RootNamespace>Packet.IoC</RootNamespace>
+    <AssemblyName>Packet.IoC</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -44,37 +44,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CrispRunner.cs" />
+    <Compile Include="HttpServerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Crisp.Configuration\Crisp.Configuration.csproj">
-      <Project>{86e85b62-cef3-4c87-80e8-1846927a0bef}</Project>
-      <Name>Crisp.Configuration</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Crisp.Evaluation\Crisp.Evaluation.csproj">
-      <Project>{e5a749c9-b032-42f5-aed4-df5017ab62ac}</Project>
-      <Name>Crisp.Evaluation</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Crisp.Interfaces\Crisp.Interfaces.csproj">
       <Project>{12b92742-736f-4502-bd77-fcfb81e7b53c}</Project>
       <Name>Crisp.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Crisp.Parsing\Crisp.Parsing.csproj">
-      <Project>{68c3e451-5638-49e4-8f17-d2794074d3ae}</Project>
-      <Name>Crisp.Parsing</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Crisp.Runtime\Crisp.Runtime.csproj">
-      <Project>{1a088b75-c83f-43ae-9a16-5527e6f34ef6}</Project>
-      <Name>Crisp.Runtime</Name>
     </ProjectReference>
     <ProjectReference Include="..\Crisp.Shared\Crisp.Shared.csproj">
       <Project>{037d2ac9-aca7-42ac-9566-35502f855e7d}</Project>
       <Name>Crisp.Shared</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Crisp.Tokenization\Crisp.Tokenization.csproj">
-      <Project>{8bc749dd-d1e6-414b-aec9-40066e8b9954}</Project>
-      <Name>Crisp.Tokenization</Name>
+    <ProjectReference Include="..\Packet.Configuration\Packet.Configuration.csproj">
+      <Project>{9a4836a8-0b2a-4f60-9f15-b59aa6764821}</Project>
+      <Name>Packet.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Packet.Interfaces\Packet.Interfaces.csproj">
+      <Project>{71c6a9c3-8606-4b4c-a6da-10c742174199}</Project>
+      <Name>Packet.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Packet.Logging\Packet.Logging.csproj">
+      <Project>{09819c42-4ba0-470e-a072-b2b07d64a50e}</Project>
+      <Name>Packet.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Packet.Server\Packet.Server.csproj">
+      <Project>{F3D24388-BA10-4A6B-86AC-3D28537EF3C9}</Project>
+      <Name>Packet.Server</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

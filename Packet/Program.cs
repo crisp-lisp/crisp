@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Threading;
 
 using CommandLine.Text;
-using Packet.Server;
+using Packet.IoC;
 
 namespace Packet
 {
@@ -62,7 +62,7 @@ namespace Packet
             }
 
             // Start server.
-            var server = HttpServerFactory.GetPacketHttpServer(options);
+            var server = HttpServerFactory.GetPacketHttpServer();
             var thread = new Thread(server.Listen);
             thread.Start();
         }

@@ -86,6 +86,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Packet.Enums", "Packet.Enum
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Packet.Server.Tests", "Packet.Server.Tests\Packet.Server.Tests.csproj", "{9BCE2C26-513D-4ADC-8E26-0F8183406C7C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Packet.IoC", "Packet.IoC\Packet.IoC.csproj", "{138D4BD7-F38D-45C9-B956-3ABEC31BCC67}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -216,6 +218,10 @@ Global
 		{9BCE2C26-513D-4ADC-8E26-0F8183406C7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9BCE2C26-513D-4ADC-8E26-0F8183406C7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9BCE2C26-513D-4ADC-8E26-0F8183406C7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{138D4BD7-F38D-45C9-B956-3ABEC31BCC67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{138D4BD7-F38D-45C9-B956-3ABEC31BCC67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{138D4BD7-F38D-45C9-B956-3ABEC31BCC67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{138D4BD7-F38D-45C9-B956-3ABEC31BCC67}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

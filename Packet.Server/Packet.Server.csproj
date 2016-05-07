@@ -43,10 +43,10 @@
     <Compile Include="HttpMethodConverter.cs" />
     <Compile Include="FullHttpRequest.cs" />
     <Compile Include="FullHttpRequestParser.cs" />
-    <Compile Include="HttpRequestParserFactory.cs" />
     <Compile Include="HttpRequest.cs" />
     <Compile Include="HttpRequestParser.cs" />
     <Compile Include="HttpVersion.cs" />
+    <Compile Include="PacketHttpServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleHttpRequest.cs" />
     <Compile Include="SimpleRequestParser.cs" />

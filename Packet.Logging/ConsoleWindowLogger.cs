@@ -7,7 +7,7 @@ namespace Packet.Logging
     /// <summary>
     /// An implementation of a logger that prints messages to the console window.
     /// </summary>
-    internal class ConsoleWindowLogger : ILogger
+    public class ConsoleWindowLogger : ILogger
     {
         public void WriteLine(string msg)
         {
