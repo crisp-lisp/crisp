@@ -8,7 +8,7 @@ using Packet.Interfaces.Server;
 namespace Packet.Server
 {
     /// <summary>
-    /// Represents a HTTP request parser that will parse HTTP/1.0 full-format requests. 
+    /// Represents a HTTP request parser that will parse requests for HTTP/1.0 and newer.
     /// </summary>
     public class FullHttpRequestParser : HttpRequestParser
     {
@@ -16,10 +16,14 @@ namespace Packet.Server
 
         private static Regex _headerLineRegex;
 
+        /// <summary>
+        /// Initializes a new instance of a HTTP request parser that will parse requests for HTTP/1.0 and newer.
+        /// </summary>
+        /// <param name="successor">The fallback parser to use if parsing is not successful.</param>
         public FullHttpRequestParser(IHttpRequestParser successor) : base(successor)
         {
-            _requestLineRegex = new Regex("(?i)(\\S+?) (\\S+?) HTTP\\/([0-9]+)\\.([0-9]+)");
-            _headerLineRegex = new Regex("^(.+?): (.+?)$");
+            _requestLineRegex = _requestLineRegex ?? new Regex("(?i)(\\S+?) (\\S+?) HTTP\\/([0-9]+)\\.([0-9]+)");
+            _headerLineRegex = _headerLineRegex ?? new Regex("^(.+?): (.+?)$");
         }
 
         protected override IHttpRequest AttemptParse(byte[] request)

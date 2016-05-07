@@ -8,7 +8,7 @@ namespace Packet.Server.Tests
     public static class SampleRawHttpRequestFactory
     {
         /// <summary>
-        /// 
+        /// Gets a sample HTTP/0.9 request.
         /// </summary>
         /// <returns></returns>
         public static byte[] GetHttpRequest_0_9()
@@ -17,7 +17,7 @@ namespace Packet.Server.Tests
         }
 
         /// <summary>
-        /// 
+        /// Gets a sample HTTP/0.9 request with extra data before the terminator.
         /// </summary>
         /// <returns></returns>
         public static byte[] GetHttpRequestWithExtraData_0_9()
@@ -26,7 +26,7 @@ namespace Packet.Server.Tests
         }
 
         /// <summary>
-        /// 
+        /// Gets a sample HTTP/0.9 request with extra data before and after the terminator.
         /// </summary>
         /// <returns></returns>
         public static byte[] GetMultilineHttpRequestWithExtraData_0_9()
@@ -35,7 +35,7 @@ namespace Packet.Server.Tests
         }
 
         /// <summary>
-        /// 
+        /// Gets a sample HTTP/1.0 GET request.
         /// </summary>
         /// <returns></returns>
         public static byte[] GetGetHttpRequest_1_0()
@@ -44,7 +44,7 @@ namespace Packet.Server.Tests
         }
 
         /// <summary>
-        /// 
+        /// Gets a sample HTTP/1.0 HEAD request.
         /// </summary>
         /// <returns></returns>
         public static byte[] GetHeadHttpRequest_1_0()
