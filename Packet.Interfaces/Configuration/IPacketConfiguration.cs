@@ -50,6 +50,6 @@ namespace Packet.Interfaces.Configuration
         /// <summary>
         /// Gets or sets the maximum allowed post size, in bytes.
         /// </summary>
-        long MaxPostSize { get; set; }
+        int MaxPostSize { get; set; }
     }
 }

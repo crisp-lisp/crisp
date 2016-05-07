@@ -21,9 +21,16 @@ namespace Packet.Server
 
         protected abstract IHttpRequest AttemptParse(byte[] request);
 
+        protected abstract IHttpVersion AttemptGetVersion(string requestLine);
+
         public IHttpRequest Parse(byte[] request)
         {
             return AttemptParse(request) ?? Successor?.Parse(request);
+        }
+
+        public IHttpVersion GetVersion(string requestLine)
+        {
+            return AttemptGetVersion(requestLine) ?? Successor?.GetVersion(requestLine);
         }
     }
 }

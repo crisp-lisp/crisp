@@ -70,11 +70,12 @@ namespace Packet.Server
                 var request = _httpRequestParser.Parse(data);
 
                 _logger.WriteLine($"Read {data.Length} bytes from client.");
-                _logger.WriteLine(request.Url);
+                _logger.WriteLine($"Request uses {request.Version}...");
 
                 // Pass request to processor and process in a new thread.
                 //                var processor = new HttpProcessor(client, this, Logger);
                 //                ThreadPool.QueueUserWorkItem(processor.Process);
+                client.Close();
             }
         }
     }

@@ -25,32 +25,35 @@ namespace Packet.Server
         protected override IHttpRequest AttemptParse(byte[] request)
         {
             using (var memoryStream = new MemoryStream(request))
+            using (var streamReader = new StreamReader(memoryStream))
             {
-                using (var streamReader = new StreamReader(memoryStream))
+                // Validate request line format.
+                var match = _requestLineRegex.Match(streamReader.ReadToEnd());
+                if (!match.Success)
                 {
-                    // Validate request line format.
-                    var match = _requestLineRegex.Match(streamReader.ReadToEnd());
-                    if (!match.Success)
-                    {
-                        return null; 
-                    }
-
-                    // Grab URL from capturing group.
-                    var url = match.Groups[1].Value;
-
-                    // Validate URL.
-                    if (!ValidateUrl(url))
-                    {
-                        return null;
-                    }
-
-                    // Parsing successful.
-                    return new SimpleHttpRequest
-                    {
-                        Url = url
-                    };
+                    return null; 
                 }
+
+                // Grab URL from capturing group.
+                var url = match.Groups[1].Value;
+
+                // Validate URL.
+                if (!ValidateUrl(url))
+                {
+                    return null;
+                }
+
+                // Parsing successful.
+                return new SimpleHttpRequest
+                {
+                    Url = url
+                };
             }
+        }
+
+        protected override IHttpVersion AttemptGetVersion(string requestLine)
+        {
+            return _requestLineRegex.IsMatch(requestLine) ? new HttpVersion(0, 9) : null;
         }
     }
 }

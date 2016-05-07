@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Web;
+
 using Packet.Interfaces.Configuration;
 using Packet.Interfaces.Server;
 
@@ -11,103 +11,102 @@ namespace Packet.Server
 {
     public class HttpRequestReader : IHttpRequestReader
     {
+        private readonly IHttpRequestParser _httpRequestParser;
         private readonly IPacketConfiguration _packetConfiguration;
 
-        public HttpRequestReader(IPacketConfigurationProvider packetConfigurationProvider)
+        /// <summary>
+        /// Initializes a new instance of a HTTP request reader used to read HTTP requests from a stream as raw bytes.
+        /// </summary>
+        /// <param name="httpRequestParser"></param>
+        /// <param name="packetConfigurationProvider">The configuration provider service.</param>
+        public HttpRequestReader(
+            IHttpRequestParser httpRequestParser,
+            IPacketConfigurationProvider packetConfigurationProvider)
         {
+            _httpRequestParser = httpRequestParser;
             _packetConfiguration = packetConfigurationProvider.Get();
+        }
+
+        /// <summary>
+        /// Gets the content length from a set of HTTP headers, or returns 0 if the header is absent.
+        /// </summary>
+        /// <param name="headers">The set of headers to get the content length from.</param>
+        /// <returns></returns>
+        private static int GetContentLength(IReadOnlyDictionary<string, string> headers)
+        {
+            const string key = "Content-Length";
+            return headers.ContainsKey(key) ? int.Parse(headers[key]) : 0;
         }
 
         public byte[] GetData(Stream stream)
         {
-            var dataStream = new MemoryStream();
-
-            var inputStream = new BufferedStream(stream);
-            var requestLine = StreamReadLine(inputStream);
-
-            // Check request line against simple.
-
-            var headers = new Dictionary<string, string>();
-
-            string line;
-            while ((line = StreamReadLine(inputStream)) != null)
+            using (var dataStream = new MemoryStream())
+            using (var dataWriter = new StreamWriter(dataStream) {AutoFlush = true})
+            using (var inputStream = new BufferedStream(stream))
             {
-                if (line == string.Empty)
+                // Get version from request line.
+                var requestLine = inputStream.ReadLine(true);
+                var version = _httpRequestParser.GetVersion(requestLine);
+                
+                // Bad header line.
+                if (version == null)
+                    throw new HttpException("The HTTP header line was invalid.");
+
+                // Emit request line.
+                dataWriter.Write(requestLine);
+
+                // For HTTP/0.9 requests, this is the only line.
+                if (version.Major == 0 && version.Minor == 9)
+                    return dataStream.ToArray();
+
+                // Read in headers.
+                var headers = new Dictionary<string, string>();
+                string headerBuffer;
+                while ((headerBuffer = inputStream.ReadLine()) != null)
                 {
-                    break; // Blank line means end of headers.
+                    // Blank line means end of headers.
+                    if (headerBuffer == string.Empty)
+                        break;
+
+                    // Add to headers.
+                    var splitHeader = headerBuffer.Split(':');
+                    headers.Add(splitHeader[0], string.Join(":", splitHeader.Skip(1)).Trim());
                 }
-
-                // Add to headers.
-                var split = line.Split(':');
-                headers.Add(split[0], string.Join(":", split.Skip(1)).Trim());
-            }
-
-            var contentLength = headers.ContainsKey("Content-Length") ? int.Parse(headers["Content-Length"]) : 0;
-
-            using (var headerWriter = new StreamWriter(dataStream))
-            {
-                headerWriter.WriteLine(requestLine);
+                
+                // Emit headers.
                 foreach (var header in headers)
+                    dataWriter.WriteLine($"{header.Key}: {header.Value}");
+
+                // Emit blank line to separate headers from body.
+                dataWriter.WriteLine();
+
+                // Enforce post length cap.
+                var contentLength = GetContentLength(headers);
+                if (contentLength > _packetConfiguration.MaxPostSize)
                 {
-                    headerWriter.WriteLine($"{header.Key}: {header.Value}");
+                    throw new HttpException("Post length is larger than the maximum of " +
+                                            $"{_packetConfiguration.MaxPostSize} bytes.");
                 }
-                headerWriter.WriteLine();
-            }
 
-            // Enforce post length cap.
-            if (contentLength > _packetConfiguration.MaxPostSize)
-            {
-                throw new HttpException("Post length is larger than the maximum of " +
-                                        $"{_packetConfiguration.MaxPostSize} bytes.");
-            }
-
-            // Read post data into memory buffer.
-            var buffer = new byte[4096];
-            var remainingLength = contentLength;
-            while (remainingLength > 0)
-            {
-                var numRead = inputStream.Read(buffer, 0, Math.Min(4096, remainingLength));
-                if (numRead == 0)
+                // Read post data into memory buffer.
+                var buffer = new byte[4096]; 
+                var remainingLength = contentLength;
+                while (remainingLength > 0)
                 {
-                    if (remainingLength == 0)
+                    var numRead = inputStream.Read(buffer, 0, Math.Min(4096, remainingLength));
+                    if (numRead == 0)
                     {
-                        break;
+                        if (remainingLength == 0)
+                            break;
+
+                        throw new HttpException("Client disconnected during socket read.");
                     }
-                    // TODO: Throw it! Client disconnected!
+                    remainingLength -= numRead;
+                    dataStream.Write(buffer, 0, numRead);
                 }
-                remainingLength -= numRead;
-                dataStream.Write(buffer, 0, numRead);
+
+                return dataStream.ToArray();
             }
-            
-            return dataStream.ToArray();
-        }
-
-
-        /// <summary>
-        /// Reads a line of text from a <see cref="Stream"/> instance.
-        /// </summary>
-        /// <param name="stream">The stream to read from.</param>
-        /// <returns></returns>
-        private static string StreamReadLine(Stream stream)
-        {
-            var line = new StringBuilder();
-
-            // Read until newline.
-            int buffer;
-            while ((buffer = stream.ReadByte()) != '\n')
-            {
-                switch (buffer)
-                {
-                    case '\r': // Leave out carriage return char.
-                    case -1:
-                        break;
-                    default:
-                        line.Append(Convert.ToChar(buffer));
-                        break;
-                }
-            }
-
-            return line.ToString();
         }
     }
 }

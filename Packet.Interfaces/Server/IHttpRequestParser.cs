@@ -11,5 +11,7 @@
         /// <param name="request">The raw bytes of the request.</param>
         /// <returns></returns>
         IHttpRequest Parse(byte[] request);
+
+        IHttpVersion GetVersion(string requestLine);
     }
 }
