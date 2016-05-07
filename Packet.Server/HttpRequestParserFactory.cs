@@ -6,7 +6,9 @@ namespace Packet.Server
     {
         public static IHttpRequestParser CreateHttpRequestParser()
         {
-            return new FullHttpRequestParser(new SimpleRequestParser(null));
+            // Chain of responsibility.
+            return new FullHttpRequestParser(
+                new SimpleRequestParser(null));
         }
     }
 }
