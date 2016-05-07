@@ -31,6 +31,8 @@ namespace Packet.Server
         /// </summary>
         /// <param name="packetConfigurationProvider"></param>
         /// <param name="logger">The logger that should be used to log server events.</param>
+        /// <param name="httpRequestParser"></param>
+        /// <param name="httpRequestReader"></param>
         public PacketHttpServer(
             IPacketConfigurationProvider packetConfigurationProvider, 
             ILogger logger, 
@@ -63,10 +65,12 @@ namespace Packet.Server
 
                 _logger.WriteLine("Listener accepted TCP client...");
 
-                var g = client.GetStream();
-                var r = _httpRequestReader.GetData(g);
+                var stream = client.GetStream();
+                var data = _httpRequestReader.GetData(stream);
+                var request = _httpRequestParser.Parse(data);
 
-                _logger.WriteLine($"Read {r.Length} bytes from client.");
+                _logger.WriteLine($"Read {data.Length} bytes from client.");
+                _logger.WriteLine(request.Url);
 
                 // Pass request to processor and process in a new thread.
                 //                var processor = new HttpProcessor(client, this, Logger);
