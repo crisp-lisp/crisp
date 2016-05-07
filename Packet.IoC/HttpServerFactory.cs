@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Crisp.Interfaces.Configuration;
-using Crisp.Interfaces.Shared;
+﻿using Crisp.Interfaces.Shared;
 using Crisp.Shared;
+
 using Packet.Configuration;
 using Packet.Interfaces.Configuration;
 using Packet.Interfaces.Logging;
 using Packet.Interfaces.Server;
 using Packet.Logging;
 using Packet.Server;
+
 using SimpleInjector;
 
 namespace Packet.IoC
