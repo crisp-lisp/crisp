@@ -19,6 +19,7 @@ namespace Packet.Server
         private readonly IHttpRequestParser _httpRequestParser;
 
         private readonly IHttpRequestReader _httpRequestReader;
+
         private readonly IHttpRequestHandler _httpRequestHandler;
 
         /// <summary>
@@ -59,32 +60,30 @@ namespace Packet.Server
             _logger.WriteLine($"Bound to IP {ipAddress} and listening on port {_packetConfiguration.Port}...");
 
             // While we're actively listening for connections.
-            while (IsActive) // TODO: Weird way to listen for multiple requests.
+            while (IsActive)
             {
                 _logger.WriteLine("Waiting for a request...");
 
                 // Wait for TCP client connect.
                 var client = _listener.AcceptTcpClient();
+                var stream = client.GetStream();
 
                 _logger.WriteLine("Listener accepted TCP client...");
-
-                using (var stream = client.GetStream())
+                
+                try
                 {
-                    try
-                    {
-                        var data = _httpRequestReader.GetData(stream);
-                        var request = _httpRequestParser.Parse(data);
+                    var data = _httpRequestReader.GetData(stream);
+                    var request = _httpRequestParser.Parse(data);
 
-                        _logger.WriteLine($"Read {data.Length} bytes from client.");
-                        _logger.WriteLine($"Request uses {request.Version}.");
+                    _logger.WriteLine($"Read {data.Length} bytes from client.");
+                    _logger.WriteLine($"Request uses {request.Version}.");
 
-                        var response = _httpRequestHandler.Handle(request);
-                        response.WriteTo(stream);
-                    }
-                    catch (HttpException ex)
-                    {
-                        // TODO: Bad request.
-                    }
+                    var response = _httpRequestHandler.Handle(request);
+                    response.WriteTo(stream);
+                }
+                catch (HttpException ex)
+                {
+                    // TODO: Bad request.
                 }
 
                 // Pass request to processor and process in a new thread.

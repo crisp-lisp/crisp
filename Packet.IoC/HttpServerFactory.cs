@@ -28,11 +28,12 @@ namespace Packet.IoC
             container.Register<IHttpRequestReader, HttpRequestReader>();
             container.Register<IHttpServer, PacketHttpServer>();
             container.Register<IUrlResolver, UrlResolver>();
-            container.Register<IHttpRequestHandler>(() =>
-                new StaticFileHttpRequestHandler(
-                    null,
-                    container.GetInstance<IUrlResolver>(),
-                    container.GetInstance<ILogger>()));
+            container.RegisterCollection<IHttpRequestHandler>(new[]
+            {
+                typeof (ForbiddenHttpRequestHandler),
+                typeof (StaticFileHttpRequestHandler)
+            });
+            container.Register<IHttpRequestHandler, ChainedHttpRequestHandler>();
             container.Verify();
 
             return container.GetInstance<IHttpServer>();

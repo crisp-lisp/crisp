@@ -1,16 +1,21 @@
-﻿using Packet.Interfaces.Logging;
+﻿using Packet.Interfaces.Configuration;
+using Packet.Interfaces.Logging;
 using Packet.Interfaces.Server;
 
 namespace Packet.Server
 {
     public class StaticFileHttpRequestHandler : HttpRequestHandler
     {
+        private readonly IPacketConfiguration _packetConfiguration;
         private readonly IUrlResolver _urlResolver;
         private readonly ILogger _logger;
 
-        public StaticFileHttpRequestHandler(IHttpRequestHandler successor, IUrlResolver urlResolver, ILogger logger) 
-            : base(successor)
+        public StaticFileHttpRequestHandler(
+            IPacketConfigurationProvider packetConfigurationProvider, 
+            IUrlResolver urlResolver, 
+            ILogger logger) 
         {
+            _packetConfiguration = packetConfigurationProvider.Get();
             _urlResolver = urlResolver;
             _logger = logger;
         }

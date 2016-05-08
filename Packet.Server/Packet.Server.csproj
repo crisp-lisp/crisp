@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChainedHttpRequestHandler.cs" />
+    <Compile Include="ForbiddenHttpRequestHandler.cs" />
+    <Compile Include="ForbiddenHttpResponse.cs" />
     <Compile Include="HttpMethodConverter.cs" />
     <Compile Include="FullHttpRequest.cs" />
     <Compile Include="FullHttpRequestParser.cs" />

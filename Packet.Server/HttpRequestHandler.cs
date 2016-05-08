@@ -4,13 +4,8 @@ namespace Packet.Server
 {
     public abstract class HttpRequestHandler : IHttpRequestHandler
     {
-        public IHttpRequestHandler Successor { get; }
-
-        protected HttpRequestHandler(IHttpRequestHandler successor)
-        {
-            Successor = successor;
-        }
-
+        public IHttpRequestHandler Successor { get; set; }
+        
         protected abstract IHttpResponse AttemptHandle(IHttpRequest request);
 
         public IHttpResponse Handle(IHttpRequest request)
