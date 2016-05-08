@@ -57,5 +57,6 @@
     ".zip": "application/zip"
   },
   "Port": 80,
-  "MaxPostSize": 5242880
+  "MaxPostSize": 5242880,
+  "WebRoot": "public-www"
 }

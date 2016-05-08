@@ -1,21 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Packet.Interfaces.Logging;
 using Packet.Interfaces.Server;
 
 namespace Packet.Server
 {
     public class StaticFileHttpRequestHandler : HttpRequestHandler
     {
-        public StaticFileHttpRequestHandler(IHttpRequestHandler successor) : base(successor)
+        private readonly IUrlResolver _urlResolver;
+        private readonly ILogger _logger;
+
+        public StaticFileHttpRequestHandler(IHttpRequestHandler successor, IUrlResolver urlResolver, ILogger logger) 
+            : base(successor)
         {
+            _urlResolver = urlResolver;
+            _logger = logger;
         }
 
         protected override IHttpResponse AttemptHandle(IHttpRequest request)
         {
-            
+            var resolvedPath = _urlResolver.GetUrlPath(request.Url);
+            _logger.WriteLine($"Resolved URL '{request.Url}' to {resolvedPath}...");
+            return new StaticFileHttpResponse(request.Version, resolvedPath);
         }
     }
 }

@@ -53,6 +53,7 @@
     <Compile Include="Server\IHttpResponse.cs" />
     <Compile Include="Server\IHttpServer.cs" />
     <Compile Include="Server\IHttpVersion.cs" />
+    <Compile Include="Server\IUrlResolver.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -57,6 +57,7 @@
     <Compile Include="StaticFileHttpRequestHandler.cs" />
     <Compile Include="StaticFileHttpResponse.cs" />
     <Compile Include="StreamExtensions.cs" />
+    <Compile Include="UrlResolver.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Packet.Enums\Packet.Enums.csproj">

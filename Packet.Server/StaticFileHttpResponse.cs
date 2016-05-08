@@ -10,13 +10,17 @@ namespace Packet.Server
 {
     public class StaticFileHttpResponse : HttpResponse
     {
-        public StaticFileHttpResponse(IHttpVersion version) : base(version)
+        private readonly string _path;
+
+        public StaticFileHttpResponse(IHttpVersion version, string path) : base(version)
         {
+            _path = path;
         }
 
         public override void WriteTo(Stream stream)
         {
-            
+            var data = File.ReadAllBytes(_path);
+            stream.Write(data, 0, data.Length);
         }
     }
 }

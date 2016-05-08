@@ -42,8 +42,9 @@ namespace Packet.Server
         {
             using (var outputStream = new MemoryStream())
             using (var outputWriter = new StreamWriter(outputStream) {AutoFlush = true})
-            using (var inputStream = new BufferedStream(stream))
             {
+                var inputStream = new BufferedStream(stream);
+
                 // Get version from request line.
                 var requestLine = inputStream.ReadLine(true);
                 var version = _httpRequestParser.GetVersion(requestLine);

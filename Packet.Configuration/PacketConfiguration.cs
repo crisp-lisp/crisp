@@ -23,5 +23,7 @@ namespace Packet.Configuration
         public int Port { get; set; }
 
         public int MaxPostSize { get; set; }
+
+        public string WebRoot { get; set; }
     }
 }

@@ -51,5 +51,10 @@ namespace Packet.Interfaces.Configuration
         /// Gets or sets the maximum allowed post size, in bytes.
         /// </summary>
         int MaxPostSize { get; set; }
+
+        /// <summary>
+        /// Gets or sets the path to the web root directory.
+        /// </summary>
+        string WebRoot { get; set; }
     }
 }
