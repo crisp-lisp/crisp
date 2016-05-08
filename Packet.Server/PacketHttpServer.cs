@@ -1,6 +1,5 @@
 ﻿using System.Net;
 using System.Net.Sockets;
-using System.Web;
 
 using Packet.Interfaces.Configuration;
 using Packet.Interfaces.Logging;

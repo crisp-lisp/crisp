@@ -6,13 +6,8 @@ namespace Packet.Server
 {
     public abstract class HttpRequestParser : IHttpRequestParser
     {
-        public IHttpRequestParser Successor { get; }
-
-        protected HttpRequestParser(IHttpRequestParser successor)
-        {
-            Successor = successor;
-        }
-
+        public IHttpRequestParser Successor { get; set;  }
+        
         protected static bool ValidateUrl(string url)
         {
             // Validate URL, must be relative.

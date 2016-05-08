@@ -16,7 +16,7 @@ namespace Packet.Server.Tests
              * this is the case.
              */
 
-            var subject = new FullHttpRequestParser(null);
+            var subject = new FullHttpRequestParser();
             var actual = subject.Parse(SampleRawHttpRequestFactory.GetGetHttpRequest_1_0());
 
             // Check that parsing was successful.
@@ -38,7 +38,7 @@ namespace Packet.Server.Tests
              * this is the case.
              */
 
-            var subject = new FullHttpRequestParser(null);
+            var subject = new FullHttpRequestParser();
             var actual = subject.Parse(SampleRawHttpRequestFactory.GetHeadHttpRequest_1_0());
 
             // Check that parsing was successful.

@@ -15,7 +15,7 @@ namespace Packet.Server.Tests
              * is the case.
              */
 
-            var subject = new SimpleRequestParser(null);
+            var subject = new SimpleHttpRequestParser();
             var request = subject.Parse(SampleRawHttpRequestFactory.GetHttpRequest_0_9());
 
             // Check that parsing was successful.
@@ -35,7 +35,7 @@ namespace Packet.Server.Tests
              * that this is the case.
              */
 
-            var subject = new SimpleRequestParser(null);
+            var subject = new SimpleHttpRequestParser();
             var request = subject.Parse(SampleRawHttpRequestFactory.GetHttpRequestWithExtraData_0_9());
 
             Assert.IsNotNull(request, "Failed to parse request.");
@@ -53,7 +53,7 @@ namespace Packet.Server.Tests
              * checks that this is the case.
              */
 
-            var subject = new SimpleRequestParser(null);
+            var subject = new SimpleHttpRequestParser();
             var request = subject.Parse(SampleRawHttpRequestFactory.GetMultilineHttpRequestWithExtraData_0_9());
 
             Assert.IsNotNull(request, "Failed to parse request.");

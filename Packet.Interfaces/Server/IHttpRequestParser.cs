@@ -5,6 +5,8 @@
     /// </summary>
     public interface IHttpRequestParser
     {
+        IHttpRequestParser Successor { get; set; }
+
         /// <summary>
         /// Parses the raw HTTP request given.
         /// </summary>

@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChainedHttpRequestParser.cs" />
     <Compile Include="ChainedHttpRequestHandler.cs" />
     <Compile Include="ForbiddenHttpRequestHandler.cs" />
     <Compile Include="FullHttpResponse.cs" />
@@ -58,7 +59,7 @@
     <Compile Include="ReasonPhrase.cs" />
     <Compile Include="SimpleHttpRequest.cs" />
     <Compile Include="SimpleHttpResponse.cs" />
-    <Compile Include="SimpleRequestParser.cs" />
+    <Compile Include="SimpleHttpRequestParser.cs" />
     <Compile Include="StaticFileHttpRequestHandler.cs" />
     <Compile Include="StreamExtensions.cs" />
     <Compile Include="UrlResolver.cs" />

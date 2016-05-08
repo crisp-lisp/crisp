@@ -23,7 +23,12 @@ namespace Packet.IoC
             container.Register<IPacketConfigurationFileNameProvider>(() => new PacketConfigurationFileNameProvider("packet.json"));
             container.Register<IRawPacketConfigurationProvider, RawPacketConfigurationProvider>();
             container.Register<IPacketConfigurationProvider, PacketConfigurationProvider>();
-            container.Register<IHttpRequestParser>(() => new FullHttpRequestParser(new SimpleRequestParser(null)));
+            container.RegisterCollection<IHttpRequestParser>(new[]
+            {
+                typeof (FullHttpRequestParser),
+                typeof (SimpleHttpRequestParser)
+            });
+            container.Register<IHttpRequestParser, ChainedHttpRequestParser>();
             container.Register<ILogger, ConsoleWindowLogger>();
             container.Register<IHttpRequestReader, HttpRequestReader>();
             container.Register<IHttpServer, PacketHttpServer>();

@@ -18,8 +18,7 @@ namespace Packet.Server
         /// <summary>
         /// Initializes a new instance of a HTTP request parser that will parse requests for HTTP/1.0 and newer.
         /// </summary>
-        /// <param name="successor">The fallback parser to use if parsing is not successful.</param>
-        public FullHttpRequestParser(IHttpRequestParser successor) : base(successor)
+        public FullHttpRequestParser()
         {
             _requestLineRegex = _requestLineRegex ?? new Regex("(?i)(\\S+?) (\\S+?) HTTP\\/([0-9]+)\\.([0-9]+)");
             _headerLineRegex = _headerLineRegex ?? new Regex("^(.+?): (.+?)$");

@@ -8,15 +8,14 @@ namespace Packet.Server
     /// <summary>
     /// Represents a HTTP request parser that will parse HTTP/0.9 simple-format requests. 
     /// </summary>
-    public class SimpleRequestParser : HttpRequestParser
+    public class SimpleHttpRequestParser : HttpRequestParser
     {
         private static Regex _requestLineRegex;
 
         /// <summary>
         /// Initializes a new instance of a HTTP request parser that will parse HTTP/0.9 simple-format requests. 
         /// </summary>
-        /// <param name="successor">The fallback parser to use if parsing is not successful.</param>
-        public SimpleRequestParser(IHttpRequestParser successor) : base(successor)
+        public SimpleHttpRequestParser()
         {
             // Initialize validation regex.
             _requestLineRegex = _requestLineRegex ?? new Regex("^(?i)GET (\\S*)(?:.*?)\\r?\\n");
