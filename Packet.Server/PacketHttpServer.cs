@@ -72,10 +72,11 @@ namespace Packet.Server
                 // Read HTTP request.
                 var data = _httpRequestReader.Read(client);
 
+                _logger.WriteLine($"Read {data.Length} bytes from client.");
+
                 // Parse request.
                 var request = _httpRequestParser.Parse(data);
 
-                _logger.WriteLine($"Read {data.Length} bytes from client.");
                 _logger.WriteLine($"Request uses {request.Version}.");
 
                 // Formulate response.
