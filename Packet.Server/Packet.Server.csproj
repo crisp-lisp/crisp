@@ -48,11 +48,14 @@
     <Compile Include="HttpRequestHandler.cs" />
     <Compile Include="HttpRequestParser.cs" />
     <Compile Include="HttpRequestReader.cs" />
+    <Compile Include="HttpResponse.cs" />
     <Compile Include="HttpVersion.cs" />
     <Compile Include="PacketHttpServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleHttpRequest.cs" />
     <Compile Include="SimpleRequestParser.cs" />
+    <Compile Include="StaticFileHttpRequestHandler.cs" />
+    <Compile Include="StaticFileHttpResponse.cs" />
     <Compile Include="StreamExtensions.cs" />
   </ItemGroup>
   <ItemGroup>

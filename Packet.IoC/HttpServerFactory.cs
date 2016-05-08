@@ -27,6 +27,7 @@ namespace Packet.IoC
             container.Register<ILogger, ConsoleWindowLogger>();
             container.Register<IHttpRequestReader, HttpRequestReader>();
             container.Register<IHttpServer, PacketHttpServer>();
+            container.Register<IHttpRequestHandler>(() => new StaticFileHttpRequestHandler(null));
             container.Verify();
 
             return container.GetInstance<IHttpServer>();

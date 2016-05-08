@@ -19,6 +19,7 @@ namespace Packet.Server
         private readonly IHttpRequestParser _httpRequestParser;
 
         private readonly IHttpRequestReader _httpRequestReader;
+        private readonly IHttpRequestHandler _httpRequestHandler;
 
         /// <summary>
         /// Gets whether or not this server is currently actively listening for requests.
@@ -32,16 +33,19 @@ namespace Packet.Server
         /// <param name="logger">The logger that should be used to log server events.</param>
         /// <param name="httpRequestParser"></param>
         /// <param name="httpRequestReader"></param>
+        /// <param name="httpRequestHandler"></param>
         public PacketHttpServer(
             IPacketConfigurationProvider packetConfigurationProvider, 
             ILogger logger, 
             IHttpRequestParser httpRequestParser, 
-            IHttpRequestReader httpRequestReader)
+            IHttpRequestReader httpRequestReader,
+            IHttpRequestHandler httpRequestHandler)
         {
             _packetConfiguration = packetConfigurationProvider.Get();
             _logger = logger;
             _httpRequestParser = httpRequestParser;
             _httpRequestReader = httpRequestReader;
+            _httpRequestHandler = httpRequestHandler;
         }
 
         public void Listen()
@@ -73,6 +77,9 @@ namespace Packet.Server
 
                         _logger.WriteLine($"Read {data.Length} bytes from client.");
                         _logger.WriteLine($"Request uses {request.Version}.");
+
+                        var response = _httpRequestHandler.Handle(request);
+                        response.WriteTo(stream);
                     }
                     catch (HttpException ex)
                     {
