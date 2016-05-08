@@ -1,5 +1,5 @@
 ﻿using System.IO;
-
+using System.Net.Sockets;
 using Packet.Interfaces.Server;
 
 namespace Packet.Server
@@ -8,11 +8,14 @@ namespace Packet.Server
     {
         public IHttpVersion Version { get; }
 
+        public byte[] Content { get; set; }
+        
         protected HttpResponse(IHttpVersion version)
         {
             Version = version;
+            Content = new byte[0];
         }
 
-        public abstract void WriteTo(Stream stream);
+        public abstract void WriteTo(TcpClient socket);
     }
 }

@@ -66,29 +66,24 @@ namespace Packet.Server
 
                 // Wait for TCP client connect.
                 var client = _listener.AcceptTcpClient();
-                var stream = client.GetStream();
 
                 _logger.WriteLine("Listener accepted TCP client...");
                 
-                try
-                {
-                    var data = _httpRequestReader.GetData(stream);
-                    var request = _httpRequestParser.Parse(data);
+                // Read HTTP request.
+                var data = _httpRequestReader.Read(client);
 
-                    _logger.WriteLine($"Read {data.Length} bytes from client.");
-                    _logger.WriteLine($"Request uses {request.Version}.");
+                // Parse request.
+                var request = _httpRequestParser.Parse(data);
 
-                    var response = _httpRequestHandler.Handle(request);
-                    response.WriteTo(stream);
-                }
-                catch (HttpException ex)
-                {
-                    // TODO: Bad request.
-                }
+                _logger.WriteLine($"Read {data.Length} bytes from client.");
+                _logger.WriteLine($"Request uses {request.Version}.");
 
-                // Pass request to processor and process in a new thread.
-                //                var processor = new HttpProcessor(client, this, Logger);
-                //                ThreadPool.QueueUserWorkItem(processor.Process);
+                // Formulate response.
+                var response = _httpRequestHandler.Handle(request);
+
+                // Write response to output.
+                response.WriteTo(client);
+               
                 client.Close();
             }
         }

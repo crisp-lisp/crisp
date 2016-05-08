@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Net.Sockets;
 
 namespace Packet.Interfaces.Server
 {
@@ -10,8 +11,8 @@ namespace Packet.Interfaces.Server
         /// <summary>
         /// Gets the HTTP requests from a given stream as raw bytes.
         /// </summary>
-        /// <param name="stream">The network stream to read from.</param>
+        /// <param name="socket">The TCP client to read from.</param>
         /// <returns></returns>
-        byte[] GetData(Stream stream);
+        byte[] Read(TcpClient socket);
     }
 }

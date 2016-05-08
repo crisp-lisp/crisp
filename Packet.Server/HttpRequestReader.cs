@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Sockets;
 using System.Web;
 
 using Packet.Interfaces.Configuration;
@@ -38,12 +39,12 @@ namespace Packet.Server
             return headers.ContainsKey(key) ? int.Parse(headers[key]) : 0;
         }
 
-        public byte[] GetData(Stream stream)
+        public byte[] Read(TcpClient socket)
         {
             using (var outputStream = new MemoryStream())
             using (var outputWriter = new StreamWriter(outputStream) {AutoFlush = true})
             {
-                var inputStream = new BufferedStream(stream);
+                var inputStream = new BufferedStream(socket.GetStream());
 
                 // Get version from request line.
                 var requestLine = inputStream.ReadLine(true);

@@ -47,8 +47,11 @@ namespace Packet.Server
             {
                 return null;
             }
-            
-            return new ForbiddenHttpResponse(request.Version, resolvedPath);
+
+            return new FullHttpResponse(request.Version)
+            {
+                StatusCode = 403
+            };
         }
     }
 }

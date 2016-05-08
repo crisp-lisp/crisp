@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,8 @@ namespace Packet.Interfaces.Server
     {
         IHttpVersion Version { get; }
 
-        void WriteTo(Stream stream);
+        byte[] Content { get; set; }
+
+        void WriteTo(TcpClient socket);
     }
 }

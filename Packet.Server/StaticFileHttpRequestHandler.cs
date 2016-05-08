@@ -24,7 +24,8 @@ namespace Packet.Server
         {
             var resolvedPath = _urlResolver.Resolve(request.Url);
             _logger.WriteLine($"Resolved URL '{request.Url}' to {resolvedPath}...");
-            return new StaticFileHttpResponse(request.Version, resolvedPath);
+            //return new StaticFileHttpResponse(request.Version, resolvedPath);
+            return null;
         }
     }
 }
