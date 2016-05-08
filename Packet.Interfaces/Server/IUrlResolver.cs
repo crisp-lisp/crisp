@@ -14,6 +14,6 @@ namespace Packet.Interfaces.Server
         /// </summary>
         /// <param name="url">The URL of the requested resource.</param>
         /// <returns></returns>
-        string GetUrlPath(string url);
+        string Resolve(string url);
     }
 }

@@ -18,8 +18,8 @@ namespace Packet.Server
         /// <summary>
         /// Initializes a new instance of a HTTP handler that serves 403 forbidden responses for forbidden resources.
         /// </summary>
-        /// <param name="urlResolver"></param>
-        /// <param name="packetConfigurationProvider"></param>
+        /// <param name="urlResolver">The URL resolver service.</param>
+        /// <param name="packetConfigurationProvider">The server configuration provider service.</param>
         public ForbiddenHttpRequestHandler(
             IUrlResolver urlResolver, 
             IPacketConfigurationProvider packetConfigurationProvider)
@@ -40,7 +40,7 @@ namespace Packet.Server
 
         protected override IHttpResponse AttemptHandle(IHttpRequest request)
         {
-            var resolvedPath = _urlResolver.GetUrlPath(request.Url);
+            var resolvedPath = _urlResolver.Resolve(request.Url);
 
             // Defer if file is not forbidden.
             if (!IsForbiddenPath(resolvedPath))

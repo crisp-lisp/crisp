@@ -22,7 +22,7 @@ namespace Packet.Server
 
         protected override IHttpResponse AttemptHandle(IHttpRequest request)
         {
-            var resolvedPath = _urlResolver.GetUrlPath(request.Url);
+            var resolvedPath = _urlResolver.Resolve(request.Url);
             _logger.WriteLine($"Resolved URL '{request.Url}' to {resolvedPath}...");
             return new StaticFileHttpResponse(request.Version, resolvedPath);
         }

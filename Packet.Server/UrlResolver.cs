@@ -15,7 +15,7 @@ namespace Packet.Server
             _packetConfiguration = packetConfigurationProvider.Get();
         }
 
-        public string GetUrlPath(string url)
+        public string Resolve(string url)
         {
             // Need to remove slash so it's not considered an absolute path.
             var trimmed = url.TrimStart('/');
