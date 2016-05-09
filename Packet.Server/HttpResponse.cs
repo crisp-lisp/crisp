@@ -13,7 +13,7 @@ namespace Packet.Server
         /// <summary>
         /// Initializes a new instance of a response to a HTTP request.
         /// </summary>
-        /// <param name="version">The version of HTTP this response uses.</param>
+        /// <param name="version">The HTTP version of the response.</param>
         protected HttpResponse(IHttpVersion version)
         {
             Version = version;
