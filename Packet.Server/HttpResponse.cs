@@ -1,5 +1,5 @@
-﻿using System.IO;
-using System.Net.Sockets;
+﻿using System.Net.Sockets;
+
 using Packet.Interfaces.Server;
 
 namespace Packet.Server
@@ -9,7 +9,11 @@ namespace Packet.Server
         public IHttpVersion Version { get; }
 
         public byte[] Content { get; set; }
-        
+
+        /// <summary>
+        /// Initializes a new instance of a response to a HTTP request.
+        /// </summary>
+        /// <param name="version">The version of HTTP this response uses.</param>
         protected HttpResponse(IHttpVersion version)
         {
             Version = version;
