@@ -13,6 +13,8 @@ namespace Packet.Configuration
         public string InternalServerErrorPage { get; set; }
         
         public string NotFoundErrorPage { get; set; }
+
+        public string ForbiddenErrorPage { get; set; }
         
         public IEnumerable<string> DirectoryIndices { get; set; } 
         

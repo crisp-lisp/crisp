@@ -28,6 +28,11 @@ namespace Packet.Interfaces.Configuration
         string NotFoundErrorPage { get; set; }
 
         /// <summary>
+        /// Gets or sets the path to the configured 403 forbidden error page.
+        /// </summary>
+        string ForbiddenErrorPage { get; set; }
+
+        /// <summary>
         /// Gets or sets the collection of filenames that represent directory index files.
         /// </summary>
         IEnumerable<string> DirectoryIndices { get; set; }

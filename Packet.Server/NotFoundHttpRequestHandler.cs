@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
 using Packet.Interfaces.Configuration;
@@ -10,20 +9,20 @@ using Packet.Interfaces.Server;
 namespace Packet.Server
 {
     /// <summary>
-    /// Represents a HTTP handler that serves 403 forbidden responses for forbidden resources.
+    /// Represents a HTTP handler that serves 404 not found responses for nonexistent resources.
     /// </summary>
-    public class ForbiddenHttpRequestHandler : HttpRequestHandler
+    public class NotFoundHttpRequestHandler : HttpRequestHandler
     {
         private readonly IUrlResolver _urlResolver;
 
         private readonly IPacketConfiguration _packetConfiguration;
 
         /// <summary>
-        /// Initializes a new instance of a HTTP handler that serves 403 forbidden responses for forbidden resources.
+        /// Initializes a new instance of a HTTP handler that serves 404 not found responses for nonexistent resources.
         /// </summary>
         /// <param name="urlResolver">The URL resolver service.</param>
         /// <param name="packetConfigurationProvider">The server configuration provider service.</param>
-        public ForbiddenHttpRequestHandler(
+        public NotFoundHttpRequestHandler(
             IUrlResolver urlResolver, 
             IPacketConfigurationProvider packetConfigurationProvider)
         {
@@ -31,37 +30,27 @@ namespace Packet.Server
             _packetConfiguration = packetConfigurationProvider.Get();
         }
 
-        /// <summary>
-        /// Returns true if the given path matches a 'do not serve' rule. Otherwise returns false.
-        /// </summary>
-        /// <param name="path">The path to check.</param>
-        /// <returns></returns>
-        private bool IsForbiddenPath(string path)
-        {
-            return _packetConfiguration.DoNotServePatterns.Any(p => Regex.IsMatch(path, p));
-        }
-
         protected override IHttpResponse AttemptHandle(IHttpRequest request)
         {
             var resolvedPath = _urlResolver.Resolve(request.Url);
 
-            // Defer if file is not forbidden.
-            if (!IsForbiddenPath(resolvedPath))
+            // Defer if file exists.
+            if (File.Exists(resolvedPath))
             {
                 return null;
             }
 
             // TODO: Exists?
-            var forbiddenPagePath = _urlResolver.Resolve(_packetConfiguration.ForbiddenErrorPage);
+            var notFoundPagePath = _urlResolver.Resolve(_packetConfiguration.NotFoundErrorPage);
 
             return new FullHttpResponse(request.Version)
             {
-                StatusCode = 403,
+                StatusCode = 404,
                 Headers = new Dictionary<string, string>
                 {
                     {"Content-Type", "text/html"}
                 },
-                Content = File.ReadAllBytes(forbiddenPagePath) 
+                Content = File.ReadAllBytes(notFoundPagePath) 
             };
         }
     }

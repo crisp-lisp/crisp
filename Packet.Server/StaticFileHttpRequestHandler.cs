@@ -1,4 +1,6 @@
-﻿using Packet.Interfaces.Configuration;
+﻿using System.Collections.Generic;
+using System.IO;
+using Packet.Interfaces.Configuration;
 using Packet.Interfaces.Logging;
 using Packet.Interfaces.Server;
 
@@ -20,12 +22,31 @@ namespace Packet.Server
             _logger = logger;
         }
 
+        /// <summary>
+        /// Gets the MIME type for the given file extension.
+        /// </summary>
+        /// <param name="extension">The file extension to return the MIME type for.</param>
+        /// <returns></returns>
+        private string GetMimeTypeForExtension(string extension)
+        {
+            string value;
+            return _packetConfiguration.MimeTypeMappings.TryGetValue(extension, out value) ?
+                value : "application/octet-stream"; // Default to this MIME type.
+        }
+
         protected override IHttpResponse AttemptHandle(IHttpRequest request)
         {
             var resolvedPath = _urlResolver.Resolve(request.Url);
-            _logger.WriteLine($"Resolved URL '{request.Url}' to {resolvedPath}...");
-            //return new StaticFileHttpResponse(request.Version, resolvedPath);
-            return null;
+
+            return new FullHttpResponse(request.Version)
+            {
+                StatusCode = 200,
+                Headers = new Dictionary<string, string>
+                {
+                    {"Content-Type", GetMimeTypeForExtension(Path.GetExtension(resolvedPath))}
+                },
+                Content = File.ReadAllBytes(resolvedPath)
+            };
         }
     }
 }

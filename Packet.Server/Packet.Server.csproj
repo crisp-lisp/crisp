@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="ChainedHttpRequestParser.cs" />
     <Compile Include="ChainedHttpRequestHandler.cs" />
+    <Compile Include="NotFoundHttpRequestHandler.cs" />
     <Compile Include="ForbiddenHttpRequestHandler.cs" />
     <Compile Include="FullHttpResponse.cs" />
     <Compile Include="HttpMethodConverter.cs" />

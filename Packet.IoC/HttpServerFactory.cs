@@ -36,6 +36,7 @@ namespace Packet.IoC
             container.RegisterCollection<IHttpRequestHandler>(new[]
             {
                 typeof (ForbiddenHttpRequestHandler),
+                typeof (NotFoundHttpRequestHandler),
                 typeof (StaticFileHttpRequestHandler)
             });
             container.Register<IHttpRequestHandler, ChainedHttpRequestHandler>();
