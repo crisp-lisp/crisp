@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Packet.Interfaces.Server
+﻿namespace Packet.Interfaces.Server
 {
+    /// <summary>
+    /// Represents a URL resolution service to map request URLs to physical filepaths.
+    /// </summary>
     public interface IUrlResolver
     {
         /// <summary>
-        /// Creates a physical path from the given URL relative to the web root.
+        /// Resolves a physical path from the given URL relative to the web root.
         /// </summary>
         /// <param name="url">The URL of the requested resource.</param>
         /// <returns></returns>

@@ -10,6 +10,10 @@ namespace Packet.Server
     {
         private readonly IPacketConfiguration _packetConfiguration;
 
+        /// <summary>
+        /// Initializes a new instance of a URL resolution service to map request URLs to physical filepaths.
+        /// </summary>
+        /// <param name="packetConfigurationProvider">The server configuration provider service.</param>
         public UrlResolver(IPacketConfigurationProvider packetConfigurationProvider)
         {
             _packetConfiguration = packetConfigurationProvider.Get();
