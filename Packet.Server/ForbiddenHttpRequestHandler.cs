@@ -43,16 +43,21 @@ namespace Packet.Server
 
         protected override IHttpResponse AttemptHandle(IHttpRequest request)
         {
-            var resolvedPath = _urlResolver.Resolve(request.Url);
+            var resolvedPath = _urlResolver.Resolve(request.Url); // Resolve URL.
 
             // Defer if file is not forbidden.
             if (!IsForbiddenPath(resolvedPath))
             {
                 return null;
             }
-
-            // TODO: Exists?
+            
+            // Resolve URL of custom error page.
             var forbiddenPagePath = _urlResolver.Resolve(_packetConfiguration.ForbiddenErrorPage);
+
+            // If custom error page not found, use default.
+            var content = File.Exists(forbiddenPagePath)
+                ? File.ReadAllBytes(forbiddenPagePath)
+                : new UTF8Encoding().GetBytes(Properties.Resources.DefaultErrorPage_403);
 
             return new FullHttpResponse(request.Version)
             {
@@ -61,7 +66,7 @@ namespace Packet.Server
                 {
                     {"Content-Type", "text/html"}
                 },
-                Content = File.ReadAllBytes(forbiddenPagePath) 
+                Content = content
             };
         }
     }

@@ -39,7 +39,7 @@ namespace Packet.IoC
                 typeof (NotFoundHttpRequestHandler),
                 typeof (StaticFileHttpRequestHandler)
             });
-            container.Register<IHttpRequestHandler, ChainedHttpRequestHandler>();
+            container.Register<IHttpRequestHandler, ChainingHttpRequestHandler>();
             container.Verify();
 
             return container.GetInstance<IHttpServer>();
