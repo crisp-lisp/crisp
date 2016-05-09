@@ -52,6 +52,7 @@ namespace Packet.Server
 
         protected override IHttpVersion AttemptGetVersion(string requestLine)
         {
+            // Return version (which will always be 0.9) or null if parsing failed.
             return _requestLineRegex.IsMatch(requestLine) ? new HttpVersion(0, 9) : null;
         }
     }

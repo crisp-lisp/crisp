@@ -13,6 +13,7 @@ namespace Packet.Server
     public class FullHttpRequestParser : HttpRequestParser
     {
         private static Regex _requestLineRegex;
+
         private static Regex _headerLineRegex;
 
         /// <summary>
