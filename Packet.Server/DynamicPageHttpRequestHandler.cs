@@ -16,6 +16,9 @@ using Packet.Interfaces.Server;
 
 namespace Packet.Server
 {
+    /// <summary>
+    /// Represents a HTTP request handler for serving dynamic pages.
+    /// </summary>
     public class DynamicPageHttpRequestHandler : HttpRequestHandler
     {
         private readonly IPacketConfiguration _packetConfiguration;
@@ -24,6 +27,12 @@ namespace Packet.Server
 
         private readonly ISymbolicExpressionSerializer _symbolicExpressionSerializer;
 
+        /// <summary>
+        /// Initializes a new instance of a HTTP request handler for serving dynamic pages.
+        /// </summary>
+        /// <param name="packetConfigurationProvider">The server configuration provider service.</param>
+        /// <param name="urlResolver">The URL resolution service.</param>
+        /// <param name="symbolicExpressionSerializer">The symbolic expression serialization service.</param>
         public DynamicPageHttpRequestHandler(
             IPacketConfigurationProvider packetConfigurationProvider,
             IUrlResolver urlResolver,
@@ -60,9 +69,9 @@ namespace Packet.Server
         }
 
         /// <summary>
-        /// Converts a name-value collection of HTTP headers passed back by a Crisp webpage 
+        /// Converts a name-value collection of HTTP headers passed back by a Crisp webpage to a dictionary.
         /// </summary>
-        /// <param name="headers"></param>
+        /// <param name="headers">The symbolic expression containingthe name-value collection to convert.</param>
         /// <returns></returns>
         private static Dictionary<string, string> TransformHeadersForPacket(ISymbolicExpression headers)
         {
@@ -85,32 +94,48 @@ namespace Packet.Server
                 return null;
             }
 
-            var fullRequest = request.Version.Major > 0 ? (FullHttpRequest) request : null;
-
+            // Create runtime for file.
             var runtime = CrispRuntimeFactory.GetCrispRuntime(resolvedPath);
 
+            // Cast to full request if needed.
+            var fullRequest = request.Version.Major > 0 ? (FullHttpRequest)request : null;
+
+            // Extract information from request.
             var verb = fullRequest?.Method ?? HttpMethod.Get;
             var post = fullRequest == null ? string.Empty : Convert.ToBase64String(fullRequest.RequestBody);
             var requestHeaders = fullRequest == null ? "nil" : TransformHeadersForCrisp(fullRequest.Headers);
 
+            // Convert arguments to an expression tree.
             var rawArgs = $"(\"{request.Url}\" \"{HttpMethodConverter.ToString(verb)}\" \"{post}\" {requestHeaders})";
             var args = CrispRuntimeFactory.SourceToExpressionTree(rawArgs);
 
+            // Evaluate webpage.
             var result = runtime.Run(args).AsPair().Expand();
 
+            // Automatic headers.
             var autoHeaders = new Dictionary<string, string>
             {
                 {"Content-Type", result[2].AsString().Value}
             };
-
             var allHeaders = autoHeaders.Concat(TransformHeadersForPacket(result[3])
-                .Where(x => !autoHeaders.ContainsKey(x.Key)))
-                .ToDictionary(p => p.Key, p => p.Value);
+                .Where(h => !autoHeaders.ContainsKey(h.Key)))
+                .ToDictionary(h => h.Key, h => h.Value);
 
+            // Encode in UTF-8.
+            // TODO: Encoding.
+            var content = new UTF8Encoding().GetBytes(result[0].AsString().Value);
+
+            // Simple request means simple response.
+            if (fullRequest == null)
+            {
+                return new SimpleHttpResponse(content);
+            }
+
+            // Full request means full response.
             return new FullHttpResponse(request.Version)
             {
                 StatusCode = Convert.ToInt32(result[1].AsNumeric().Value),
-                Content = new UTF8Encoding().GetBytes(result[0].AsString().Value),
+                Content = content,
                 Headers = allHeaders
             };
         }
