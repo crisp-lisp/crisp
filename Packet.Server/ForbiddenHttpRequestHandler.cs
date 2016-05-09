@@ -40,7 +40,7 @@ namespace Packet.Server
         {
             return _packetConfiguration.DoNotServePatterns.Any(p => Regex.IsMatch(path, p));
         }
-
+        
         protected override IHttpResponse AttemptHandle(IHttpRequest request)
         {
             var resolvedPath = _urlResolver.Resolve(request.Url); // Resolve URL.

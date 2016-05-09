@@ -23,5 +23,10 @@ namespace Packet.Server
 
             return name == null ? HttpMethod.Unsupported : (HttpMethod) Enum.Parse(typeof (HttpMethod), name);
         }
+
+        public static string ToString(HttpMethod method)
+        {
+            return Enum.GetName(typeof (HttpMethod), method)?.ToUpper();
+        }
     }
 }

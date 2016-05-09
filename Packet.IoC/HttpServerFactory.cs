@@ -37,6 +37,7 @@ namespace Packet.IoC
             {
                 typeof (ForbiddenHttpRequestHandler),
                 typeof (NotFoundHttpRequestHandler),
+                typeof (DynamicPageHttpRequestHandler),
                 typeof (StaticFileHttpRequestHandler)
             });
             container.Register<IHttpRequestHandler, ChainingHttpRequestHandler>();
