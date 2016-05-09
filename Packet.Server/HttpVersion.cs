@@ -8,15 +8,20 @@ namespace Packet.Server
 
         public int Minor { get; set; }
 
-        public override string ToString()
-        {
-            return $"HTTP/{Major}.{Minor}";
-        }
-
+        /// <summary>
+        /// Initializes a new instance of a response to a HTTP request.
+        /// </summary>
+        /// <param name="major">The major version number.</param>
+        /// <param name="minor">The minor version number.</param>
         public HttpVersion(int major, int minor)
         {
             Major = major;
             Minor = minor;
+        }
+
+        public override string ToString()
+        {
+            return $"HTTP/{Major}.{Minor}"; // Formatted as a standard HTTP version string.
         }
     }
 }
