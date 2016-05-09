@@ -14,21 +14,21 @@ namespace Packet.Server
     /// </summary>
     public class ForbiddenHttpRequestHandler : HttpRequestHandler
     {
-        private readonly IUrlResolver _urlResolver;
-
         private readonly IPacketConfiguration _packetConfiguration;
 
+        private readonly IUrlResolver _urlResolver;
+        
         /// <summary>
         /// Initializes a new instance of a HTTP handler that serves 403 forbidden responses for forbidden resources.
         /// </summary>
-        /// <param name="urlResolver">The URL resolver service.</param>
         /// <param name="packetConfigurationProvider">The server configuration provider service.</param>
-        public ForbiddenHttpRequestHandler(
-            IUrlResolver urlResolver, 
-            IPacketConfigurationProvider packetConfigurationProvider)
+        /// <param name="urlResolver">The URL resolver service.</param>
+        public ForbiddenHttpRequestHandler( 
+            IPacketConfigurationProvider packetConfigurationProvider,
+            IUrlResolver urlResolver)
         {
-            _urlResolver = urlResolver;
             _packetConfiguration = packetConfigurationProvider.Get();
+            _urlResolver = urlResolver;
         }
 
         /// <summary>

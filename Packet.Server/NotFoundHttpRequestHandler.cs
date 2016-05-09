@@ -12,21 +12,21 @@ namespace Packet.Server
     /// </summary>
     public class NotFoundHttpRequestHandler : HttpRequestHandler
     {
-        private readonly IUrlResolver _urlResolver;
-
         private readonly IPacketConfiguration _packetConfiguration;
+
+        private readonly IUrlResolver _urlResolver;
 
         /// <summary>
         /// Initializes a new instance of a HTTP handler that serves 404 not found responses for nonexistent resources.
         /// </summary>
-        /// <param name="urlResolver">The URL resolver service.</param>
         /// <param name="packetConfigurationProvider">The server configuration provider service.</param>
+        /// <param name="urlResolver">The URL resolver service.</param>
         public NotFoundHttpRequestHandler(
-            IUrlResolver urlResolver, 
-            IPacketConfigurationProvider packetConfigurationProvider)
+            IPacketConfigurationProvider packetConfigurationProvider,
+            IUrlResolver urlResolver)
         {
-            _urlResolver = urlResolver;
             _packetConfiguration = packetConfigurationProvider.Get();
+            _urlResolver = urlResolver;
         }
 
         protected override IHttpResponse AttemptHandle(IHttpRequest request)

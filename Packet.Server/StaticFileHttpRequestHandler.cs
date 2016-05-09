@@ -1,25 +1,31 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+
 using Packet.Interfaces.Configuration;
-using Packet.Interfaces.Logging;
 using Packet.Interfaces.Server;
 
 namespace Packet.Server
 {
+    /// <summary>
+    /// Represents a HTTP handler that serves static files.
+    /// </summary>
     public class StaticFileHttpRequestHandler : HttpRequestHandler
     {
         private readonly IPacketConfiguration _packetConfiguration;
-        private readonly IUrlResolver _urlResolver;
-        private readonly ILogger _logger;
 
+        private readonly IUrlResolver _urlResolver;
+
+        /// <summary>
+        /// Initializes a new instance of a HTTP handler that serves static files.
+        /// </summary>
+        /// <param name="packetConfigurationProvider">The server configuration provider service.</param>
+        /// <param name="urlResolver">The URL resolver service.</param>
         public StaticFileHttpRequestHandler(
             IPacketConfigurationProvider packetConfigurationProvider, 
-            IUrlResolver urlResolver, 
-            ILogger logger) 
+            IUrlResolver urlResolver) 
         {
             _packetConfiguration = packetConfigurationProvider.Get();
             _urlResolver = urlResolver;
-            _logger = logger;
         }
 
         /// <summary>
@@ -36,14 +42,14 @@ namespace Packet.Server
 
         protected override IHttpResponse AttemptHandle(IHttpRequest request)
         {
-            var resolvedPath = _urlResolver.Resolve(request.Url);
+            var resolvedPath = _urlResolver.Resolve(request.Url); // Resolve URL.
 
             return new FullHttpResponse(request.Version)
             {
                 StatusCode = 200,
                 Headers = new Dictionary<string, string>
                 {
-                    {"Content-Type", GetMimeTypeForExtension(Path.GetExtension(resolvedPath))}
+                    {"Content-Type", GetMimeTypeForExtension(Path.GetExtension(resolvedPath))} // Use correct MIME.
                 },
                 Content = File.ReadAllBytes(resolvedPath)
             };
