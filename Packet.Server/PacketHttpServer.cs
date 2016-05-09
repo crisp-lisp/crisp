@@ -7,13 +7,14 @@ using Packet.Interfaces.Server;
 
 namespace Packet.Server
 {
+    /// <summary>
+    /// Represents a Packet HTTP server.
+    /// </summary>
     public class PacketHttpServer : IHttpServer
     {
-        private TcpListener _listener;
+        private readonly IPacketConfiguration _packetConfiguration;
 
         private readonly ILogger _logger;
-
-        private readonly IPacketConfiguration _packetConfiguration;
 
         private readonly IHttpRequestParser _httpRequestParser;
 
@@ -29,11 +30,11 @@ namespace Packet.Server
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="packetConfigurationProvider"></param>
+        /// <param name="packetConfigurationProvider">The server configuration provider service.</param>
         /// <param name="logger">The logger that should be used to log server events.</param>
-        /// <param name="httpRequestParser"></param>
-        /// <param name="httpRequestReader"></param>
-        /// <param name="httpRequestHandler"></param>
+        /// <param name="httpRequestParser">The HTTP request parser service.</param>
+        /// <param name="httpRequestReader">The HTTP request reader service.</param>
+        /// <param name="httpRequestHandler">The HTTP request handler service.</param>
         public PacketHttpServer(
             IPacketConfigurationProvider packetConfigurationProvider, 
             ILogger logger, 
@@ -52,8 +53,8 @@ namespace Packet.Server
         {
             // Start TCP listener.
             var ipAddress = IPAddress.Parse(_packetConfiguration.BindingIpAddress);
-            _listener = new TcpListener(ipAddress, _packetConfiguration.Port);
-            _listener.Start();
+            var listener = new TcpListener(ipAddress, _packetConfiguration.Port);
+            listener.Start();
             IsActive = true;
 
             _logger.WriteLine($"Bound to IP {ipAddress} and listening on port {_packetConfiguration.Port}...");
@@ -64,7 +65,7 @@ namespace Packet.Server
                 _logger.WriteLine("Waiting for a request...");
 
                 // Wait for TCP client connect.
-                var client = _listener.AcceptTcpClient();
+                var client = listener.AcceptTcpClient();
 
                 _logger.WriteLine("Listener accepted TCP client...");
                 
@@ -78,11 +79,11 @@ namespace Packet.Server
 
                 _logger.WriteLine($"Request uses {request.Version}.");
 
-                // Formulate response.
+                // Formulate response and write to output.
                 var response = _httpRequestHandler.Handle(request);
-
-                // Write response to output.
                 response.WriteTo(client);
+
+                _logger.Write("Finshed dealing with request.");
                
                 client.Close();
             }
