@@ -1,10 +1,9 @@
-﻿using System.IO;
-using System.Net.Sockets;
+﻿using System.Net.Sockets;
 
 namespace Packet.Interfaces.Server
 {
     /// <summary>
-    /// Represents a HTTP request reader used to read HTTP requests from a stream as raw bytes.
+    /// Represents a HTTP request reader used to read HTTP requests from a socket as raw bytes.
     /// </summary>
     public interface IHttpRequestReader
     {
