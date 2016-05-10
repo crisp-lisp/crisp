@@ -1,15 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Sockets;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Packet.Interfaces.Server
 {
+    /// <summary>
+    /// Represents a HTTP connection handler.
+    /// </summary>
     public interface IHttpConnectionHandler
     {
-        void Handle(TcpClient socket);
+        /// <summary>
+        /// Handles the HTTP connection on the provided <see cref="TcpClient"/> instance.
+        /// </summary>
+        /// <param name="client">The client on which to handle the connection.</param>
+        void Handle(TcpClient client);
     }
 }

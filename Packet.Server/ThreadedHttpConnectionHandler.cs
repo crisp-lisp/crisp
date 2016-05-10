@@ -40,28 +40,26 @@ namespace Packet.Server
 
         private void HandleOnThread(object obj)
         {
-            var socket = (TcpClient) obj;
+            var client = (TcpClient) obj;
 
             // Read HTTP request.
-            var data = _httpRequestReader.Read(socket);
-
+            var data = _httpRequestReader.Read(client);
             _logger.WriteLine($"Read {data.Length} bytes from client.");
 
             // Parse request.
             var request = _httpRequestParser.Parse(data);
-
             _logger.WriteLine($"Request uses {request.Version}.");
 
             // Formulate response and write to output.
             var response = _httpRequestHandler.Handle(request);
-            response.WriteTo(socket);
+            response.WriteTo(client);
 
+            // Close connection.
+            client.Close();
             _logger.Write("Finshed dealing with request.");
-
-            socket.Close();
         }
 
-        public void Handle(TcpClient socket)
+        public void Handle(TcpClient client)
         {
             // How many threads left to work with?
             int x;
@@ -71,7 +69,7 @@ namespace Packet.Server
             // Log threads available.
             _logger.WriteLine($"{x} worker threads available to deal with request.");
 
-            ThreadPool.QueueUserWorkItem(HandleOnThread, socket); // Queue thread.
+            ThreadPool.QueueUserWorkItem(HandleOnThread, client); // Queue thread.
         }
     }
 }

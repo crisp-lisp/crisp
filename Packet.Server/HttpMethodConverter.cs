@@ -24,9 +24,14 @@ namespace Packet.Server
             return name == null ? HttpMethod.Unsupported : (HttpMethod) Enum.Parse(typeof (HttpMethod), name);
         }
 
+        /// <summary>
+        /// Converts from a HTTP method enum value to its equivalent string.
+        /// </summary>
+        /// <param name="method">The method enum value to convert.</param>
+        /// <returns></returns>
         public static string ToString(HttpMethod method)
         {
-            return Enum.GetName(typeof (HttpMethod), method)?.ToUpper();
+            return Enum.GetName(typeof (HttpMethod), method)?.ToUpper(); // Make it uppercase.
         }
     }
 }
