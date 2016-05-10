@@ -110,7 +110,31 @@ namespace Packet.Server
             var args = CrispRuntimeFactory.SourceToExpressionTree(rawArgs);
 
             // Evaluate webpage.
-            var result = runtime.Run(args).AsPair().Expand();
+            IList<ISymbolicExpression> result;
+            try
+            {
+                result = runtime.Run(args).AsPair().Expand();
+            }
+            catch (Exception)
+            {
+                // Resolve URL of custom error page.
+                var internalServerErrorPagePath = _urlResolver.Resolve(_packetConfiguration.ForbiddenErrorPage);
+
+                // If custom error page not found, use default.
+                var errorPageContent = File.Exists(internalServerErrorPagePath)
+                    ? File.ReadAllBytes(internalServerErrorPagePath)
+                    : new UTF8Encoding().GetBytes(Properties.Resources.DefaultErrorPage_500);
+
+                return new FullHttpResponse(request.Version)
+                {
+                    StatusCode = 500,
+                    Headers = new Dictionary<string, string>
+                    {
+                        {"Content-Type", "text/html"}
+                    },
+                    Content = errorPageContent
+                };
+            }
 
             // Automatic headers.
             var autoHeaders = new Dictionary<string, string>

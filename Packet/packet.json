@@ -7,7 +7,7 @@
 {
   "SpecialFormDirectory": "native",
   "CrispFileExtensions": [ ".csp" ],
-  "InternalServerErrorPage": "500/500.csp",
+  "InternalServerErrorPage": "500/500.html",
   "NotFoundErrorPage": "404/404.html",
   "ForbiddenErrorPage": "403/403.html",
   "DirectoryIndices": [ "index.csp", "index.html" ],
