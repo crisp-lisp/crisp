@@ -42,7 +42,7 @@ namespace Packet.Server
         public byte[] Read(TcpClient socket)
         {
             using (var outputStream = new MemoryStream())
-            using (var outputWriter = new StreamWriter(outputStream) {AutoFlush = true})
+            using (var outputWriter = new StreamWriter(outputStream))
             {
                 var inputStream = new BufferedStream(socket.GetStream());
 
@@ -88,6 +88,9 @@ namespace Packet.Server
                 // Emit blank line to separate headers from body.
                 outputWriter.WriteLine();
 
+                // Flush, we're done with this.
+                outputWriter.Flush();
+
                 // Enforce post length cap.
                 var contentLength = GetContentLength(headers);
                 if (contentLength > _packetConfiguration.MaxPostSize)
@@ -115,6 +118,7 @@ namespace Packet.Server
                     outputStream.Write(buffer, 0, numRead);
                 }
 
+                outputStream.Flush();
                 return outputStream.ToArray();
             }
         }

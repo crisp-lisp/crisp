@@ -56,7 +56,7 @@ namespace Packet.Server
 
             // Close connection.
             client.Close();
-            _logger.Write("Finshed dealing with request.");
+            _logger.WriteLine("Finshed dealing with request.");
         }
 
         public void Handle(TcpClient client)

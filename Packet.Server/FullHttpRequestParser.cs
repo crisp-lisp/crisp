@@ -28,9 +28,9 @@ namespace Packet.Server
         protected override IHttpRequest AttemptParse(byte[] request)
         {
             using (var memoryStream = new MemoryStream(request))
-            using (var streamReader = new StreamReader(memoryStream))
+            using (var bufferedReader = new BufferedStream(memoryStream))
             {
-                var requestLine = streamReader.ReadLine();
+                var requestLine = bufferedReader.ReadLine();
 
                 // Request line was null, can't continue parsing.
                 if (requestLine == null)
@@ -64,7 +64,7 @@ namespace Packet.Server
                 // Read in headers.
                 var headers = new Dictionary<string, string>();
                 string headerBuffer;
-                while (!string.IsNullOrWhiteSpace(headerBuffer = streamReader.ReadLine()))
+                while (!string.IsNullOrWhiteSpace(headerBuffer = bufferedReader.ReadLine()))
                 {
                     var headerMatch = _headerLineRegex.Match(headerBuffer);
                     if (!headerMatch.Success)
@@ -79,10 +79,11 @@ namespace Packet.Server
                 {
                     // Read in rest of body.
                     int bodyBuffer;
-                    while ((bodyBuffer = memoryStream.ReadByte()) != -1)
+                    while ((bodyBuffer = bufferedReader.ReadByte()) != -1)
                     {
                         bodyStream.WriteByte((byte) bodyBuffer);
                     }
+                    bodyStream.Flush();
 
                     // Parsing successful.
                     var version = new HttpVersion(int.Parse(match.Groups[3].Value),

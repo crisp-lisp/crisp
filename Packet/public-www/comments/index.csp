@@ -1,37 +1,36 @@
 ﻿;; Crisp example data-driven page.
 ;; Copyright © Saul Johnson 2015-2016
 
-#require "~/lib/core.cspl"
-#require "~/lib/querystring.cspl"
-#require "~/lib/nvc.cspl"
-#require "~/lib/web.cspl"
-#require "~/lib/templating.cspl"
-
 (lambda (url verb post headers)
-	;; The prog function will evaluate each of the following expressions in sequence and return the result of the last.	
-	(prog 
-		(letrec
-			;; If we have a POST request, insert new record into database.
-			(if (eq verb "POST") 
-				(data-non-query "comments.db3" (concat-all ("INSERT INTO Comments (name, comment) VALUES ('" name "', '" comment "')")))
-				nil)
-			;; Get name and comment from form data.
-			(query . (parse-query-string (url-decode post)))
-			(name . (nvc-get query "name"))
-			(comment . (nvc-get query "comment"))) 
-		(letrec
-			;; Render the template file for the main page.
-			(respond 
-				(render-template-file "comments.template.html" (
-					("title" . "Crisp Example - Comments System") 
-					("comments" . (build existing)))) 200 "text/html" ())
-			(create-block . (lambda (row)
-				;; Render a partial for a comment.
-				(render-template-file "_comment.template.html" (
-					("name" . (nvc-get row "name") ) 
-					("comment" . (nvc-get row "comment"))))))
-			(build . (lambda (rows)
-				(if (eq rows nil) "" (concat (create-block (car rows)) (build (cdr rows))))))
-			;; Query database for existing comments.
-			(existing . (data-query "comments.db3" "SELECT * FROM Comments")))))
+	(require "~/lib/core.cspl"
+	(require "~/lib/querystring.cspl"
+	(require "~/lib/nvc.cspl"
+	(require "~/lib/web.cspl"
+	(require "~/lib/templating.cspl"
+		;; The prog function will evaluate each of the following expressions in sequence and return the result of the last.	
+		(prog 
+			(letrec
+				;; If we have a POST request, insert new record into database.
+				(if (eq verb "POST") 
+					(data-non-query "comments.db3" (concat-all ("INSERT INTO Comments (name, comment) VALUES ('" name "', '" comment "')")))
+					nil)
+				;; Get name and comment from form data.
+				(query . (parse-query-string (url-decode post)))
+				(name . (nvc-get query "name"))
+				(comment . (nvc-get query "comment"))) 
+			(letrec
+				;; Render the template file for the main page.
+				(respond 
+					(render-template-file "comments.template.html" (
+						("title" . "Crisp Example - Comments System") 
+						("comments" . (build existing)))) 200 "text/html" ())
+				(create-block . (lambda (row)
+					;; Render a partial for a comment.
+					(render-template-file "_comment.template.html" (
+						("name" . (nvc-get row "name") ) 
+						("comment" . (nvc-get row "comment"))))))
+				(build . (lambda (rows)
+					(if (eq rows nil) "" (concat (create-block (car rows)) (build (cdr rows))))))
+				;; Query database for existing comments.
+				(existing . (data-query "comments.db3" "SELECT * FROM Comments"))))))))))
 			

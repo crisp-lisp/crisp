@@ -12,6 +12,7 @@ using Crisp.Types;
 
 using Packet.Enums;
 using Packet.Interfaces.Configuration;
+using Packet.Interfaces.Logging;
 using Packet.Interfaces.Server;
 
 namespace Packet.Server
@@ -27,20 +28,25 @@ namespace Packet.Server
 
         private readonly ISymbolicExpressionSerializer _symbolicExpressionSerializer;
 
+        private readonly ILogger _logger;
+
         /// <summary>
         /// Initializes a new instance of a HTTP request handler for serving dynamic pages.
         /// </summary>
         /// <param name="packetConfigurationProvider">The server configuration provider service.</param>
         /// <param name="urlResolver">The URL resolution service.</param>
         /// <param name="symbolicExpressionSerializer">The symbolic expression serialization service.</param>
+        /// <param name="logger"></param>
         public DynamicPageHttpRequestHandler(
             IPacketConfigurationProvider packetConfigurationProvider,
             IUrlResolver urlResolver,
-            ISymbolicExpressionSerializer symbolicExpressionSerializer)
+            ISymbolicExpressionSerializer symbolicExpressionSerializer,
+            ILogger logger)
         {
             _packetConfiguration = packetConfigurationProvider.Get(); 
             _urlResolver = urlResolver;
             _symbolicExpressionSerializer = symbolicExpressionSerializer;
+            _logger = logger;
         }
 
         /// <summary>
@@ -102,7 +108,7 @@ namespace Packet.Server
 
             // Extract information from request.
             var verb = fullRequest?.Method ?? HttpMethod.Get;
-            var post = fullRequest == null ? string.Empty : Convert.ToBase64String(fullRequest.RequestBody);
+            var post = fullRequest == null ? string.Empty : new UTF8Encoding().GetString(fullRequest.RequestBody);
             var requestHeaders = fullRequest == null ? "nil" : TransformHeadersForCrisp(fullRequest.Headers);
 
             // Convert arguments to an expression tree.
@@ -115,10 +121,13 @@ namespace Packet.Server
             {
                 result = runtime.Run(args).AsPair().Expand();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                // Log error.
+                _logger.WriteLine($"Error: {ex.Message}");
+
                 // Resolve URL of custom error page.
-                var internalServerErrorPagePath = _urlResolver.Resolve(_packetConfiguration.ForbiddenErrorPage);
+                var internalServerErrorPagePath = _urlResolver.Resolve(_packetConfiguration.InternalServerErrorPage);
 
                 // If custom error page not found, use default.
                 var errorPageContent = File.Exists(internalServerErrorPagePath)
