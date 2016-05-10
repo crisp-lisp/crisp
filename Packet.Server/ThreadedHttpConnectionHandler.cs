@@ -42,21 +42,27 @@ namespace Packet.Server
         {
             var client = (TcpClient) obj;
 
-            // Read HTTP request.
-            var data = _httpRequestReader.Read(client);
-            _logger.WriteLine($"Read {data.Length} bytes from client.");
+            try
+            {
+                // Read HTTP request.
+                var data = _httpRequestReader.Read(client);
+                _logger.WriteLine($"Read {data.Length} bytes from client.");
 
-            // Parse request.
-            var request = _httpRequestParser.Parse(data);
-            _logger.WriteLine($"Request uses {request.Version}.");
+                // Parse request.
+                var request = _httpRequestParser.Parse(data);
+                _logger.WriteLine($"Request uses {request.Version}.");
 
-            // Formulate response and write to output.
-            var response = _httpRequestHandler.Handle(request);
-            response.WriteTo(client);
-
-            // Close connection.
-            client.Close();
-            _logger.WriteLine("Finshed dealing with request.");
+                // Formulate response and write to output.
+                var response = _httpRequestHandler.Handle(request);
+                response.WriteTo(client);
+            }
+            finally
+            {
+                // Close connection.
+                client.GetStream().Close();
+                client.Close();
+                _logger.WriteLine("Finshed dealing with request.");
+            }
         }
 
         public void Handle(TcpClient client)

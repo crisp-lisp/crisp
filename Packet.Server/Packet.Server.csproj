@@ -44,7 +44,7 @@
     <Compile Include="ChainedHttpRequestParser.cs" />
     <Compile Include="ChainingHttpRequestHandler.cs" />
     <Compile Include="DynamicPageHttpRequestHandler.cs" />
-    <Compile Include="ExpressionTreeSource.cs" />
+    <Compile Include="HttpExpressionTreeSource.cs" />
     <Compile Include="NotFoundHttpRequestHandler.cs" />
     <Compile Include="ForbiddenHttpRequestHandler.cs" />
     <Compile Include="FullHttpResponse.cs" />

@@ -54,18 +54,6 @@ namespace Packet.Server
         }
 
         /// <summary>
-        /// Converts a dictionary of HTTP headers to a serialized Crisp name-value collection.
-        /// </summary>
-        /// <param name="headers">The header dictionary to convert.</param>
-        /// <returns></returns>
-        private static ISymbolicExpression TransformHeadersForCrisp(Dictionary<string, string> headers)
-        {
-            return headers.Select(e => (ISymbolicExpression) new Pair(new StringAtom(e.Key), new StringAtom(e.Value)))
-                .ToList()
-                .ToProperList();
-        }
-
-        /// <summary>
         /// Converts a name-value collection of HTTP headers passed back by a Crisp webpage to a dictionary.
         /// </summary>
         /// <param name="headers">The symbolic expression containingthe name-value collection to convert.</param>
@@ -90,32 +78,14 @@ namespace Packet.Server
             {
                 return null;
             }
-
-            // Create runtime for file.
-            var runtime = CrispRuntimeFactory.GetCrispRuntime(resolvedPath);
-
-            // Cast to full request if needed.
-            var fullRequest = request.Version.Major > 0 ? (FullHttpRequest)request : null;
-
-            // Extract information from request.
-            var verb = fullRequest?.Method ?? HttpMethod.Get;
-            var post = fullRequest == null ? string.Empty : new UTF8Encoding().GetString(fullRequest.RequestBody);
-            var requestHeaders = fullRequest == null ? new Nil() : TransformHeadersForCrisp(fullRequest.Headers);
-
-            // Convert arguments to an expression tree.
-            var args = new ExpressionTreeSource(new List<ISymbolicExpression>
-            {
-                new StringAtom(request.Url),
-                new StringAtom(HttpMethodConverter.ToString(verb)),
-                new StringAtom(post),
-                requestHeaders
-            }.ToProperList());
-
+            
             // Evaluate webpage.
             IList<ISymbolicExpression> result;
             try
             {
-                result = runtime.Run(args).AsPair().Expand();
+                // Create runtime for file.
+                var runtime = CrispRuntimeFactory.GetCrispRuntime(resolvedPath);
+                result = runtime.Run(new HttpExpressionTreeSource(request)).AsPair().Expand();
             }
             catch (Exception ex)
             {
@@ -155,7 +125,7 @@ namespace Packet.Server
             var content = new UTF8Encoding().GetBytes(result[0].AsString().Value);
 
             // Simple request means simple response.
-            if (fullRequest == null)
+            if (request.Version.Major < 1)
             {
                 return new SimpleHttpResponse(content);
             }
