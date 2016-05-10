@@ -9,7 +9,6 @@ using Crisp.Interfaces.Types;
 using Crisp.IoC;
 using Crisp.Types;
 
-using Packet.Enums;
 using Packet.Interfaces.Configuration;
 using Packet.Interfaces.Logging;
 using Packet.Interfaces.Server;
@@ -25,6 +24,8 @@ namespace Packet.Server
 
         private readonly IUrlResolver _urlResolver;
 
+        private readonly IErrorPageContentRetriever _errorPageContentRetriever;
+
         private readonly ILogger _logger;
 
         /// <summary>
@@ -32,14 +33,17 @@ namespace Packet.Server
         /// </summary>
         /// <param name="packetConfigurationProvider">The server configuration provider service.</param>
         /// <param name="urlResolver">The URL resolution service.</param>
+        /// <param name="errorPageContentRetriever"></param>
         /// <param name="logger"></param>
         public DynamicPageHttpRequestHandler(
             IPacketConfigurationProvider packetConfigurationProvider,
             IUrlResolver urlResolver,
+            IErrorPageContentRetriever errorPageContentRetriever,
             ILogger logger)
         {
             _packetConfiguration = packetConfigurationProvider.Get(); 
             _urlResolver = urlResolver;
+            _errorPageContentRetriever = errorPageContentRetriever;
             _logger = logger;
         }
 
@@ -83,23 +87,15 @@ namespace Packet.Server
             IList<ISymbolicExpression> result;
             try
             {
-                // Create runtime for file.
+                // Create runtime for file and run it.
                 var runtime = CrispRuntimeFactory.GetCrispRuntime(resolvedPath);
                 result = runtime.Run(new HttpExpressionTreeSource(request)).AsPair().Expand();
             }
             catch (Exception ex)
             {
-                // Log error.
                 _logger.WriteLine($"Error: {ex.Message}");
 
-                // Resolve URL of custom error page.
-                var internalServerErrorPagePath = _urlResolver.Resolve(_packetConfiguration.InternalServerErrorPage);
-
-                // If custom error page not found, use default.
-                var errorPageContent = File.Exists(internalServerErrorPagePath)
-                    ? File.ReadAllBytes(internalServerErrorPagePath)
-                    : new UTF8Encoding().GetBytes(Properties.Resources.DefaultErrorPage_500);
-
+                // Return 500 internal server error.
                 return new FullHttpResponse(request.Version)
                 {
                     StatusCode = 500,
@@ -107,7 +103,7 @@ namespace Packet.Server
                     {
                         {"Content-Type", "text/html"}
                     },
-                    Content = errorPageContent
+                    Content = new UTF8Encoding().GetBytes(_errorPageContentRetriever.Get500ErrorPageContent())
                 };
             }
 

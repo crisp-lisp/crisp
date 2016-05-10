@@ -18,6 +18,11 @@ namespace Packet.Interfaces.Configuration
         IDictionary<string, string> MimeTypeMappings { get; set; }
 
         /// <summary>
+        /// Gets or sets the path to the configured 400 bad request error page.
+        /// </summary>
+        string BadRequestErrorPage { get; set; }
+
+        /// <summary>
         /// Gets or sets the path to the configured 500 internal server error page.
         /// </summary>
         string InternalServerErrorPage { get; set; }
