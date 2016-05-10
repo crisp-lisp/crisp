@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 
 using Crisp.Enums;
-using Crisp.Interfaces.Serialization;
 using Crisp.Interfaces.Types;
 using Crisp.IoC;
 using Crisp.Types;
@@ -26,8 +25,6 @@ namespace Packet.Server
 
         private readonly IUrlResolver _urlResolver;
 
-        private readonly ISymbolicExpressionSerializer _symbolicExpressionSerializer;
-
         private readonly ILogger _logger;
 
         /// <summary>
@@ -35,17 +32,14 @@ namespace Packet.Server
         /// </summary>
         /// <param name="packetConfigurationProvider">The server configuration provider service.</param>
         /// <param name="urlResolver">The URL resolution service.</param>
-        /// <param name="symbolicExpressionSerializer">The symbolic expression serialization service.</param>
         /// <param name="logger"></param>
         public DynamicPageHttpRequestHandler(
             IPacketConfigurationProvider packetConfigurationProvider,
             IUrlResolver urlResolver,
-            ISymbolicExpressionSerializer symbolicExpressionSerializer,
             ILogger logger)
         {
             _packetConfiguration = packetConfigurationProvider.Get(); 
             _urlResolver = urlResolver;
-            _symbolicExpressionSerializer = symbolicExpressionSerializer;
             _logger = logger;
         }
 
@@ -64,14 +58,11 @@ namespace Packet.Server
         /// </summary>
         /// <param name="headers">The header dictionary to convert.</param>
         /// <returns></returns>
-        private string TransformHeadersForCrisp(Dictionary<string, string> headers)
+        private static ISymbolicExpression TransformHeadersForCrisp(Dictionary<string, string> headers)
         {
-            // We need to serialize to valid Crisp.
-            return _symbolicExpressionSerializer.Serialize(
-                headers.Select(header => new Pair(new StringAtom(header.Key), new StringAtom(header.Value)))
-                    .Cast<ISymbolicExpression>()
-                    .ToArray()
-                    .ToProperList());
+            return headers.Select(e => (ISymbolicExpression) new Pair(new StringAtom(e.Key), new StringAtom(e.Value)))
+                .ToList()
+                .ToProperList();
         }
 
         /// <summary>
@@ -109,11 +100,16 @@ namespace Packet.Server
             // Extract information from request.
             var verb = fullRequest?.Method ?? HttpMethod.Get;
             var post = fullRequest == null ? string.Empty : new UTF8Encoding().GetString(fullRequest.RequestBody);
-            var requestHeaders = fullRequest == null ? "nil" : TransformHeadersForCrisp(fullRequest.Headers);
+            var requestHeaders = fullRequest == null ? new Nil() : TransformHeadersForCrisp(fullRequest.Headers);
 
             // Convert arguments to an expression tree.
-            var rawArgs = $"(\"{request.Url}\" \"{HttpMethodConverter.ToString(verb)}\" \"{post}\" {requestHeaders})";
-            var args = CrispRuntimeFactory.SourceToExpressionTree(rawArgs);
+            var args = new ExpressionTreeSource(new List<ISymbolicExpression>
+            {
+                new StringAtom(request.Url),
+                new StringAtom(HttpMethodConverter.ToString(verb)),
+                new StringAtom(post),
+                requestHeaders
+            }.ToProperList());
 
             // Evaluate webpage.
             IList<ISymbolicExpression> result;

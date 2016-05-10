@@ -1,6 +1,4 @@
-﻿using Crisp.Interfaces.Serialization;
-using Crisp.Interfaces.Shared;
-using Crisp.Serialization;
+﻿using Crisp.Interfaces.Shared;
 using Crisp.Shared;
 
 using Packet.Configuration;
@@ -42,7 +40,6 @@ namespace Packet.IoC
                 typeof (DynamicPageHttpRequestHandler),
                 typeof (StaticFileHttpRequestHandler)
             });
-            container.Register<ISymbolicExpressionSerializer, LispSerializer>();
             container.Register<IHttpRequestHandler, ChainingHttpRequestHandler>();
             container.Register<IHttpConnectionHandler, ThreadedHttpConnectionHandler>();
             container.Verify();
