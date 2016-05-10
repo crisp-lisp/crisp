@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Threading;
 
-using CommandLine.Text;
 using Packet.IoC;
 
 namespace Packet
@@ -37,29 +36,10 @@ namespace Packet
             Console.WriteLine(copyright);
         }
         
-        /// <summary>
-        /// Prints the help card for the application.
-        /// </summary>
-        /// <param name="options">The command-line options passed to the program.</param>
-        private static void PrintHelp(Options options)
-        {
-            // Automatically build help text based on options class.
-            var helpText = HelpText.AutoBuild(options);
-            Console.WriteLine(helpText);
-        }
-
         static void Main(string[] args)
         {
             // Print title card.
             PrintTitleCard();
-
-            // Parse command-line options.
-            var options = new Options();
-            if (!CommandLine.Parser.Default.ParseArguments(args, options))
-            {
-                PrintHelp(options);
-                return;
-            }
 
             // Start server.
             var server = HttpServerFactory.GetPacketHttpServer();

@@ -38,7 +38,7 @@ namespace Packet.Server
             IUrlResolver urlResolver,
             ISymbolicExpressionSerializer symbolicExpressionSerializer)
         {
-            _packetConfiguration = packetConfigurationProvider.Get();
+            _packetConfiguration = packetConfigurationProvider.Get(); 
             _urlResolver = urlResolver;
             _symbolicExpressionSerializer = symbolicExpressionSerializer;
         }
