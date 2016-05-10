@@ -16,11 +16,7 @@ namespace Packet.Server
 
         private readonly ILogger _logger;
 
-        private readonly IHttpRequestParser _httpRequestParser;
-
-        private readonly IHttpRequestReader _httpRequestReader;
-
-        private readonly IHttpRequestHandler _httpRequestHandler;
+        private readonly IHttpConnectionHandler _httpConnectionHandler;
 
         /// <summary>
         /// Gets whether or not this server is currently actively listening for requests.
@@ -32,21 +28,15 @@ namespace Packet.Server
         /// </summary>
         /// <param name="packetConfigurationProvider">The server configuration provider service.</param>
         /// <param name="logger">The logger that should be used to log server events.</param>
-        /// <param name="httpRequestParser">The HTTP request parser service.</param>
-        /// <param name="httpRequestReader">The HTTP request reader service.</param>
-        /// <param name="httpRequestHandler">The HTTP request handler service.</param>
+        /// <param name="httpConnectionHandler"></param>
         public PacketHttpServer(
             IPacketConfigurationProvider packetConfigurationProvider, 
             ILogger logger, 
-            IHttpRequestParser httpRequestParser, 
-            IHttpRequestReader httpRequestReader,
-            IHttpRequestHandler httpRequestHandler)
+            IHttpConnectionHandler httpConnectionHandler)
         {
             _packetConfiguration = packetConfigurationProvider.Get();
             _logger = logger;
-            _httpRequestParser = httpRequestParser;
-            _httpRequestReader = httpRequestReader;
-            _httpRequestHandler = httpRequestHandler;
+            _httpConnectionHandler = httpConnectionHandler;
         }
 
         public void Listen()
@@ -64,28 +54,10 @@ namespace Packet.Server
             {
                 _logger.WriteLine("Waiting for a request...");
 
-                // Wait for TCP client connect.
-                var client = listener.AcceptTcpClient();
+                // Deal with connections as and when they're made.
+                _httpConnectionHandler.Handle(listener.AcceptTcpClient());
 
-                _logger.WriteLine("Listener accepted TCP client...");
-                
-                // Read HTTP request.
-                var data = _httpRequestReader.Read(client);
-
-                _logger.WriteLine($"Read {data.Length} bytes from client.");
-
-                // Parse request.
-                var request = _httpRequestParser.Parse(data);
-
-                _logger.WriteLine($"Request uses {request.Version}.");
-
-                // Formulate response and write to output.
-                var response = _httpRequestHandler.Handle(request);
-                response.WriteTo(client);
-
-                _logger.Write("Finshed dealing with request.");
-               
-                client.Close();
+                _logger.WriteLine("Thread dispatched to handle request.");
             }
         }
     }

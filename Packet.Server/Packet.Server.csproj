@@ -69,6 +69,7 @@
     <Compile Include="SimpleHttpRequestParser.cs" />
     <Compile Include="StaticFileHttpRequestHandler.cs" />
     <Compile Include="StreamExtensions.cs" />
+    <Compile Include="ThreadedHttpConnectionHandler.cs" />
     <Compile Include="UrlResolver.cs" />
   </ItemGroup>
   <ItemGroup>
