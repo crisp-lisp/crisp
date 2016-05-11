@@ -26,6 +26,8 @@ namespace Packet.Server
 
         private readonly IErrorPageContentRetriever _errorPageContentRetriever;
 
+        private readonly Encoding _encoding;
+
         private readonly ILogger _logger;
 
         /// <summary>
@@ -33,17 +35,20 @@ namespace Packet.Server
         /// </summary>
         /// <param name="packetConfigurationProvider">The server configuration provider service.</param>
         /// <param name="urlResolver">The URL resolution service.</param>
-        /// <param name="errorPageContentRetriever"></param>
-        /// <param name="logger"></param>
+        /// <param name="errorPageContentRetriever">The error page content retrieval service.</param>
+        /// <param name="encodingProvider">The encoding provider service.</param>
+        /// <param name="logger">The logger to use to log server events.</param>
         public DynamicPageHttpRequestHandler(
             IPacketConfigurationProvider packetConfigurationProvider,
             IUrlResolver urlResolver,
             IErrorPageContentRetriever errorPageContentRetriever,
+            IEncodingProvider encodingProvider,
             ILogger logger)
         {
             _packetConfiguration = packetConfigurationProvider.Get(); 
             _urlResolver = urlResolver;
             _errorPageContentRetriever = errorPageContentRetriever;
+            _encoding = encodingProvider.Get();
             _logger = logger;
         }
 
@@ -89,7 +94,24 @@ namespace Packet.Server
             {
                 // Create runtime for file and run it.
                 var runtime = CrispRuntimeFactory.GetCrispRuntime(resolvedPath);
-                result = runtime.Run(new HttpExpressionTreeSource(request)).AsPair().Expand();
+                var rawResult = runtime.Run(new HttpExpressionTreeSource(request));
+
+                // Program response should be a list.
+                if (rawResult.Type != SymbolicExpressionType.Pair)
+                {
+                    throw new ApplicationException("Program result was not a list.");
+                }
+
+                result = rawResult.AsPair().Expand(); // Expand list.
+
+                // Check types in list.
+                if (result[0].Type != SymbolicExpressionType.String
+                    || result[1].Type != SymbolicExpressionType.Numeric
+                    || result[2].Type != SymbolicExpressionType.String
+                    || (result[3].Type != SymbolicExpressionType.Pair && result[3].Type != SymbolicExpressionType.Nil))
+                {
+                    throw new ApplicationException("Program result was not in a valid format.");
+                }
             }
             catch (Exception ex)
             {
@@ -103,25 +125,21 @@ namespace Packet.Server
                     {
                         {"Content-Type", "text/html"}
                     },
-                    Content = new UTF8Encoding().GetBytes(_errorPageContentRetriever.Get500ErrorPageContent())
+                    Content = _errorPageContentRetriever.GetEncodedErrorPageContent(500)
                 };
             }
 
-            // Automatic headers.
-            var autoHeaders = new Dictionary<string, string>
+            // Transform headers.
+            var headers = TransformHeadersForPacket(result[3]);
+            if (!headers.ContainsKey("Content-Type"))
             {
-                {"Content-Type", result[2].AsString().Value}
-            };
-            var allHeaders = autoHeaders.Concat(TransformHeadersForPacket(result[3])
-                .Where(h => !autoHeaders.ContainsKey(h.Key)))
-                .ToDictionary(h => h.Key, h => h.Value);
-
-            // Encode in UTF-8.
-            // TODO: Encoding.
-            var content = new UTF8Encoding().GetBytes(result[0].AsString().Value);
+                headers.Add("Content-Type", result[2].AsString().Value);
+            }
+            
+            var content = _encoding.GetBytes(result[0].AsString().Value); // Encode content.
 
             // Simple request means simple response.
-            if (request.Version.Major < 1)
+            if (request.Version.Major == 0 && request.Version.Minor == 9)
             {
                 return new SimpleHttpResponse(content);
             }
@@ -131,7 +149,7 @@ namespace Packet.Server
             {
                 StatusCode = Convert.ToInt32(result[1].AsNumeric().Value),
                 Content = content,
-                Headers = allHeaders
+                Headers = headers
             };
         }
     }

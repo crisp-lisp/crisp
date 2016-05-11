@@ -1,4 +1,5 @@
-﻿using Crisp.Interfaces.Shared;
+﻿using System.Text;
+using Crisp.Interfaces.Shared;
 using Crisp.Shared;
 
 using Packet.Configuration;
@@ -18,6 +19,7 @@ namespace Packet.IoC
         {
             // Dependency injection.
             var container = new Container();
+            container.Register<IEncodingProvider>(() => new EncodingProvider(new UTF8Encoding()));
             container.Register<IInterpreterFilePathProvider, InterpreterFilePathProvider>();
             container.Register<IInterpreterDirectoryPathProvider, InterpreterDirectoryPathProvider>();
             container.Register<IPacketConfigurationFileNameProvider>(() => new PacketConfigurationFileNameProvider("packet.json"));

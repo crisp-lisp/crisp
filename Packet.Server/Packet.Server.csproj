@@ -44,6 +44,7 @@
     <Compile Include="ChainedHttpRequestParser.cs" />
     <Compile Include="ChainingHttpRequestHandler.cs" />
     <Compile Include="DynamicPageHttpRequestHandler.cs" />
+    <Compile Include="EncodingProvider.cs" />
     <Compile Include="ErrorPageContentRetriever.cs" />
     <Compile Include="HttpExpressionTreeSource.cs" />
     <Compile Include="NotFoundHttpRequestHandler.cs" />
@@ -86,6 +87,10 @@
     <ProjectReference Include="..\Crisp.IoC\Crisp.IoC.csproj">
       <Project>{e649520c-1798-4a3f-a0ee-20ac5873a14f}</Project>
       <Name>Crisp.IoC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Crisp.Shared\Crisp.Shared.csproj">
+      <Project>{037d2ac9-aca7-42ac-9566-35502f855e7d}</Project>
+      <Name>Crisp.Shared</Name>
     </ProjectReference>
     <ProjectReference Include="..\Crisp.Types\Crisp.Types.csproj">
       <Project>{9b480f6e-e40a-4255-a0a6-5fc016a9c673}</Project>

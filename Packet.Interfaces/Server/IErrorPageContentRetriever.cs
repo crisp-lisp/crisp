@@ -2,12 +2,8 @@
 {
     public interface IErrorPageContentRetriever
     {
-        string Get400ErrorPageContent();
+        string GetErrorPageContent(int errorStatusCode);
 
-        string Get403ErrorPageContent();
-
-        string Get404ErrorPageContent();
-
-        string Get500ErrorPageContent();
+        byte[] GetEncodedErrorPageContent(int errorStatusCode);
     }
 }
