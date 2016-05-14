@@ -32,7 +32,7 @@ namespace Packet.IoC
                 typeof (FullHttpRequestParser),
                 typeof (SimpleHttpRequestParser)
             });
-            container.Register<IHttpRequestParser, ChainedHttpRequestParser>();
+            container.Register<IHttpRequestParser, ChainingHttpRequestParser>();
             container.Register<ILogger, ConsoleWindowLogger>();
             container.Register<IHttpRequestReader, HttpRequestReader>();
             container.Register<IHttpServer, PacketHttpServer>();

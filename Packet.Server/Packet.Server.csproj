@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChainedHttpRequestParser.cs" />
+    <Compile Include="ChainingHttpRequestParser.cs" />
     <Compile Include="ChainingHttpRequestHandler.cs" />
     <Compile Include="DynamicPageHttpRequestHandler.cs" />
     <Compile Include="DynamicPageResultValidator.cs" />

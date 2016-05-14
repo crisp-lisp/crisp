@@ -8,13 +8,13 @@ namespace Packet.Server
     /// <summary>
     /// Represents a chaining HTTP request parser.
     /// </summary>
-    public class ChainedHttpRequestParser : HttpRequestParser
+    public class ChainingHttpRequestParser : HttpRequestParser
     {
         /// <summary>
         /// Initializes a new instance of a chaining HTTP request parser.
         /// </summary>
         /// <param name="httpRequestParsers">The parsers that should form the chain of responsibility.</param>
-        public ChainedHttpRequestParser(IEnumerable<IHttpRequestParser> httpRequestParsers)
+        public ChainingHttpRequestParser(IEnumerable<IHttpRequestParser> httpRequestParsers)
         {
             // Build chain of responsibility.
             foreach (var httpRequestParser in httpRequestParsers.Reverse())
