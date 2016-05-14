@@ -21,15 +21,10 @@ namespace Packet.Server
     public class DynamicPageHttpRequestHandler : HttpRequestHandler
     {
         private readonly IPacketConfiguration _packetConfiguration;
-
         private readonly IUrlResolver _urlResolver;
-
         private readonly IErrorPageContentRetriever _errorPageContentRetriever;
-
         private readonly IDynamicPageResultValidator _dynamicPageResultValidator;
-
         private readonly Encoding _encoding;
-
         private readonly ILogger _logger;
 
         /// <summary>
@@ -39,7 +34,7 @@ namespace Packet.Server
         /// <param name="urlResolver">The URL resolution service.</param>
         /// <param name="errorPageContentRetriever">The error page content retrieval service.</param>
         /// <param name="encodingProvider">The encoding provider service.</param>
-        /// <param name="dynamicPageResultValidator"></param>
+        /// <param name="dynamicPageResultValidator">The dynamic page result validator service.</param>
         /// <param name="logger">The logger to use to log server events.</param>
         public DynamicPageHttpRequestHandler(
             IPacketConfigurationProvider packetConfigurationProvider,

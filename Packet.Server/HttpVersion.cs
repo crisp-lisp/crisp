@@ -18,6 +18,10 @@ namespace Packet.Server
             Major = major;
             Minor = minor;
         }
+        public bool IsVersion(int major, int minor)
+        {
+            return Major == major && Minor == minor;
+        }
 
         public override string ToString()
         {
