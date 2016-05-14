@@ -46,7 +46,6 @@
     <Compile Include="Configuration\IRawPacketConfigurationProvider.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Server\IDynamicPageResultValidator.cs" />
     <Compile Include="Server\IEncodingProvider.cs" />
     <Compile Include="Server\IErrorPageContentRetriever.cs" />
     <Compile Include="Server\IFullHttpRequest.cs" />

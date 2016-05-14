@@ -2,12 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 
-using Crisp.Enums;
-using Crisp.Interfaces.Types;
 using Crisp.IoC;
-using Crisp.Types;
 
 using Packet.Interfaces.Configuration;
 using Packet.Interfaces.Logging;
@@ -26,11 +22,7 @@ namespace Packet.Handlers
 
         private readonly IErrorPageContentRetriever _errorPageContentRetriever;
 
-        private readonly IDynamicPageResultValidator _dynamicPageResultValidator;
-
         private readonly IHttpRequestConverter _httpRequestConverter;
-
-        private readonly Encoding _encoding;
 
         private readonly ILogger _logger;
 
@@ -40,25 +32,19 @@ namespace Packet.Handlers
         /// <param name="packetConfigurationProvider">The server configuration provider service.</param>
         /// <param name="urlResolver">The URL resolution service.</param>
         /// <param name="errorPageContentRetriever">The error page content retrieval service.</param>
-        /// <param name="dynamicPageResultValidator">The dynamic page result validation service.</param>
         /// <param name="httpRequestConverter">The HTTP request conversion service.</param>
-        /// <param name="encodingProvider">The encoding provider service.</param>
         /// <param name="logger">The logger to use to log server events.</param>
         public DynamicPageHttpRequestHandler(
             IPacketConfigurationProvider packetConfigurationProvider,
             IUrlResolver urlResolver,
             IErrorPageContentRetriever errorPageContentRetriever,
-            IDynamicPageResultValidator dynamicPageResultValidator,
             IHttpRequestConverter httpRequestConverter,
-            IEncodingProvider encodingProvider,
             ILogger logger)
         {
             _packetConfiguration = packetConfigurationProvider.Get(); 
             _urlResolver = urlResolver;
             _errorPageContentRetriever = errorPageContentRetriever;
-            _dynamicPageResultValidator = dynamicPageResultValidator;
             _httpRequestConverter = httpRequestConverter;
-            _encoding = encodingProvider.Get();
             _logger = logger;
         }
 
@@ -72,23 +58,6 @@ namespace Packet.Handlers
             return _packetConfiguration.CrispFileExtensions.Contains(extension);
         }
 
-        /// <summary>
-        /// Converts a name-value collection of HTTP headers passed back by a Crisp webpage to a dictionary.
-        /// </summary>
-        /// <param name="headers">The symbolic expression containingthe name-value collection to convert.</param>
-        /// <returns></returns>
-        private static Dictionary<string, string> TransformHeadersForPacket(ISymbolicExpression headers)
-        {
-            // Nil means empty headers.
-            if (headers.Type == SymbolicExpressionType.Nil)
-            {
-                return new Dictionary<string, string>();
-            }
-
-            var expanded = headers.AsPair().Expand();
-            return expanded.ToDictionary(p => p.AsPair().Head.AsString().Value, p => p.AsPair().Tail.AsString().Value);
-        }
-
         protected override IHttpResponse AttemptHandle(IHttpRequest request)
         {
             var resolvedPath = _urlResolver.Resolve(request.Url); // Resolve URL.
@@ -100,29 +69,20 @@ namespace Packet.Handlers
             }
             
             // Evaluate webpage.
-            IList<ISymbolicExpression> result;
+            IHttpResponse response;
             try
             {
                 // Create runtime for file and run it.
                 var runtime = CrispRuntimeFactory.GetCrispRuntime(resolvedPath);
                 var rawResult = runtime.Run(_httpRequestConverter.ConvertHttpRequest(request));
-                
-                // Ensure page result was valid.
-                if (_dynamicPageResultValidator.Validate(rawResult))
-                {
-                    result = rawResult.AsPair().Expand(); 
-                }
-                else
-                {
-                    throw new ApplicationException("Program result was not in a valid format.");
-                }
+                response = _httpRequestConverter.ConvertSymbolicExpression(request, rawResult);
             }
             catch (Exception ex)
             {
                 _logger.WriteLine($"Error: {ex.Message}");
 
                 // Return 500 internal server error.
-                return new FullHttpResponse(request.Version)
+                response = new FullHttpResponse(request.Version)
                 {
                     StatusCode = 500,
                     Headers = new Dictionary<string, string>
@@ -133,28 +93,7 @@ namespace Packet.Handlers
                 };
             }
 
-            // Transform headers.
-            var headers = TransformHeadersForPacket(result[3]);
-            if (!headers.ContainsKey("Content-Type"))
-            {
-                headers.Add("Content-Type", result[2].AsString().Value);
-            }
-            
-            var content = _encoding.GetBytes(result[0].AsString().Value); // Encode content.
-
-            // Simple request means simple response.
-            if (request.Version.Major == 0 && request.Version.Minor == 9)
-            {
-                return new SimpleHttpResponse(content);
-            }
-
-            // Full request means full response.
-            return new FullHttpResponse(request.Version)
-            {
-                StatusCode = Convert.ToInt32(result[1].AsNumeric().Value),
-                Content = content,
-                Headers = headers
-            };
+            return response;
         }
     }
 }

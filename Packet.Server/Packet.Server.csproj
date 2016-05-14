@@ -42,7 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChainingHttpRequestParser.cs" />
-    <Compile Include="DynamicPageResultValidator.cs" />
     <Compile Include="EncodingProvider.cs" />
     <Compile Include="HttpExpressionTreeSource.cs" />
     <Compile Include="HttpMethodConverter.cs" />
