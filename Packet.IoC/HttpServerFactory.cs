@@ -20,6 +20,7 @@ namespace Packet.IoC
             // Dependency injection.
             var container = new Container();
             container.Register<IEncodingProvider>(() => new EncodingProvider(new UTF8Encoding()));
+            container.Register<IErrorPageContentRetriever, ErrorPageContentRetriever>();
             container.Register<IInterpreterFilePathProvider, InterpreterFilePathProvider>();
             container.Register<IInterpreterDirectoryPathProvider, InterpreterDirectoryPathProvider>();
             container.Register<IPacketConfigurationFileNameProvider>(() => new PacketConfigurationFileNameProvider("packet.json"));
