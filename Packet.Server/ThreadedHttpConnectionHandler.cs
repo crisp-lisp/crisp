@@ -1,4 +1,5 @@
-﻿using System.Net.Sockets;
+﻿using System;
+using System.Net.Sockets;
 using System.Threading;
 
 using Packet.Interfaces.Logging;
@@ -55,6 +56,10 @@ namespace Packet.Server
                 // Formulate response and write to output.
                 var response = _httpRequestHandler.Handle(request);
                 response.WriteTo(client);
+            }
+            catch (Exception ex)
+            {
+                _logger.WriteError(ex);
             }
             finally
             {
