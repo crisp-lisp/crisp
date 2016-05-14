@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crisp", "Crisp\Crisp.csproj", "{809929B5-0646-4120-B0D9-A69EB59354D5}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -87,6 +87,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Packet.Server.Tests", "Packet.Server.Tests\Packet.Server.Tests.csproj", "{9BCE2C26-513D-4ADC-8E26-0F8183406C7C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Packet.IoC", "Packet.IoC\Packet.IoC.csproj", "{138D4BD7-F38D-45C9-B956-3ABEC31BCC67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Packet.Handlers", "Packet.Handlers\Packet.Handlers.csproj", "{55726991-9C26-42E6-96C1-2EA332B1B6B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -222,6 +224,10 @@ Global
 		{138D4BD7-F38D-45C9-B956-3ABEC31BCC67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{138D4BD7-F38D-45C9-B956-3ABEC31BCC67}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{138D4BD7-F38D-45C9-B956-3ABEC31BCC67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55726991-9C26-42E6-96C1-2EA332B1B6B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55726991-9C26-42E6-96C1-2EA332B1B6B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55726991-9C26-42E6-96C1-2EA332B1B6B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55726991-9C26-42E6-96C1-2EA332B1B6B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
