@@ -36,7 +36,7 @@ namespace Packet.Handlers
             var textOutputStream = new StreamWriter(dataOutputStream);
 
             // Write response line.
-            textOutputStream.WriteLine($"{Version} {StatusCode} {ReasonPhrase.TryGet(StatusCode, "Unknown")}");
+            textOutputStream.WriteLine($"{Version} {StatusCode} {ReasonPhraseHelper.TryGet(StatusCode, "Unknown")}");
 
             // Write headers.
             foreach (var header in Headers)

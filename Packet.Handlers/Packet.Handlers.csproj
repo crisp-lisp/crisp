@@ -46,7 +46,7 @@
     <Compile Include="ExpressionTreeSource.cs" />
     <Compile Include="ForbiddenHttpRequestHandler.cs" />
     <Compile Include="FullHttpResponse.cs" />
-    <Compile Include="HttpMethodConverter.cs" />
+    <Compile Include="HttpMethodHelper.cs" />
     <Compile Include="HttpRequestConverter.cs" />
     <Compile Include="HttpRequestHandler.cs" />
     <Compile Include="HttpResponse.cs" />
@@ -58,7 +58,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="ReasonPhrase.cs" />
+    <Compile Include="ReasonPhraseHelper.cs" />
     <Compile Include="SimpleHttpResponse.cs" />
     <Compile Include="StaticFileHttpRequestHandler.cs" />
   </ItemGroup>

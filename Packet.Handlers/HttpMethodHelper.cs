@@ -8,7 +8,7 @@ namespace Packet.Handlers
     /// <summary>
     /// A static helper class to convert from HTTP method strings to their <see cref="HttpMethod"/> equivalents.
     /// </summary>
-    public static class HttpMethodConverter
+    internal static class HttpMethodHelper
     {
         /// <summary>
         /// Converts from a HTTP method string to its equivalent enum member.

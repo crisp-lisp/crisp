@@ -3,9 +3,9 @@
 namespace Packet.Handlers
 {
     /// <summary>
-    /// Provides a utility class to help with mapping HTTP status codes to their reason phrases.
+    /// Provides a static helper class to help with mapping HTTP status codes to their reason phrases.
     /// </summary>
-    internal class ReasonPhrase
+    internal class ReasonPhraseHelper
     {
         /// <summary>
         /// A dictionary mapping HTTP status codes to their reason phrases.

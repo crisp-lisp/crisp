@@ -35,7 +35,7 @@ namespace Packet.Handlers
                 return new ExpressionTreeSource(new List<ISymbolicExpression>
                 {
                     new StringAtom(request.Url),
-                    new StringAtom(HttpMethodConverter.ToString(HttpMethod.Get)),
+                    new StringAtom(HttpMethodHelper.ToString(HttpMethod.Get)),
                     new Nil(),
                     new Nil()
                 }.ToProperList());
@@ -46,7 +46,7 @@ namespace Packet.Handlers
             return new ExpressionTreeSource(new List<ISymbolicExpression>
             {
                 new StringAtom(fullRequest.Url),
-                new StringAtom(HttpMethodConverter.ToString(fullRequest.Method)),
+                new StringAtom(HttpMethodHelper.ToString(fullRequest.Method)),
                 new StringAtom(new UTF8Encoding().GetString(fullRequest.RequestBody)),
                 TransformHeadersForCrisp(fullRequest.Headers)
             }.ToProperList());
