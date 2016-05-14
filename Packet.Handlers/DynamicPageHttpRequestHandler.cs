@@ -60,22 +60,23 @@ namespace Packet.Handlers
 
         protected override IHttpResponse AttemptHandle(IHttpRequest request)
         {
-            var resolvedPath = _urlResolver.Resolve(request.Url); // Resolve URL.
+            var path = _urlResolver.Resolve(request.Url); 
 
             // If not dynamic page, defer.
-            if (!IsInterpretedFileExtension(Path.GetExtension(resolvedPath)))
+            if (!IsInterpretedFileExtension(Path.GetExtension(path)))
             {
                 return null;
             }
             
-            // Evaluate webpage.
             IHttpResponse response;
             try
             {
-                // Create runtime for file and run it.
-                var runtime = CrispRuntimeFactory.GetCrispRuntime(resolvedPath);
-                var rawResult = runtime.Run(_httpRequestConverter.ConvertHttpRequest(request));
-                response = _httpRequestConverter.ConvertSymbolicExpression(request, rawResult);
+                // Evaluate HTTP request under program.
+                var runtime = CrispRuntimeFactory.GetCrispRuntime(path);
+                var result = runtime.Run(_httpRequestConverter.ConvertHttpRequest(request));
+
+                // Convert result to response.
+                response = _httpRequestConverter.ConvertSymbolicExpression(request, result);
             }
             catch (Exception ex)
             {
