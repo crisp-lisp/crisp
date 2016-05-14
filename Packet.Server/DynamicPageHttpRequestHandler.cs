@@ -26,6 +26,8 @@ namespace Packet.Server
 
         private readonly IErrorPageContentRetriever _errorPageContentRetriever;
 
+        private readonly IDynamicPageResultValidator _dynamicPageResultValidator;
+
         private readonly Encoding _encoding;
 
         private readonly ILogger _logger;
@@ -37,17 +39,20 @@ namespace Packet.Server
         /// <param name="urlResolver">The URL resolution service.</param>
         /// <param name="errorPageContentRetriever">The error page content retrieval service.</param>
         /// <param name="encodingProvider">The encoding provider service.</param>
+        /// <param name="dynamicPageResultValidator"></param>
         /// <param name="logger">The logger to use to log server events.</param>
         public DynamicPageHttpRequestHandler(
             IPacketConfigurationProvider packetConfigurationProvider,
             IUrlResolver urlResolver,
             IErrorPageContentRetriever errorPageContentRetriever,
             IEncodingProvider encodingProvider,
+            IDynamicPageResultValidator dynamicPageResultValidator,
             ILogger logger)
         {
             _packetConfiguration = packetConfigurationProvider.Get(); 
             _urlResolver = urlResolver;
             _errorPageContentRetriever = errorPageContentRetriever;
+            _dynamicPageResultValidator = dynamicPageResultValidator;
             _encoding = encodingProvider.Get();
             _logger = logger;
         }
@@ -69,6 +74,7 @@ namespace Packet.Server
         /// <returns></returns>
         private static Dictionary<string, string> TransformHeadersForPacket(ISymbolicExpression headers)
         {
+            // Nil means empty headers.
             if (headers.Type == SymbolicExpressionType.Nil)
             {
                 return new Dictionary<string, string>();
@@ -95,20 +101,13 @@ namespace Packet.Server
                 // Create runtime for file and run it.
                 var runtime = CrispRuntimeFactory.GetCrispRuntime(resolvedPath);
                 var rawResult = runtime.Run(new HttpExpressionTreeSource(request));
-
-                // Program response should be a list.
-                if (rawResult.Type != SymbolicExpressionType.Pair)
+                
+                // Ensure page result was valid.
+                if (_dynamicPageResultValidator.Validate(rawResult))
                 {
-                    throw new ApplicationException("Program result was not a list.");
+                    result = rawResult.AsPair().Expand(); 
                 }
-
-                result = rawResult.AsPair().Expand(); // Expand list.
-
-                // Check types in list.
-                if (result[0].Type != SymbolicExpressionType.String
-                    || result[1].Type != SymbolicExpressionType.Numeric
-                    || result[2].Type != SymbolicExpressionType.String
-                    || (result[3].Type != SymbolicExpressionType.Pair && result[3].Type != SymbolicExpressionType.Nil))
+                else
                 {
                     throw new ApplicationException("Program result was not in a valid format.");
                 }

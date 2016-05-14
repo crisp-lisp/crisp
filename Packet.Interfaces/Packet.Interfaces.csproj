@@ -46,6 +46,7 @@
     <Compile Include="Configuration\IRawPacketConfigurationProvider.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Server\IDynamicPageResultValidator.cs" />
     <Compile Include="Server\IEncodingProvider.cs" />
     <Compile Include="Server\IErrorPageContentRetriever.cs" />
     <Compile Include="Server\IHttpConnectionHandler.cs" />
@@ -60,6 +61,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\Crisp.Interfaces\Crisp.Interfaces.csproj">
+      <Project>{12b92742-736f-4502-bd77-fcfb81e7b53c}</Project>
+      <Name>Crisp.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Packet.Enums\Packet.Enums.csproj">
       <Project>{d1462d1b-d954-49f0-b45d-c27b06d02776}</Project>
       <Name>Packet.Enums</Name>
