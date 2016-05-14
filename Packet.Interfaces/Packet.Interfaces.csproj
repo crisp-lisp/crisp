@@ -49,6 +49,7 @@
     <Compile Include="Server\IDynamicPageResultValidator.cs" />
     <Compile Include="Server\IEncodingProvider.cs" />
     <Compile Include="Server\IErrorPageContentRetriever.cs" />
+    <Compile Include="Server\IFullHttpRequest.cs" />
     <Compile Include="Server\IHttpConnectionHandler.cs" />
     <Compile Include="Server\IHttpRequestConverter.cs" />
     <Compile Include="Server\IHttpRequestHandler.cs" />

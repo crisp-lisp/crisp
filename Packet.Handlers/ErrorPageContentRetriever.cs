@@ -7,7 +7,7 @@ using Packet.Interfaces.Configuration;
 using Packet.Interfaces.Logging;
 using Packet.Interfaces.Server;
 
-namespace Packet.Server
+namespace Packet.Handlers
 {
     public class ErrorPageContentRetriever : IErrorPageContentRetriever
     {

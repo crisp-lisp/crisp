@@ -60,6 +60,10 @@
       <Project>{9a4836a8-0b2a-4f60-9f15-b59aa6764821}</Project>
       <Name>Packet.Configuration</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Packet.Handlers\Packet.Handlers.csproj">
+      <Project>{55726991-9c26-42e6-96c1-2ea332b1b6b2}</Project>
+      <Name>Packet.Handlers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Packet.Interfaces\Packet.Interfaces.csproj">
       <Project>{71c6a9c3-8606-4b4c-a6da-10c742174199}</Project>
       <Name>Packet.Interfaces</Name>

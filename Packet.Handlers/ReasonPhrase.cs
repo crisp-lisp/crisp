@@ -13,8 +13,8 @@ namespace Packet.Handlers
         private static readonly Dictionary<int, string> ReasonPhrases = new Dictionary<int, string>
         {
             {200, "OK"},
-            {201, "CREATED"},
-            {202, "ACCEPTED"},
+            {201, "Created"},
+            {202, "Accepted"},
             {204, "No Content"},
             {301, "Moved Permanently"},
             {302, "Moved Temporarily"},

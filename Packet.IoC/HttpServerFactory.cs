@@ -3,6 +3,7 @@ using Crisp.Interfaces.Shared;
 using Crisp.Shared;
 
 using Packet.Configuration;
+using Packet.Handlers;
 using Packet.Interfaces.Configuration;
 using Packet.Interfaces.Logging;
 using Packet.Interfaces.Server;

@@ -42,23 +42,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChainingHttpRequestParser.cs" />
-    <Compile Include="ChainingHttpRequestHandler.cs" />
-    <Compile Include="DynamicPageHttpRequestHandler.cs" />
     <Compile Include="DynamicPageResultValidator.cs" />
     <Compile Include="EncodingProvider.cs" />
-    <Compile Include="ErrorPageContentRetriever.cs" />
     <Compile Include="HttpExpressionTreeSource.cs" />
-    <Compile Include="NotFoundHttpRequestHandler.cs" />
-    <Compile Include="ForbiddenHttpRequestHandler.cs" />
-    <Compile Include="FullHttpResponse.cs" />
     <Compile Include="HttpMethodConverter.cs" />
     <Compile Include="FullHttpRequest.cs" />
     <Compile Include="FullHttpRequestParser.cs" />
     <Compile Include="HttpRequest.cs" />
-    <Compile Include="HttpRequestHandler.cs" />
     <Compile Include="HttpRequestParser.cs" />
     <Compile Include="HttpRequestReader.cs" />
-    <Compile Include="HttpResponse.cs" />
     <Compile Include="HttpVersion.cs" />
     <Compile Include="PacketHttpServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -67,11 +59,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="ReasonPhrase.cs" />
     <Compile Include="SimpleHttpRequest.cs" />
-    <Compile Include="SimpleHttpResponse.cs" />
     <Compile Include="SimpleHttpRequestParser.cs" />
-    <Compile Include="StaticFileHttpRequestHandler.cs" />
     <Compile Include="StreamExtensions.cs" />
     <Compile Include="ThreadedHttpConnectionHandler.cs" />
     <Compile Include="UrlResolver.cs" />

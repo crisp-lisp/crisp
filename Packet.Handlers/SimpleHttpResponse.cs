@@ -18,7 +18,8 @@ namespace Packet.Handlers
 
         public override void WriteTo(TcpClient socket)
         {
-            socket.GetStream().Write(Content, 0, Content.Length); // Just dump response content.
+            // Just dump response content.
+            socket.GetStream().Write(Content, 0, Content.Length); 
         }
     }
 }

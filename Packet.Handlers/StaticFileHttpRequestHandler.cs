@@ -42,14 +42,14 @@ namespace Packet.Handlers
 
         protected override IHttpResponse AttemptHandle(IHttpRequest request)
         {
-            var resolvedPath = _urlResolver.Resolve(request.Url); // Resolve URL.
+            var resolvedPath = _urlResolver.Resolve(request.Url); 
 
             return new FullHttpResponse(request.Version)
             {
                 StatusCode = 200,
                 Headers = new Dictionary<string, string>
                 {
-                    {"Content-Type", GetMimeTypeForExtension(Path.GetExtension(resolvedPath))} // Use correct MIME.
+                    {"Content-Type", GetMimeTypeForExtension(Path.GetExtension(resolvedPath))} 
                 },
                 Content = File.ReadAllBytes(resolvedPath)
             };
