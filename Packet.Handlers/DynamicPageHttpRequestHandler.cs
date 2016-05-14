@@ -21,11 +21,17 @@ namespace Packet.Handlers
     public class DynamicPageHttpRequestHandler : HttpRequestHandler
     {
         private readonly IPacketConfiguration _packetConfiguration;
+
         private readonly IUrlResolver _urlResolver;
+
         private readonly IErrorPageContentRetriever _errorPageContentRetriever;
+
         private readonly IDynamicPageResultValidator _dynamicPageResultValidator;
+
         private readonly IHttpRequestConverter _httpRequestConverter;
+
         private readonly Encoding _encoding;
+
         private readonly ILogger _logger;
 
         /// <summary>
@@ -34,17 +40,17 @@ namespace Packet.Handlers
         /// <param name="packetConfigurationProvider">The server configuration provider service.</param>
         /// <param name="urlResolver">The URL resolution service.</param>
         /// <param name="errorPageContentRetriever">The error page content retrieval service.</param>
+        /// <param name="dynamicPageResultValidator">The dynamic page result validation service.</param>
+        /// <param name="httpRequestConverter">The HTTP request conversion service.</param>
         /// <param name="encodingProvider">The encoding provider service.</param>
-        /// <param name="dynamicPageResultValidator">The dynamic page result validator service.</param>
-        /// <param name="httpRequestConverter"></param>
         /// <param name="logger">The logger to use to log server events.</param>
         public DynamicPageHttpRequestHandler(
             IPacketConfigurationProvider packetConfigurationProvider,
             IUrlResolver urlResolver,
             IErrorPageContentRetriever errorPageContentRetriever,
-            IEncodingProvider encodingProvider,
             IDynamicPageResultValidator dynamicPageResultValidator,
             IHttpRequestConverter httpRequestConverter,
+            IEncodingProvider encodingProvider,
             ILogger logger)
         {
             _packetConfiguration = packetConfigurationProvider.Get(); 
