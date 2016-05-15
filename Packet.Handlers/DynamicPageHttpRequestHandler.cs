@@ -80,7 +80,7 @@ namespace Packet.Handlers
             }
             catch (Exception ex)
             {
-                _logger.WriteLine($"Error: {ex.Message}");
+                _logger.WriteError(ex);
 
                 // Return 500 internal server error.
                 response = new FullHttpResponse(request.Version)
