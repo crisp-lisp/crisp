@@ -1,14 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using Crisp.Enums;
+using Crisp.Interfaces.Evaluation;
+using Crisp.Interfaces.Types;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Moq;
 using Ploeh.AutoFixture;
 
-using Crisp.Core;
-using Crisp.Core.Evaluation;
-using Crisp.Core.Types;
+using Crisp.Shared;
+using Crisp.Types;
 
 namespace Crisp.Basic.Tests
 {
@@ -23,8 +26,8 @@ namespace Crisp.Basic.Tests
         {
             // Use a dummy evaluator that just returns what it's been given.
             var mockEvaluator = new Mock<IEvaluator>();
-            mockEvaluator.Setup(m => m.Evaluate(It.IsAny<SymbolicExpression>()))
-                .Returns((SymbolicExpression s) => s);
+            mockEvaluator.Setup(m => m.Evaluate(It.IsAny<ISymbolicExpression>()))
+                .Returns((ISymbolicExpression s) => s);
             _mockEvaluator = mockEvaluator.Object;
 
             // Register creation of expression types.
@@ -56,7 +59,7 @@ namespace Crisp.Basic.Tests
             // Compute result.
             var x = _fixture.Create<BooleanAtom>();
             var y = _fixture.Create<BooleanAtom>();
-            var args = new List<SymbolicExpression> {x, y}.ToProperList();
+            var args = new List<ISymbolicExpression> {x, y}.ToProperList();
             var ans = function.Apply(args, _mockEvaluator);
             
             // We should have the correct boolean atom as a result.
@@ -77,7 +80,7 @@ namespace Crisp.Basic.Tests
 
             // Compute result.
             var x = _fixture.Create<Closure>();
-            var args = new List<SymbolicExpression> {x, x}.ToProperList();
+            var args = new List<ISymbolicExpression> {x, x}.ToProperList();
             var ans = function.Apply(args, _mockEvaluator);
 
             // We should have the correct boolean atom as a result.
@@ -101,7 +104,7 @@ namespace Crisp.Basic.Tests
             var name = _fixture.Create<string>();
             var x = new ConstantAtom(name);
             var y = new ConstantAtom(name);
-            var args = new List<SymbolicExpression> {x, y}.ToProperList();
+            var args = new List<ISymbolicExpression> {x, y}.ToProperList();
             var ans = function.Apply(args, _mockEvaluator);
 
             // We should have the correct boolean atom as a result.
@@ -122,7 +125,7 @@ namespace Crisp.Basic.Tests
 
             // Compute result.
             var x = _fixture.Create<Lambda>();
-            var args = new List<SymbolicExpression> {x, x}.ToProperList();
+            var args = new List<ISymbolicExpression> {x, x}.ToProperList();
             var ans = function.Apply(args, _mockEvaluator);
 
             // We should have the correct boolean atom as a result.
@@ -145,7 +148,7 @@ namespace Crisp.Basic.Tests
             // Compute result.
             var x = _fixture.Create<Nil>();
             var y = _fixture.Create<Nil>();
-            var args = new List<SymbolicExpression> {x, y}.ToProperList();
+            var args = new List<ISymbolicExpression> {x, y}.ToProperList();
             var ans = function.Apply(args, _mockEvaluator);
 
             // We should have the correct boolean atom as a result.
@@ -168,7 +171,7 @@ namespace Crisp.Basic.Tests
             // Compute result.
             var x = new NumericAtom(_fixture.Create<double>());
             var y = new NumericAtom(_fixture.Create<double>());
-            var args = new List<SymbolicExpression> { x, y }.ToProperList();
+            var args = new List<ISymbolicExpression> { x, y }.ToProperList();
             var ans = function.Apply(args, _mockEvaluator);
 
             // We should have the correct boolean atom as a result.
@@ -189,7 +192,7 @@ namespace Crisp.Basic.Tests
 
             // Compute result.
             var x = _fixture.Create<Pair>();
-            var args = new List<SymbolicExpression> { x, x }.ToProperList();
+            var args = new List<ISymbolicExpression> { x, x }.ToProperList();
             var ans = function.Apply(args, _mockEvaluator);
 
             // We should have the correct boolean atom as a result.
@@ -213,7 +216,7 @@ namespace Crisp.Basic.Tests
             var value = _fixture.Create<string>();
             var x = new StringAtom(value);
             var y = new StringAtom(value);
-            var args = new List<SymbolicExpression> { x, y }.ToProperList();
+            var args = new List<ISymbolicExpression> { x, y }.ToProperList();
             var ans = function.Apply(args, _mockEvaluator);
 
             // We should have the correct boolean atom as a result.
@@ -237,7 +240,7 @@ namespace Crisp.Basic.Tests
             var name = _fixture.Create<string>();
             var x = new SymbolAtom(name);
             var y = new SymbolAtom(name);
-            var args = new List<SymbolicExpression> { x, y }.ToProperList();
+            var args = new List<ISymbolicExpression> { x, y }.ToProperList();
             var ans = function.Apply(args, _mockEvaluator);
 
             // We should have the correct boolean atom as a result.
@@ -256,8 +259,8 @@ namespace Crisp.Basic.Tests
             var function = new LeqSpecialForm();
             
             var arg = _fixture.Create<NumericAtom>();
-            var correct = new List<SymbolicExpression> {arg, arg}.ToProperList();
-            var incorrect = new List<SymbolicExpression> {arg, arg, arg}.ToProperList();
+            var correct = new List<ISymbolicExpression> {arg, arg}.ToProperList();
+            var incorrect = new List<ISymbolicExpression> {arg, arg, arg}.ToProperList();
 
             function.Apply(correct, _mockEvaluator);
 
@@ -268,7 +271,7 @@ namespace Crisp.Basic.Tests
                 // We should have failed.
                 Assert.Fail("Exception should have been thrown for wrong number of arguments.");
             }
-            catch (RuntimeException) { }
+            catch (FunctionApplicationException) { }
         }
     }
 }

@@ -55,12 +55,8 @@
       <HintPath>..\packages\CommandLineParser.1.9.71\lib\net45\CommandLine.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SimpleInjector, Version=3.1.1.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
-      <HintPath>..\packages\SimpleInjector.3.1.1\lib\net45\SimpleInjector.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -73,16 +69,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\Configuration.cs" />
-    <Compile Include="Configuration\ConfigurationProvider.cs" />
-    <Compile Include="Configuration\IConfigurationProvider.cs" />
-    <Compile Include="CrispRuntimeFactory.cs" />
-    <Compile Include="InterpreterDirectoryPathProvider.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SourceFilePathProvider.cs" />
-    <Compile Include="SpecialFormDirectoryPathProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -99,6 +88,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="examples\data\data.db3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="examples\addition.csp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="examples\query.csp">
@@ -125,13 +117,21 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Crisp.Core\Crisp.Core.csproj">
-      <Project>{6ab9a6ec-742d-4b88-9a22-58e3c98da464}</Project>
-      <Name>Crisp.Core</Name>
+    <ProjectReference Include="..\Crisp.Interfaces\Crisp.Interfaces.csproj">
+      <Project>{12b92742-736f-4502-bd77-fcfb81e7b53c}</Project>
+      <Name>Crisp.Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Crisp.Visualization\Crisp.Visualization.csproj">
-      <Project>{ee206d73-5474-4b04-924e-b85da171bbcd}</Project>
-      <Name>Crisp.Visualization</Name>
+    <ProjectReference Include="..\Crisp.IoC\Crisp.IoC.csproj">
+      <Project>{e649520c-1798-4a3f-a0ee-20ac5873a14f}</Project>
+      <Name>Crisp.IoC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Crisp.Serialization\Crisp.Serialization.csproj">
+      <Project>{f5738286-9e8d-4398-9d53-b08a4f239dfa}</Project>
+      <Name>Crisp.Serialization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Crisp.Shared\Crisp.Shared.csproj">
+      <Project>{037d2ac9-aca7-42ac-9566-35502f855e7d}</Project>
+      <Name>Crisp.Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

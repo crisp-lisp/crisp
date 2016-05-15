@@ -1,17 +1,19 @@
-﻿using Crisp.Core;
-using Crisp.Core.Evaluation;
-using Crisp.Core.Types;
+﻿using System.Collections.Generic;
+
+using Crisp.Interfaces.Evaluation;
+using Crisp.Interfaces.Types;
+using Crisp.Types;
 
 namespace Crisp.Basic
 {
     /// <summary>
-    /// A function that returns its arguments as a proper list.
+    /// A special form that returns its arguments as a proper list.
     /// </summary>
     public class ListSpecialForm : SpecialForm
     {
-        public override string Name => "list";
+        public override IEnumerable<string> Names => new List<string> {"list"};
 
-        public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
+        public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {
             expression.ThrowIfNotList(Name); // Takes a list of arguments.
             return evaluator.Evaluate(expression.AsPair());

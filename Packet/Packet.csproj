@@ -40,12 +40,12 @@
       <HintPath>..\packages\CommandLineParser.1.9.71\lib\net45\CommandLine.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SimpleInjector, Version=3.1.1.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
-      <HintPath>..\packages\SimpleInjector.3.1.1\lib\net45\SimpleInjector.dll</HintPath>
+    <Reference Include="SimpleInjector, Version=3.1.4.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.3.1.4\lib\net45\SimpleInjector.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -59,49 +59,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\Configuration.cs" />
-    <Compile Include="Configuration\ConfigurationProvider.cs" />
-    <Compile Include="Configuration\IConfigurationProvider.cs" />
-    <Compile Include="CrispRuntimeFactory.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Server\CombinatorialServerSettingsProvider.cs" />
-    <Compile Include="Server\HttpProcessor.cs" />
-    <Compile Include="Server\HttpServer.cs" />
-    <Compile Include="ICrispRuntimeFactory.cs" />
-    <Compile Include="InterpreterDirectoryPathProvider.cs" />
-    <Compile Include="Server\IHttpServer.cs" />
-    <Compile Include="Options.cs" />
-    <Compile Include="Server\ILogger.cs" />
-    <Compile Include="IOptionsProvider.cs" />
-    <Compile Include="OptionsProvider.cs" />
-    <Compile Include="Server\IServerSettingsProvider.cs" />
-    <Compile Include="Server\ConsoleWindowLogger.cs" />
-    <Compile Include="Server\PacketHttpServer.cs" />
-    <Compile Include="Server\HttpServerFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Server\ReasonPhrase.cs" />
-    <Compile Include="Server\ServerSettings.cs" />
-    <Compile Include="Server\ServerSettingsProvider.cs" />
-    <Compile Include="SourceFilePathProvider.cs" />
-    <Compile Include="SpecialFormDirectoryPathProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="crisp.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packet.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
-    <None Include="public-www\404\404.csp">
+    <Content Include="public-www\404\404.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="public-www\500\500.csp">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="public-www\comments\index.csp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -126,10 +98,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
-    <Content Include="public-www\404\404.template.html">
+    <Content Include="public-www\403\403.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="public-www\500\500.template.html">
+    <Content Include="public-www\500\500.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="public-www\comments\comments.template.html">
@@ -171,31 +143,58 @@
     <Content Include="public-www\shared\nickainley\stylesheet.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Resources\DefaultBadRequestPage.txt" />
-    <None Include="Resources\DefaultForbiddenPage.txt" />
-    <None Include="Resources\DefaultInternalServerErrorPage.txt" />
-    <None Include="Resources\DefaultNotFoundErrorPage.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Crisp.Common\Crisp.Common.csproj">
-      <Project>{A7C42FA3-F032-45A6-AF63-83FC77016015}</Project>
-      <Name>Crisp.Common</Name>
+    <ProjectReference Include="..\Crisp.Enums\Crisp.Enums.csproj">
+      <Project>{d935e594-c506-4b9e-bf71-684e7f1a1560}</Project>
+      <Name>Crisp.Enums</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Crisp.Core\Crisp.Core.csproj">
-      <Project>{6ab9a6ec-742d-4b88-9a22-58e3c98da464}</Project>
-      <Name>Crisp.Core</Name>
+    <ProjectReference Include="..\Crisp.Evaluation\Crisp.Evaluation.csproj">
+      <Project>{e5a749c9-b032-42f5-aed4-df5017ab62ac}</Project>
+      <Name>Crisp.Evaluation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Crisp.Visualization\Crisp.Visualization.csproj">
-      <Project>{EE206D73-5474-4B04-924E-B85DA171BBCD}</Project>
-      <Name>Crisp.Visualization</Name>
+    <ProjectReference Include="..\Crisp.Interfaces\Crisp.Interfaces.csproj">
+      <Project>{12b92742-736f-4502-bd77-fcfb81e7b53c}</Project>
+      <Name>Crisp.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Crisp.IoC\Crisp.IoC.csproj">
+      <Project>{e649520c-1798-4a3f-a0ee-20ac5873a14f}</Project>
+      <Name>Crisp.IoC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Crisp.Parsing\Crisp.Parsing.csproj">
+      <Project>{68c3e451-5638-49e4-8f17-d2794074d3ae}</Project>
+      <Name>Crisp.Parsing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Crisp.Runtime\Crisp.Runtime.csproj">
+      <Project>{1a088b75-c83f-43ae-9a16-5527e6f34ef6}</Project>
+      <Name>Crisp.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Crisp.Serialization\Crisp.Serialization.csproj">
+      <Project>{f5738286-9e8d-4398-9d53-b08a4f239dfa}</Project>
+      <Name>Crisp.Serialization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Crisp.Shared\Crisp.Shared.csproj">
+      <Project>{037d2ac9-aca7-42ac-9566-35502f855e7d}</Project>
+      <Name>Crisp.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Crisp.Tokenization\Crisp.Tokenization.csproj">
+      <Project>{8bc749dd-d1e6-414b-aec9-40066e8b9954}</Project>
+      <Name>Crisp.Tokenization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Crisp.Types\Crisp.Types.csproj">
+      <Project>{9b480f6e-e40a-4255-a0a6-5fc016a9c673}</Project>
+      <Name>Crisp.Types</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Packet.Interfaces\Packet.Interfaces.csproj">
+      <Project>{71c6a9c3-8606-4b4c-a6da-10c742174199}</Project>
+      <Name>Packet.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Packet.IoC\Packet.IoC.csproj">
+      <Project>{138d4bd7-f38d-45c9-b956-3abec31bcc67}</Project>
+      <Name>Packet.IoC</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>if not exist "$(TargetDir)native" mkdir "$(TargetDir)native"

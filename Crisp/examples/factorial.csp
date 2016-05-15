@@ -1,7 +1,6 @@
 ;; Crisp example program. Computes the factorial of a number.
 ;; Copyright © Saul Johnson 2015-2016
 
-#require "~/lib/math.cspl"
-
 (lambda (n)
-	(factorial n))
+	(require "~/lib/math.cspl"
+		(factorial n)))

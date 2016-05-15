@@ -1,20 +1,22 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
-using Crisp.Core;
-using Crisp.Core.Evaluation;
-using Crisp.Core.Types;
+using Crisp.Interfaces.Evaluation;
+using Crisp.Interfaces.Types;
+using Crisp.Types;
 
 namespace Crisp.Basic
 {
     /// <summary>
-    /// A function that sequentially evaluates its arguments, returning the result of evaluation of its last argument.
+    /// A special form that sequentially evaluates its arguments, returning the result of evaluation of its last
+    /// argument.
     /// </summary>
     /// <remarks>Useful for programming with side-effects.</remarks>
     public class ProgSpecialForm : SpecialForm
     {
-        public override string Name => "prog";
+        public override IEnumerable<string> Names => new List<string> {"prog"};
 
-        public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
+        public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {
             expression.ThrowIfNotList(Name); // Takes a list of arguments.
 

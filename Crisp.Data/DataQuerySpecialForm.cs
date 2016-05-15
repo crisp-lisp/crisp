@@ -3,10 +3,11 @@ using System.IO;
 using System.Linq;
 
 using Community.CsharpSqlite.SQLiteClient;
-
-using Crisp.Core;
-using Crisp.Core.Evaluation;
-using Crisp.Core.Types;
+using Crisp.Interfaces;
+using Crisp.Interfaces.Evaluation;
+using Crisp.Interfaces.Types;
+using Crisp.Shared;
+using Crisp.Types;
 
 namespace Crisp.Data
 {
@@ -16,9 +17,9 @@ namespace Crisp.Data
     /// </summary>
     public class DataQuerySpecialForm : SpecialForm
     {
-        public override string Name => "data-query";
+        public override IEnumerable<string> Names => new List<string> {"data-query"};
 
-        public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
+        public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {
             expression.ThrowIfNotList(Name); // Takes a list of arguments.
 
@@ -27,11 +28,11 @@ namespace Crisp.Data
 
             // Get arguments.
             var rawPath = evaluator.Evaluate(arguments[0]).AsString().Value;
-            var path = Path.IsPathRooted(rawPath) ? rawPath : Path.Combine(evaluator.SourceFolderPath, rawPath);
+            var path = Path.IsPathRooted(rawPath) ? rawPath : Path.Combine(evaluator.WorkingDirectory, rawPath);
             var query = evaluator.Evaluate(arguments[1]).AsString().Value;
 
             // Execute SQLite command.
-            var results = new List<SymbolicExpression>();
+            var results = new List<ISymbolicExpression>();
             using (var connection = new SqliteConnection($"Data Source={path};Version=3;"))
             {
                 connection.Open(); // Open connection.
@@ -49,7 +50,7 @@ namespace Crisp.Data
                                 names.Add(reader.GetName(i));
                             }
                             var resultSet = names.Select(k =>
-                                new Pair(new StringAtom(k), new StringAtom(reader[k].ToString())) as SymbolicExpression).ToList();
+                                new Pair(new StringAtom(k), new StringAtom(reader[k].ToString())) as ISymbolicExpression).ToList();
                             results.Add(resultSet.ToProperList());
                         }
                     }

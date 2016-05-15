@@ -1,8 +1,11 @@
-﻿using System.IO;
-
-using Crisp.Core;
-using Crisp.Core.Evaluation;
-using Crisp.Core.Types;
+﻿using System.Collections.Generic;
+using System.IO;
+using Crisp.Enums;
+using Crisp.Interfaces;
+using Crisp.Interfaces.Evaluation;
+using Crisp.Interfaces.Types;
+using Crisp.Shared;
+using Crisp.Types;
 
 namespace Crisp.IO
 {
@@ -11,9 +14,9 @@ namespace Crisp.IO
     /// </summary>
     public class FileExistsSpecialForm : SpecialForm
     {
-        public override string Name => "file-exists";
+        public override IEnumerable<string> Names => new List<string> {"file-exists"};
 
-        public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
+        public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {
             expression.ThrowIfNotList(Name); // Takes a list of arguments.
 
@@ -24,13 +27,13 @@ namespace Crisp.IO
             var evaluated = evaluator.Evaluate(arguments[0]);
             if (evaluated.Type != SymbolicExpressionType.String)
             {
-                throw new RuntimeException(
+                throw new FunctionApplicationException(
                     $"The argument to the function '{Name}' must evaluate to the string type.");
             }
 
             // Compute filepath.
             var rawPath = evaluated.AsString().Value;
-            var path = Path.IsPathRooted(rawPath) ? rawPath : Path.Combine(evaluator.SourceFolderPath, rawPath);
+            var path = Path.IsPathRooted(rawPath) ? rawPath : Path.Combine(evaluator.WorkingDirectory, rawPath);
 
             // Return whether or not file exists.
             return new BooleanAtom(File.Exists(path));

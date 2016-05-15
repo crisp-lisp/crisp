@@ -1,17 +1,20 @@
-﻿using Crisp.Core;
-using Crisp.Core.Evaluation;
-using Crisp.Core.Types;
+﻿using System.Collections.Generic;
+
+using Crisp.Enums;
+using Crisp.Interfaces.Evaluation;
+using Crisp.Interfaces.Types;
+using Crisp.Types;
 
 namespace Crisp.Basic
 {
     /// <summary>
-    /// Returns the head (first) of a cons cell (pair).
+    /// A special form that given an expression whose value is a pair, returns the pair's first value.
     /// </summary>
     public class CarSpecialForm : SpecialForm
     {
-        public override string Name => "car";
+        public override IEnumerable<string> Names => new List<string> {"car", "head", "first"};
 
-        public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
+        public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {
             expression.ThrowIfNotList(Name); // Takes a list of arguments.
 
@@ -22,7 +25,7 @@ namespace Crisp.Basic
             var evaluated = evaluator.Evaluate(arguments[0]);
             if (evaluated.Type != SymbolicExpressionType.Pair)
             {
-                throw new RuntimeException($"The argument to the function {Name} must be a pair.");
+                throw new FunctionApplicationException($"The argument to the function {Name} must be a pair.");
             }
 
             return evaluated.AsPair().Head;

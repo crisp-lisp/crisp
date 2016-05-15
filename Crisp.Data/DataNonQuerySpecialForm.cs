@@ -1,10 +1,12 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 
 using Community.CsharpSqlite.SQLiteClient;
-
-using Crisp.Core;
-using Crisp.Core.Evaluation;
-using Crisp.Core.Types;
+using Crisp.Interfaces;
+using Crisp.Interfaces.Evaluation;
+using Crisp.Interfaces.Types;
+using Crisp.Shared;
+using Crisp.Types;
 
 namespace Crisp.Data
 {
@@ -13,9 +15,9 @@ namespace Crisp.Data
     /// </summary>
     public class DataNonQuerySpecialForm : SpecialForm
     {
-        public override string Name => "data-non-query";
+        public override IEnumerable<string> Names => new List<string> {"data-non-query"};
 
-        public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
+        public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {
             expression.ThrowIfNotList(Name); // Takes a list of arguments.
 
@@ -24,7 +26,7 @@ namespace Crisp.Data
 
             // Get arguments.
             var rawPath = evaluator.Evaluate(arguments[0]).AsString().Value;
-            var path = Path.IsPathRooted(rawPath) ? rawPath : Path.Combine(evaluator.SourceFolderPath, rawPath);
+            var path = Path.IsPathRooted(rawPath) ? rawPath : Path.Combine(evaluator.WorkingDirectory, rawPath);
             var query = evaluator.Evaluate(arguments[1]).AsString().Value;
 
             // Execute SQLite command.

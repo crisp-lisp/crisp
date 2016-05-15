@@ -1,18 +1,21 @@
-﻿using Crisp.Core;
-using Crisp.Core.Evaluation;
-using Crisp.Core.Types;
+﻿using System.Collections.Generic;
+
+using Crisp.Enums;
+using Crisp.Interfaces.Evaluation;
+using Crisp.Interfaces.Types;
+using Crisp.Types;
 
 namespace Crisp.Basic
 {
     /// <summary>
-    /// Returns a true boolean atom if the first argument evaluates to less than or equal to the second argument. 
-    /// Otherwise returns a false boolean atom.
+    /// A special form that given two expressions, returns true if the value of the first is numerically less than or  
+    /// equal to the value of the second; false if not.
     /// </summary>
     public class LeqSpecialForm : SpecialForm
     {
-        public override string Name => "leq";
+        public override IEnumerable<string> Names => new List<string> {"leq"};
 
-        public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
+        public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {
             expression.ThrowIfNotList(Name); // Takes a list of arguments.
 

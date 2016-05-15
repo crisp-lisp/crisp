@@ -1,0 +1,1 @@
+{"IsAtomic":false,"Type":0,"Head":{"IsAtomic":true,"Type":7},"Tail":{"IsAtomic":false,"Type":0,"Head":{"IsAtomic":true,"Type":7},"Tail":{"IsAtomic":true,"Type":7},"IsExplicitlyBracketed":false},"IsExplicitlyBracketed":true}

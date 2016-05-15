@@ -1,22 +1,25 @@
-﻿using Crisp.Core;
-using Crisp.Core.Evaluation;
-using Crisp.Core.Types;
+﻿using System.Collections.Generic;
+
+using Crisp.Enums;
+using Crisp.Interfaces.Evaluation;
+using Crisp.Interfaces.Types;
+using Crisp.Types;
 
 namespace Crisp.Basic
 {
     /// <summary>
-    /// A function that will convert all symbols in an expression to constants.
+    /// A special form that given an expression, returns that expression as a value.
     /// </summary>
     public class QuoteSpecialForm : SpecialForm
     {
-        public override string Name => "quote";
+        public override IEnumerable<string> Names => new List<string> {"quote"};
 
         /// <summary>
         /// Recursively converts all symbols in an expression to constants.
         /// </summary>
         /// <param name="expression">The expression to convert.</param>
         /// <returns></returns>
-        private static SymbolicExpression Quote(SymbolicExpression expression)
+        private static ISymbolicExpression Quote(ISymbolicExpression expression)
         {
             switch (expression.Type)
             {
@@ -30,7 +33,7 @@ namespace Crisp.Basic
             return expression;
         }
 
-        public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
+        public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {
             expression.ThrowIfNotList(Name); // Takes a list of arguments.
 

@@ -1,18 +1,19 @@
-﻿using Crisp.Core;
-using Crisp.Core.Evaluation;
-using Crisp.Core.Types;
+﻿using System.Collections.Generic;
+
+using Crisp.Interfaces.Evaluation;
+using Crisp.Interfaces.Types;
+using Crisp.Types;
 
 namespace Crisp.Basic
 {
     /// <summary>
-    /// Returns a true boolean atom if the two given arguments are considered equal. Otherwise returns a false boolean
-    /// atom.
+    /// A special form that given two expressions returns true if their values are equal; false if not.
     /// </summary>
     public class EqSpecialForm : SpecialForm
     {
-        public override string Name => "eq";
+        public override IEnumerable<string> Names => new List<string> {"eq"};
 
-        public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
+        public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {
             expression.ThrowIfNotList(Name); // Takes a list of arguments.
 

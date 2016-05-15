@@ -53,9 +53,21 @@
     <Compile Include="UrlDecodeSpecialForm.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Crisp.Core\Crisp.Core.csproj">
-      <Project>{6ab9a6ec-742d-4b88-9a22-58e3c98da464}</Project>
-      <Name>Crisp.Core</Name>
+    <ProjectReference Include="..\Crisp.Enums\Crisp.Enums.csproj">
+      <Project>{d935e594-c506-4b9e-bf71-684e7f1a1560}</Project>
+      <Name>Crisp.Enums</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Crisp.Interfaces\Crisp.Interfaces.csproj">
+      <Project>{12b92742-736f-4502-bd77-fcfb81e7b53c}</Project>
+      <Name>Crisp.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Crisp.Shared\Crisp.Shared.csproj">
+      <Project>{037d2ac9-aca7-42ac-9566-35502f855e7d}</Project>
+      <Name>Crisp.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Crisp.Types\Crisp.Types.csproj">
+      <Project>{9b480f6e-e40a-4255-a0a6-5fc016a9c673}</Project>
+      <Name>Crisp.Types</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

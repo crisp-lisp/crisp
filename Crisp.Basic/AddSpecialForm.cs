@@ -1,19 +1,21 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
-using Crisp.Core;
-using Crisp.Core.Evaluation;
-using Crisp.Core.Types;
+using Crisp.Enums;
+using Crisp.Interfaces.Evaluation;
+using Crisp.Interfaces.Types;
+using Crisp.Types;
 
 namespace Crisp.Basic
 {
     /// <summary>
-    /// Adds two numeric atoms together and returns the result as a new numeric atom.
+    /// A special form that given two expressions returns the sum of their numeric values.
     /// </summary>
     public class AddSpecialForm : SpecialForm
     {
-        public override string Name => "add";
+        public override IEnumerable<string> Names => new List<string> {"add", "sum"};
 
-        public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
+        public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {
             expression.ThrowIfNotList(Name); // Takes a list of arguments.
 
@@ -24,7 +26,7 @@ namespace Crisp.Basic
             var evaluated = arguments.Select(evaluator.Evaluate).ToArray();
             if (evaluated.Any(e => e.Type != SymbolicExpressionType.Numeric))
             {
-                throw new RuntimeException(
+                throw new FunctionApplicationException(
                     $"The arguments to the function '{Name}' must all evaluate to the numeric type.");
             }
 

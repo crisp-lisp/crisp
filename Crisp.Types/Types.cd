@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Crisp.Types.Atom&lt;T&gt;" Collapsed="true">
+    <Position X="5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAACAAAAIAAAAAgAAAAAAA=</HashCode>
+      <FileName>Atom.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Crisp.Types.BooleanAtom" Collapsed="true">
+    <Position X="0.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAgAAAAAAA=</HashCode>
+      <FileName>BooleanAtom.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Crisp.Types.Closure" Collapsed="true">
+    <Position X="11.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Closure.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Crisp.Types.ConstantAtom" Collapsed="true">
+    <Position X="5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAgAAAAAAA=</HashCode>
+      <FileName>ConstantAtom.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Crisp.Types.Function" Collapsed="true">
+    <Position X="13" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAAAAAACAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Function.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Crisp.Types.Lambda" Collapsed="true">
+    <Position X="11.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAEAAAAAAAAAAAACAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Lambda.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Crisp.Types.Nil" Collapsed="true">
+    <Position X="18.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAACAAAAIAAAQAAAAAAAAA=</HashCode>
+      <FileName>Nil.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Crisp.Types.NumericAtom" Collapsed="true">
+    <Position X="7.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAgAAAAAAA=</HashCode>
+      <FileName>NumericAtom.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Crisp.Types.Pair" Collapsed="true">
+    <Position X="16.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAIAAAAAAAAAACAAAAAAAAQACAAAAAAA=</HashCode>
+      <FileName>Pair.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Crisp.Types.SpecialForm" Collapsed="true">
+    <Position X="14" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SpecialForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Crisp.Types.StringAtom" Collapsed="true">
+    <Position X="2.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAgAAAAAAA=</HashCode>
+      <FileName>StringAtom.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Crisp.Types.SymbolAtom" Collapsed="true">
+    <Position X="9.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAgAAAAAAA=</HashCode>
+      <FileName>SymbolAtom.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Crisp.Types.SymbolicExpression" Collapsed="true">
+    <Position X="9.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>SymbolicExpression.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

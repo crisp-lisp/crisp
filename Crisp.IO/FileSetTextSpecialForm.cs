@@ -1,9 +1,12 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-
-using Crisp.Core;
-using Crisp.Core.Evaluation;
-using Crisp.Core.Types;
+using Crisp.Enums;
+using Crisp.Interfaces;
+using Crisp.Interfaces.Evaluation;
+using Crisp.Interfaces.Types;
+using Crisp.Shared;
+using Crisp.Types;
 
 namespace Crisp.IO
 {
@@ -13,9 +16,9 @@ namespace Crisp.IO
     /// </summary>
     public class FileSetTextSpecialForm : SpecialForm
     {
-        public override string Name => "file-set-text";
+        public override IEnumerable<string> Names => new List<string> {"file-set-text"};
 
-        public override SymbolicExpression Apply(SymbolicExpression expression, IEvaluator evaluator)
+        public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {
             expression.ThrowIfNotList(Name); // Takes a list of arguments.
 
@@ -26,18 +29,26 @@ namespace Crisp.IO
             var evaluated = arguments.Select(evaluator.Evaluate).ToArray();
             if (evaluated.Any(e => e.Type != SymbolicExpressionType.String))
             {
-                throw new RuntimeException(
+                throw new FunctionApplicationException(
                     $"The arguments to the function '{Name}' must all evaluate to the string type.");
             }
-
+            
             // Compute filepath.
             var rawPath = evaluated[0].AsString().Value;
-            var path = Path.IsPathRooted(rawPath) ? rawPath : Path.Combine(evaluator.SourceFolderPath, rawPath);
-            var text = evaluated[1].AsString().Value;
-
+            string path;
+            if (rawPath.StartsWith("~"))
+            {
+                path = rawPath.Replace("~", evaluator.InterpreterDirectory);
+            }
+            else
+            {
+                path = Path.IsPathRooted(rawPath) ? rawPath : Path.Combine(evaluator.WorkingDirectory, rawPath);
+            }
+            
             // Try to Write file.
             try
             {
+                var text = evaluated[1].AsString().Value;
                 File.WriteAllText(path, text);
                 return new BooleanAtom(true); // Success.
             }

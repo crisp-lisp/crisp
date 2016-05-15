@@ -7,11 +7,12 @@
 {
   "SpecialFormDirectory": "native",
   "CrispFileExtensions": [ ".csp" ],
-  "InternalServerErrorPage": "500/500.csp",
-  "NotFoundErrorPage": "404/404.csp",
+  "InternalServerErrorPage": "500/500.html",
+  "NotFoundErrorPage": "404/404.html",
+  "ForbiddenErrorPage": "403/403.html",
   "DirectoryIndices": [ "index.csp", "index.html" ],
   "DoNotServePatterns": [ ".*\\.template\\.html", ".*\\.db3" ],
-  "BindingIpAddress" : "127.0.0.1",
+  "BindingIpAddress": "127.0.0.1",
   "MimeTypeMappings": {
     ".au": "audio/basic",
     ".avi": "video/avi",
@@ -20,6 +21,7 @@
     ".css": "text/css",
     ".dtd": "application/xml-dtd",
     ".doc": "application/msword",
+    ".eot": "application/vnd.ms-fontobject",
     ".exe": "application/octet-stream",
     ".gif": "image/gif",
     ".gz": "application/x-gzip",
@@ -32,6 +34,7 @@
     ".mp3": "audio/mpeg",
     ".mpeg": "video/mpeg",
     ".ogg": "audio/vorbis",
+    ".otf": "application/x-font-opentype",
     ".pdf": "application/pdf",
     ".pl": "application/x-perl",
     ".png": "image/png",
@@ -47,13 +50,18 @@
     ".svg": "image/svg+xml",
     ".swf": "application/x-shockwave-flash",
     ".tar.gz": "application/x-tar",
+    ".ttf": "application/x-font-truetype",
     ".tgz": "application/x-tar",
     ".tiff": "image/tiff",
     ".tsv": "text/tab-separated-values",
     ".txt": "text/plain",
     ".wav": "audio/wav, audio/x-wav",
+    ".woff": "application/font-woff",
     ".xls": "application/vnd.ms-excel",
     ".xml": "application/xml",
     ".zip": "application/zip"
-  }
+  },
+  "Port": 80,
+  "MaxPostSize": 5242880,
+  "WebRoot": "public-www"
 }
