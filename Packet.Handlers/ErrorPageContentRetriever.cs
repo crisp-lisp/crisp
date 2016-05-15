@@ -18,7 +18,14 @@ namespace Packet.Handlers
         private readonly ILogger _logger;
 
         private readonly Dictionary<int, string> _statusCodeMappings;
-        
+
+        /// <summary>
+        /// Initializes a new instance of a service for retrieving the content of error pages.
+        /// </summary>
+        /// <param name="packetConfigurationProvider"></param>
+        /// <param name="urlResolver"></param>
+        /// <param name="encodingProvider"></param>
+        /// <param name="logger"></param>
         public ErrorPageContentRetriever(
             IPacketConfigurationProvider packetConfigurationProvider, 
             IUrlResolver urlResolver,
