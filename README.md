@@ -1,7 +1,7 @@
-![Crisp logo](https://raw.githubusercontent.com/lambdacasserole/crisp/master/Assets/logo_128.png?token=AFUaplvE7d7bvQoZ0dlFaBOYOe63TtgFks5XCnvmwA%3D%3D "Crisp logo")
-
 # Crisp
 _Purity in Coding_
+
+![Crisp logo](https://raw.githubusercontent.com/lambdacasserole/crisp/master/Assets/logo_128.png)
 
 Crisp is a dialect of Lisp with absolutely minimal syntax designed and optimised for use in creating web applications. A purely functional language, it's extremely easy to write efficient, clean and maintainable programs and Crisp's interpreted nature means changing your code is a simple as changing a source file.
 
