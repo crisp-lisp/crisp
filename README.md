@@ -34,7 +34,7 @@ crisp.exe -f example.csp -a "\"foo.txt\" \"bar.txt\""
 The Crisp language is extremely simple at its core, using the same representation for code and data. Just like in Common Lisp, Crisp programs are just lists that are evaluated according to a set of rules.
 
 ### Types of Expression
-Symbolic expressions (or s-expressions) can be of one of several different types in Crisp. An expression is considered atomic if it is not a pair or a function.
+Symbolic expressions (or s-expressions) can be of one of several different types in Crisp. An expression is considered [atomic](https://en.wikipedia.org/wiki/Lisp_(programming_language)#Atoms) if it is not a pair or a function.
 
 | Name     | Atomic? | Examples                      | Notes                                                                                                                                                                                                                                |
 |----------|---------|-------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -65,7 +65,7 @@ Importantly, Crisp is lazily evaluated. Any values you bind in `let` or `letrec`
 		(contents . (file-get-text path))))
 ```
 
-The call to the file-get-text function only happens when we actually need its value, so nothing is read from disk until the evaluator hits line 12. If we comment out the line that actually requires the value of contents and replace it with a simple addition, for example:
+The call to the `file-get-text` function only happens when we actually need its value, so nothing is read from disk until the evaluator hits line 12. If we comment out the line that actually requires the value of `contents` and replace it with a simple addition, for example:
 
 ```lisp
 ;; Crisp example program.
@@ -86,7 +86,7 @@ The call to the file-get-text function only happens when we actually need its va
 Now, no data is actually read from disk because the expression bound to the contents symbol is never evaluated. This is extrememly important to bear in mind when your code is designed to produce side-effects (for example, writing a record to a database or a text file to disk).
 
 ## Binding Values & Applying Functions
-To apply a function, we write a list with the symbol bound to the function as its first element, followed by any parameters we want to pass to the function. For example, in the following program we create a lambda that will increment any given number by 1, then we bind it to the symbol increment. In the body of the let block, we make a call to the lambda bound to increment, passing in the number that the user specified on the command line:
+To apply a function, we write a list with the symbol bound to the function as its first element, followed by any parameters we want to pass to the function. For example, in the following program we create a lambda that will increment any given number by 1, then we bind it to the symbol `increment`. In the body of the `let` block, we make a call to the lambda bound to increment, passing in the number that the user specified on the command line:
 
 ```lisp
 ;; Crisp example program.
@@ -102,6 +102,6 @@ To apply a function, we write a list with the symbol bound to the function as it
 		(increment . (lambda (n) (add n 1))))) 
 ```
 
-Now if we run this program on the command line using `crisp.exe -f "increment.csp" -a 5` we'll get the number 6 passed back as the result; we just incremented a number! Now head over to the getting started page to write your first Crisp program!
+Now if we run this program on the command line using `crisp.exe -f "increment.csp" -a 5` we'll get the number 6 passed back as the result; we just incremented a number! 
 
 **Please remember:** This project is far from complete. Both the collection of special forms and the standard library are very minimal and nothing has been tested for potential security vulnerabilities. Any special forms you create yourself would be extremely welcome as part of this project if you'd like to contribute them!
