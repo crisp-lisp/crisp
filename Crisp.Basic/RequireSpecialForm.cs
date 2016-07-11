@@ -9,7 +9,6 @@ using Crisp.Types;
 
 namespace Crisp.Basic
 {
-    // TODO: Tidy this up!
     public class RequireSpecialForm : SpecialForm
     {
         public override IEnumerable<string> Names => new List<string> {"require", "import"};
