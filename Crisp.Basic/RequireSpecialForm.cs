@@ -72,11 +72,10 @@ namespace Crisp.Basic
             }
 
             // Change source file directory for binding.
-            var bindings = _cachedBindings[path];
             var oldSourceFileDirectory = evaluator.SourceFileDirectory;
             var bindingEvaluator = evaluator.Derive();
             bindingEvaluator.SourceFileDirectory = Path.GetDirectoryName(path);
-            bindingEvaluator.Mutate(bindings);
+            bindingEvaluator.Mutate(_cachedBindings[path]);
 
             // Revert to original source file directory for evaluation.
             var newEvaluator = bindingEvaluator.Derive();
