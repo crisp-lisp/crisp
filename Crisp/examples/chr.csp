@@ -1,4 +1,4 @@
-﻿;; Crisp example program. Returns the text in a file.
+﻿;; Crisp example program. Shows the use of the chr function to get special characters.
 ;; Copyright © Saul Johnson 2015-2016
 
 (lambda ()
