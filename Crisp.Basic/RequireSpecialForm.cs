@@ -11,7 +11,15 @@ namespace Crisp.Basic
 {
     public class RequireSpecialForm : SpecialForm
     {
+        private readonly Dictionary<string, Dictionary<string, ISymbolicExpression>> _cachedBindings;
+
         public override IEnumerable<string> Names => new List<string> {"require", "import"};
+
+        public RequireSpecialForm()
+        {
+            // Cache loaded/parsed files.
+            _cachedBindings = new Dictionary<string, Dictionary<string, ISymbolicExpression>>();
+        }
 
         public override ISymbolicExpression Apply(ISymbolicExpression expression, IEvaluator evaluator)
         {
@@ -48,18 +56,23 @@ namespace Crisp.Basic
                                                        " file that does not exist.");
             }
 
-            // Read file.
-            var fileText = $"({File.ReadAllText(path)})";
-            var libraryExpressionTree = CrispRuntimeFactory.SourceToExpressionTree(fileText);
-            var bindingPairs = libraryExpressionTree.Get().AsPair().Expand();
-            var bindings = new Dictionary<string, ISymbolicExpression>();
-            foreach (var binding in bindingPairs)
+            // Read file if not already cached.
+            if (!_cachedBindings.ContainsKey(path))
             {
-                var pair = binding.AsPair();
-                bindings.Add(pair.Head.AsSymbol().Value, pair.Tail);
+                var fileText = $"({File.ReadAllText(path)})";
+                var libraryExpressionTree = CrispRuntimeFactory.SourceToExpressionTree(fileText);
+                var bindingPairs = libraryExpressionTree.Get().AsPair().Expand();
+                var newBindings = new Dictionary<string, ISymbolicExpression>();
+                foreach (var binding in bindingPairs)
+                {
+                    var pair = binding.AsPair();
+                    newBindings.Add(pair.Head.AsSymbol().Value, pair.Tail);
+                }
+                _cachedBindings.Add(path, newBindings);
             }
 
             // Change source file directory for binding.
+            var bindings = _cachedBindings[path];
             var oldSourceFileDirectory = evaluator.SourceFileDirectory;
             var bindingEvaluator = evaluator.Derive();
             bindingEvaluator.SourceFileDirectory = Path.GetDirectoryName(path);
