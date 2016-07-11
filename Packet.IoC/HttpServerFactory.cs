@@ -46,6 +46,7 @@ namespace Packet.IoC
             });
             container.Register<IHttpRequestHandler, ChainingHttpRequestHandler>();
             container.Register<IHttpConnectionHandler, ThreadedHttpConnectionHandler>();
+            container.Register<IHttpRequestConverter, HttpRequestConverter>();
             container.Verify();
 
             return container.GetInstance<IHttpServer>();
