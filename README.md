@@ -19,12 +19,12 @@ What's more, Crisp is easy to understand. Take a look at the following program:
 		;; Here we actually write the file contents.
 		(file-set-text output (replace contents "foo" "bar")) 
 		(contents . (file-get-text path))))
-From taking a glance over that source code, we can see that:
 ```
 
-Crisp is purely functional - unlike programming languages such as C# and PHP, Crisp programs are composed from function applications rather than classes and methods.
+By taking a glance over that source code, we can see that:
 
-A Crisp program is a "lambda" (i.e. a function) that can take parameters. These parameters can be passed to the program via the command line: 
+* Crisp is purely functional - unlike programming languages such as C# and PHP, Crisp programs are composed from function applications rather than classes and methods.
+* A Crisp program is a "lambda" (i.e. a function) that can take parameters. These parameters can be passed to the program via the command line: 
 
 ```
 crisp.exe -f example.csp -a "\"foo.txt\" \"bar.txt\""
@@ -38,13 +38,13 @@ Symbolic expressions (or s-expressions) can be of one of several different types
 
 | Name     | Atomic? | Examples                      | Notes                                                                                                                                                                                                                                |
 |----------|---------|-------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Boolean  | Yes     | `true false`                  | The `true` or `false` keywords evaluate to boolean atoms in Crisp.                                                                                                                                                                   |
+| Boolean  | Yes     | `true` `false`                | The `true` or `false` keywords evaluate to boolean atoms in Crisp.                                                                                                                                                                   |
 | Constant | Yes     | `(quote my-constant)`         | In Crisp, calling the `quote` special form on a symbol or list will return it as a data structure instead of evaluating it (that is, with symbols converted to constants).                                                           |
 | Lambda   | No      | `(lambda (x) (add x 1))`      | The `lambda` function can be used to create a callable closure. For example, if the lambda on the left was bound to a symbol `increment` then calling `(increment 3)` would return `4`.                                              |
 | Nil      | Yes     | `nil`                         | The `nil` keyword represents a null value in Crisp.                                                                                                                                                                                  |
-| Numeric  | Yes     | `9 12.358 -5`                 | Numeric atoms are just numbers. They have the equivalent precision of a `double` in C#.                                                                                                                                              |
+| Numeric  | Yes     | `9` `12.358` `-5`             | Numeric atoms are just numbers. They have the equivalent precision of a `double` in C#.                                                                                                                                              |
 | Pair     | No      | `(1 . 2) ("hello" . "world")` | A pair is the basic building block of a list. It's the simplest data structure possible, consisting of a pair of expressions bound together in a _cons_ cell. Read more about it on [Wikipedia](https://en.wikipedia.org/wiki/Cons). |
-| String   | Yes     | `"hello" "world"`             | A string represents a sequence of characters. Even though it is possible to manipulate strings in Crisp, they are immutable and considered to be atoms.                                                                              |
+| String   | Yes     | `"hello"` `"world"`           | A string represents a sequence of characters. Even though it is possible to manipulate strings in Crisp, they are immutable and considered to be atoms.                                                                              |
 
 ## Crisp Is Lazy
 Importantly, Crisp is lazily evaluated. Any values you bind in `let` or `letrec` blocks aren't actually evaluated until they're used in your executing code. Let's take a look back at our example:
