@@ -72,8 +72,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)Crisp\bin\Debug\native\$(TargetFileName)" /y
-copy "$(TargetPath)" "$(SolutionDir)Packet\bin\Debug\native\$(TargetFileName)" /y</PostBuildEvent>
+    <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)Crisp\bin\$(ConfigurationName)\native\$(TargetFileName)" /y
+copy "$(TargetPath)" "$(SolutionDir)Packet\bin\$(ConfigurationName)\native\$(TargetFileName)" /y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
