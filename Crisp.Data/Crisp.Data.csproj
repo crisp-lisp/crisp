@@ -112,12 +112,18 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)Crisp\bin\$(ConfigurationName)\native\$(TargetFileName)" /y
+    <PostBuildEvent Condition="'$(OS)' == 'Windows_NT' ">copy "$(TargetPath)" "$(SolutionDir)Crisp\bin\$(ConfigurationName)\native\$(TargetFileName)" /y
 copy "$(SolutionDir)Crisp.Data\bin\$(ConfigurationName)\Community.CsharpSqlite.dll" "$(SolutionDir)Crisp\bin\$(ConfigurationName)\native\Community.CsharpSqlite.dll" /y
 copy "$(SolutionDir)Crisp.Data\bin\$(ConfigurationName)\Community.CsharpSqlite.SQLiteClient.dll" "$(SolutionDir)Crisp\bin\$(ConfigurationName)\native\Community.CsharpSqlite.SQLiteClient.dll" /y
 copy "$(TargetPath)" "$(SolutionDir)Packet\bin\$(ConfigurationName)\native\$(TargetFileName)" /y
 copy "$(SolutionDir)Crisp.Data\bin\$(ConfigurationName)\Community.CsharpSqlite.dll" "$(SolutionDir)Packet\bin\$(ConfigurationName)\native\Community.CsharpSqlite.dll" /y
 copy "$(SolutionDir)Crisp.Data\bin\$(ConfigurationName)\Community.CsharpSqlite.SQLiteClient.dll" "$(SolutionDir)Packet\bin\$(ConfigurationName)\native\Community.CsharpSqlite.SQLiteClient.dll" /y</PostBuildEvent>
+    <PostBuildEvent Condition="'$(OS)' != 'Windows_NT' ">cp "$(TargetPath)" "$(SolutionDir)Crisp\bin\$(ConfigurationName)\native\$(TargetFileName)" ;
+cp "$(SolutionDir)Crisp.Data\bin\$(ConfigurationName)\Community.CsharpSqlite.dll" "$(SolutionDir)Crisp\bin\$(ConfigurationName)\native\Community.CsharpSqlite.dll" ;
+cp "$(SolutionDir)Crisp.Data\bin\$(ConfigurationName)\Community.CsharpSqlite.SQLiteClient.dll" "$(SolutionDir)Crisp\bin\$(ConfigurationName)\native\Community.CsharpSqlite.SQLiteClient.dll" ;
+cp "$(TargetPath)" "$(SolutionDir)Packet\bin\$(ConfigurationName)\native\$(TargetFileName)" ;
+cp "$(SolutionDir)Crisp.Data\bin\$(ConfigurationName)\Community.CsharpSqlite.dll" "$(SolutionDir)Packet\bin\$(ConfigurationName)\native\Community.CsharpSqlite.dll" ;
+cp "$(SolutionDir)Crisp.Data\bin\$(ConfigurationName)\Community.CsharpSqlite.SQLiteClient.dll" "$(SolutionDir)Packet\bin\$(ConfigurationName)\native\Community.CsharpSqlite.SQLiteClient.dll"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

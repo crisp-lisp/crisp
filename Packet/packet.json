@@ -12,7 +12,7 @@
   "ForbiddenErrorPage": "403/403.html",
   "DirectoryIndices": [ "index.csp", "index.html" ],
   "DoNotServePatterns": [ ".*\\.template\\.html", ".*\\.db3" ],
-  "BindingIpAddress": "127.0.0.1",
+  "BindingIpAddress": "0.0.0.0",
   "MimeTypeMappings": {
     ".au": "audio/basic",
     ".avi": "video/avi",

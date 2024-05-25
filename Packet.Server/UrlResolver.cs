@@ -22,7 +22,7 @@ namespace Packet.Server
         public string Resolve(string url)
         {
             // Need to remove slash so it's not considered an absolute path.
-            var trimmed = url.TrimStart('/');
+            var trimmed = url == null ? "" : url.TrimStart('/');
             if (trimmed.Contains('?'))
             {
                 trimmed = trimmed.Split('?').First(); // Remove query string.

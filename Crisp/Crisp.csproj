@@ -170,11 +170,14 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(TargetDir)lib" "$(SolutionDir)Packet\bin\Debug\lib\" /y /e
+    <PostBuildEvent Condition="'$(OS)' == 'Windows_NT' ">xcopy "$(TargetDir)lib" "$(SolutionDir)Packet\bin\$(ConfigurationName)\lib\" /y /e
+</PostBuildEvent>
+    <PostBuildEvent Condition="'$(OS)' != 'Windows_NT' ">cp -r "$(TargetDir)lib" "$(SolutionDir)Packet\bin\$(ConfigurationName)"
 </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>if not exist "$(TargetDir)native" mkdir "$(TargetDir)native"</PreBuildEvent>
+    <PreBuildEvent Condition="'$(OS)' == 'Windows_NT' ">if not exist "$(TargetDir)native" mkdir "$(TargetDir)native"</PreBuildEvent>
+    <PreBuildEvent Condition="'$(OS)' != 'Windows_NT' ">mkdir -p "$(TargetDir)native"</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -197,8 +197,11 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>if not exist "$(TargetDir)native" mkdir "$(TargetDir)native"
+    <PreBuildEvent Condition="'$(OS)' == 'Windows_NT' ">if not exist "$(TargetDir)native" mkdir "$(TargetDir)native"
 if not exist "$(TargetDir)lib" mkdir "$(TargetDir)lib"
+</PreBuildEvent>
+    <PreBuildEvent Condition="'$(OS)' != 'Windows_NT' ">mkdir -p "$(TargetDir)native" ;
+mkdir -p "$(TargetDir)lib"
 </PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

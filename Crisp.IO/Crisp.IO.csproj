@@ -66,8 +66,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)Crisp\bin\$(ConfigurationName)\native\$(TargetFileName)" /y
+    <PostBuildEvent Condition="'$(OS)' == 'Windows_NT' ">copy "$(TargetPath)" "$(SolutionDir)Crisp\bin\$(ConfigurationName)\native\$(TargetFileName)" /y
 copy "$(TargetPath)" "$(SolutionDir)Packet\bin\$(ConfigurationName)\native\$(TargetFileName)" /y</PostBuildEvent>
+    <PostBuildEvent Condition="'$(OS)' != 'Windows_NT' ">cp "$(TargetPath)" "$(SolutionDir)Crisp\bin\$(ConfigurationName)\native\$(TargetFileName)" ;
+cp "$(TargetPath)" "$(SolutionDir)Packet\bin\$(ConfigurationName)\native\$(TargetFileName)"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
